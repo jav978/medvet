@@ -1,0 +1,29 @@
+{
+  "name": "medvet-frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "typecheck": "nuxt typecheck"
+  },
+  "dependencies": {
+    "@feathersjs/feathers": "^5.0.0",
+    "@feathersjs/socketio-client": "^5.0.0",
+    "@feathersjs/rest-client": "^5.0.0",
+    "@feathersjs/authentication-client": "^5.0.0",
+    "@nuxt/ui": "^2.0.0",
+    "@pinia/nuxt": "^0.5.0",
+    "pinia": "^2.1.0",
+    "socket.io-client": "^4.7.0"
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "^0.3.0",
+    "@nuxt/eslint-config": "^0.3.0",
+    "typescript": "^5.3.0"
+  }
+}
