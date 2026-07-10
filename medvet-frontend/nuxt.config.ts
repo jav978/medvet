@@ -7,12 +7,19 @@ export default defineNuxtConfig({
     '@pinia/nuxt'
   ],
 
+  colorMode: {
+    classSuffix: '',
+    preference: 'system',
+    fallback: 'light'
+  },
+
   ui: {
     theme: {
       colors: {
         primary: '#1A73E8',
         secondary: '#34A853',
-        accent: '#FBBC04'
+        accent: '#FBBC04',
+        neutral: '#64748b'
       }
     }
   },

@@ -1,7 +1,7 @@
 <template>
-  <div class="p-6">
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-3xl font-bold">Gestionar Citas</h1>
+  <div>
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Gestionar Citas</h1>
       <UButton @click="showFilters = !showFilters">
         <UIcon name="i-heroicons-funnel" class="w-4 h-4 mr-2" />
         Filtros
@@ -21,19 +21,19 @@
     <UCard>
       <UTable :columns="columns" :rows="filteredAppointments" :loading="loading">
         <template #pet-data="{ row }">
-          <span class="font-medium">{{ row.pet?.name }}</span>
+          <span class="font-medium text-gray-900 dark:text-white">{{ row.pet?.name }}</span>
         </template>
         <template #service-data="{ row }">
-          <span>{{ row.service?.name }}</span>
+          <span class="text-gray-900 dark:text-white">{{ row.service?.name }}</span>
         </template>
         <template #professional-data="{ row }">
-          <span>{{ row.professional?.user?.name }}</span>
+          <span class="text-gray-900 dark:text-white">{{ row.professional?.user?.name }}</span>
         </template>
         <template #date-data="{ row }">
-          <span>{{ row.date }}</span>
+          <span class="text-gray-900 dark:text-white">{{ row.date }}</span>
         </template>
         <template #start_time-data="{ row }">
-          <span class="font-mono">{{ row.start_time }} - {{ row.end_time }}</span>
+          <span class="font-mono text-gray-900 dark:text-white">{{ row.start_time }} - {{ row.end_time }}</span>
         </template>
         <template #status-data="{ row }">
           <UBadge :color="getStatusColor(row.status)">
@@ -107,7 +107,7 @@ const columns = [
   { key: 'date', label: 'Fecha' },
   { key: 'start_time', label: 'Horario' },
   { key: 'status', label: 'Estado' },
-  { key: 'actions', label: 'Acciones' }
+  { key: 'actions', label: '' }
 ]
 
 const getStatusColor = (status) => {

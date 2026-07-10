@@ -1,8 +1,11 @@
 <template>
-  <div class="p-6">
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-3xl font-bold">Gestionar Horarios</h1>
-      <UButton @click="openModal()">+ Nuevo Horario</UButton>
+  <div>
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Gestionar Horarios</h1>
+      <UButton @click="openModal()" icon="i-heroicons-plus">
+        <span class="hidden sm:inline">Nuevo Horario</span>
+        <span class="sm:hidden">Nuevo</span>
+      </UButton>
     </div>
 
     <UCard>
@@ -11,10 +14,10 @@
           <UBadge variant="subtle">{{ getDayName(row.day_of_week) }}</UBadge>
         </template>
         <template #start_time-data="{ row }">
-          <span class="font-mono">{{ row.start_time }}</span>
+          <span class="font-mono text-gray-900 dark:text-white">{{ row.start_time }}</span>
         </template>
         <template #end_time-data="{ row }">
-          <span class="font-mono">{{ row.end_time }}</span>
+          <span class="font-mono text-gray-900 dark:text-white">{{ row.end_time }}</span>
         </template>
         <template #is_active-data="{ row }">
           <UBadge :color="row.is_active ? 'green' : 'red'">
@@ -34,7 +37,7 @@
     <UModal v-model="showModal">
       <UCard>
         <template #header>
-          <h2 class="text-xl font-semibold">
+          <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
             {{ editingSchedule ? 'Editar Horario' : 'Nuevo Horario' }}
           </h2>
         </template>
@@ -135,7 +138,7 @@ const columns = [
   { key: 'start_time', label: 'Inicio' },
   { key: 'end_time', label: 'Fin' },
   { key: 'is_active', label: 'Estado' },
-  { key: 'actions', label: 'Acciones' }
+  { key: 'actions', label: '' }
 ]
 
 const openModal = (schedule = null) => {

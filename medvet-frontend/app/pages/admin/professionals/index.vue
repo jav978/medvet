@@ -1,8 +1,11 @@
 <template>
-  <div class="p-6">
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-3xl font-bold">Gestionar Profesionales</h1>
-      <UButton @click="openModal()">+ Nuevo Profesional</UButton>
+  <div>
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Gestionar Profesionales</h1>
+      <UButton @click="openModal()" icon="i-heroicons-plus">
+        <span class="hidden sm:inline">Nuevo Profesional</span>
+        <span class="sm:hidden">Nuevo</span>
+      </UButton>
     </div>
 
     <UCard>
@@ -10,7 +13,7 @@
         <template #user-data="{ row }">
           <div class="flex items-center space-x-2">
             <UAvatar :alt="row.user?.name" size="xs" />
-            <span>{{ row.user?.name }}</span>
+            <span class="text-gray-900 dark:text-white">{{ row.user?.name }}</span>
           </div>
         </template>
         <template #specialty-data="{ row }">
@@ -34,7 +37,7 @@
     <UModal v-model="showModal">
       <UCard>
         <template #header>
-          <h2 class="text-xl font-semibold">
+          <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
             {{ editingProfessional ? 'Editar Profesional' : 'Nuevo Profesional' }}
           </h2>
         </template>
@@ -114,7 +117,7 @@ const columns = [
   { key: 'specialty', label: 'Especialidad' },
   { key: 'license_number', label: 'Licencia' },
   { key: 'active', label: 'Estado' },
-  { key: 'actions', label: 'Acciones' }
+  { key: 'actions', label: '' }
 ]
 
 const openModal = (professional = null) => {

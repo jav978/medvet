@@ -1,14 +1,17 @@
 <template>
-  <div class="p-6">
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-3xl font-bold">Gestionar Servicios</h1>
-      <UButton @click="openModal()">+ Nuevo Servicio</UButton>
+  <div>
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Gestionar Servicios</h1>
+      <UButton @click="openModal()" icon="i-heroicons-plus">
+        <span class="hidden sm:inline">Nuevo Servicio</span>
+        <span class="sm:hidden">Nuevo</span>
+      </UButton>
     </div>
 
     <UCard>
       <UTable :columns="columns" :rows="services" :loading="loading">
         <template #price-data="{ row }">
-          <span class="font-semibold text-green-600">${{ row.price?.toLocaleString() }}</span>
+          <span class="font-semibold text-green-600 dark:text-green-400">${{ row.price?.toLocaleString() }}</span>
         </template>
         <template #duration-data="{ row }">
           <span>{{ row.duration }} min</span>
@@ -31,7 +34,7 @@
     <UModal v-model="showModal">
       <UCard>
         <template #header>
-          <h2 class="text-xl font-semibold">
+          <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
             {{ editingService ? 'Editar Servicio' : 'Nuevo Servicio' }}
           </h2>
         </template>
@@ -109,7 +112,7 @@ const columns = [
   { key: 'duration', label: 'Duración' },
   { key: 'price', label: 'Precio' },
   { key: 'active', label: 'Estado' },
-  { key: 'actions', label: 'Acciones' }
+  { key: 'actions', label: '' }
 ]
 
 const openModal = (service = null) => {

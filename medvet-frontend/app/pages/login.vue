@@ -1,14 +1,16 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
+  <div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 transition-colors">
     <div class="max-w-md w-full">
+      <!-- Logo -->
       <div class="text-center mb-8">
-        <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-          <span class="text-white font-bold text-3xl">M</span>
+        <div class="w-14 h-14 sm:w-16 sm:h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <span class="text-white font-bold text-2xl sm:text-3xl">M</span>
         </div>
-        <h2 class="text-3xl font-bold text-gray-900">Iniciar Sesión</h2>
-        <p class="text-gray-600 mt-2">Accede a tu cuenta de MedVet</p>
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Iniciar Sesión</h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-2">Accede a tu cuenta de MedVet</p>
       </div>
 
+      <!-- Form Card -->
       <UCard>
         <UForm :state="form" @submit="handleLogin">
           <UFormGroup label="Email" name="email" class="mb-4">
@@ -16,6 +18,7 @@
               v-model="form.email"
               type="email"
               placeholder="tu@email.com"
+              icon="i-heroicons-envelope"
               required
             />
           </UFormGroup>
@@ -25,6 +28,7 @@
               v-model="form.password"
               type="password"
               placeholder="••••••••"
+              icon="i-heroicons-lock-closed"
               required
             />
           </UFormGroup>
@@ -39,6 +43,7 @@
           <UButton
             type="submit"
             block
+            size="lg"
             :loading="loading"
           >
             Iniciar Sesión
@@ -46,9 +51,9 @@
         </UForm>
 
         <div class="mt-6 text-center">
-          <p class="text-gray-600">
+          <p class="text-gray-600 dark:text-gray-400">
             ¿No tienes cuenta?
-            <NuxtLink to="/register" class="text-blue-600 hover:underline">
+            <NuxtLink to="/register" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">
               Regístrate aquí
             </NuxtLink>
           </p>

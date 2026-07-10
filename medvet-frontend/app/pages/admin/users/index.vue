@@ -1,26 +1,40 @@
 <template>
-  <div class="p-6">
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-3xl font-bold">Gestionar Usuarios</h1>
-      <UButton @click="openModal()">+ Nuevo Usuario</UButton>
+  <div>
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Gestionar Usuarios</h1>
+      <UButton @click="openModal()" icon="i-heroicons-plus">
+        <span class="hidden sm:inline">Nuevo Usuario</span>
+        <span class="sm:hidden">Nuevo</span>
+      </UButton>
     </div>
 
     <!-- Filters -->
-    <div class="flex gap-4 mb-6">
-      <UInput v-model="searchQuery" placeholder="Buscar usuarios..." icon="i-heroicons-magnifying-glass" class="w-64" />
-      <USelect v-model="roleFilter" :items="roleOptions" placeholder="Filtrar por rol" class="w-48" />
+    <div class="flex flex-col sm:flex-row gap-3 mb-6">
+      <UInput
+        v-model="searchQuery"
+        placeholder="Buscar usuarios..."
+        icon="i-heroicons-magnifying-glass"
+        class="w-full sm:w-64"
+      />
+      <USelect
+        v-model="roleFilter"
+        :items="roleOptions"
+        placeholder="Filtrar por rol"
+        class="w-full sm:w-48"
+      />
     </div>
 
     <!-- Users Table -->
     <UCard>
       <UTable :columns="columns" :rows="filteredUsers" :loading="loading">
         <template #role-data="{ row }">
-          <UBadge :color="getRoleColor(row.role)">
+          <UBadge :color="getRoleColor(row.role)" size="sm">
             {{ row.role }}
           </UBadge>
         </template>
         <template #actions-data="{ row }">
-          <div class="flex gap-2">
+          <div class="flex gap-1">
             <UButton icon="i-heroicons-pencil" size="xs" variant="ghost" @click="openModal(row)" />
             <UButton icon="i-heroicons-trash" size="xs" variant="ghost" color="red" @click="deleteUser(row)" />
           </div>
@@ -32,22 +46,22 @@
     <UModal v-model="showModal">
       <UCard>
         <template #header>
-          <h2 class="text-xl font-semibold">
+          <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
             {{ editingUser ? 'Editar Usuario' : 'Nuevo Usuario' }}
           </h2>
         </template>
 
         <UForm :schema="userSchema" :state="formState" @submit="saveUser" class="space-y-4">
           <UFormField label="Nombre" name="name">
-            <UInput v-model="formState.name" placeholder="Nombre completo" />
+            <UInput v-model="formState.name" placeholder="Nombre completo" icon="i-heroicons-user" />
           </UFormField>
 
           <UFormField label="Email" name="email">
-            <UInput v-model="formState.email" placeholder="email@ejemplo.com" />
+            <UInput v-model="formState.email" placeholder="email@ejemplo.com" icon="i-heroicons-envelope" />
           </UFormField>
 
           <UFormField v-if="!editingUser" label="Contraseña" name="password">
-            <UInput v-model="formState.password" type="password" placeholder="••••••••" />
+            <UInput v-model="formState.password" type="password" placeholder="••••••••" icon="i-heroicons-lock-closed" />
           </UFormField>
 
           <UFormField label="Rol" name="role">
@@ -55,7 +69,7 @@
           </UFormField>
 
           <UFormField label="Teléfono" name="phone">
-            <UInput v-model="formState.phone" placeholder="+54 11 1234-5678" />
+            <UInput v-model="formState.phone" placeholder="+54 11 1234-5678" icon="i-heroicons-phone" />
           </UFormField>
 
           <div class="flex justify-end gap-3">
@@ -116,7 +130,7 @@ const columns = [
   { key: 'email', label: 'Email' },
   { key: 'role', label: 'Rol' },
   { key: 'phone', label: 'Teléfono' },
-  { key: 'actions', label: 'Acciones' }
+  { key: 'actions', label: '' }
 ]
 
 const filteredUsers = computed(() => {
