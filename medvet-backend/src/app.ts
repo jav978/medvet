@@ -10,10 +10,10 @@ import express, {
 } from '@feathersjs/express'
 import socketio from '@feathersjs/socketio'
 import { configurationValidator } from './configuration'
-import { services } from './services'
+import { configureServices } from './services'
 import { authentication } from './authentication'
 import { channels } from './channels'
-import { knex } from './knex'
+import { configureKnex } from './knex'
 import { redis } from './redis'
 import { hooks } from './hooks'
 
@@ -23,7 +23,7 @@ const app: Application = express(feathers())
 
 // Load app configuration
 app.configure(configurationValidator)
-app.configure(knex)
+app.configure(configureKnex)
 app.configure(redis)
 
 // Set up libraries and middleware
@@ -44,7 +44,7 @@ app.configure(socketio({
 
 // Set up services
 app.configure(authentication)
-app.configure(services)
+app.configure(configureServices)
 app.configure(channels)
 
 // Error handling

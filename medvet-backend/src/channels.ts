@@ -1,4 +1,4 @@
-import type { Application } from '../declarations'
+import type { Application } from './declarations'
 
 export const channels = (app: Application) => {
   app.on('connection', (connection: any) => {

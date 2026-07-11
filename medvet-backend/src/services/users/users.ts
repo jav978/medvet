@@ -1,7 +1,9 @@
 import { KnexService } from '@feathersjs/knex'
 import type { KnexAdapterParams, KnexAdapterOptions } from '@feathersjs/knex'
-import { hashPassword, protect } from '@feathersjs/authentication-local'
+import { hooks as authHooks } from '@feathersjs/authentication-local'
 import type { Application } from '../../declarations'
+
+const { hashPassword, protect } = authHooks
 
 export interface User {
   id: string
@@ -19,12 +21,7 @@ export interface UserData extends Omit<User, 'id' | 'created_at' | 'updated_at'>
 
 export interface UserParams extends KnexAdapterParams<User> {}
 
-export class UserService extends KnexService<User, UserData, UserParams> {
-  async create(data: UserData, params?: UserParams) {
-    const password = await hashPassword(data.password)
-    return super.create({ ...data, password }, params)
-  }
-}
+export class UserService extends KnexService<User, UserData, UserParams> {}
 
 export const users = (app: Application) => {
   const options: KnexAdapterOptions = {
@@ -43,8 +40,8 @@ export const users = (app: Application) => {
     },
     before: {
       all: [],
-      create: [],
-      patch: []
+      create: [hashPassword('password')],
+      patch: [hashPassword('password')]
     },
     after: {
       all: [

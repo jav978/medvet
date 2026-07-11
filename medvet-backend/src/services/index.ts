@@ -7,7 +7,7 @@ import { appointments } from './appointments/appointments'
 import { availableSlots } from './available-slots/available-slots'
 import type { Application } from '../declarations'
 
-export const services = (app: Application) => {
+export const configureServices = (app: Application) => {
   app.configure(users)
   app.configure(pets)
   app.configure(services)

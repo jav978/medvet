@@ -1,7 +1,7 @@
 import knex from 'knex'
 import type { Application } from './declarations'
 
-export const knex = (app: Application) => {
+export const configureKnex = (app: Application) => {
   const knexConfig = app.get('knex')
   const db = knex(knexConfig)
 
