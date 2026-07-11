@@ -4,7 +4,7 @@ services:
     container_name: medvet-postgres
     restart: unless-stopped
     ports:
-      - "5432:5432"
+      - "4533:5432"
     environment:
       POSTGRES_DB: medvet
       POSTGRES_USER: medvet_admin
@@ -22,7 +22,7 @@ services:
     container_name: medvet-redis
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "6373:6379"
     command: redis-server --appendonly yes
     volumes:
       - medvet_redisdata:/data
@@ -37,7 +37,7 @@ services:
     container_name: medvet-pgadmin
     restart: unless-stopped
     ports:
-      - "5050:80"
+      - "5053:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@medvet.com
       PGADMIN_DEFAULT_PASSWORD: admin123
@@ -51,7 +51,7 @@ services:
     container_name: medvet-directus
     restart: unless-stopped
     ports:
-      - "8055:8055"
+      - "8053:8055"
     environment:
       KEY: medvet-directus-key-2026
       SECRET: medvet-directus-secret-2026
