@@ -9,6 +9,7 @@ import express, {
   errorHandler
 } from '@feathersjs/express'
 import socketio from '@feathersjs/socketio'
+import configuration from '@feathersjs/configuration'
 import { configurationValidator } from './configuration'
 import { configureServices } from './services'
 import { authentication } from './authentication'
@@ -22,6 +23,7 @@ import type { Application } from './declarations'
 const app: Application = express(feathers())
 
 // Load app configuration
+app.configure(configuration())
 app.configure(configurationValidator)
 app.configure(configureKnex)
 app.configure(redis)
@@ -34,7 +36,7 @@ app.use(cors({
 app.use(json({ limit: '10mb' }))
 app.use(urlencoded({ extended: true }))
 app.use(serveStatic(app.get('public')))
-app.use(rest())
+app.configure(rest())
 app.configure(socketio({
   cors: {
     origin: ['http://localhost:3000', 'http://localhost:3001'],

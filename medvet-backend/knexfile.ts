@@ -6,7 +6,7 @@ config()
 const knexConfig: { [key: string]: Knex.Config } = {
   development: {
     client: 'pg',
-    connection: {
+    connection: process.env.DATABASE_URL || {
       host: process.env.DB_HOST || 'localhost',
       port: parseInt(process.env.DB_PORT || '5432'),
       user: process.env.DB_USER || 'medvet_admin',

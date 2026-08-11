@@ -29,9 +29,13 @@
     "entity": "user",
     "service": "users",
     "secret": "medvet-jwt-secret-2026-change-in-production",
-    "strategies": ["jwt", "local"],
+    "authStrategies": ["jwt", "local"],
     "jwtOptions": {
       "expiresIn": "7d"
+    },
+    "local": {
+      "usernameField": "email",
+      "passwordField": "password"
     }
   },
   "pagination": {
