@@ -1,0 +1,400 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   MEDVET — DESIGN SYSTEM v4
+   Extraído de imágenes de referencia:
+   · Img1 "Medicina": teal clínico #00B5A3 + slate #5A6472
+   · Img2 "PetVet card": azul eléctrico #1E78E0 + navy #0D1B4A
+   Light:  bg #F4F6F8 · text #2C3E50 · primary #1E78E0 · teal #00B5A3
+   Dark:   bg #0D1B2A · text #E8EDF2 · primary #3399FF · teal #1ABC9C
+   ============================================================ */
+
+:root {
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body:    'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* ── SECONDARY EMERALD — Vue/Nuxt Vibrant Emerald (#10B981) ── */
+  --color-forest-950: #042f1a;
+  --color-forest-900: #064e3b;
+  --color-forest-800: #065f46;   /* Headers activos */
+  --color-forest-700: #047857;
+  --color-forest-600: #10B981;   /* ACENTO SALUD — Emerald Green */
+  --color-forest-500: #34d399;
+  --color-forest-400: #6ee7b7;
+  --color-forest-300: #a7f3d0;
+  --color-forest-200: #d1fae5;
+  --color-forest-100: #ecfdf5;   /* tint suave */
+  --color-forest-50:  #f0fdf4;
+
+  /* ── PRIMARY ELECTRIC BLUE — Vercel/Indigo-Blue primary CTA (#2563EB) ── */
+  --color-amber-800: #1e40af;
+  --color-amber-700: #1d4ed8;    /* pressed/hover */
+  --color-amber-600: #2563EB;    /* PRIMARY CTA — Electric Blue */
+  --color-amber-500: #3b82f6;    /* Variante media */
+  --color-amber-400: #60a5fa;
+  --color-amber-100: #dbeafe;    /* soft tint badges */
+
+  /* ── SLATE NEUTRAL — Neutral (#4B5563) ── */
+  --color-slate-700: #374151;
+  --color-slate-600: #4b5563;    /* slate exacto */
+  --color-slate-500: #6b7280;
+
+  /* ── FONDOS CLÍNICOS TERTIARY (Vercel Stark White #FAFADA) ── */
+  --color-cream-50:  #ffffff;
+  --color-cream-100: #fafafa;    /* bg principal Stark Vercel */
+  --color-cream-200: #e5e7eb;    /* borders, dividers */
+  --color-cream-300: #d1d5db;
+  --color-cream-400: #9ca3af;
+
+  /* ── TEXTO — slate oscuro (#111827) ── */
+  --color-ink-900: #111827;
+  --color-ink-700: #374151;
+  --color-ink-500: #6b7280;
+  --color-ink-400: #9ca3af;
+  --color-ink-300: #d1d5db;
+
+  /* ── CORAL ALERTA (Vivid Pink) ── */
+  --color-coral-glow: #ff5a79;
+}
+
+/* ─── DARK MODE — Cyber Nuxt/Vercel Obsidian Dark ─── */
+.dark {
+  /* Neon Nuxt Green para dark mode (#00DC82) */
+  --color-forest-950: #022c22;
+  --color-forest-900: #064e3b;
+  --color-forest-800: #0f766e;
+  --color-forest-700: #0d9488;
+  --color-forest-600: #00DC82;   /* Neon Nuxt Green */
+  --color-forest-500: #2dd4bf;
+  --color-forest-400: #5eead4;
+  --color-forest-300: #99f6e4;
+  --color-forest-200: #ccfbf1;
+  --color-forest-100: rgba(0, 220, 130, 0.1);
+  --color-forest-50:  #f0fdfa;
+
+  /* Primary Blue para dark mode (#3B82F6) */
+  --color-amber-800: #1e3a8a;
+  --color-amber-700: #1d4ed8;
+  --color-amber-600: #3B82F6;    /* Neon Blue CTA */
+  --color-amber-500: #60a5fa;
+  --color-amber-400: #93c5fd;
+  --color-amber-100: rgba(59, 130, 246, 0.15);
+
+  /* Fondos oscuros premium - Nuxt Obsidian (#020420 & #090d21) */
+  --color-cream-50:  #090d21;    /* superficie card dark - Nuxt style */
+  --color-cream-100: #020420;    /* bg principal Nuxt Obsidian */
+  --color-cream-200: rgba(0, 220, 130, 0.12); /* neon border */
+  --color-cream-300: rgba(99, 102, 241, 0.22);
+  --color-cream-400: rgba(99, 102, 241, 0.35);
+
+  /* Texto claro */
+  --color-ink-900: #f9fafb;
+  --color-ink-700: #f3f4f6;
+  --color-ink-500: #9ca3af;
+  --color-ink-400: #6b7280;
+  --color-ink-300: #4b5563;
+
+  /* Tertiary Orange para dark mode (#FF8A00) */
+  --color-coral-glow: #FF8A00;
+}
+
+
+/* =====================
+   BASE RESET & BODY
+   ===================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-cream-100);
+  color: var(--color-ink-900);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* =====================
+   TYPOGRAPHY ROLES
+   ===================== */
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+.font-body { font-family: var(--font-body); }
+
+.font-mono-numbers {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* =====================
+   COLOUR UTILITIES
+   ===================== */
+
+.bg-cream        { background-color: var(--color-cream-100); }
+.bg-cream-white  { background-color: var(--color-cream-50); }
+.bg-forest       { background-color: var(--color-forest-900); }
+.bg-forest-deep  { background-color: var(--color-forest-950); }
+.text-forest     { color: var(--color-forest-700); }
+.text-forest-lt  { color: var(--color-forest-500); }
+.text-amber      { color: var(--color-amber-600); }
+.text-ink        { color: var(--color-ink-900); }
+.text-ink-muted  { color: var(--color-ink-500); }
+
+/* =====================
+   GRADIENT TREATMENTS
+   ===================== */
+
+.gradient-text-forest {
+  background: linear-gradient(135deg, var(--color-forest-700) 0%, var(--color-forest-400) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-amber {
+  background: linear-gradient(135deg, var(--color-amber-700) 0%, var(--color-amber-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =====================
+   SURFACE TREATMENTS
+   ===================== */
+
+/* Frosted glass — light */
+.surface-glass {
+  background: rgba(248, 249, 249, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(200, 205, 208, 0.55);
+}
+
+.dark .surface-glass {
+  background: rgba(26, 37, 44, 0.9);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(93, 173, 226, 0.15);
+}
+
+/* Elevated card */
+.surface-card {
+  background: var(--color-cream-50);
+  border: 1px solid var(--color-cream-200);
+  box-shadow: 0 4px 24px -6px rgba(44, 62, 80, 0.08), 0 1px 3px rgba(44, 62, 80, 0.04);
+  border-radius: 20px;
+}
+
+.dark .surface-card {
+  background: var(--color-cream-50);
+  border: 1px solid var(--color-cream-200);
+  box-shadow: 0 4px 24px -6px rgba(0, 0, 0, 0.3);
+}
+
+/* Teal/mint panel */
+.surface-forest {
+  background: var(--color-forest-900);
+  color: var(--color-forest-100);
+}
+
+/* =====================
+   BUTTONS
+   ===================== */
+
+/* Primary — Verde Menta tonal (bienestar/salud) */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-forest-700);
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 0.875rem 1.75rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+  box-shadow: 0 4px 16px -4px rgba(26, 149, 128, 0.4);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-forest-800);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px -6px rgba(26, 149, 128, 0.45);
+}
+
+/* "Amber" → Azul Sanitario (confianza, CTA principal) */
+.btn-amber {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-amber-600);
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  padding: 0.875rem 1.75rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+  box-shadow: 0 4px 16px -4px rgba(46, 134, 193, 0.45);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-amber:hover {
+  background-color: var(--color-amber-700);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px -6px rgba(46, 134, 193, 0.5);
+}
+
+/* Ghost — outlined */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--color-forest-700);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 0.875rem 1.75rem;
+  border-radius: 12px;
+  border: 1.5px solid var(--color-cream-300);
+  cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-forest-500);
+  background: var(--color-forest-100);
+  color: var(--color-forest-700);
+}
+
+.dark .btn-ghost {
+  color: var(--color-forest-400);
+  border-color: rgba(93, 173, 226, 0.25);
+}
+
+.dark .btn-ghost:hover {
+  border-color: rgba(93, 173, 226, 0.45);
+  background: rgba(93, 173, 226, 0.08);
+}
+
+/* =====================
+   ANIMATIONS
+   ===================== */
+
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(46, 134, 193, 0.4); }
+  70%  { box-shadow: 0 0 0 12px rgba(46, 134, 193, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(46, 134, 193, 0); }
+}
+
+.animate-rotate-slow { animation: rotate-slow 60s linear infinite; }
+.animate-float       { animation: float-gentle 5s ease-in-out infinite; }
+.animate-fade-up     { animation: fade-up 0.6s ease-out both; }
+.animate-pulse-ring  { animation: pulse-ring 2.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite; }
+
+/* =====================
+   FOCUS STATES
+   ===================== */
+
+*:focus-visible {
+  outline: 2px solid var(--color-amber-600);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* =====================
+   SCROLLBAR
+   ===================== */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-cream-100); }
+::-webkit-scrollbar-thumb { background: var(--color-cream-300); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-forest-400); }
+
+/* =====================
+   NAV ACTIVE STATES
+   ===================== */
+
+.nav-link-active {
+  color: var(--color-forest-700);
+  font-weight: 600;
+}
+
+/* =====================
+   LEGACY COMPAT
+   ===================== */
+
+/* Glass panel — header */
+.glass-panel {
+  background: rgba(248, 249, 249, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.dark .glass-panel {
+  background: rgba(26, 37, 44, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(248, 249, 249, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(200, 205, 208, 0.6);
+}
+
+.dark .glass-card {
+  background: rgba(26, 37, 44, 0.88);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(93, 173, 226, 0.12);
+}
+
+/* Gradient teal (legacy compat) */
+.gradient-text-teal {
+  background: linear-gradient(135deg, var(--color-forest-700) 0%, var(--color-forest-400) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
