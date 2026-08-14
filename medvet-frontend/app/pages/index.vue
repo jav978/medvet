@@ -483,7 +483,6 @@ onMounted(async () => {
   background-color: var(--color-cream-100);
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
 }
 
 :global(.dark) .page-root {
@@ -510,7 +509,7 @@ onMounted(async () => {
   left: 50%;
   transform: translateX(-50%);
   width: 1000px;
-  max-width: 100vw;
+  max-width: 100%;
   height: 520px;
   background: radial-gradient(ellipse 900px 480px at 50% 0%, rgba(0, 168, 107, 0.16) 0%, rgba(0, 196, 140, 0.06) 50%, transparent 80%);
   filter: blur(40px);

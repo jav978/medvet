@@ -772,7 +772,6 @@ onMounted(async () => {
   min-height: 85vh;
   padding: 3.5rem 1.5rem 6rem;
   background-color: var(--color-cream-100);
-  overflow-x: hidden;
   max-width: 100%;
   width: 100%;
 }
@@ -787,7 +786,7 @@ onMounted(async () => {
   left: 50%;
   transform: translateX(-50%);
   width: 900px;
-  max-width: 100vw;
+  max-width: 100%;
   height: 480px;
   background: radial-gradient(ellipse 800px 400px at 50% 0%, rgba(0, 245, 155, 0.12) 0%, rgba(0, 168, 107, 0.03) 50%, transparent 80%);
   filter: blur(40px);

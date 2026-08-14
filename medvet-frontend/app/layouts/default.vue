@@ -317,7 +317,6 @@ const handleLogout = async () => {
   min-height: 100vh;
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   background-color: var(--color-cream-100);
@@ -749,10 +748,9 @@ const handleLogout = async () => {
    MAIN
 ──────────────────────────────────────── */
 .site-main {
-  flex: 1;
+  flex: 1 0 auto;
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
 }
 
 /* ────────────────────────────────────────
@@ -766,7 +764,6 @@ const handleLogout = async () => {
   transition: background-color 0.25s ease, border-color 0.25s ease;
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
   margin: 0;
 }
 
