@@ -318,7 +318,7 @@ const calculatedTotal = computed(() => {
   overflow: hidden;
 }
 
-.dark .services-page {
+:global(.dark) .services-page {
   background-color: #040706;
 }
 
@@ -369,7 +369,7 @@ const calculatedTotal = computed(() => {
   color: var(--color-forest-700);
 }
 
-.dark .eyebrow-pill {
+:global(.dark) .eyebrow-pill {
   background: rgba(0, 245, 155, 0.1);
   border-color: rgba(0, 245, 155, 0.28);
   color: #00f59b;
@@ -384,7 +384,7 @@ const calculatedTotal = computed(() => {
   color: #007a4d;
 }
 
-.dark .eyebrow-tag {
+:global(.dark) .eyebrow-tag {
   background: #00f59b;
   color: #040706;
 }
@@ -401,7 +401,7 @@ const calculatedTotal = computed(() => {
   line-height: 1.15;
 }
 
-.dark .services-title { color: #f1faf5; }
+:global(.dark) .services-title { color: #f1faf5; }
 
 .gradient-text-mint {
   background: linear-gradient(135deg, #00a86b 0%, #00c48c 50%, #38bdf8 100%);
@@ -410,7 +410,7 @@ const calculatedTotal = computed(() => {
   background-clip: text;
 }
 
-.dark .gradient-text-mint {
+:global(.dark) .gradient-text-mint {
   background: linear-gradient(180deg, #ffffff 0%, #d0ffed 40%, #00f59b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -424,7 +424,7 @@ const calculatedTotal = computed(() => {
   margin: 0;
 }
 
-.dark .services-subtitle { color: #8ca395; }
+:global(.dark) .services-subtitle { color: #8ca395; }
 
 /* Category Pills */
 .category-pills {
@@ -462,18 +462,18 @@ const calculatedTotal = computed(() => {
   box-shadow: 0 4px 12px rgba(0, 168, 107, 0.3);
 }
 
-.dark .cat-pill {
+:global(.dark) .cat-pill {
   background: rgba(16, 28, 22, 0.7);
   border-color: rgba(0, 245, 155, 0.15);
   color: #8ca395;
 }
 
-.dark .cat-pill:hover {
+:global(.dark) .cat-pill:hover {
   background: rgba(0, 245, 155, 0.12);
   color: #f1faf5;
 }
 
-.dark .cat-pill--active {
+:global(.dark) .cat-pill--active {
   background: #00f59b;
   border-color: #00f59b;
   color: #040706;
@@ -504,12 +504,12 @@ const calculatedTotal = computed(() => {
   box-shadow: 0 16px 32px -8px rgba(0, 80, 50, 0.12);
 }
 
-.dark .service-card {
+:global(.dark) .service-card {
   background: #080f0c;
   border-color: rgba(0, 245, 155, 0.14);
 }
 
-.dark .service-card:hover {
+:global(.dark) .service-card:hover {
   border-color: #00f59b;
   box-shadow: 0 12px 36px -8px rgba(0, 245, 155, 0.25);
 }
@@ -531,7 +531,7 @@ const calculatedTotal = computed(() => {
   font-size: 1.6rem;
 }
 
-.dark .service-icon-box {
+:global(.dark) .service-icon-box {
   background: rgba(16, 28, 22, 0.9);
   border: 1px solid rgba(0, 245, 155, 0.2);
 }
@@ -551,7 +551,7 @@ const calculatedTotal = computed(() => {
   color: var(--color-ink-500);
 }
 
-.dark .service-duration {
+:global(.dark) .service-duration {
   background: rgba(16, 28, 22, 0.8);
   color: #8ca395;
 }
@@ -572,13 +572,13 @@ const calculatedTotal = computed(() => {
   background: rgba(0, 168, 107, 0.2);
 }
 
-.dark .card-curr-switch-chip {
+:global(.dark) .card-curr-switch-chip {
   background: rgba(0, 245, 155, 0.1);
   border-color: rgba(0, 245, 155, 0.3);
   color: #00f59b;
 }
 
-.dark .card-curr-switch-chip:hover {
+:global(.dark) .card-curr-switch-chip:hover {
   background: rgba(0, 245, 155, 0.22);
 }
 
@@ -591,7 +591,7 @@ const calculatedTotal = computed(() => {
   line-height: 1.25;
 }
 
-.dark .service-card-title { color: #f1faf5; }
+:global(.dark) .service-card-title { color: #f1faf5; }
 
 .service-card-desc {
   font-size: 0.8125rem;
@@ -600,7 +600,7 @@ const calculatedTotal = computed(() => {
   margin: 0;
 }
 
-.dark .service-card-desc { color: #8ca395; }
+:global(.dark) .service-card-desc { color: #8ca395; }
 
 .service-features-list {
   list-style: none;
@@ -620,10 +620,10 @@ const calculatedTotal = computed(() => {
   color: var(--color-ink-600);
 }
 
-.dark .service-features-list li { color: #d6e8de; }
+:global(.dark) .service-features-list li { color: #d6e8de; }
 
 .feat-icon { width: 14px; height: 14px; color: #00a86b; flex-shrink: 0; }
-.dark .feat-icon { color: #00f59b; }
+:global(.dark) .feat-icon { color: #00f59b; }
 
 .service-card-footer {
   display: flex;
@@ -633,7 +633,7 @@ const calculatedTotal = computed(() => {
   border-top: 1px solid var(--color-cream-200);
 }
 
-.dark .service-card-footer { border-top-color: rgba(0, 245, 155, 0.12); }
+:global(.dark) .service-card-footer { border-top-color: rgba(0, 245, 155, 0.12); }
 
 .service-price-block {
   display: flex;
@@ -648,14 +648,14 @@ const calculatedTotal = computed(() => {
 
 .price-lbl { display: block; font-size: 0.65rem; text-transform: uppercase; color: var(--color-ink-400); font-weight: 600; }
 .price-val { font-size: 1.25rem; font-weight: 800; color: #00a86b; line-height: 1.2; }
-.dark .price-val { color: #00f59b; }
+:global(.dark) .price-val { color: #00f59b; }
 
 .price-equiv {
   font-size: 0.68rem;
   color: var(--color-ink-400);
   margin-top: 2px;
 }
-.dark .price-equiv { color: rgba(223, 240, 238, 0.55); }
+:global(.dark) .price-equiv { color: rgba(223, 240, 238, 0.55); }
 
 .svc-cta-btn {
   font-size: 0.78rem;
@@ -675,7 +675,7 @@ const calculatedTotal = computed(() => {
   box-shadow: 0 16px 40px -12px rgba(0, 80, 50, 0.1);
 }
 
-.dark .budget-calculator-card {
+:global(.dark) .budget-calculator-card {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.22);
   box-shadow: 0 20px 50px -16px rgba(0, 0, 0, 0.85);
@@ -694,7 +694,7 @@ const calculatedTotal = computed(() => {
   margin-bottom: 0.4rem;
 }
 
-.dark .calc-badge { color: #00f59b; }
+:global(.dark) .calc-badge { color: #00f59b; }
 
 .calc-dot { width: 6px; height: 6px; border-radius: 50%; background: #00f59b; }
 
@@ -706,10 +706,10 @@ const calculatedTotal = computed(() => {
   margin: 0 0 0.35rem;
 }
 
-.dark .calc-title { color: #f1faf5; }
+:global(.dark) .calc-title { color: #f1faf5; }
 
 .calc-sub { font-size: 0.875rem; color: var(--color-ink-500); margin: 0; }
-.dark .calc-sub { color: #8ca395; }
+:global(.dark) .calc-sub { color: #8ca395; }
 
 .calc-grid {
   display: grid;
@@ -745,12 +745,12 @@ const calculatedTotal = computed(() => {
   background: rgba(0, 168, 107, 0.08);
 }
 
-.dark .calc-check-item {
+:global(.dark) .calc-check-item {
   background: rgba(16, 28, 22, 0.6);
   border-color: rgba(0, 245, 155, 0.15);
 }
 
-.dark .calc-check-item--active {
+:global(.dark) .calc-check-item--active {
   border-color: #00f59b;
   background: rgba(0, 245, 155, 0.12);
 }
@@ -759,7 +759,7 @@ const calculatedTotal = computed(() => {
 .calc-item-emoji { font-size: 1.35rem; }
 .calc-item-info { flex: 1; display: flex; flex-direction: column; }
 .calc-item-name { font-size: 0.875rem; color: var(--color-ink-900); }
-.dark .calc-item-name { color: #f1faf5; }
+:global(.dark) .calc-item-name { color: #f1faf5; }
 .calc-item-dur { font-size: 0.72rem; color: var(--color-ink-400); }
 
 .calc-item-pricing {
@@ -769,9 +769,9 @@ const calculatedTotal = computed(() => {
 }
 
 .calc-item-price { font-weight: 700; font-size: 0.9375rem; color: #00a86b; }
-.dark .calc-item-price { color: #00f59b; }
+:global(.dark) .calc-item-price { color: #00f59b; }
 .calc-item-sub { font-size: 0.68rem; color: var(--color-ink-400); }
-.dark .calc-item-sub { color: rgba(223, 240, 238, 0.5); }
+:global(.dark) .calc-item-sub { color: rgba(223, 240, 238, 0.5); }
 
 .calc-summary-panel {
   background: var(--color-cream-100);
@@ -783,7 +783,7 @@ const calculatedTotal = computed(() => {
   gap: 1.15rem;
 }
 
-.dark .calc-summary-panel {
+:global(.dark) .calc-summary-panel {
   background: #060c09;
   border-color: rgba(0, 245, 155, 0.2);
 }
@@ -796,14 +796,14 @@ const calculatedTotal = computed(() => {
   border-bottom: 1px solid var(--color-cream-300);
 }
 
-.dark .summary-top { border-bottom-color: rgba(0, 245, 155, 0.15); }
+:global(.dark) .summary-top { border-bottom-color: rgba(0, 245, 155, 0.15); }
 .summary-title { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--color-ink-900); margin: 0; }
-.dark .summary-title { color: #f1faf5; }
+:global(.dark) .summary-title { color: #f1faf5; }
 .summary-count { font-size: 0.72rem; color: var(--color-ink-400); }
 
 .summary-items-list { display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.8125rem; }
 .summary-row { display: flex; justify-content: space-between; color: var(--color-ink-700); }
-.dark .summary-row { color: #d6e8de; }
+:global(.dark) .summary-row { color: #d6e8de; }
 
 .summary-empty { font-size: 0.78rem; color: var(--color-ink-400); font-style: italic; }
 
@@ -815,9 +815,9 @@ const calculatedTotal = computed(() => {
   border-top: 1px dashed var(--color-cream-300);
 }
 
-.dark .summary-total-box { border-top-color: rgba(0, 245, 155, 0.2); }
+:global(.dark) .summary-total-box { border-top-color: rgba(0, 245, 155, 0.2); }
 .total-lbl { display: block; font-family: var(--font-display); font-size: 0.9375rem; font-weight: 700; color: var(--color-ink-900); }
-.dark .total-lbl { color: #f1faf5; }
+:global(.dark) .total-lbl { color: #f1faf5; }
 .total-note { display: block; font-size: 0.65rem; color: var(--color-ink-400); font-family: var(--font-body); }
 
 .total-values-stack {
@@ -827,9 +827,9 @@ const calculatedTotal = computed(() => {
 }
 
 .total-amount { font-size: 1.5rem; font-weight: 800; color: #00a86b; }
-.dark .total-amount { color: #00f59b; }
+:global(.dark) .total-amount { color: #00f59b; }
 .total-secondary { font-size: 0.75rem; color: var(--color-ink-400); }
-.dark .total-secondary { color: rgba(223, 240, 238, 0.6); }
+:global(.dark) .total-secondary { color: rgba(223, 240, 238, 0.6); }
 
 .cashea-callout-pill {
   background: #fffbeb;
@@ -843,7 +843,7 @@ const calculatedTotal = computed(() => {
   gap: 0.45rem;
 }
 
-.dark .cashea-callout-pill {
+:global(.dark) .cashea-callout-pill {
   background: #191407;
   border-color: rgba(245, 158, 11, 0.4);
   color: #fcd34d;

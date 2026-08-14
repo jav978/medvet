@@ -384,7 +384,7 @@ onMounted(async () => {
   overflow: hidden;
 }
 
-.dark .dash-page {
+:global(.dark) .dash-page {
   background-color: #040706;
 }
 
@@ -436,7 +436,7 @@ onMounted(async () => {
   color: #00a86b;
 }
 
-.dark .dash-eyebrow { color: #00f59b; }
+:global(.dark) .dash-eyebrow { color: #00f59b; }
 
 .dash-status-dot {
   display: inline-flex;
@@ -450,7 +450,7 @@ onMounted(async () => {
   color: #007a4d;
 }
 
-.dark .dash-status-dot {
+:global(.dark) .dash-status-dot {
   background: rgba(0, 245, 155, 0.12);
   color: #00f59b;
 }
@@ -472,7 +472,7 @@ onMounted(async () => {
   margin: 0 0 0.4rem;
 }
 
-.dark .dash-title { color: #f1faf5; }
+:global(.dark) .dash-title { color: #f1faf5; }
 
 .dash-subtitle {
   font-size: 0.9375rem;
@@ -481,7 +481,7 @@ onMounted(async () => {
   max-width: 580px;
 }
 
-.dark .dash-subtitle { color: #8ca395; }
+:global(.dark) .dash-subtitle { color: #8ca395; }
 
 .dash-ctas {
   display: flex;
@@ -524,12 +524,12 @@ onMounted(async () => {
   border-color: #00a86b;
 }
 
-.dark .stat-card {
+:global(.dark) .stat-card {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.15);
 }
 
-.dark .stat-card:hover {
+:global(.dark) .stat-card:hover {
   border-color: #00f59b;
   box-shadow: 0 10px 30px -8px rgba(0, 245, 155, 0.25);
 }
@@ -547,7 +547,7 @@ onMounted(async () => {
 .stat-icon-wrap svg { width: 1.35rem; height: 1.35rem; }
 
 .stat-icon--mint { background: rgba(0, 168, 107, 0.12); color: #00a86b; }
-.dark .stat-icon--mint { background: rgba(0, 245, 155, 0.15); color: #00f59b; }
+:global(.dark) .stat-icon--mint { background: rgba(0, 245, 155, 0.15); color: #00f59b; }
 
 .stat-icon--amber { background: rgba(255, 122, 0, 0.12); color: var(--color-joy-tangerine); }
 .stat-icon--blue { background: rgba(59, 130, 246, 0.12); color: #3b82f6; }
@@ -562,7 +562,7 @@ onMounted(async () => {
   line-height: 1.1;
 }
 
-.dark .stat-num { color: #f1faf5; }
+:global(.dark) .stat-num { color: #f1faf5; }
 
 .stat-label {
   font-size: 0.72rem;
@@ -570,7 +570,7 @@ onMounted(async () => {
   font-weight: 600;
 }
 
-.dark .stat-label { color: #8ca395; }
+:global(.dark) .stat-label { color: #8ca395; }
 
 /* Vaccine Alert */
 .vaccine-alert-card {
@@ -583,7 +583,7 @@ onMounted(async () => {
   border: 1.5px solid rgba(0, 168, 107, 0.25);
 }
 
-.dark .vaccine-alert-card {
+:global(.dark) .vaccine-alert-card {
   background: rgba(0, 245, 155, 0.08);
   border-color: rgba(0, 245, 155, 0.25);
 }
@@ -599,7 +599,7 @@ onMounted(async () => {
   margin: 0 0 0.15rem;
 }
 
-.dark .vaccine-alert-title { color: #f1faf5; }
+:global(.dark) .vaccine-alert-title { color: #f1faf5; }
 
 .vaccine-alert-desc {
   font-size: 0.8125rem;
@@ -607,7 +607,7 @@ onMounted(async () => {
   margin: 0;
 }
 
-.dark .vaccine-alert-desc { color: #d6e8de; }
+:global(.dark) .vaccine-alert-desc { color: #d6e8de; }
 
 .vaccine-alert-cta { flex-shrink: 0; }
 
@@ -631,7 +631,7 @@ onMounted(async () => {
   box-shadow: 0 10px 30px -8px rgba(0, 80, 50, 0.06);
 }
 
-.dark .dash-panel {
+:global(.dark) .dash-panel {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.16);
   box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.7);
@@ -645,7 +645,7 @@ onMounted(async () => {
   border-bottom: 1px solid var(--color-cream-200);
 }
 
-.dark .panel-header { border-bottom-color: rgba(0, 245, 155, 0.12); }
+:global(.dark) .panel-header { border-bottom-color: rgba(0, 245, 155, 0.12); }
 
 .panel-header-title {
   display: flex;
@@ -663,7 +663,7 @@ onMounted(async () => {
   margin: 0;
 }
 
-.dark .panel-title { color: #f1faf5; }
+:global(.dark) .panel-title { color: #f1faf5; }
 
 .panel-sub {
   font-size: 0.72rem;
@@ -678,7 +678,7 @@ onMounted(async () => {
   text-decoration: none;
 }
 
-.dark .panel-action { color: #00f59b; }
+:global(.dark) .panel-action { color: #00f59b; }
 
 .panel-count {
   font-size: 0.72rem;
@@ -689,7 +689,7 @@ onMounted(async () => {
   color: var(--color-ink-600);
 }
 
-.dark .panel-count {
+:global(.dark) .panel-count {
   background: rgba(16, 28, 22, 0.8);
   color: #8ca395;
 }
@@ -717,12 +717,12 @@ onMounted(async () => {
   transform: translateY(-2px);
 }
 
-.dark .apt-card {
+:global(.dark) .apt-card {
   background: rgba(16, 28, 22, 0.6);
   border-color: rgba(0, 245, 155, 0.15);
 }
 
-.dark .apt-card:hover {
+:global(.dark) .apt-card:hover {
   border-color: #00f59b;
   box-shadow: 0 6px 20px -4px rgba(0, 245, 155, 0.2);
 }
@@ -742,7 +742,7 @@ onMounted(async () => {
   color: var(--color-ink-900);
 }
 
-.dark .apt-service-name { color: #f1faf5; }
+:global(.dark) .apt-service-name { color: #f1faf5; }
 
 .apt-patient-meta {
   font-size: 0.75rem;
@@ -750,7 +750,7 @@ onMounted(async () => {
   margin-top: 0.15rem;
 }
 
-.dark .apt-patient-meta { color: #8ca395; }
+:global(.dark) .apt-patient-meta { color: #8ca395; }
 
 .apt-badge {
   font-size: 0.65rem;
@@ -766,7 +766,7 @@ onMounted(async () => {
   border: 1px solid rgba(0, 168, 107, 0.3);
 }
 
-.dark .apt-badge--confirmed {
+:global(.dark) .apt-badge--confirmed {
   background: rgba(0, 245, 155, 0.18);
   color: #00f59b;
   border-color: rgba(0, 245, 155, 0.35);
@@ -786,7 +786,7 @@ onMounted(async () => {
   color: var(--color-ink-600);
 }
 
-.dark .apt-card-details { color: #d6e8de; }
+:global(.dark) .apt-card-details { color: #d6e8de; }
 
 .apt-detail-item {
   display: inline-flex;
@@ -801,7 +801,7 @@ onMounted(async () => {
   border-top: 1px dashed var(--color-cream-200);
 }
 
-.dark .apt-card-actions { border-top-color: rgba(0, 245, 155, 0.12); }
+:global(.dark) .apt-card-actions { border-top-color: rgba(0, 245, 155, 0.12); }
 
 .apt-btn-link {
   font-size: 0.72rem;
@@ -811,7 +811,7 @@ onMounted(async () => {
 }
 
 .apt-btn-link:hover { text-decoration: underline; }
-.dark .apt-btn-link { color: #00f59b; }
+:global(.dark) .apt-btn-link { color: #00f59b; }
 
 /* Pets Grid */
 .pets-grid {
@@ -830,7 +830,7 @@ onMounted(async () => {
   gap: 1rem;
 }
 
-.dark .pet-dash-card {
+:global(.dark) .pet-dash-card {
   background: rgba(16, 28, 22, 0.6);
   border-color: rgba(0, 245, 155, 0.15);
 }
@@ -847,7 +847,7 @@ onMounted(async () => {
   flex-shrink: 0;
 }
 
-.dark .pet-avatar-circle {
+:global(.dark) .pet-avatar-circle {
   background: rgba(16, 28, 22, 0.9);
   border: 1px solid rgba(0, 245, 155, 0.2);
 }
@@ -868,7 +868,7 @@ onMounted(async () => {
   margin: 0;
 }
 
-.dark .pet-dash-name { color: #f1faf5; }
+:global(.dark) .pet-dash-name { color: #f1faf5; }
 
 .pet-dash-species {
   font-size: 0.65rem;
@@ -879,7 +879,7 @@ onMounted(async () => {
   color: #007a4d;
 }
 
-.dark .pet-dash-species {
+:global(.dark) .pet-dash-species {
   background: rgba(0, 245, 155, 0.15);
   color: #00f59b;
 }
@@ -890,7 +890,7 @@ onMounted(async () => {
   margin: 0.1rem 0 0.25rem;
 }
 
-.dark .pet-dash-breed { color: #8ca395; }
+:global(.dark) .pet-dash-breed { color: #8ca395; }
 
 .pet-dash-stats {
   display: flex;
@@ -918,7 +918,7 @@ onMounted(async () => {
   text-align: center;
 }
 
-.dark .pet-cta-btn {
+:global(.dark) .pet-cta-btn {
   background: rgba(16, 28, 22, 0.8);
   border-color: rgba(0, 245, 155, 0.18);
   color: #d6e8de;
@@ -930,7 +930,7 @@ onMounted(async () => {
   color: #fff;
 }
 
-.dark .pet-cta-btn--primary {
+:global(.dark) .pet-cta-btn--primary {
   background: #00f59b;
   border-color: #00f59b;
   color: #040706;
@@ -957,7 +957,7 @@ onMounted(async () => {
   border-bottom: 1px solid var(--color-cream-200);
 }
 
-.dark .history-table th { border-bottom-color: rgba(0, 245, 155, 0.15); }
+:global(.dark) .history-table th { border-bottom-color: rgba(0, 245, 155, 0.15); }
 
 .history-table td {
   padding: 0.95rem 1rem;
@@ -965,7 +965,7 @@ onMounted(async () => {
   color: var(--color-ink-800);
 }
 
-.dark .history-table td {
+:global(.dark) .history-table td {
   border-bottom-color: rgba(0, 245, 155, 0.1);
   color: #d6e8de;
 }
@@ -976,7 +976,7 @@ onMounted(async () => {
   font-size: 0.75rem;
 }
 
-.dark .history-notes { color: #8ca395; }
+:global(.dark) .history-notes { color: #8ca395; }
 
 .status-pill-completed {
   font-size: 0.68rem;
@@ -987,7 +987,7 @@ onMounted(async () => {
   color: #007a4d;
 }
 
-.dark .status-pill-completed {
+:global(.dark) .status-pill-completed {
   background: rgba(0, 245, 155, 0.15);
   color: #00f59b;
 }
@@ -1003,5 +1003,5 @@ onMounted(async () => {
 
 .panel-empty-icon { font-size: 2rem; opacity: 0.8; }
 .panel-empty-text { font-size: 0.8125rem; color: var(--color-ink-500); margin: 0 0 0.5rem; }
-.dark .panel-empty-text { color: #8ca395; }
+:global(.dark) .panel-empty-text { color: #8ca395; }
 </style>

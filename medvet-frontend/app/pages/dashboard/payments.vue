@@ -357,7 +357,7 @@ const handleExportExcel = () => {
   overflow: hidden;
 }
 
-.dark .payments-page {
+:global(.dark) .payments-page {
   background-color: #040706;
 }
 
@@ -409,7 +409,7 @@ const handleExportExcel = () => {
   color: #00a86b;
 }
 
-.dark .payments-eyebrow { color: #00f59b; }
+:global(.dark) .payments-eyebrow { color: #00f59b; }
 
 .payments-ssl-chip {
   display: inline-flex;
@@ -423,7 +423,7 @@ const handleExportExcel = () => {
   color: #007a4d;
 }
 
-.dark .payments-ssl-chip {
+:global(.dark) .payments-ssl-chip {
   background: rgba(0, 245, 155, 0.12);
   color: #00f59b;
 }
@@ -444,7 +444,7 @@ const handleExportExcel = () => {
   margin: 0 0 0.4rem;
 }
 
-.dark .payments-title { color: #f1faf5; }
+:global(.dark) .payments-title { color: #f1faf5; }
 
 .payments-subtitle {
   font-size: 0.9375rem;
@@ -453,7 +453,7 @@ const handleExportExcel = () => {
   max-width: 620px;
 }
 
-.dark .payments-subtitle { color: #8ca395; }
+:global(.dark) .payments-subtitle { color: #8ca395; }
 
 /* Summary Cards */
 .summary-cards-grid {
@@ -475,17 +475,17 @@ const handleExportExcel = () => {
   box-shadow: 0 8px 24px -6px rgba(0, 80, 50, 0.05);
 }
 
-.dark .sum-card {
+:global(.dark) .sum-card {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.15);
 }
 
 .sum-lbl { font-size: 0.72rem; text-transform: uppercase; color: var(--color-ink-400); font-weight: 600; }
 .sum-val { font-size: 1.85rem; font-weight: 800; color: #00a86b; }
-.dark .sum-val { color: #00f59b; }
+:global(.dark) .sum-val { color: #00f59b; }
 .sum-val--pending { color: var(--color-joy-tangerine); }
 .sum-sub { font-size: 0.72rem; color: var(--color-ink-500); }
-.dark .sum-sub { color: #8ca395; }
+:global(.dark) .sum-sub { color: #8ca395; }
 
 /* Pending Banner */
 .pending-banner {
@@ -503,9 +503,9 @@ const handleExportExcel = () => {
 .pending-banner-left { display: flex; align-items: center; gap: 1rem; }
 .pending-icon { font-size: 1.75rem; }
 .pending-title { font-family: var(--font-display); font-size: 0.9375rem; font-weight: 700; color: var(--color-ink-900); margin: 0; }
-.dark .pending-title { color: #f1faf5; }
+:global(.dark) .pending-title { color: #f1faf5; }
 .pending-desc { font-size: 0.8125rem; color: var(--color-ink-600); margin: 0.15rem 0 0; }
-.dark .pending-desc { color: #d6e8de; }
+:global(.dark) .pending-desc { color: #d6e8de; }
 
 /* Invoices Panel */
 .invoices-panel {
@@ -519,16 +519,16 @@ const handleExportExcel = () => {
   box-shadow: 0 10px 30px -8px rgba(0, 80, 50, 0.06);
 }
 
-.dark .invoices-panel {
+:global(.dark) .invoices-panel {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.16);
   box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.7);
 }
 
 .panel-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--color-ink-900); margin: 0; }
-.dark .panel-title { color: #f1faf5; }
+:global(.dark) .panel-title { color: #f1faf5; }
 .panel-sub { font-size: 0.78rem; color: var(--color-ink-500); margin: 0.15rem 0 0; }
-.dark .panel-sub { color: #8ca395; }
+:global(.dark) .panel-sub { color: #8ca395; }
 
 .table-wrap { overflow-x: auto; }
 
@@ -548,7 +548,7 @@ const handleExportExcel = () => {
   border-bottom: 1px solid var(--color-cream-200);
 }
 
-.dark .invoices-table th { border-bottom-color: rgba(0, 245, 155, 0.15); }
+:global(.dark) .invoices-table th { border-bottom-color: rgba(0, 245, 155, 0.15); }
 
 .invoices-table td {
   padding: 1rem;
@@ -556,17 +556,17 @@ const handleExportExcel = () => {
   color: var(--color-ink-800);
 }
 
-.dark .invoices-table td {
+:global(.dark) .invoices-table td {
   border-bottom-color: rgba(0, 245, 155, 0.1);
   color: #d6e8de;
 }
 
 .inv-service { color: var(--color-ink-900); font-size: 0.84rem; }
-.dark .inv-service { color: #f1faf5; }
+:global(.dark) .inv-service { color: #f1faf5; }
 .inv-pet { font-size: 0.72rem; color: var(--color-ink-400); margin-top: 0.1rem; }
 
 .text-mint { color: #00a86b; }
-.dark .text-mint { color: #00f59b; }
+:global(.dark) .text-mint { color: #00f59b; }
 
 .status-badge {
   font-size: 0.68rem;
@@ -580,7 +580,7 @@ const handleExportExcel = () => {
   color: #007a4d;
 }
 
-.dark .status-badge--paid {
+:global(.dark) .status-badge--paid {
   background: rgba(0, 245, 155, 0.15);
   color: #00f59b;
 }
@@ -616,16 +616,16 @@ const handleExportExcel = () => {
   gap: 1.25rem;
 }
 
-.dark .modal-box {
+:global(.dark) .modal-box {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.25);
 }
 
 .modal-header { display: flex; justify-content: space-between; align-items: flex-start; }
 .modal-eyebrow { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: #00a86b; }
-.dark .modal-eyebrow { color: #00f59b; }
+:global(.dark) .modal-eyebrow { color: #00f59b; }
 .modal-title { font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--color-ink-900); margin: 0.2rem 0 0; }
-.dark .modal-title { color: #f1faf5; }
+:global(.dark) .modal-title { color: #f1faf5; }
 .modal-close-btn { background: transparent; border: none; font-size: 1.25rem; color: var(--color-ink-400); cursor: pointer; }
 
 .checkout-summary {
@@ -638,12 +638,12 @@ const handleExportExcel = () => {
   font-size: 0.8125rem;
 }
 
-.dark .checkout-summary { background: rgba(16, 28, 22, 0.6); }
+:global(.dark) .checkout-summary { background: rgba(16, 28, 22, 0.6); }
 
 .chk-row { display: flex; justify-content: space-between; color: var(--color-ink-700); }
-.dark .chk-row { color: #d6e8de; }
+:global(.dark) .chk-row { color: #d6e8de; }
 .chk-row--total { font-size: 1rem; font-weight: 800; padding-top: 0.4rem; border-top: 1px dashed var(--color-cream-300); }
-.dark .chk-row--total { border-top-color: rgba(0, 245, 155, 0.15); }
+:global(.dark) .chk-row--total { border-top-color: rgba(0, 245, 155, 0.15); }
 
 .payment-methods { display: flex; flex-direction: column; gap: 0.65rem; }
 
@@ -664,12 +664,12 @@ const handleExportExcel = () => {
   background: rgba(0, 168, 107, 0.08);
 }
 
-.dark .pm-option {
+:global(.dark) .pm-option {
   background: rgba(16, 28, 22, 0.6);
   border-color: rgba(0, 245, 155, 0.15);
 }
 
-.dark .pm-option--active {
+:global(.dark) .pm-option--active {
   border-color: #00f59b;
   background: rgba(0, 245, 155, 0.12);
 }
@@ -678,7 +678,7 @@ const handleExportExcel = () => {
 .pm-icon { font-size: 1.4rem; }
 .pm-info { display: flex; flex-direction: column; }
 .pm-name { font-size: 0.84rem; color: var(--color-ink-900); }
-.dark .pm-name { color: #f1faf5; }
+:global(.dark) .pm-name { color: #f1faf5; }
 .pm-desc { font-size: 0.68rem; color: var(--color-ink-400); }
 
 .transfer-box {
@@ -692,7 +692,7 @@ const handleExportExcel = () => {
   gap: 0.25rem;
 }
 
-.dark .transfer-box {
+:global(.dark) .transfer-box {
   background: rgba(0, 245, 155, 0.08);
   border-color: rgba(0, 245, 155, 0.2);
 }
@@ -710,7 +710,7 @@ const handleExportExcel = () => {
   gap: 0.75rem;
 }
 
-.dark .cashea-breakdown-box {
+:global(.dark) .cashea-breakdown-box {
   background: #191407;
   border-color: rgba(245, 158, 11, 0.4);
 }
@@ -752,7 +752,7 @@ const handleExportExcel = () => {
   border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
-.dark .cashea-badge-0 {
+:global(.dark) .cashea-badge-0 {
   background: #291f05;
   color: #fcd34d;
 }
@@ -764,7 +764,7 @@ const handleExportExcel = () => {
   line-height: 1.35;
 }
 
-.dark .cashea-desc { color: #fde68a; }
+:global(.dark) .cashea-desc { color: #fde68a; }
 
 .cashea-schedule {
   display: flex;
@@ -777,7 +777,7 @@ const handleExportExcel = () => {
   border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
-.dark .cashea-schedule {
+:global(.dark) .cashea-schedule {
   background: rgba(0, 0, 0, 0.3);
 }
 
@@ -787,7 +787,7 @@ const handleExportExcel = () => {
   color: #451a03;
 }
 
-.dark .cashea-row { color: #fef3c7; }
+:global(.dark) .cashea-row { color: #fef3c7; }
 
 .cashea-row--initial {
   font-weight: 800;
@@ -797,7 +797,7 @@ const handleExportExcel = () => {
   margin-bottom: 0.15rem;
 }
 
-.dark .cashea-row--initial { color: #fbbf24; }
+:global(.dark) .cashea-row--initial { color: #fbbf24; }
 
 .cashea-code-group {
   display: flex;
@@ -811,7 +811,7 @@ const handleExportExcel = () => {
   color: #78350f;
 }
 
-.dark .cashea-label { color: #fcd34d; }
+:global(.dark) .cashea-label { color: #fcd34d; }
 
 .modal-actions { display: flex; justify-content: flex-end; gap: 0.75rem; }
 </style>
