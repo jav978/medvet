@@ -325,7 +325,7 @@ const handleLogout = async () => {
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-.dark .layout-root {
+:global(.dark) .layout-root {
   background-color: #040706;
   color: #e7f2f1;
 }
@@ -384,7 +384,7 @@ const handleLogout = async () => {
   transition: background 0.25s ease;
 }
 
-.dark .site-header {
+:global(.dark) .site-header {
   background: rgba(4, 7, 6, 0.85);
   border-bottom-color: rgba(0, 245, 155, 0.15);
 }
@@ -428,7 +428,7 @@ const handleLogout = async () => {
   height: 1.2rem;
 }
 
-.dark .brand-icon {
+:global(.dark) .brand-icon {
   background: #00f59b;
   color: #040706;
   box-shadow: 0 0 16px rgba(0, 245, 155, 0.4);
@@ -448,11 +448,11 @@ const handleLogout = async () => {
   color: var(--color-ink-900);
 }
 
-.dark .brand-name { color: #f1faf5; }
+:global(.dark) .brand-name { color: #f1faf5; }
 
 .brand-name-accent { color: #00a86b; }
 
-.dark .brand-name-accent { color: #00f59b; }
+:global(.dark) .brand-name-accent { color: #00f59b; }
 
 .brand-tagline {
   font-size: 0.6rem;
@@ -503,9 +503,9 @@ const handleLogout = async () => {
   background: var(--color-forest-100);
 }
 
-.dark .nav-link { color: #8ca395; }
+:global(.dark) .nav-link { color: #8ca395; }
 
-.dark .nav-link:hover {
+:global(.dark) .nav-link:hover {
   color: #ffffff;
   background: rgba(0, 245, 155, 0.1);
 }
@@ -516,7 +516,7 @@ const handleLogout = async () => {
   background: var(--color-forest-100) !important;
 }
 
-.dark .nav-link--active {
+:global(.dark) .nav-link--active {
   color: #00f59b !important;
   background: rgba(0, 245, 155, 0.14) !important;
 }
@@ -555,7 +555,7 @@ const handleLogout = async () => {
   max-width: 180px;
 }
 
-.dark .user-chip {
+:global(.dark) .user-chip {
   background: rgba(16, 28, 22, 0.6);
   border-color: rgba(0, 245, 155, 0.2);
 }
@@ -574,7 +574,7 @@ const handleLogout = async () => {
   white-space: nowrap;
 }
 
-.dark .user-chip-email {
+:global(.dark) .user-chip-email {
   color: #c8e0d4;
 }
 
@@ -598,7 +598,7 @@ const handleLogout = async () => {
   transition: background 0.2s ease, border-color 0.2s ease;
 }
 
-.dark .theme-toggle {
+:global(.dark) .theme-toggle {
   background: rgba(16, 28, 22, 0.8);
   border-color: rgba(0, 245, 155, 0.28);
 }
@@ -661,7 +661,7 @@ const handleLogout = async () => {
 
 .mobile-icon-btn:hover { background: var(--color-cream-300); }
 
-.dark .mobile-icon-btn {
+:global(.dark) .mobile-icon-btn {
   background: rgba(16, 28, 22, 0.8);
   border: 1px solid rgba(0, 245, 155, 0.2);
   color: #00f59b;
@@ -675,7 +675,7 @@ const handleLogout = async () => {
   background: var(--color-cream-50);
 }
 
-.dark .mobile-menu {
+:global(.dark) .mobile-menu {
   border-top-color: rgba(0, 245, 155, 0.15);
   background: #060c09;
 }
@@ -705,9 +705,9 @@ const handleLogout = async () => {
   color: var(--color-forest-800);
 }
 
-.dark .mobile-nav-link { color: #8ca395; }
+:global(.dark) .mobile-nav-link { color: #8ca395; }
 
-.dark .mobile-nav-link:hover {
+:global(.dark) .mobile-nav-link:hover {
   background: rgba(0, 245, 155, 0.1);
   color: #ffffff;
 }
@@ -718,7 +718,7 @@ const handleLogout = async () => {
   margin: 0.5rem 0;
 }
 
-.dark .mobile-nav-divider { background: rgba(0, 245, 155, 0.15); }
+:global(.dark) .mobile-nav-divider { background: rgba(0, 245, 155, 0.15); }
 
 .mobile-logout {
   width: 100%;
@@ -770,7 +770,7 @@ const handleLogout = async () => {
   margin: 0;
 }
 
-.dark .site-footer {
+:global(.dark) .site-footer {
   background-color: #040706;
   color: #94a3b8;
   border-top: 1px solid rgba(0, 245, 155, 0.12);
@@ -818,7 +818,7 @@ const handleLogout = async () => {
   border: 1px solid rgba(0, 168, 107, 0.25);
 }
 
-.dark .footer-brand-icon {
+:global(.dark) .footer-brand-icon {
   background: rgba(0, 245, 155, 0.15);
   border-color: rgba(0, 245, 155, 0.3);
 }
@@ -829,7 +829,7 @@ const handleLogout = async () => {
   fill: #00a86b;
 }
 
-.dark .footer-brand-icon svg {
+:global(.dark) .footer-brand-icon svg {
   fill: #00f59b;
 }
 
@@ -841,7 +841,7 @@ const handleLogout = async () => {
   letter-spacing: -0.02em;
 }
 
-.dark .footer-brand-name {
+:global(.dark) .footer-brand-name {
   color: #f8fafc;
 }
 
@@ -849,7 +849,7 @@ const handleLogout = async () => {
   color: #00a86b;
 }
 
-.dark .footer-brand-name span {
+:global(.dark) .footer-brand-name span {
   color: #00f59b;
 }
 
@@ -861,7 +861,7 @@ const handleLogout = async () => {
   color: var(--color-ink-500);
 }
 
-.dark .footer-brand-desc {
+:global(.dark) .footer-brand-desc {
   color: #94a3b8;
 }
 
@@ -873,7 +873,7 @@ const handleLogout = async () => {
   color: var(--color-ink-500);
 }
 
-.dark .footer-open {
+:global(.dark) .footer-open {
   color: #64748b;
 }
 
@@ -886,7 +886,7 @@ const handleLogout = async () => {
   flex-shrink: 0;
 }
 
-.dark .footer-open-dot {
+:global(.dark) .footer-open-dot {
   background: #00f59b;
 }
 
@@ -901,7 +901,7 @@ const handleLogout = async () => {
   margin: 0 0 1rem;
 }
 
-.dark .footer-col-title {
+:global(.dark) .footer-col-title {
   color: #cbd5e1;
 }
 
@@ -925,11 +925,11 @@ const handleLogout = async () => {
   color: #00a86b;
 }
 
-.dark .footer-links li a {
+:global(.dark) .footer-links li a {
   color: #94a3b8;
 }
 
-.dark .footer-links li a:hover {
+:global(.dark) .footer-links li a:hover {
   color: #00f59b;
 }
 
@@ -951,7 +951,7 @@ const handleLogout = async () => {
   color: var(--color-ink-600);
 }
 
-.dark .footer-contact li {
+:global(.dark) .footer-contact li {
   color: #94a3b8;
 }
 
@@ -965,7 +965,7 @@ const handleLogout = async () => {
   color: #00a86b;
 }
 
-.dark .footer-contact li a:hover {
+:global(.dark) .footer-contact li a:hover {
   color: #00f59b;
 }
 
@@ -989,7 +989,7 @@ const handleLogout = async () => {
   color: #00a86b;
 }
 
-.dark .schedule-tag {
+:global(.dark) .schedule-tag {
   color: #00f59b;
 }
 

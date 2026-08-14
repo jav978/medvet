@@ -157,6 +157,16 @@ html.dark body,
   color: var(--color-ink-900);
 }
 
+html.dark p,
+.dark p {
+  color: var(--color-ink-600);
+}
+
+html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6,
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  color: var(--color-ink-900);
+}
+
 #__nuxt {
   overflow-x: hidden;
   max-width: 100%;

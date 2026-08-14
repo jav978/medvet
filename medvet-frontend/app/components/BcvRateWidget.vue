@@ -467,8 +467,8 @@ const formattedDate = computed(() => {
 }
 
 :global(.dark) .bcv-rate-display {
-  background: rgba(0, 245, 155, 0.04);
-  border-color: rgba(0, 245, 155, 0.15);
+  background: rgba(16, 28, 22, 0.85);
+  border: 1px solid rgba(0, 245, 155, 0.2);
 }
 
 .rate-equation {
@@ -479,7 +479,6 @@ const formattedDate = computed(() => {
 
 :global(.dark) .rate-equation {
   color: #00f59b;
-  text-shadow: 0 0 10px rgba(0, 245, 155, 0.3);
 }
 
 .rate-meta-row {
@@ -492,7 +491,7 @@ const formattedDate = computed(() => {
 }
 
 :global(.dark) .rate-meta-row {
-  color: rgba(223, 240, 238, 0.6);
+  color: #94a3b8;
 }
 
 .rate-status-badge {
@@ -528,7 +527,7 @@ const formattedDate = computed(() => {
 }
 
 :global(.dark) .mode-label {
-  color: rgba(223, 240, 238, 0.8);
+  color: #cbd5e1;
 }
 
 .mode-buttons-grid {
@@ -551,8 +550,8 @@ const formattedDate = computed(() => {
 }
 
 :global(.dark) .mode-choice-btn {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(16, 28, 22, 0.7);
+  border-color: rgba(0, 245, 155, 0.15);
 }
 
 .mode-choice-btn strong {
@@ -562,7 +561,7 @@ const formattedDate = computed(() => {
 }
 
 :global(.dark) .mode-choice-btn strong {
-  color: #f1f5f9;
+  color: #f8fafc;
 }
 
 .mode-choice-btn small {
@@ -572,7 +571,7 @@ const formattedDate = computed(() => {
 }
 
 :global(.dark) .mode-choice-btn small {
-  color: rgba(223, 240, 238, 0.5);
+  color: #94a3b8;
 }
 
 .mode-choice-btn.selected {
@@ -601,8 +600,8 @@ const formattedDate = computed(() => {
 }
 
 :global(.dark) .bcv-calculator {
-  background: rgba(255, 255, 255, 0.02);
-  border-color: rgba(255, 255, 255, 0.06);
+  background: rgba(16, 28, 22, 0.7);
+  border-color: rgba(0, 245, 155, 0.18);
 }
 
 .calc-title {
@@ -612,7 +611,7 @@ const formattedDate = computed(() => {
 }
 
 :global(.dark) .calc-title {
-  color: rgba(223, 240, 238, 0.8);
+  color: #cbd5e1;
 }
 
 .calc-grid {
@@ -635,7 +634,7 @@ const formattedDate = computed(() => {
 }
 
 :global(.dark) .calc-field label {
-  color: rgba(223, 240, 238, 0.5);
+  color: #94a3b8;
 }
 
 .calc-input-wrap {
@@ -665,9 +664,9 @@ const formattedDate = computed(() => {
 }
 
 :global(.dark) .calc-input {
-  background: rgba(0, 0, 0, 0.4);
-  border-color: rgba(255, 255, 255, 0.15);
-  color: #00f59b;
+  background: rgba(10, 17, 14, 0.9);
+  border-color: rgba(0, 245, 155, 0.22);
+  color: #f1faf5;
 }
 
 .calc-equals {
@@ -686,7 +685,7 @@ const formattedDate = computed(() => {
 }
 
 :global(.dark) .bcv-card-footer {
-  color: rgba(223, 240, 238, 0.5);
+  color: #94a3b8;
 }
 
 /* Animations */
