@@ -750,6 +750,9 @@ const handleLogout = async () => {
 ──────────────────────────────────────── */
 .site-main {
   flex: 1;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* ────────────────────────────────────────
@@ -764,11 +767,12 @@ const handleLogout = async () => {
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
+  margin: 0;
 }
 
 .dark .site-footer {
-  background: #040706;
-  color: rgba(223, 240, 238, 0.65);
+  background-color: #040706;
+  color: #94a3b8;
   border-top: 1px solid rgba(0, 245, 155, 0.12);
 }
 

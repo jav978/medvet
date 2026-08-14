@@ -102,13 +102,13 @@
   --color-cream-300: #1f3328;
   --color-cream-400: #385645;
 
-  /* Texto claro */
-  --color-ink-900: #ffffff;
-  --color-ink-700: #f1faf5;
-  --color-ink-600: #d6e8de;
-  --color-ink-500: #8ca395;
-  --color-ink-400: #5c7365;
-  --color-ink-300: #3b4d42;
+  /* Texto en Dark Mode — Suave, elegante y descansado sin deslumbramiento */
+  --color-ink-900: #f8fafc;
+  --color-ink-700: #cbd5e1;
+  --color-ink-600: #94a3b8;
+  --color-ink-500: #64748b;
+  --color-ink-400: #475569;
+  --color-ink-300: #334155;
 
   /* Alertas — Rose */
   --color-coral-glow: #fb7185;
@@ -128,6 +128,12 @@ html {
   overflow-x: hidden;
   max-width: 100%;
   width: 100%;
+  background-color: var(--color-cream-100);
+}
+
+html.dark,
+.dark {
+  background-color: #040706;
 }
 
 body {
@@ -137,6 +143,7 @@ body {
   overflow-x: hidden;
   max-width: 100%;
   width: 100%;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
@@ -144,11 +151,18 @@ body {
   line-height: 1.6;
 }
 
+html.dark body,
+.dark body {
+  background-color: #040706;
+  color: var(--color-ink-900);
+}
+
 #__nuxt {
   overflow-x: hidden;
   max-width: 100%;
   width: 100%;
   min-height: 100vh;
+  background-color: inherit;
 }
 
 /* =====================

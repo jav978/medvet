@@ -772,7 +772,9 @@ onMounted(async () => {
   min-height: 85vh;
   padding: 3.5rem 1.5rem 6rem;
   background-color: var(--color-cream-100);
-  overflow: hidden;
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
 }
 
 .dark .book-page {
@@ -785,10 +787,12 @@ onMounted(async () => {
   left: 50%;
   transform: translateX(-50%);
   width: 900px;
+  max-width: 100vw;
   height: 480px;
-  background: radial-gradient(ellipse 800px 400px at 50% 0%, rgba(0, 245, 155, 0.18) 0%, rgba(0, 168, 107, 0.05) 50%, transparent 80%);
+  background: radial-gradient(ellipse 800px 400px at 50% 0%, rgba(0, 245, 155, 0.12) 0%, rgba(0, 168, 107, 0.03) 50%, transparent 80%);
   filter: blur(40px);
   pointer-events: none;
+  overflow: hidden;
   z-index: 0;
 }
 
@@ -800,6 +804,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: 2.25rem;
+  width: 100%;
 }
 
 /* Header */
@@ -807,6 +812,7 @@ onMounted(async () => {
   text-align: center;
   max-width: 620px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .book-title {
@@ -819,7 +825,7 @@ onMounted(async () => {
   line-height: 1.15;
 }
 
-.dark .book-title { color: #f1faf5; }
+.dark .book-title { color: #f8fafc; }
 
 .book-subtitle {
   font-size: 0.9375rem;
@@ -828,7 +834,7 @@ onMounted(async () => {
   margin: 0;
 }
 
-.dark .book-subtitle { color: #8ca395; }
+.dark .book-subtitle { color: #94a3b8; }
 
 /* ────────────────────────────────────────
    STEPPER
@@ -981,7 +987,7 @@ onMounted(async () => {
   margin: 0;
 }
 
-.dark .step-title { color: #f1faf5; }
+.dark .step-title { color: #f8fafc; }
 
 .step-hint {
   font-size: 0.8125rem;
@@ -989,7 +995,7 @@ onMounted(async () => {
   margin: 0.2rem 0 0;
 }
 
-.dark .step-hint { color: #8ca395; }
+.dark .step-hint { color: #94a3b8; }
 
 .step-count {
   font-size: 0.75rem;
@@ -1220,7 +1226,7 @@ onMounted(async () => {
   line-height: 1.25;
 }
 
-.dark .pick-name { color: #f1faf5; }
+.dark .pick-name { color: #f8fafc; }
 
 .pick-desc {
   font-size: 0.8125rem;
@@ -1230,7 +1236,7 @@ onMounted(async () => {
   margin: 0;
 }
 
-.dark .pick-desc { color: #8ca395; }
+.dark .pick-desc { color: #94a3b8; }
 
 .pick-price-row {
   display: flex;
@@ -1450,7 +1456,7 @@ onMounted(async () => {
   margin: 0;
 }
 
-.dark .pet-name { color: #f1faf5; }
+.dark .pet-name { color: #f8fafc; }
 
 .pet-species-badge {
   font-size: 0.65rem;
@@ -1475,7 +1481,7 @@ onMounted(async () => {
   text-overflow: ellipsis;
 }
 
-.dark .pet-meta { color: #8ca395; }
+.dark .pet-meta { color: #94a3b8; }
 
 .pet-stats {
   font-size: 0.72rem;
@@ -1755,7 +1761,7 @@ onMounted(async () => {
   color: var(--color-ink-900);
 }
 
-.dark .shift-title { color: #f1faf5; }
+.dark .shift-title { color: #f8fafc; }
 
 .shift-badge {
   font-size: 0.7rem;
@@ -1886,7 +1892,7 @@ onMounted(async () => {
   color: var(--color-ink-900);
 }
 
-.dark .ticket-brand-title { color: #f1faf5; }
+.dark .ticket-brand-title { color: #f8fafc; }
 
 .ticket-brand-sub {
   display: block;
@@ -1932,10 +1938,10 @@ onMounted(async () => {
   color: var(--color-ink-900);
 }
 
-.dark .ticket-cell-val { color: #f1faf5; }
+.dark .ticket-cell-val { color: #f8fafc; }
 
 .ticket-cell-sub { font-size: 0.75rem; color: var(--color-ink-500); }
-.dark .ticket-cell-sub { color: #8ca395; }
+.dark .ticket-cell-sub { color: #94a3b8; }
 
 .ticket-total-bar {
   display: flex;
@@ -1959,7 +1965,7 @@ onMounted(async () => {
   color: var(--color-ink-900);
 }
 
-.dark .ticket-total-label { color: #f1faf5; }
+.dark .ticket-total-label { color: #f8fafc; }
 
 .ticket-total-col {
   display: flex;
@@ -2005,9 +2011,9 @@ onMounted(async () => {
 
 .guest-icon { font-size: 1.25rem; flex-shrink: 0; }
 .guest-title { font-size: 0.875rem; color: var(--color-ink-900); }
-.dark .guest-title { color: #f1faf5; }
+.dark .guest-title { color: #f8fafc; }
 .guest-text { font-size: 0.8125rem; color: var(--color-ink-500); margin: 0.2rem 0 0; }
-.dark .guest-text { color: #8ca395; }
+.dark .guest-text { color: #94a3b8; }
 .guest-link { color: #00a86b; font-weight: 700; text-decoration: underline; }
 .dark .guest-link { color: #00f59b; }
 
