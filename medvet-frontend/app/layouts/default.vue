@@ -146,33 +146,6 @@
               <span class="footer-open-dot"></span>
               <span>Clínica abierta hoy</span>
             </div>
-
-            <!-- Social Networks & Developer Credits -->
-            <div class="footer-social-wrapper">
-              <span class="footer-social-title">Redes & Contacto:</span>
-              <div class="footer-social-icons">
-                <a href="https://wa.me/5491112345678" target="_blank" rel="noopener noreferrer" class="social-icon-btn whatsapp" title="WhatsApp Urgencias & Consultas">
-                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 1.764.845 2.796.845h.005c3.18 0 5.767-2.587 5.768-5.766 0-3.18-2.588-5.767-5.768-5.767zm3.385 8.163c-.144.405-.837.774-1.17.822-.311.045-.71.074-2.029-.472-1.685-.697-2.766-2.42-2.85-2.532-.084-.112-.684-.912-.684-1.739 0-.827.433-1.233.587-1.39.144-.146.338-.212.45-.212.112 0 .225.002.324.007.104.005.244-.04.382.292.144.346.491 1.198.535 1.286.044.088.073.19.015.305-.058.115-.088.187-.174.288-.088.101-.184.225-.263.303-.09.088-.183.184-.079.362.105.178.468.772 1.004 1.25 1.004.894 1.543 1.171 1.761 1.279.218.108.347.09.477-.058.13-.148.558-.65.706-.874.148-.224.296-.187.498-.112.202.075 1.284.606 1.505.717.221.111.368.166.423.259.055.093.055.539-.089.944z"/></svg>
-                </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn instagram" title="Instagram Oficial">
-                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                </a>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn facebook" title="Facebook Oficial">
-                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                </a>
-                <a href="mailto:jvasquez978@gmail.com" class="social-icon-btn mail" title="Correo Directo: jvasquez978@gmail.com">
-                  <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
-                </a>
-              </div>
-            </div>
-
-            <div class="footer-dev-badge">
-              <span class="dev-tag">Desarrollador:</span>
-              <span class="dev-author">Javier Vásquez (jav1978)</span>
-              <a href="mailto:jvasquez978@gmail.com" class="dev-email-chip">
-                <span>✉️</span> jvasquez978@gmail.com
-              </a>
-            </div>
           </div>
 
           <!-- Services -->
@@ -227,14 +200,46 @@
           </div>
         </div>
 
-        <div class="footer-bottom">
-          <div class="footer-bottom-info">
-            <p>© 2026 MedVet Clinical Systems. Todos los derechos reservados.</p>
-            <span class="footer-bullet-sep">•</span>
-            <p class="footer-dev-credit-text">
-              Desarrollado por <a href="mailto:jvasquez978@gmail.com" class="dev-inline-link">Javier Vásquez (jav1978)</a>
-            </p>
+        <!-- Developer Signature & Personal Social Networks Strip -->
+        <div class="footer-dev-strip">
+          <div class="dev-author-box">
+            <span class="dev-icon-badge">👨‍💻</span>
+            <div class="dev-meta">
+              <span class="dev-lead-caption">Desarrollado y Diseñado por:</span>
+              <strong class="dev-lead-name">José Vásquez</strong>
+            </div>
+            <a href="mailto:jvasquez978@gmail.com" class="dev-mail-pill" title="Escribir a José Vásquez">
+              <svg viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+              <span>jvasquez978@gmail.com</span>
+            </a>
           </div>
+
+          <div class="dev-socials-box">
+            <span class="dev-socials-caption">Redes del Desarrollador:</span>
+            <div class="dev-social-buttons">
+              <a href="https://wa.me/5491112345678" target="_blank" rel="noopener noreferrer" class="dev-social-btn wa" title="WhatsApp: José Vásquez">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 1.764.845 2.796.845h.005c3.18 0 5.767-2.587 5.768-5.766 0-3.18-2.588-5.767-5.768-5.767zm3.385 8.163c-.144.405-.837.774-1.17.822-.311.045-.71.074-2.029-.472-1.685-.697-2.766-2.42-2.85-2.532-.084-.112-.684-.912-.684-1.739 0-.827.433-1.233.587-1.39.144-.146.338-.212.45-.212.112 0 .225.002.324.007.104.005.244-.04.382.292.144.346.491 1.198.535 1.286.044.088.073.19.015.305-.058.115-.088.187-.174.288-.088.101-.184.225-.263.303-.09.088-.183.184-.079.362.105.178.468.772 1.004 1.25 1.004.894 1.543 1.171 1.761 1.279.218.108.347.09.477-.058.13-.148.558-.65.706-.874.148-.224.296-.187.498-.112.202.075 1.284.606 1.505.717.221.111.368.166.423.259.055.093.055.539-.089.944z"/></svg>
+                <span>WhatsApp</span>
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="dev-social-btn ig" title="Instagram: José Vásquez">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                <span>Instagram</span>
+              </a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="dev-social-btn fb" title="Facebook: José Vásquez">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                <span>Facebook</span>
+              </a>
+              <a href="mailto:jvasquez978@gmail.com" class="dev-social-btn ml" title="Email: jvasquez978@gmail.com">
+                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+                <span>Email</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="footer-bottom">
+          <p class="footer-copy-text">© 2026 MedVet Clinical Systems. Todos los derechos reservados.</p>
           <div class="footer-bottom-links">
             <button type="button" @click="clinicalInfoModalOpen = true" class="footer-modal-trigger-btn">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -960,155 +965,188 @@ const handleLogout = async () => {
   color: #00f59b;
 }
 
-/* Social & Developer Credits */
-.footer-social-wrapper {
-  margin-top: 1.25rem;
+/* ────────────────────────────────────────
+   DEVELOPER SIGNATURE & PERSONAL SOCIALS STRIP
+──────────────────────────────────────── */
+.footer-dev-strip {
+  margin-top: 2rem;
+  padding: 1rem 1.25rem;
+  background: rgba(0, 168, 107, 0.04);
+  border: 1px solid rgba(0, 168, 107, 0.12);
+  border-radius: 0.875rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+:global(.dark) .footer-dev-strip {
+  background: rgba(0, 245, 155, 0.03);
+  border-color: rgba(0, 245, 155, 0.15);
+}
+
+.dev-author-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.dev-icon-badge {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.dev-meta {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 }
 
-.footer-social-title {
-  font-size: 0.725rem;
-  font-weight: 700;
+.dev-lead-caption {
+  font-size: 0.675rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--color-ink-700);
+  font-weight: 700;
+  color: #059669;
 }
 
-:global(.dark) .footer-social-title {
+:global(.dark) .dev-lead-caption {
+  color: #00f59b;
+}
+
+.dev-lead-name {
+  font-size: 0.925rem;
+  font-weight: 700;
+  color: var(--color-ink-900);
+}
+
+:global(.dark) .dev-lead-name {
+  color: #f1f5f9;
+}
+
+.dev-mail-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  background: rgba(2, 132, 199, 0.08);
+  border: 1px solid rgba(2, 132, 199, 0.2);
+  border-radius: 9999px;
+  color: #0284c7;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.dev-mail-pill:hover {
+  background: rgba(2, 132, 199, 0.16);
+  color: #0369a1;
+  border-color: #0284c7;
+}
+
+:global(.dark) .dev-mail-pill {
+  background: rgba(56, 189, 248, 0.1);
+  border-color: rgba(56, 189, 248, 0.25);
+  color: #38bdf8;
+}
+
+:global(.dark) .dev-mail-pill:hover {
+  background: rgba(56, 189, 248, 0.2);
+  color: #7dd3fc;
+  border-color: #38bdf8;
+}
+
+.dev-socials-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.dev-socials-caption {
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--color-ink-600);
+}
+
+:global(.dark) .dev-socials-caption {
   color: rgba(223, 240, 238, 0.7);
 }
 
-.footer-social-icons {
+.dev-social-buttons {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
-.social-icon-btn {
-  width: 2rem;
-  height: 2rem;
+.dev-social-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
   border-radius: 0.5rem;
+  text-decoration: none;
   background: #f1f5f9;
   color: #475569;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #cbd5e1;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  text-decoration: none;
 }
 
-:global(.dark) .social-icon-btn {
+:global(.dark) .dev-social-btn {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.1);
   color: #94a3b8;
 }
 
-.social-icon-btn:hover {
+.dev-social-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
-.social-icon-btn.whatsapp:hover {
+.dev-social-btn.wa:hover {
   background: #25d366;
   color: #ffffff;
   border-color: #25d366;
 }
 
-.social-icon-btn.instagram:hover {
+.dev-social-btn.ig:hover {
   background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
   color: #ffffff;
   border-color: #d6249f;
 }
 
-.social-icon-btn.facebook:hover {
+.dev-social-btn.fb:hover {
   background: #1877f2;
   color: #ffffff;
   border-color: #1877f2;
 }
 
-.social-icon-btn.mail:hover {
+.dev-social-btn.ml:hover {
   background: #0ea5e9;
   color: #ffffff;
   border-color: #0ea5e9;
 }
 
-.footer-dev-badge {
-  margin-top: 1rem;
-  padding: 0.625rem 0.75rem;
-  background: rgba(0, 168, 107, 0.06);
-  border: 1px solid rgba(0, 168, 107, 0.18);
-  border-radius: 0.625rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-:global(.dark) .footer-dev-badge {
-  background: rgba(0, 245, 155, 0.06);
-  border-color: rgba(0, 245, 155, 0.18);
-}
-
-.dev-tag {
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #059669;
-}
-
-:global(.dark) .dev-tag {
-  color: #00f59b;
-}
-
-.dev-author {
-  font-size: 0.775rem;
-  font-weight: 600;
-  color: var(--color-ink-800);
-}
-
-:global(.dark) .dev-author {
-  color: #f1f5f9;
-}
-
-.dev-email-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 0.725rem;
-  color: #0284c7;
-  text-decoration: none;
-  transition: color 0.15s ease;
-}
-
-.dev-email-chip:hover {
-  color: #0369a1;
-  text-decoration: underline;
-}
-
-:global(.dark) .dev-email-chip {
-  color: #38bdf8;
-}
-
-:global(.dark) .dev-email-chip:hover {
-  color: #7dd3fc;
-}
-
-/* Bottom bar */
+/* ────────────────────────────────────────
+   BOTTOM BAR & MODAL TRIGGER BUTTONS
+──────────────────────────────────────── */
 .footer-bottom {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
   border-top: 1px solid #e2e8f0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  font-size: 0.75rem;
+  font-size: 0.775rem;
   color: var(--color-ink-500);
-  padding-right: 5.5rem; /* Safe area for floating WhatsApp button */
+  padding-right: 5rem; /* Safe area for floating WhatsApp button */
 }
 
 @media (max-width: 768px) {
@@ -1122,40 +1160,11 @@ const handleLogout = async () => {
 
 :global(.dark) .footer-bottom {
   border-top-color: rgba(255, 255, 255, 0.08);
-  color: rgba(200, 232, 200, 0.45);
+  color: rgba(200, 232, 200, 0.5);
 }
 
-.footer-bottom-info {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.footer-bullet-sep {
-  color: var(--color-ink-300);
-}
-
-:global(.dark) .footer-bullet-sep {
-  color: rgba(255, 255, 255, 0.2);
-}
-
-.footer-dev-credit-text {
+.footer-copy-text {
   margin: 0;
-}
-
-.dev-inline-link {
-  font-weight: 600;
-  color: #059669;
-  text-decoration: none;
-}
-
-.dev-inline-link:hover {
-  text-decoration: underline;
-}
-
-:global(.dark) .dev-inline-link {
-  color: #00f59b;
 }
 
 .footer-bottom-links {
@@ -1167,34 +1176,37 @@ const handleLogout = async () => {
 .footer-modal-trigger-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
-  padding: 0.35rem 0.65rem;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
   font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--color-ink-600);
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
+  font-weight: 600;
   border-radius: 0.5rem;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #334155;
 }
 
 .footer-modal-trigger-btn:hover {
-  color: #059669;
+  color: #047857;
   background: #ecfdf5;
-  border-color: #a7f3d0;
+  border-color: #6ee7b7;
+  transform: translateY(-1px);
 }
 
 :global(.dark) .footer-modal-trigger-btn {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.08);
-  color: #cbd5e1;
+  background: rgba(0, 245, 155, 0.08);
+  border: 1px solid rgba(0, 245, 155, 0.3);
+  color: #00f59b;
 }
 
 :global(.dark) .footer-modal-trigger-btn:hover {
-  background: rgba(0, 245, 155, 0.08);
-  border-color: rgba(0, 245, 155, 0.25);
-  color: #00f59b;
+  background: rgba(0, 245, 155, 0.16);
+  border-color: rgba(0, 245, 155, 0.55);
+  color: #5effc4;
+  box-shadow: 0 0 12px rgba(0, 245, 155, 0.2);
+  transform: translateY(-1px);
 }
 
 /* ────────────────────────────────────────

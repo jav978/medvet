@@ -314,40 +314,58 @@ onUnmounted(() => {
   color: #00f59b;
 }
 
-/* Floating Label Tag */
+/* Floating Label Tag (Visible only on hover or dynamic focus) */
 .btn-label-tag {
   position: absolute;
-  right: calc(100% + 14px);
+  right: calc(100% + 12px);
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) translateX(8px);
   background: #ffffff;
   color: #0d1f18;
-  padding: 0.45rem 0.85rem;
+  padding: 0.4rem 0.8rem;
   border-radius: 20px;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 700;
   white-space: nowrap;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   gap: 0.45rem;
   pointer-events: none;
   border: 1px solid #e2ebe5;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s;
 }
 
-.dark .btn-label-tag {
-  background: #0d1f18;
-  color: #f1faf5;
-  border-color: rgba(0, 245, 155, 0.25);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+.floating-trigger-btn:hover .btn-label-tag,
+.floating-trigger-btn:focus-visible .btn-label-tag {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+.dark .btn-label-tag,
+:global(.dark) .btn-label-tag {
+  background: #0b1c15;
+  color: #00f59b;
+  border-color: rgba(0, 245, 155, 0.35);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  .btn-label-tag {
+    display: none !important;
+  }
 }
 
 .tag-pulse {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #25d366;
   animation: tagPulse 1.5s infinite;
+  flex-shrink: 0;
 }
 
 @keyframes tagPulse {
