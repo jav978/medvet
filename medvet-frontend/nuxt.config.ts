@@ -11,9 +11,10 @@ export default defineNuxtConfig({
   ],
 
   colorMode: {
+    preference: 'dark',
+    fallback: 'dark',
     classSuffix: '',
-    preference: 'system',
-    fallback: 'light'
+    storageKey: 'medvet-theme'
   },
 
   ui: {
@@ -33,7 +34,7 @@ export default defineNuxtConfig({
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'description', content: 'Plataforma moderna de atención y reserva de citas veterinarias.' },
-        { name: 'color-scheme', content: 'light dark' }
+        { name: 'color-scheme', content: 'dark light' }
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
