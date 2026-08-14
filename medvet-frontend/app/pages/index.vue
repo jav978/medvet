@@ -518,9 +518,9 @@ onMounted(async () => {
 .hero-inner {
   position: relative;
   z-index: 1;
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 clamp(1.25rem, 2.5vw, 2.5rem);
   display: grid;
   grid-template-columns: 1.15fr 0.95fr;
   gap: 3.5rem;
@@ -1225,9 +1225,9 @@ onMounted(async () => {
    TRUST LOGOS BAR (Nuxt.com Style)
 ──────────────────────────────────────── */
 .hero-trust-bar {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 4.5rem auto 0;
-  padding: 0 1.5rem;
+  padding: 0 clamp(1.25rem, 2.5vw, 2.5rem);
   text-align: center;
 }
 
@@ -1284,9 +1284,9 @@ onMounted(async () => {
    SECTION COMMON
 ──────────────────────────────────────── */
 .section-inner {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 clamp(1.25rem, 2.5vw, 2.5rem);
 }
 
 .section-header {

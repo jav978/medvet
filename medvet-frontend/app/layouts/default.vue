@@ -66,7 +66,10 @@
           </button>
 
           <template v-if="authStore.isAuthenticated">
-            <span class="user-email">{{ authStore.user?.email }}</span>
+            <div class="user-chip" :title="authStore.user?.email">
+              <span class="user-chip-avatar">🐾</span>
+              <span class="user-chip-email">{{ authStore.user?.email }}</span>
+            </div>
             <button @click="handleLogout" class="btn-ghost btn-sm">Salir</button>
           </template>
 
@@ -308,13 +311,13 @@ const handleLogout = async () => {
 }
 
 .header-inner {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 1.5rem;
-  height: 68px;
+  padding: 0 clamp(1.25rem, 2.5vw, 2.5rem);
+  height: 72px;
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.25rem;
 }
 
 /* Brand */
@@ -385,11 +388,13 @@ const handleLogout = async () => {
 .desktop-nav {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.35rem;
   flex: 1;
+  margin: 0 0.5rem;
+  min-width: 0;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1040px) {
   .desktop-nav { display: none; }
 }
 
@@ -397,13 +402,21 @@ const handleLogout = async () => {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.45rem 0.85rem;
+  padding: 0.45rem 0.65rem;
   border-radius: 10px;
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-ink-500);
   text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: color 0.15s ease, background 0.15s ease;
+}
+
+@media (min-width: 1280px) {
+  .nav-link {
+    padding: 0.45rem 0.85rem;
+  }
 }
 
 .nav-link:hover {
@@ -448,13 +461,42 @@ const handleLogout = async () => {
   flex-shrink: 0;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1040px) {
   .desktop-actions { display: none; }
 }
 
-.user-email {
-  font-size: 0.8rem;
-  color: var(--color-ink-500);
+.user-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--color-cream-200);
+  border: 1px solid var(--color-cream-300);
+  max-width: 180px;
+}
+
+.dark .user-chip {
+  background: rgba(16, 28, 22, 0.6);
+  border-color: rgba(0, 245, 155, 0.2);
+}
+
+.user-chip-avatar {
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.user-chip-email {
+  font-size: 0.78rem;
+  color: var(--color-ink-700);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dark .user-chip-email {
+  color: #c8e0d4;
 }
 
 .btn-sm {
@@ -512,7 +554,7 @@ const handleLogout = async () => {
   margin-left: auto;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1040px) {
   .mobile-controls { display: flex; }
 }
 
@@ -560,9 +602,9 @@ const handleLogout = async () => {
 }
 
 .mobile-nav {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 1.25rem 1.5rem;
+  padding: 1.25rem clamp(1.25rem, 2.5vw, 2.5rem);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -649,9 +691,9 @@ const handleLogout = async () => {
 }
 
 .footer-inner {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 clamp(1.25rem, 2.5vw, 2.5rem);
 }
 
 .footer-grid {

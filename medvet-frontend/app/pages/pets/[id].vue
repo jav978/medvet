@@ -572,8 +572,9 @@ const handleDownloadLab = (lab) => {
 .record-inner {
   position: relative;
   z-index: 1;
-  max-width: 1080px;
+  max-width: 1440px;
   margin: 0 auto;
+  padding: 0 clamp(1.25rem, 2.5vw, 2.5rem);
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
