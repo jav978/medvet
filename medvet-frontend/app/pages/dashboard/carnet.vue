@@ -21,9 +21,9 @@
         </div>
 
         <div class="carnet-header-actions">
-          <button type="button" @click="handlePrint" class="btn-ghost carnet-header-btn">
+          <button type="button" @click="isPrintModalOpen = true" class="btn-ghost carnet-header-btn">
             <span>🖨️</span>
-            <span>Imprimir Carnet</span>
+            <span>Imprimir Carnet (PDF A4)</span>
           </button>
           <NuxtLink :to="`/book?pet=${currentPet?.id || '1'}`" class="btn-primary carnet-header-btn">
             <span>＋</span>
@@ -31,6 +31,13 @@
           </NuxtLink>
         </div>
       </div>
+
+      <!-- Printable A4 Dual-Face Credential Modal -->
+      <PrintableCarnetModal
+        :is-open="isPrintModalOpen"
+        :pet="currentPet"
+        @close="isPrintModalOpen = false"
+      />
 
       <!-- Pet Switcher Tabs -->
       <div class="pet-tabs" v-if="petsList.length">
@@ -204,6 +211,7 @@ const defaultPets = [
 
 const petsList = ref(defaultPets)
 const selectedPetId = ref('1')
+const isPrintModalOpen = ref(false)
 
 const currentPet = computed(() => {
   return petsList.value.find(p => String(p.id) === String(selectedPetId.value)) || petsList.value[0]

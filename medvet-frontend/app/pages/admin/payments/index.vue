@@ -18,6 +18,14 @@
       </div>
 
       <div class="admin-header-actions">
+        <button type="button" @click="handleExportExcel" class="btn-ghost">
+          <span>📊</span>
+          <span>Exportar a Excel</span>
+        </button>
+        <button type="button" @click="handlePrintReport" class="btn-ghost">
+          <span>🖨️</span>
+          <span>Imprimir Reporte</span>
+        </button>
         <button type="button" @click="showNewInvoiceModal = true" class="btn-primary">
           <span>＋</span>
           <span>Emitir Factura / Recibo</span>
@@ -30,23 +38,23 @@
       <div class="kpi-box">
         <span class="kpi-lbl">Recaudación de Hoy</span>
         <span class="kpi-amount font-mono-numbers text-mint">${{ todayRevenue.toLocaleString() }}</span>
-        <span class="kpi-note">12 transacciones registradas</span>
+        <span class="kpi-note">13 transacciones registradas</span>
       </div>
 
       <div class="kpi-box">
-        <span class="kpi-lbl">Cobros con MercadoPago / QR</span>
-        <span class="kpi-amount font-mono-numbers">${{ (todayRevenue * 0.55).toLocaleString() }}</span>
-        <span class="kpi-note">55% del volumen del día</span>
+        <span class="kpi-lbl">MercadoPago / QR & Tarjetas</span>
+        <span class="kpi-amount font-mono-numbers">${{ (todayRevenue * 0.50).toLocaleString() }}</span>
+        <span class="kpi-note">50% del volumen del día</span>
       </div>
 
       <div class="kpi-box">
-        <span class="kpi-lbl">Tarjetas de Débito / Crédito</span>
-        <span class="kpi-amount font-mono-numbers">${{ (todayRevenue * 0.30).toLocaleString() }}</span>
-        <span class="kpi-note">30% del volumen del día</span>
+        <span class="kpi-lbl">Cashea (3 Cuotas sin Interés)</span>
+        <span class="kpi-amount font-mono-numbers text-amber-500">${{ (todayRevenue * 0.35).toLocaleString() }}</span>
+        <span class="kpi-note">35% del volumen en cuotas</span>
       </div>
 
       <div class="kpi-box">
-        <span class="kpi-lbl">Efectivo en Caja</span>
+        <span class="kpi-lbl">Efectivo / Transferencia</span>
         <span class="kpi-amount font-mono-numbers">${{ (todayRevenue * 0.15).toLocaleString() }}</span>
         <span class="kpi-note">15% del volumen del día</span>
       </div>
@@ -136,6 +144,7 @@
             <div class="form-group">
               <label class="form-label">Medio de Cobro</label>
               <select v-model="newTx.method" class="form-input">
+                <option value="Cashea (3 Cuotas sin Interés)">Cashea (3 Cuotas sin Interés)</option>
                 <option value="MercadoPago / QR">MercadoPago / QR</option>
                 <option value="Tarjeta de Débito">Tarjeta de Débito</option>
                 <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
@@ -170,11 +179,12 @@ const searchQuery = ref('')
 const todayRevenue = ref(245000)
 
 const transactions = ref([
-  { id: 1, code: 'FAC-B-0001-0004991', time: '08:45', tutor: 'Juan Pérez', pet: 'Thor', concept: 'Consulta Clínica General', method: 'MercadoPago / QR', amount: 15000 },
+  { id: 1, code: 'FAC-B-0001-0004991', time: '08:45', tutor: 'Juan Pérez', pet: 'Thor', concept: 'Consulta Clínica General', method: 'Cashea (3 Cuotas sin Interés)', amount: 15000 },
   { id: 2, code: 'FAC-B-0001-0004992', time: '09:30', tutor: 'Carla Morales', pet: 'Luna', concept: 'Vacunación Triple Felina', method: 'Tarjeta de Débito', amount: 17500 },
   { id: 3, code: 'FAC-B-0001-0004993', time: '10:20', tutor: 'Martín Rossi', pet: 'Rocky', concept: 'Ecografía Abdominal Completa', method: 'Transferencia CBU', amount: 28000 },
   { id: 4, code: 'FAC-B-0001-0004994', time: '11:15', tutor: 'Sofía Álvarez', pet: 'Simba', concept: 'Consulta Dermatológica + Medicación', method: 'MercadoPago / QR', amount: 26000 },
-  { id: 5, code: 'FAC-B-0001-0004995', time: '12:00', tutor: 'Diego Fernández', pet: 'Coco', concept: 'Vacunación Antirrábica Obligatoria', method: 'Efectivo en Caja', amount: 12000 }
+  { id: 5, code: 'FAC-B-0001-0004995', time: '12:00', tutor: 'Diego Fernández', pet: 'Coco', concept: 'Vacunación Antirrábica Obligatoria', method: 'Efectivo en Caja', amount: 12000 },
+  { id: 6, code: 'FAC-B-0001-0004996', time: '12:45', tutor: 'Luciana Gómez', pet: 'Milo', concept: 'Perfil Bioquímico Completo', method: 'Cashea (3 Cuotas sin Interés)', amount: 32000 }
 ])
 
 const newTx = reactive({
@@ -182,7 +192,7 @@ const newTx = reactive({
   pet: '',
   concept: '',
   amount: null,
-  method: 'MercadoPago / QR'
+  method: 'Cashea (3 Cuotas sin Interés)'
 })
 
 const filteredTransactions = computed(() => {
@@ -211,7 +221,24 @@ const handleCreateInvoice = () => {
   transactions.value.unshift(tx)
   todayRevenue.value += tx.amount
   showNewInvoiceModal.value = false
-  Object.assign(newTx, { tutor: '', pet: '', concept: '', amount: null, method: 'MercadoPago / QR' })
+  Object.assign(newTx, { tutor: '', pet: '', concept: '', amount: null, method: 'Cashea (3 Cuotas sin Interés)' })
+}
+
+const handleExportExcel = () => {
+  const columns = [
+    { key: 'code', label: 'Nº Factura' },
+    { key: 'time', label: 'Hora' },
+    { key: 'tutor', label: 'Cliente / Tutor' },
+    { key: 'pet', label: 'Paciente' },
+    { key: 'concept', label: 'Concepto / Servicio' },
+    { key: 'method', label: 'Medio de Cobro' },
+    { key: 'amount', label: 'Importe ($)', formatter: (v) => `$${Number(v).toLocaleString()}` }
+  ]
+  exportToExcel(transactions.value, columns, 'Facturacion_Diaria_MedVet')
+}
+
+const handlePrintReport = () => {
+  if (typeof window !== 'undefined') window.print()
 }
 </script>
 

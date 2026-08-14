@@ -71,6 +71,12 @@
             <h2 class="panel-title">Historial de Comprobantes & Recibos</h2>
             <p class="panel-sub">Facturas electrónicas oficiales válidas ante AFIP/DGI</p>
           </div>
+          <div class="panel-actions">
+            <button type="button" @click="handleExportExcel" class="btn-ghost btn-sm">
+              <span>📊</span>
+              <span>Exportar a Excel</span>
+            </button>
+          </div>
         </div>
 
         <div class="table-wrap">
@@ -174,6 +180,47 @@
           </label>
         </div>
 
+        <!-- Cashea Breakdown Box -->
+        <div v-if="selectedPaymentMethod === 'cashea'" class="cashea-breakdown-box">
+          <div class="cashea-header">
+            <div class="cashea-logo-badge">
+              <span class="cashea-c">C</span>
+              <strong>cashea</strong>
+            </div>
+            <span class="cashea-badge-0">0% INTERÉS · 3 CUOTAS</span>
+          </div>
+          <p class="cashea-desc">
+            Aboná la inicial hoy y 3 cuotas quincenales sin interés a través de la App Cashea:
+          </p>
+          <div class="cashea-schedule font-mono-numbers">
+            <div class="cashea-row cashea-row--initial">
+              <span>Pago Inicial Hoy (40%):</span>
+              <strong>${{ Math.round((activeInvoice?.amount || 0) * 0.4).toLocaleString() }}</strong>
+            </div>
+            <div class="cashea-row">
+              <span>Cuota 1 (en 14 días):</span>
+              <span>${{ Math.round(((activeInvoice?.amount || 0) * 0.6) / 3).toLocaleString() }}</span>
+            </div>
+            <div class="cashea-row">
+              <span>Cuota 2 (en 28 días):</span>
+              <span>${{ Math.round(((activeInvoice?.amount || 0) * 0.6) / 3).toLocaleString() }}</span>
+            </div>
+            <div class="cashea-row">
+              <span>Cuota 3 (en 42 días):</span>
+              <span>${{ Math.round(((activeInvoice?.amount || 0) * 0.6) / 3).toLocaleString() }}</span>
+            </div>
+          </div>
+          <div class="cashea-code-group">
+            <label class="cashea-label">Código de Orden Cashea / App:</label>
+            <input
+              v-model="casheaCode"
+              type="text"
+              placeholder="Ej. CSH-8842-109"
+              class="form-input font-mono-numbers"
+            />
+          </div>
+        </div>
+
         <!-- Transfer CBU details if transfer chosen -->
         <div v-if="selectedPaymentMethod === 'transfer'" class="transfer-box font-mono-numbers">
           <div class="tf-row"><span>CBU:</span> <strong>0000003100012345678901</strong></div>
@@ -202,7 +249,8 @@ definePageMeta({
 
 const showCheckoutModal = ref(false)
 const activeInvoice = ref(null)
-const selectedPaymentMethod = ref('mp')
+const selectedPaymentMethod = ref('cashea')
+const casheaCode = ref('')
 const processingPayment = ref(false)
 
 const invoicesList = ref([
@@ -249,6 +297,7 @@ const invoicesList = ref([
 ])
 
 const paymentMethods = [
+  { id: 'cashea', icon: '💛', name: 'Cashea · Paga en 3 Cuotas sin Interés', desc: 'Inicial hoy (40%) y 3 cuotas quincenales a 0% interés' },
   { id: 'mp', icon: '📱', name: 'MercadoPago / QR Dinámico', desc: 'Débito, crédito o dinero en cuenta' },
   { id: 'card', icon: '💳', name: 'Tarjeta de Crédito / Débito', desc: 'Visa, Mastercard, Cabal' },
   { id: 'transfer', icon: '🏦', name: 'Transferencia Bancaria', desc: 'Acreditación instantánea por CBU/Alias' }
@@ -272,15 +321,30 @@ const handleProcessPayment = () => {
     processingPayment.value = false
     if (activeInvoice.value) {
       activeInvoice.value.status = 'paid'
-      activeInvoice.value.paymentMethod = 'MercadoPago / QR'
+      activeInvoice.value.paymentMethod = selectedPaymentMethod.value === 'cashea'
+        ? 'Cashea (3 Cuotas sin Interés)'
+        : (paymentMethods.find(m => m.id === selectedPaymentMethod.value)?.name || 'MercadoPago / QR')
     }
     showCheckoutModal.value = false
-    alert('¡Pago acreditado correctamente! Tu factura electrónica ha sido emitida.')
+    alert('¡Pago acreditado correctamente! Tu factura electrónica ha sido emitida con membrete oficial.')
   }, 1000)
 }
 
 const handlePrintInvoice = (inv) => {
   if (typeof window !== 'undefined') window.print()
+}
+
+const handleExportExcel = () => {
+  const columns = [
+    { key: 'code', label: 'Nº Comprobante' },
+    { key: 'date', label: 'Fecha' },
+    { key: 'service', label: 'Concepto / Servicio' },
+    { key: 'petName', label: 'Paciente' },
+    { key: 'paymentMethod', label: 'Método de Pago' },
+    { key: 'amount', label: 'Importe ($)', formatter: (v) => `$${Number(v).toLocaleString()}` },
+    { key: 'status', label: 'Estado', formatter: (v) => v === 'paid' ? 'Abonado' : 'Pendiente' }
+  ]
+  exportToExcel(invoicesList.value, columns, 'Mis_Facturas_MedVet')
 }
 </script>
 
@@ -633,6 +697,120 @@ const handlePrintInvoice = (inv) => {
 }
 
 .tf-row { display: flex; justify-content: space-between; }
+
+/* Cashea Breakdown Styling */
+.cashea-breakdown-box {
+  background: #fffbeb;
+  border: 1.5px solid #f59e0b;
+  border-radius: 14px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dark .cashea-breakdown-box {
+  background: #191407;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.cashea-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cashea-logo-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 1.05rem;
+  color: #d97706;
+}
+
+.cashea-c {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: #f59e0b;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 0.8rem;
+}
+
+.cashea-badge-0 {
+  font-size: 0.65rem;
+  font-weight: 800;
+  background: #fef3c7;
+  color: #92400e;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.dark .cashea-badge-0 {
+  background: #291f05;
+  color: #fcd34d;
+}
+
+.cashea-desc {
+  font-size: 0.75rem;
+  color: #78350f;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.dark .cashea-desc { color: #fde68a; }
+
+.cashea-schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0.65rem;
+  border-radius: 10px;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.dark .cashea-schedule {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.cashea-row {
+  display: flex;
+  justify-content: space-between;
+  color: #451a03;
+}
+
+.dark .cashea-row { color: #fef3c7; }
+
+.cashea-row--initial {
+  font-weight: 800;
+  color: #b45309;
+  border-bottom: 1px dashed rgba(245, 158, 11, 0.3);
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.15rem;
+}
+
+.dark .cashea-row--initial { color: #fbbf24; }
+
+.cashea-code-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.cashea-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #78350f;
+}
+
+.dark .cashea-label { color: #fcd34d; }
 
 .modal-actions { display: flex; justify-content: flex-end; gap: 0.75rem; }
 </style>

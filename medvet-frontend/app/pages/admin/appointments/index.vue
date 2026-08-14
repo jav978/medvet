@@ -1,11 +1,21 @@
 <template>
   <div>
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Gestionar Citas</h1>
-      <UButton @click="showFilters = !showFilters">
-        <UIcon name="i-heroicons-funnel" class="w-4 h-4 mr-2" />
-        Filtros
-      </UButton>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Gestionar Citas & Pacientes</h1>
+      <div class="flex items-center gap-2">
+        <UButton color="gray" variant="ghost" @click="handleExportExcel">
+          <UIcon name="i-heroicons-arrow-down-tray" class="w-4 h-4 mr-2" />
+          Exportar Excel
+        </UButton>
+        <UButton color="gray" variant="ghost" @click="handlePrintAgenda">
+          <UIcon name="i-heroicons-printer" class="w-4 h-4 mr-2" />
+          Imprimir Agenda
+        </UButton>
+        <UButton @click="showFilters = !showFilters">
+          <UIcon name="i-heroicons-funnel" class="w-4 h-4 mr-2" />
+          Filtros
+        </UButton>
+      </div>
     </div>
 
     <!-- Filters -->
@@ -164,6 +174,22 @@ const fetchAppointments = async () => {
   } finally {
     loading.value = false
   }
+}
+
+const handleExportExcel = () => {
+  const columns = [
+    { key: 'date', label: 'Fecha' },
+    { key: 'start_time', label: 'Horario', formatter: (_, row) => `${row.start_time} - ${row.end_time}` },
+    { key: 'pet', label: 'Mascota', formatter: (_, row) => row.pet?.name || 'Mascota' },
+    { key: 'service', label: 'Servicio', formatter: (_, row) => row.service?.name || 'Consulta' },
+    { key: 'professional', label: 'Profesional', formatter: (_, row) => row.professional?.user?.name || 'Veterinario' },
+    { key: 'status', label: 'Estado', formatter: (v) => v }
+  ]
+  exportToExcel(filteredAppointments.value, columns, 'Agenda_Citas_MedVet')
+}
+
+const handlePrintAgenda = () => {
+  if (typeof window !== 'undefined') window.print()
 }
 
 onMounted(() => fetchAppointments())

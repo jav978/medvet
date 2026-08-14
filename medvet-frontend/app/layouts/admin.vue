@@ -44,6 +44,7 @@
               <svg v-else-if="item.icon === 'services'" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.9L10 1.954 17.834 4.9a1 1 0 01.666.94v5.308c0 4.567-2.91 8.528-7.065 9.774a1 1 0 01-.67 0C6.577 19.672 3.667 15.711 3.667 11.15V5.84a1 1 0 01.666-.94zM10 12a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
               <svg v-else-if="item.icon === 'professionals'" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/></svg>
               <svg v-else-if="item.icon === 'schedules'" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.8 2.8a1 1 0 101.414-1.414L11 9.586V6z" clip-rule="evenodd"/></svg>
+              <svg v-else-if="item.icon === 'reports'" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
             </span>
             <span class="sidebar-link-text">{{ item.label }}</span>
             <span v-if="isActive(item.to)" class="sidebar-active-dot"></span>
@@ -120,6 +121,7 @@ const navItems = [
   { to: '/admin',               label: 'Dashboard Clínico', icon: 'home' },
   { to: '/admin/appointments',  label: 'Gestión de Citas',  icon: 'calendar' },
   { to: '/admin/payments',      label: 'Facturación & Caja',icon: 'services' },
+  { to: '/admin/reports',       label: 'Reportería & Auditoría', icon: 'reports' },
   { to: '/admin/users',         label: 'Usuarios & Tutores', icon: 'users' },
   { to: '/admin/services',      label: 'Servicios Médicos',  icon: 'services' },
   { to: '/admin/professionals', label: 'Cuerpo Médico',     icon: 'professionals' },
@@ -132,6 +134,7 @@ const pageTitle = computed(() => {
     '/admin/users':         'Gestión de Usuarios',
     '/admin/appointments':  'Gestión de Citas',
     '/admin/payments':      'Facturación & Control de Caja',
+    '/admin/reports':       'Centro de Reportería & Auditoría',
     '/admin/services':      'Gestión de Servicios',
     '/admin/professionals': 'Cuerpo Médico',
     '/admin/schedules':     'Gestión de Horarios'

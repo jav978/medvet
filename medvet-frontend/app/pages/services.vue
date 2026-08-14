@@ -127,6 +127,12 @@
               <span class="total-amount">${{ calculatedTotal.toLocaleString() }}</span>
             </div>
 
+            <!-- Cashea BNPL Option -->
+            <div class="cashea-callout-pill font-mono-numbers">
+              <span class="cashea-badge-mini">💛 Cashea</span>
+              <span>o pagá en 3 cuotas de <strong>${{ Math.round((calculatedTotal * 0.6) / 3).toLocaleString() }}</strong> (Inicial ${{ Math.round(calculatedTotal * 0.4).toLocaleString() }})</span>
+            </div>
+
             <NuxtLink to="/book" class="btn-amber summary-book-btn">
               ✓ Agendar con este Presupuesto
             </NuxtLink>
@@ -671,6 +677,34 @@ const calculatedTotal = computed(() => {
 .total-note { display: block; font-size: 0.65rem; color: var(--color-ink-400); font-family: var(--font-body); }
 .total-amount { font-size: 1.65rem; font-weight: 800; color: #00a86b; }
 .dark .total-amount { color: #00f59b; }
+
+.cashea-callout-pill {
+  background: #fffbeb;
+  border: 1px dashed #f59e0b;
+  border-radius: 10px;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.75rem;
+  color: #92400e;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.dark .cashea-callout-pill {
+  background: #191407;
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #fcd34d;
+}
+
+.cashea-badge-mini {
+  background: #f59e0b;
+  color: #ffffff;
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
 
 .summary-book-btn { justify-content: center; width: 100%; text-decoration: none; }
 </style>

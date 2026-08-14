@@ -185,6 +185,14 @@
                 <svg class="contact-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
                 <a href="mailto:contacto@medvet.com">contacto@medvet.com</a>
               </li>
+              <li class="footer-schedule-item">
+                <span class="schedule-tag">🏥 Urgencias:</span>
+                <strong>Guardia Activa 24/7</strong>
+              </li>
+              <li class="footer-schedule-item">
+                <span class="schedule-tag">🩺 Consultas:</span>
+                <span>Lun a Sáb 08:00 - 20:00</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -193,11 +201,15 @@
           <p>© 2026 MedVet Clinical Systems. Todos los derechos reservados.</p>
           <div class="footer-bottom-links">
             <NuxtLink to="/services">Información Clínica</NuxtLink>
-            <NuxtLink to="/book">Turnos</NuxtLink>
+            <NuxtLink to="/services">Protocolos Sanitarios ISO</NuxtLink>
+            <NuxtLink to="/services">Guardias Médicas 24h</NuxtLink>
           </div>
         </div>
       </div>
     </footer>
+
+    <!-- Global Floating WhatsApp 24/7 & Speed Dial Assistance -->
+    <FloatingHelp />
   </div>
 </template>
 
@@ -842,7 +854,19 @@ const handleLogout = async () => {
   margin-top: 0.1rem;
 }
 
-.dark .contact-icon {
+.footer-schedule-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.775rem;
+}
+
+.schedule-tag {
+  font-weight: 700;
+  color: #00a86b;
+}
+
+.dark .schedule-tag {
   color: #00f59b;
 }
 
