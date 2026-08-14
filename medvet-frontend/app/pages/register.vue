@@ -222,7 +222,7 @@ const handleRegister = async () => {
   height: 2.75rem;
   border-radius: 14px;
   background: var(--color-forest-900);
-  color: var(--color-forest-300, #a0c8a8);
+  color: var(--color-forest-300, #93b5b1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -238,7 +238,7 @@ const handleRegister = async () => {
   color: var(--color-ink-900);
 }
 
-.dark .auth-brand-name { color: #d4e8d6; }
+.dark .auth-brand-name { color: #e0efed; }
 .auth-brand-name span { color: var(--color-forest-700); }
 .dark .auth-brand-name span { color: var(--color-forest-400); }
 
@@ -251,7 +251,7 @@ const handleRegister = async () => {
   margin: 0 0 0.4rem;
 }
 
-.dark .auth-title { color: #d4e8d6; }
+.dark .auth-title { color: #e0efed; }
 
 .auth-sub {
   font-size: 0.875rem;
@@ -260,7 +260,7 @@ const handleRegister = async () => {
   margin: 0 0 1.75rem;
 }
 
-.dark .auth-sub { color: #5a7e5e; }
+.dark .auth-sub { color: #7e9f9b; }
 
 .auth-card {
   width: 100%;
@@ -268,12 +268,12 @@ const handleRegister = async () => {
   border: 1px solid var(--color-cream-200);
   border-radius: 24px;
   padding: 2rem;
-  box-shadow: 0 16px 48px -12px rgba(26, 22, 14, 0.12);
+  box-shadow: 0 16px 48px -12px rgba(15, 23, 42, 0.08);
 }
 
 .dark .auth-card {
-  background: #162210;
-  border-color: rgba(61, 122, 82, 0.2);
+  background: #0e2d2b;
+  border-color: rgba(20, 184, 166, 0.2);
   box-shadow: 0 16px 48px -12px rgba(0,0,0,0.35);
 }
 
@@ -305,7 +305,7 @@ const handleRegister = async () => {
   color: var(--color-ink-700);
 }
 
-.dark .form-label { color: #8aab8e; }
+.dark .form-label { color: #9fc4c1; }
 
 .optional {
   font-weight: 400;
@@ -342,18 +342,18 @@ const handleRegister = async () => {
 
 .form-input:focus {
   border-color: var(--color-forest-600);
-  box-shadow: 0 0 0 3px rgba(78, 154, 103, 0.15);
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15);
 }
 
 .dark .form-input {
   background: rgba(14, 31, 20, 0.7);
-  border-color: rgba(61, 122, 82, 0.25);
-  color: #d4e8d6;
+  border-color: rgba(20, 184, 166, 0.25);
+  color: #e0efed;
 }
 
 .dark .form-input:focus {
   border-color: var(--color-forest-500);
-  box-shadow: 0 0 0 3px rgba(78, 154, 103, 0.2);
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2);
 }
 
 .form-error {
@@ -422,8 +422,8 @@ const handleRegister = async () => {
 }
 
 .dark .auth-divider {
-  border-top-color: rgba(61, 122, 82, 0.15);
-  color: #5a7e5e;
+  border-top-color: rgba(20, 184, 166, 0.15);
+  color: #7e9f9b;
 }
 
 .auth-link {

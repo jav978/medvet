@@ -254,7 +254,7 @@ const barcodeBars = computed(() => {
 
 /* ── FRONT ── */
 .petcard-front {
-  background: #1E78E0;
+  background: #2563EB;
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -304,7 +304,7 @@ const barcodeBars = computed(() => {
   color: #fff;
   line-height: 1;
 }
-.card-brand span { color: #B2EDE8; }
+.card-brand span { color: #99F6E4; }
 
 .card-brand-sub {
   font-size: 0.55rem;
@@ -438,7 +438,7 @@ const barcodeBars = computed(() => {
   padding: 0.2rem 0.5rem;
   border-radius: 999px;
   background: rgba(0, 181, 163, 0.25);
-  color: #B2EDE8;
+  color: #99F6E4;
   border: 1px solid rgba(0, 181, 163, 0.4);
 }
 
@@ -451,7 +451,7 @@ const barcodeBars = computed(() => {
 /* Footer */
 .card-footer {
   margin-top: auto;
-  background: #0D1B4A;
+  background: #0B2440;
   padding: 0.75rem 1.125rem;
   display: flex;
   justify-content: space-between;
@@ -497,7 +497,7 @@ const barcodeBars = computed(() => {
 
 /* Back header */
 .back-header {
-  background: #1E78E0;
+  background: #2563EB;
   padding: 0.875rem 1.125rem;
   display: flex;
   align-items: center;
@@ -520,15 +520,15 @@ const barcodeBars = computed(() => {
   align-items: center;
   padding: 1.5rem 1rem 1rem;
   gap: 0.5rem;
-  background: #F4F6F8;
-  border-bottom: 1px solid #E0E6EA;
+  background: #F4F7FB;
+  border-bottom: 1px solid #E2E8F0;
 }
 
 .qr-box {
   width: 120px;
   height: 120px;
   background: #fff;
-  border: 2px solid #1E78E0;
+  border: 2px solid #2563EB;
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -539,12 +539,12 @@ const barcodeBars = computed(() => {
 .qr-svg {
   width: 100%;
   height: 100%;
-  color: #0D1B4A;
+  color: #0B2440;
 }
 
 .qr-label {
   font-size: 0.65rem;
-  color: #607080;
+  color: #475569;
   text-align: center;
   max-width: 160px;
   line-height: 1.5;
@@ -571,18 +571,18 @@ const barcodeBars = computed(() => {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.07em;
-  color: #9DB0C0;
+  color: #94A3B8;
 }
 
 .bi-val {
   font-size: 0.8125rem;
   font-weight: 500;
-  color: #2C3E50;
+  color: #334155;
 }
 
 /* Back footer */
 .back-footer {
-  background: #0D1B4A;
+  background: #0B2440;
   padding: 0.75rem 1.125rem;
   display: flex;
   justify-content: space-between;
@@ -616,6 +616,6 @@ const barcodeBars = computed(() => {
 
 .petcard-back .flip-hint {
   bottom: 54px;
-  color: rgba(44, 62, 80, 0.35);
+  color: rgba(51, 65, 85, 0.35);
 }
 </style>

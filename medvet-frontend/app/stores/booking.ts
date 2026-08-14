@@ -35,6 +35,7 @@ interface BookingState {
   selectedPet: Pet | null
   selectedDate: string | null
   selectedSlot: TimeSlot | null
+  selectedProfessionalId: string | null
   services: Service[]
   pets: Pet[]
   availableSlots: TimeSlot[]
@@ -48,6 +49,7 @@ export const useBookingStore = defineStore('booking', {
     selectedPet: null,
     selectedDate: null,
     selectedSlot: null,
+    selectedProfessionalId: null,
     services: [],
     pets: [],
     availableSlots: [],

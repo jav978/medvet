@@ -2,16 +2,17 @@
   <div class="page-root">
 
     <!-- ══════════════════════════════════════
-         HERO
+         HERO (Inspired by Nuxt.com)
     ══════════════════════════════════════ -->
     <section class="hero-section">
 
-      <!-- Rotating paw watermark — the signature element -->
+      <!-- Nuxt mesh glow background -->
+      <div class="hero-glow-mesh" aria-hidden="true"></div>
+
+      <!-- Rotating paw watermark -->
       <div class="paw-watermark animate-rotate-slow" aria-hidden="true">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Pad -->
           <ellipse cx="100" cy="128" rx="38" ry="32" fill="currentColor"/>
-          <!-- Toes -->
           <ellipse cx="58"  cy="90"  rx="18" ry="22" fill="currentColor"/>
           <ellipse cx="88"  cy="72"  rx="17" ry="21" fill="currentColor"/>
           <ellipse cx="118" cy="72"  rx="17" ry="21" fill="currentColor"/>
@@ -20,51 +21,46 @@
       </div>
 
       <div class="hero-inner">
-        <!-- Left column: text -->
+        <!-- Left column: text & CTAs -->
         <div class="hero-text animate-fade-up">
 
-          <span class="eyebrow-pill">
-            <span class="eyebrow-dot"></span>
-            Sistema Integral de Citas Veterinarias
-          </span>
+          <!-- Announcement pill (Nuxt badge) -->
+          <NuxtLink to="/book" class="eyebrow-pill">
+            <span class="eyebrow-tag">MedVet 2.0</span>
+            <span class="eyebrow-text">Plataforma Veterinaria de Cuidado Integral</span>
+            <span class="eyebrow-arrow">→</span>
+          </NuxtLink>
 
+          <!-- Main 2-line Nuxt H1 -->
           <h1 class="hero-headline">
-            El cuidado que
-            <em class="hero-headline-em">merece</em>
-            quien más quieres.
+            <span class="hero-headline-green">La plataforma médica</span>
+            <span class="hero-headline-sub">de cuidado veterinario</span>
           </h1>
 
           <p class="hero-sub">
-            Reservá consultas clínicas, cirugías y vacunación en minutos.
-            Equipo veterinario certificado, historia clínica digital, recordatorios automáticos.
+            Atención clínica especializada, agendas inteligentes e historial médico digital en tiempo real para perros, gatos, aves y animales exóticos.
           </p>
-
-          <!-- Species selector -->
-          <div class="species-group">
-            <span class="species-label">¿A quién atendemos hoy?</span>
-            <div class="species-pills">
-              <button
-                v-for="sp in speciesOptions"
-                :key="sp.id"
-                @click="selectedSpecies = sp.id"
-                :class="['species-pill', selectedSpecies === sp.id ? 'species-pill--active' : '']"
-              >
-                <span>{{ sp.emoji }}</span>
-                <span>{{ sp.label }}</span>
-              </button>
-            </div>
-          </div>
 
           <!-- CTAs -->
           <div class="hero-ctas">
-            <NuxtLink to="/book" class="btn-amber">
-              <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M6 2a1 1 0 000 2h1v1a1 1 0 002 0V4h2v1a1 1 0 002 0V4h1a1 1 0 100-2h-1V1a1 1 0 10-2 0v1H9V1a1 1 0 10-2 0v1H6zm-2 5a1 1 0 000 2h12a1 1 0 100-2H4zm0 4a1 1 0 100 2h12a1 1 0 100-2H4zm0 4a1 1 0 100 2h8a1 1 0 100-2H4z"/></svg>
-              Reservar Turno
+            <NuxtLink to="/book" class="btn-nuxt-primary">
+              Comenzar Turno
             </NuxtLink>
-            <a href="#services" class="btn-ghost">
-              Ver Servicios
-              <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414-1.414L13.586 10 9.293 5.707A1 1 0 0110 3z" clip-rule="evenodd"/></svg>
+            <a href="#services" class="btn-nuxt-secondary">
+              <span>MedVet en 60 seg</span>
+              <svg class="btn-play-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
             </a>
+          </div>
+
+          <!-- CLI Quick Command (Nuxt.com quick copy bar) -->
+          <div class="hero-cli-bar">
+            <div class="cli-left">
+              <span class="cli-prompt">&gt;_</span>
+              <span class="cli-code font-mono-numbers">medvet agendar --especie {{ selectedSpecies }} --urgencia auto</span>
+            </div>
+            <NuxtLink to="/book" class="cli-copy-btn" title="Cita Inmediata">
+              <svg viewBox="0 0 20 20" fill="currentColor" class="cli-icon"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 2H9a3 3 0 01-3-2z"/></svg>
+            </NuxtLink>
           </div>
 
           <!-- Trust stats -->
@@ -86,59 +82,128 @@
           </div>
         </div>
 
-        <!-- Right column: booking card -->
+        <!-- Right column: Nuxt Studio / Live Booking Card -->
         <div class="hero-card-col animate-fade-up" style="animation-delay:0.15s">
-          <div class="booking-card animate-float">
+          <div class="nuxt-studio-card animate-float">
 
-            <div class="bc-header">
-              <div class="bc-species-icon">{{ getSpeciesEmoji(selectedSpecies) }}</div>
-              <div>
-                <div class="bc-eyebrow">Reserva Rápida</div>
-                <div class="bc-title">{{ getSpeciesTitle(selectedSpecies) }}</div>
+            <!-- Studio Tabs (Nuxt code editor top tabs) -->
+            <div class="studio-tab-bar">
+              <button
+                v-for="cat in serviceCategories"
+                :key="cat.id"
+                @click="selectedCategory = cat.id"
+                :class="['studio-tab', selectedCategory === cat.id ? 'studio-tab--active' : '']"
+              >
+                <span class="studio-tab-icon">{{ cat.icon }}</span>
+                <span>{{ cat.name }}</span>
+              </button>
+            </div>
+
+            <!-- Path Bar -->
+            <div class="studio-path-bar">
+              <div class="studio-file">
+                <span class="studio-file-icon">📁</span>
+                <span class="studio-file-name font-mono-numbers">clinica/{{ selectedSpecies }}_{{ selectedCategory }}.vue</span>
               </div>
-              <span class="bc-badge">
-                <span class="bc-badge-dot"></span>
-                Cupos disponibles
+              <span class="studio-live-pill">
+                <span class="live-dot"></span>
+                Agenda en vivo
               </span>
             </div>
 
-            <div class="bc-slot">
-              <div class="bc-slot-label">
-                <svg class="slot-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
-                Próximo turno disponible
+            <!-- Card Body / Interactive Preview -->
+            <div class="studio-body">
+              <div class="bc-header">
+                <div class="bc-species-icon">{{ getSpeciesEmoji(selectedSpecies) }}</div>
+                <div>
+                  <div class="bc-eyebrow">{{ getCategoryLabel(selectedCategory) }}</div>
+                  <div class="bc-title">{{ getSpeciesTitle(selectedSpecies) }}</div>
+                </div>
+                <span class="bc-badge">
+                  <span class="bc-badge-dot"></span>
+                  Cupos disponibles
+                </span>
               </div>
-              <span class="bc-slot-time">Hoy · 16:30 hs</span>
+
+              <!-- Interactive Species Pills -->
+              <div class="species-group-compact">
+                <span class="species-label-compact">Seleccionar paciente:</span>
+                <div class="species-pills-compact">
+                  <button
+                    v-for="sp in speciesOptions"
+                    :key="sp.id"
+                    @click="selectedSpecies = sp.id"
+                    :class="['species-pill-compact', selectedSpecies === sp.id ? 'species-pill-compact--active' : '']"
+                  >
+                    <span>{{ sp.emoji }}</span>
+                    <span>{{ sp.label }}</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="bc-slot">
+                <div class="bc-slot-label">
+                  <svg class="slot-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+                  Próximo turno disponible
+                </div>
+                <span class="bc-slot-time font-mono-numbers">Hoy · 16:30 hs</span>
+              </div>
+
+              <div class="bc-vet">
+                <div class="bc-vet-avatar">MS</div>
+                <div>
+                  <div class="bc-vet-name">Dr. Mateo Silva</div>
+                  <div class="bc-vet-role">Especialista en Medicina Veterinaria Integral</div>
+                </div>
+              </div>
+
+              <ul class="bc-perks">
+                <li>
+                  <svg class="perk-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  Historia clínica digital sincronizada
+                </li>
+                <li>
+                  <svg class="perk-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  Recordatorio automático SMS & WhatsApp
+                </li>
+              </ul>
+
+              <NuxtLink :to="`/book?species=${selectedSpecies}&service=${selectedCategory}`" class="btn-primary bc-cta">
+                Confirmar Reserva Inmediata →
+              </NuxtLink>
             </div>
 
-            <div class="bc-vet">
-              <div class="bc-vet-avatar">MS</div>
-              <div>
-                <div class="bc-vet-name">Dr. Mateo Silva</div>
-                <div class="bc-vet-role">Especialista en Medicina Veterinaria Integral</div>
-              </div>
-            </div>
-
-            <ul class="bc-perks">
-              <li>
-                <svg class="perk-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                Historia clínica digital sincronizada
-              </li>
-              <li>
-                <svg class="perk-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                Recordatorio automático SMS & WhatsApp
-              </li>
-              <li>
-                <svg class="perk-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                Cancelación y reprogramación sin costo
-              </li>
-            </ul>
-
-            <NuxtLink to="/book" class="btn-primary bc-cta">
-              Seleccionar horario
-            </NuxtLink>
           </div>
         </div>
       </div>
+
+      <!-- Partner Logos Bar (Nuxt.com bottom trust logo row) -->
+      <div class="hero-trust-bar">
+        <p class="trust-bar-caption">Certificada por instituciones veterinarias y elegida por más de 12.500 familias</p>
+        <div class="trust-logos-row">
+          <div class="trust-logo-item">
+            <span class="logo-dot"></span>
+            <span class="logo-text">HOSPITAL VET CENTRAL</span>
+          </div>
+          <div class="trust-logo-item">
+            <span class="logo-dot"></span>
+            <span class="logo-text">SANIDAD ANIMAL 24H</span>
+          </div>
+          <div class="trust-logo-item">
+            <span class="logo-dot"></span>
+            <span class="logo-text">RED CANINA & FELINA</span>
+          </div>
+          <div class="trust-logo-item">
+            <span class="logo-dot"></span>
+            <span class="logo-text">CLÍNICA BIO-VET</span>
+          </div>
+          <div class="trust-logo-item">
+            <span class="logo-dot"></span>
+            <span class="logo-text">VETS ALLIANCE</span>
+          </div>
+        </div>
+      </div>
+
     </section>
 
     <!-- ══════════════════════════════════════
@@ -248,6 +313,14 @@
 
 <script setup>
 const selectedSpecies = ref('dog')
+const selectedCategory = ref('consulta')
+
+const serviceCategories = [
+  { id: 'consulta', name: 'Consulta', icon: '🩺' },
+  { id: 'vacuna',   name: 'Vacunación', icon: '💉' },
+  { id: 'cirugia',  name: 'Cirugía', icon: '✂️' },
+  { id: 'urgencia', name: 'Guardia 24h', icon: '🚨' }
+]
 
 const speciesOptions = [
   { id: 'dog',    label: 'Perros',            emoji: '🐶' },
@@ -255,6 +328,16 @@ const speciesOptions = [
   { id: 'exotic', label: 'Exóticos',          emoji: '🦜' },
   { id: 'small',  label: 'Pequeños Mamíferos', emoji: '🐰' }
 ]
+
+const getCategoryLabel = (id) => {
+  const map = {
+    consulta: 'Consulta Clínica General',
+    vacuna: 'Plan de Vacunación & Prevención',
+    cirugia: 'Cirugía & Quirófano Especializado',
+    urgencia: 'Guardia & Urgencias 24/7'
+  }
+  return map[id] || 'Atención Médica'
+}
 
 const services = ref([])
 
@@ -380,37 +463,56 @@ onMounted(async () => {
 }
 
 .dark .page-root {
-  background-color: var(--color-forest-950);
+  background-color: #040706;
 }
 
 /* ────────────────────────────────────────
-   HERO
+   HERO (Cyber Mint & Obsidian Glow Spotlight)
 ──────────────────────────────────────── */
 .hero-section {
   position: relative;
   overflow: hidden;
-  min-height: 100vh;
+  min-height: 90vh;
   display: flex;
-  align-items: center;
-  padding: 6rem 0 4rem;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 0 3.5rem;
+}
+
+/* Ambient Radial & Vertical Spotlight Dome behind hero */
+.hero-glow-mesh {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000px;
+  height: 520px;
+  background: radial-gradient(ellipse 900px 480px at 50% 0%, rgba(0, 168, 107, 0.16) 0%, rgba(0, 196, 140, 0.06) 50%, transparent 80%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dark .hero-glow-mesh {
+  background: radial-gradient(ellipse 950px 520px at 50% 0%, rgba(0, 245, 155, 0.3) 0%, rgba(0, 168, 107, 0.12) 45%, transparent 80%);
 }
 
 /* rotating paw watermark */
 .paw-watermark {
   position: absolute;
-  top: -12%;
-  right: -10%;
-  width: 560px;
-  height: 560px;
+  top: -10%;
+  right: -8%;
+  width: 540px;
+  height: 540px;
   color: var(--color-forest-200);
-  opacity: 0.35;
+  opacity: 0.25;
   pointer-events: none;
   z-index: 0;
 }
 
 .dark .paw-watermark {
-  color: var(--color-forest-800);
-  opacity: 0.18;
+  color: rgba(0, 245, 155, 0.08);
+  opacity: 0.15;
 }
 
 .hero-inner {
@@ -420,156 +522,284 @@ onMounted(async () => {
   margin: 0 auto;
   padding: 0 1.5rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  grid-template-columns: 1.15fr 0.95fr;
+  gap: 3.5rem;
   align-items: center;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   .hero-inner {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
   .hero-card-col { order: -1; }
-  .hero-section { min-height: auto; padding: 5rem 0 3rem; }
+  .hero-section { min-height: auto; padding: 4rem 0 2.5rem; }
 }
 
-/* Eyebrow pill */
+/* Announcement Eyebrow Pill */
 .eyebrow-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 0.4rem 0.9rem;
+  font-size: 0.8125rem;
+  padding: 0.35rem 0.85rem;
   border-radius: 999px;
-  background: var(--color-forest-100);
-  border: 1px solid var(--color-forest-200);
-  color: var(--color-forest-800);
-  margin-bottom: 1.25rem;
+  background: rgba(0, 168, 107, 0.08);
+  border: 1px solid rgba(0, 168, 107, 0.25);
+  color: var(--color-forest-700);
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.eyebrow-pill:hover {
+  background: rgba(0, 168, 107, 0.15);
+  border-color: #00a86b;
+  transform: translateY(-1px);
 }
 
 .dark .eyebrow-pill {
-  background: rgba(45, 90, 61, 0.2);
-  border-color: rgba(78, 154, 103, 0.3);
-  color: var(--color-forest-400);
+  background: rgba(0, 245, 155, 0.1);
+  border-color: rgba(0, 245, 155, 0.28);
+  color: #00f59b;
 }
 
-.eyebrow-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-forest-600);
-  animation: pulse-ring 2.5s infinite;
-  flex-shrink: 0;
+.eyebrow-tag {
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(0, 168, 107, 0.15);
+  color: #007a4d;
 }
 
-/* Headline */
+.dark .eyebrow-tag {
+  background: #00f59b;
+  color: #040706;
+}
+
+.eyebrow-text {
+  font-weight: 500;
+}
+
+.eyebrow-arrow {
+  font-weight: 700;
+  transition: transform 0.2s ease;
+}
+
+.eyebrow-pill:hover .eyebrow-arrow {
+  transform: translateX(3px);
+}
+
+/* 2-line Headline with Vertical Gradient */
 .hero-headline {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2.6rem, 5.2vw, 4.25rem);
   font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: var(--color-ink-900);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
   margin: 0 0 1.25rem;
+  display: flex;
+  flex-direction: column;
 }
 
-.dark .hero-headline { color: #e8ede9; }
-
-.hero-headline-em {
-  font-style: italic;
-  color: var(--color-forest-700);
+.hero-headline-green {
+  background: linear-gradient(135deg, #00a86b 0%, #00c48c 50%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.dark .hero-headline-em { color: var(--color-forest-400); }
+.dark .hero-headline-green {
+  background: linear-gradient(180deg, #ffffff 0%, #d0ffed 40%, #00f59b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-/* Sub */
+.hero-headline-sub {
+  color: var(--color-ink-900);
+}
+
+.dark .hero-headline-sub {
+  color: #ffffff;
+}
+
+/* Subtitle */
 .hero-sub {
   font-size: 1.0625rem;
   color: var(--color-ink-500);
   line-height: 1.7;
   margin: 0 0 1.75rem;
-  max-width: 500px;
+  max-width: 520px;
 }
 
-.dark .hero-sub { color: #8aab8e; }
+.dark .hero-sub { color: #8ca395; }
 
-/* Species pills */
-.species-group { margin-bottom: 1.75rem; }
-
-.species-label {
-  display: block;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-ink-300);
-  margin-bottom: 0.65rem;
-}
-
-.dark .species-label { color: #6b8e6e; }
-
-.species-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.species-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem 0.9rem;
-  border-radius: 10px;
-  font-family: var(--font-body);
-  font-size: 0.8125rem;
-  font-weight: 500;
-  cursor: pointer;
-  border: 1.5px solid var(--color-cream-300);
-  background: var(--color-cream-50);
-  color: var(--color-ink-700);
-  transition: all 0.18s ease;
-}
-
-.species-pill:hover {
-  border-color: var(--color-forest-600);
-}
-
-.species-pill--active {
-  background: var(--color-forest-900);
-  border-color: var(--color-forest-900);
-  color: #fff;
-}
-
-.dark .species-pill {
-  background: rgba(22, 34, 16, 0.6);
-  border-color: rgba(61, 122, 82, 0.25);
-  color: #b8d4bb;
-}
-
-.dark .species-pill--active {
-  background: var(--color-forest-700);
-  border-color: var(--color-forest-700);
-  color: #fff;
-}
-
-/* CTAs */
+/* CTAs Button Group */
 .hero-ctas {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   align-items: center;
 }
 
-.btn-icon {
-  width: 1.1em;
-  height: 1.1em;
-  flex-shrink: 0;
+.btn-nuxt-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.6rem;
+  background: #00a86b;
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px -2px rgba(0, 168, 107, 0.35);
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.btn-nuxt-primary:hover {
+  background: #007a4d;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px -4px rgba(0, 168, 107, 0.5);
+}
+
+.dark .btn-nuxt-primary {
+  background: #00f59b;
+  color: #040706;
+  font-weight: 700;
+  box-shadow: 0 0 24px -2px rgba(0, 245, 155, 0.65);
+}
+
+.dark .btn-nuxt-primary:hover {
+  background: #38bdf8;
+  box-shadow: 0 0 36px -2px rgba(56, 189, 248, 0.85);
+}
+
+.btn-nuxt-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.4rem;
+  background: var(--color-cream-50);
+  color: var(--color-ink-700);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: 10px;
+  text-decoration: none;
+  border: 1px solid var(--color-cream-300);
+  transition: all 0.2s ease;
+}
+
+.btn-nuxt-secondary:hover {
+  background: var(--color-cream-200);
+  color: var(--color-ink-900);
+  transform: translateY(-2px);
+}
+
+.dark .btn-nuxt-secondary {
+  background: rgba(10, 17, 14, 0.6);
+  color: #f1faf5;
+  border-color: rgba(0, 245, 155, 0.2);
+  backdrop-filter: blur(12px);
+}
+
+.dark .btn-nuxt-secondary:hover {
+  background: rgba(16, 28, 22, 0.8);
+  border-color: #00f59b;
+  box-shadow: 0 0 20px rgba(0, 245, 155, 0.2);
+}
+
+.btn-play-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--color-forest-600);
+}
+
+.dark .btn-play-icon {
+  color: #00f59b;
+}
+
+/* CLI Quick Snippet Bar */
+.hero-cli-bar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: rgba(4, 7, 6, 0.04);
+  border: 1px solid var(--color-cream-300);
+  border-radius: 8px;
+  padding: 0.5rem 0.85rem;
+  max-width: 480px;
+  margin-bottom: 2rem;
+}
+
+.dark .hero-cli-bar {
+  background: rgba(10, 17, 14, 0.75);
+  border-color: rgba(0, 245, 155, 0.16);
+}
+
+.cli-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  overflow: hidden;
+}
+
+.cli-prompt {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-forest-600);
+}
+
+.dark .cli-prompt {
+  color: #00f59b;
+}
+
+.cli-code {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--color-ink-600);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.dark .cli-code { color: #d6e8de; }
+
+.cli-copy-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-ink-400);
+  cursor: pointer;
+  padding: 0.2rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.cli-copy-btn:hover {
+  color: #00a86b;
+  background: rgba(0, 168, 107, 0.1);
+}
+
+.dark .cli-copy-btn:hover {
+  color: #00f59b;
+  background: rgba(0, 245, 155, 0.15);
+}
+
+.cli-icon {
+  width: 16px;
+  height: 16px;
 }
 
 /* Trust strip */
@@ -581,7 +811,7 @@ onMounted(async () => {
   border-top: 1px solid var(--color-cream-200);
 }
 
-.dark .trust-strip { border-top-color: rgba(61, 122, 82, 0.15); }
+.dark .trust-strip { border-top-color: rgba(0, 245, 155, 0.15); }
 
 .trust-stat { text-align: center; }
 
@@ -594,14 +824,14 @@ onMounted(async () => {
   line-height: 1.15;
 }
 
-.dark .trust-num { color: #c8deca; }
+.dark .trust-num { color: #f1faf5; }
 
-.trust-num--amber { color: var(--color-amber-600); }
+.trust-num--amber { color: var(--color-joy-amber); }
 
 .trust-lbl {
   display: block;
   font-size: 0.7rem;
-  color: var(--color-ink-300);
+  color: var(--color-ink-400);
   margin-top: 0.1rem;
 }
 
@@ -612,26 +842,134 @@ onMounted(async () => {
   flex-shrink: 0;
 }
 
-.dark .trust-divider { background: rgba(61, 122, 82, 0.2); }
+.dark .trust-divider { background: rgba(0, 245, 155, 0.15); }
 
 /* ────────────────────────────────────────
-   BOOKING CARD
+   LIVE BOOKING STUDIO CARD
 ──────────────────────────────────────── */
-.booking-card {
+.nuxt-studio-card {
   background: var(--color-cream-50);
   border: 1px solid var(--color-cream-200);
-  border-radius: 24px;
-  padding: 2rem;
-  box-shadow: 0 20px 60px -16px rgba(26, 22, 14, 0.14), 0 4px 16px rgba(26, 22, 14, 0.06);
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px -16px rgba(0, 80, 50, 0.08), 0 4px 16px rgba(0, 0, 0, 0.03);
 }
 
-.dark .booking-card {
-  background: #162210;
-  border-color: rgba(61, 122, 82, 0.22);
-  box-shadow: 0 20px 60px -16px rgba(0,0,0,0.4);
+.dark .nuxt-studio-card {
+  background: #0a110e;
+  border-color: rgba(0, 245, 155, 0.2);
+  box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.9), 0 0 32px -8px rgba(0, 245, 155, 0.15);
+}
+
+/* Studio Tab Bar */
+.studio-tab-bar {
+  display: flex;
+  background: rgba(4, 7, 6, 0.03);
+  border-bottom: 1px solid var(--color-cream-200);
+  padding: 0.4rem 0.5rem 0;
+  gap: 0.25rem;
+}
+
+.dark .studio-tab-bar {
+  background: #060c09;
+  border-bottom-color: rgba(0, 245, 155, 0.12);
+}
+
+.studio-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-ink-500);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.studio-tab:hover {
+  color: var(--color-ink-900);
+}
+
+.dark .studio-tab { color: #8ca395; }
+.dark .studio-tab:hover { color: #ffffff; }
+
+.studio-tab--active {
+  color: var(--color-forest-700);
+  border-bottom-color: #00a86b;
+  background: var(--color-cream-50);
+  font-weight: 600;
+}
+
+.dark .studio-tab--active {
+  color: #00f59b;
+  border-bottom-color: #00f59b;
+  background: #0a110e;
+}
+
+.studio-tab-icon { font-size: 0.95rem; }
+
+/* Studio Path Bar */
+.studio-path-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.25rem;
+  background: rgba(4, 7, 6, 0.02);
+  border-bottom: 1px solid var(--color-cream-200);
+  font-size: 0.75rem;
+}
+
+.dark .studio-path-bar {
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom-color: rgba(0, 245, 155, 0.1);
+}
+
+.studio-file {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-ink-400);
+}
+
+.dark .studio-file-name { color: #8ca395; }
+
+.studio-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--color-forest-700);
+}
+
+.dark .studio-live-pill {
+  color: #00f59b;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00a86b;
+  animation: pulse-ring 2s infinite;
+}
+
+.dark .live-dot {
+  background: #00f59b;
+}
+
+/* Studio Body */
+.studio-body {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
 }
 
 .bc-header {
@@ -663,7 +1001,7 @@ onMounted(async () => {
   color: var(--color-ink-900);
 }
 
-.dark .bc-title { color: #d4e8d6; }
+.dark .bc-title { color: #f1faf5; }
 
 .bc-badge {
   margin-left: auto;
@@ -674,33 +1012,102 @@ onMounted(async () => {
   font-weight: 600;
   padding: 0.3rem 0.65rem;
   border-radius: 999px;
-  background: rgba(78, 154, 103, 0.12);
+  background: rgba(0, 168, 107, 0.1);
   color: var(--color-forest-700);
-  border: 1px solid rgba(78, 154, 103, 0.25);
+  border: 1px solid rgba(0, 168, 107, 0.25);
   white-space: nowrap;
+}
+
+.dark .bc-badge {
+  color: #00f59b;
+  background: rgba(0, 245, 155, 0.12);
+  border-color: rgba(0, 245, 155, 0.35);
 }
 
 .bc-badge-dot {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--color-forest-600);
+  background: var(--color-forest-400);
   animation: pulse-ring 2.5s infinite;
+}
+
+/* Compact Species Selector in card */
+.species-group-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.species-label-compact {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-400);
+}
+
+.dark .species-label-compact { color: #5c7365; }
+
+.species-pills-compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.species-pill-compact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--color-cream-300);
+  background: var(--color-cream-100);
+  color: var(--color-ink-700);
+  transition: all 0.15s ease;
+}
+
+.species-pill-compact:hover {
+  border-color: var(--color-forest-400);
+}
+
+.species-pill-compact--active {
+  background: #00a86b;
+  border-color: #00a86b;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.dark .species-pill-compact {
+  background: rgba(16, 28, 22, 0.6);
+  border-color: rgba(0, 245, 155, 0.15);
+  color: #d6e8de;
+}
+
+.dark .species-pill-compact--active {
+  background: #00f59b;
+  border-color: #00f59b;
+  color: #040706;
+  font-weight: 700;
 }
 
 .bc-slot {
   background: var(--color-cream-100);
   border: 1px solid var(--color-cream-200);
   border-radius: 12px;
-  padding: 0.875rem 1rem;
+  padding: 0.75rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .dark .bc-slot {
-  background: rgba(14, 31, 20, 0.7);
-  border-color: rgba(61, 122, 82, 0.2);
+  background: rgba(16, 28, 22, 0.7);
+  border-color: rgba(0, 245, 155, 0.18);
 }
 
 .bc-slot-label {
@@ -711,12 +1118,12 @@ onMounted(async () => {
   color: var(--color-ink-500);
 }
 
-.dark .bc-slot-label { color: #6b8e6e; }
+.dark .bc-slot-label { color: #8ca395; }
 
 .slot-icon {
   width: 14px;
   height: 14px;
-  color: var(--color-forest-600);
+  color: var(--color-forest-400);
   flex-shrink: 0;
 }
 
@@ -731,8 +1138,8 @@ onMounted(async () => {
 }
 
 .dark .bc-slot-time {
-  color: #c8deca;
-  background: rgba(27, 58, 42, 0.6);
+  color: #00f59b;
+  background: rgba(0, 245, 155, 0.12);
 }
 
 .bc-vet {
@@ -743,21 +1150,25 @@ onMounted(async () => {
   border-top: 1px solid var(--color-cream-200);
 }
 
-.dark .bc-vet { border-top-color: rgba(61, 122, 82, 0.15); }
+.dark .bc-vet { border-top-color: rgba(0, 245, 155, 0.15); }
 
 .bc-vet-avatar {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
   border-radius: 50%;
   background: var(--color-forest-800);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 700;
   flex-shrink: 0;
-  animation: pulse-ring 3s infinite;
+}
+
+.dark .bc-vet-avatar {
+  background: #00f59b;
+  color: #040706;
 }
 
 .bc-vet-name {
@@ -766,7 +1177,7 @@ onMounted(async () => {
   color: var(--color-ink-900);
 }
 
-.dark .bc-vet-name { color: #d4e8d6; }
+.dark .bc-vet-name { color: #f8fafc; }
 
 .bc-vet-role {
   font-size: 0.7rem;
@@ -774,7 +1185,7 @@ onMounted(async () => {
   margin-top: 0.1rem;
 }
 
-.dark .bc-vet-role { color: #5a7e5e; }
+.dark .bc-vet-role { color: #94a3b8; }
 
 .bc-perks {
   list-style: none;
@@ -782,32 +1193,91 @@ onMounted(async () => {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.45rem;
 }
 
 .bc-perks li {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--color-ink-500);
 }
 
-.dark .bc-perks li { color: #6b8e6e; }
+.dark .bc-perks li { color: #94a3b8; }
 
 .perk-check {
   width: 14px;
   height: 14px;
-  color: var(--color-forest-600);
+  color: var(--color-forest-400);
   flex-shrink: 0;
 }
 
 .bc-cta {
   width: 100%;
   justify-content: center;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
   margin-top: 0.25rem;
+}
+
+/* ────────────────────────────────────────
+   TRUST LOGOS BAR (Nuxt.com Style)
+──────────────────────────────────────── */
+.hero-trust-bar {
+  max-width: 1200px;
+  margin: 4.5rem auto 0;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+.trust-bar-caption {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-ink-400);
+  margin-bottom: 1.5rem;
+}
+
+.dark .trust-bar-caption { color: #64748b; }
+
+.trust-logos-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem 3rem;
+}
+
+.trust-logo-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-300);
+  transition: color 0.2s ease;
+}
+
+.trust-logo-item:hover {
+  color: var(--color-ink-600);
+}
+
+.dark .trust-logo-item {
+  color: #475569;
+}
+
+.dark .trust-logo-item:hover {
+  color: #94a3b8;
+}
+
+.logo-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-forest-400);
+  opacity: 0.6;
 }
 
 /* ────────────────────────────────────────
@@ -831,7 +1301,7 @@ onMounted(async () => {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-forest-700);
+  color: var(--color-forest-600);
   margin-bottom: 0.65rem;
 }
 
@@ -846,7 +1316,7 @@ onMounted(async () => {
   line-height: 1.2;
 }
 
-.dark .section-title { color: #d4e8d6; }
+.dark .section-title { color: #f8fafc; }
 
 .section-sub {
   font-size: 0.9375rem;
@@ -854,7 +1324,7 @@ onMounted(async () => {
   line-height: 1.65;
 }
 
-.dark .section-sub { color: #5a7e5e; }
+.dark .section-sub { color: #94a3b8; }
 
 /* ────────────────────────────────────────
    SERVICES SECTION
@@ -865,7 +1335,7 @@ onMounted(async () => {
 }
 
 .dark .services-section {
-  background: #111e0f;
+  background: #040706;
 }
 
 .services-grid {
@@ -895,17 +1365,18 @@ onMounted(async () => {
 
 .service-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 36px -8px rgba(26, 22, 14, 0.12);
-  border-color: var(--color-forest-300, #a0c8a8);
+  box-shadow: 0 12px 36px -8px rgba(0, 80, 50, 0.08);
+  border-color: var(--color-forest-400);
 }
 
 .dark .service-card {
-  background: #162210;
-  border-color: rgba(61, 122, 82, 0.18);
+  background: #0a110e;
+  border-color: rgba(0, 245, 155, 0.15);
 }
 
 .dark .service-card:hover {
-  border-color: rgba(78, 154, 103, 0.45);
+  border-color: #00f59b;
+  box-shadow: 0 12px 36px -8px rgba(0, 245, 155, 0.22);
 }
 
 .sc-top {
@@ -925,7 +1396,7 @@ onMounted(async () => {
 }
 
 .dark .sc-icon-wrap {
-  background: rgba(45, 90, 61, 0.25);
+  background: rgba(0, 245, 155, 0.12);
 }
 
 .sc-icon { font-size: 1.2rem; }
@@ -940,8 +1411,8 @@ onMounted(async () => {
 }
 
 .dark .sc-duration {
-  background: rgba(27, 58, 42, 0.5);
-  color: #6b8e6e;
+  background: rgba(16, 28, 22, 0.7);
+  color: #8ca395;
 }
 
 .sc-name {
@@ -953,7 +1424,7 @@ onMounted(async () => {
   line-height: 1.25;
 }
 
-.dark .sc-name { color: #c8deca; }
+.dark .sc-name { color: #f1faf5; }
 
 .sc-desc {
   font-size: 0.8125rem;
@@ -963,7 +1434,7 @@ onMounted(async () => {
   margin: 0;
 }
 
-.dark .sc-desc { color: #5a7e5e; }
+.dark .sc-desc { color: #8ca395; }
 
 .sc-footer {
   display: flex;
@@ -974,7 +1445,7 @@ onMounted(async () => {
   margin-top: 0.5rem;
 }
 
-.dark .sc-footer { border-top-color: rgba(61, 122, 82, 0.15); }
+.dark .sc-footer { border-top-color: rgba(0, 245, 155, 0.15); }
 
 .sc-price-label {
   display: block;
@@ -990,7 +1461,7 @@ onMounted(async () => {
   color: var(--color-ink-900);
 }
 
-.dark .sc-price-value { color: #c8deca; }
+.dark .sc-price-value { color: #f1faf5; }
 
 .sc-btn {
   font-size: 0.8125rem;
@@ -1006,7 +1477,7 @@ onMounted(async () => {
 }
 
 .dark .why-section {
-  background: var(--color-forest-950);
+  background: #040706;
 }
 
 .features-grid {
@@ -1029,12 +1500,17 @@ onMounted(async () => {
 
 .feature-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 28px -6px rgba(26, 22, 14, 0.1);
+  box-shadow: 0 8px 28px -6px rgba(0, 80, 50, 0.07);
 }
 
 .dark .feature-card {
-  background: #162210;
-  border-color: rgba(61, 122, 82, 0.18);
+  background: #0a110e;
+  border-color: rgba(0, 245, 155, 0.15);
+}
+
+.dark .feature-card:hover {
+  border-color: #00f59b;
+  box-shadow: 0 8px 28px -6px rgba(0, 245, 155, 0.2);
 }
 
 .fc-icon {
@@ -1050,7 +1526,7 @@ onMounted(async () => {
   margin: 0 0 0.6rem;
 }
 
-.dark .fc-title { color: #c8deca; }
+.dark .fc-title { color: #f1faf5; }
 
 .fc-desc {
   font-size: 0.875rem;
@@ -1059,7 +1535,7 @@ onMounted(async () => {
   margin: 0;
 }
 
-.dark .fc-desc { color: #5a7e5e; }
+.dark .fc-desc { color: #8ca395; }
 
 /* ────────────────────────────────────────
    URGENT BANNER
@@ -1070,7 +1546,7 @@ onMounted(async () => {
 }
 
 .dark .urgent-section {
-  background: #111e0f;
+  background: #040706;
 }
 
 .urgent-banner {
@@ -1083,7 +1559,7 @@ onMounted(async () => {
   grid-template-columns: 1fr auto;
   gap: 2rem 3rem;
   align-items: center;
-  box-shadow: 0 24px 80px -20px rgba(27, 58, 42, 0.5);
+  box-shadow: 0 24px 80px -20px rgba(13, 88, 82, 0.45);
 }
 
 @media (max-width: 768px) {
@@ -1116,9 +1592,9 @@ onMounted(async () => {
   font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: rgba(200, 232, 200, 0.75);
-  background: rgba(200, 134, 10, 0.12);
-  border: 1px solid rgba(200, 134, 10, 0.3);
+  color: rgba(223, 240, 238, 0.8);
+  background: rgba(245, 158, 11, 0.14);
+  border: 1px solid rgba(245, 158, 11, 0.35);
   padding: 0.3rem 0.7rem;
   border-radius: 999px;
   margin-bottom: 1rem;
@@ -1143,7 +1619,7 @@ onMounted(async () => {
 
 .urgent-sub {
   font-size: 0.9375rem;
-  color: rgba(200, 232, 200, 0.6);
+  color: rgba(223, 240, 238, 0.65);
   line-height: 1.6;
   margin: 0;
   max-width: 520px;
@@ -1160,13 +1636,13 @@ onMounted(async () => {
 }
 
 .urgent-ghost {
-  border-color: rgba(200, 232, 200, 0.2);
-  color: rgba(200, 232, 200, 0.7);
+  border-color: rgba(223, 240, 238, 0.2);
+  color: rgba(223, 240, 238, 0.72);
   justify-content: center;
 }
 
 .urgent-ghost:hover {
-  border-color: rgba(200, 232, 200, 0.45);
+  border-color: rgba(223, 240, 238, 0.5);
   background: rgba(255,255,255,0.05);
 }
 </style>

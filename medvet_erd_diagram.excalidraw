@@ -1,0 +1,319 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "mcp-excalidraw-server",
+  "elements": [
+    {
+      "id": "title",
+      "type": "text",
+      "x": 300,
+      "y": 30,
+      "width": 500,
+      "height": 40,
+      "strokeColor": "#1e293b",
+      "text": "MedVet — Modelo Entidad-Relación (ERD)",
+      "fontSize": 24,
+      "createdAt": "2026-08-12T11:46:01.592Z",
+      "updatedAt": "2026-08-12T11:46:01.592Z",
+      "version": 1
+    },
+    {
+      "id": "users",
+      "type": "rectangle",
+      "x": 60,
+      "y": 110,
+      "width": 260,
+      "height": 240,
+      "backgroundColor": "#dbeafe",
+      "strokeColor": "#1d4ed8",
+      "strokeWidth": 2,
+      "label": {
+        "text": "users (Usuarios)\n───────────────────\n• id UUID (PK)\n• email VARCHAR (UK)\n• password VARCHAR\n• name VARCHAR\n• phone VARCHAR\n• role ENUM [admin, receptionist,\n  veterinarian, client]\n• active BOOLEAN\n• created_at, updated_at"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-12T11:46:01.592Z",
+      "updatedAt": "2026-08-14T03:30:00.000Z",
+      "version": 2
+    },
+    {
+      "id": "professionals",
+      "type": "rectangle",
+      "x": 410,
+      "y": 110,
+      "width": 260,
+      "height": 180,
+      "backgroundColor": "#f3e8ff",
+      "strokeColor": "#6b21a8",
+      "strokeWidth": 2,
+      "label": {
+        "text": "professionals (Veterinarios)\n───────────────────\n• id UUID (PK)\n• user_id UUID (FK, UK)\n• specialty VARCHAR\n• active BOOLEAN\n• created_at"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-12T11:46:01.593Z",
+      "updatedAt": "2026-08-14T03:30:00.000Z",
+      "version": 2
+    },
+    {
+      "id": "schedules",
+      "type": "rectangle",
+      "x": 760,
+      "y": 110,
+      "width": 260,
+      "height": 200,
+      "backgroundColor": "#ffe4e6",
+      "strokeColor": "#be123c",
+      "strokeWidth": 2,
+      "label": {
+        "text": "schedules (Horarios)\n───────────────────\n• id UUID (PK)\n• professional_id UUID (FK)\n• day_of_week INTEGER\n• start_time TIME\n• end_time TIME\n• active BOOLEAN"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-12T11:46:01.593Z",
+      "updatedAt": "2026-08-14T03:30:00.000Z",
+      "version": 2
+    },
+    {
+      "id": "pets",
+      "type": "rectangle",
+      "x": 60,
+      "y": 440,
+      "width": 260,
+      "height": 220,
+      "backgroundColor": "#dcfce7",
+      "strokeColor": "#15803d",
+      "strokeWidth": 2,
+      "label": {
+        "text": "pets (Mascotas)\n───────────────────\n• id UUID (PK)\n• user_id UUID (FK)\n• name VARCHAR\n• species VARCHAR\n• breed VARCHAR\n• age INTEGER\n• weight DECIMAL(5,2)\n• photo VARCHAR\n• created_at"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-12T11:46:01.593Z",
+      "updatedAt": "2026-08-14T03:30:00.000Z",
+      "version": 2
+    },
+    {
+      "id": "appointments",
+      "type": "rectangle",
+      "x": 390,
+      "y": 420,
+      "width": 290,
+      "height": 290,
+      "backgroundColor": "#e0f2fe",
+      "strokeColor": "#0369a1",
+      "strokeWidth": 3,
+      "label": {
+        "text": "appointments (Citas)\n───────────────────\n• id UUID (PK)\n• user_id UUID (FK)\n• pet_id UUID (FK)\n• professional_id UUID (FK)\n• service_id UUID (FK)\n• date DATE\n• start_time TIME\n• end_time TIME\n• status ENUM [pending, confirmed,\n  completed, cancelled]\n• notes TEXT\n• created_at, updated_at"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-12T11:46:01.593Z",
+      "updatedAt": "2026-08-14T03:30:00.000Z",
+      "version": 2
+    },
+    {
+      "id": "services",
+      "type": "rectangle",
+      "x": 760,
+      "y": 420,
+      "width": 260,
+      "height": 240,
+      "backgroundColor": "#fef3c7",
+      "strokeColor": "#b45309",
+      "strokeWidth": 2,
+      "label": {
+        "text": "services (Catálogo)\n───────────────────\n• id UUID (PK)\n• name VARCHAR\n• description TEXT\n• duration INTEGER (min)\n• price DECIMAL(10,2)\n• category ENUM [consulta,\n  vacuna, cirugia, emergencia,\n  estetica, laboratorio]\n• active BOOLEAN\n• created_at"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-12T11:46:01.593Z",
+      "updatedAt": "2026-08-14T03:30:00.000Z",
+      "version": 2
+    },
+    {
+      "id": "msq0wp2saotncuthpe",
+      "type": "arrow",
+      "x": 190,
+      "y": 358,
+      "strokeColor": "#1d4ed8",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1 : N"
+      },
+      "points": [
+        [0, 0],
+        [0, 74]
+      ],
+      "start": {
+        "id": "users"
+      },
+      "end": {
+        "id": "pets"
+      },
+      "createdAt": "2026-08-12T11:46:01.593Z",
+      "updatedAt": "2026-08-14T03:30:00.000Z",
+      "version": 2
+    },
+    {
+      "id": "msq0wp2snqoyjwevig",
+      "type": "arrow",
+      "x": 328,
+      "y": 210,
+      "strokeColor": "#6b21a8",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1 : 1"
+      },
+      "points": [
+        [0, 0],
+        [74, 0]
+      ],
+      "start": {
+        "id": "users"
+      },
+      "end": {
+        "id": "professionals"
+      },
+      "createdAt": "2026-08-12T11:46:01.593Z",
+      "updatedAt": "2026-08-14T03:30:00.000Z",
+      "version": 2
+    },
+    {
+      "id": "msq0wp2s3vj4t1ai02r",
+      "type": "arrow",
+      "x": 678,
+      "y": 210,
+      "strokeColor": "#be123c",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1 : N"
+      },
+      "points": [
+        [0, 0],
+        [74, 0]
+      ],
+      "start": {
+        "id": "professionals"
+      },
+      "end": {
+        "id": "schedules"
+      },
+      "createdAt": "2026-08-12T11:46:01.593Z",
+      "updatedAt": "2026-08-14T03:30:00.000Z",
+      "version": 2
+    },
+    {
+      "id": "msq0wp2sb30cxfmcn08",
+      "type": "arrow",
+      "x": 308,
+      "y": 340,
+      "strokeColor": "#0369a1",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1 : N (cliente)"
+      },
+      "points": [
+        [0, 0],
+        [90, 90]
+      ],
+      "start": {
+        "id": "users"
+      },
+      "end": {
+        "id": "appointments"
+      },
+      "createdAt": "2026-08-12T11:46:01.593Z",
+      "updatedAt": "2026-08-14T03:30:00.000Z",
+      "version": 2
+    },
+    {
+      "id": "msq0wp2s7eo3ljtm4b8",
+      "type": "arrow",
+      "x": 325,
+      "y": 555,
+      "strokeColor": "#15803d",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1 : N (paciente)"
+      },
+      "points": [
+        [0, 0],
+        [65, 0]
+      ],
+      "start": {
+        "id": "pets"
+      },
+      "end": {
+        "id": "appointments"
+      },
+      "createdAt": "2026-08-12T11:46:01.593Z",
+      "updatedAt": "2026-08-14T03:30:00.000Z",
+      "version": 2
+    },
+    {
+      "id": "msq0wp2sao6ll9afjea",
+      "type": "arrow",
+      "x": 540,
+      "y": 298,
+      "strokeColor": "#6b21a8",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1 : N (atiende)"
+      },
+      "points": [
+        [0, 0],
+        [0, 114]
+      ],
+      "start": {
+        "id": "professionals"
+      },
+      "end": {
+        "id": "appointments"
+      },
+      "createdAt": "2026-08-12T11:46:01.593Z",
+      "updatedAt": "2026-08-14T03:30:00.000Z",
+      "version": 2
+    },
+    {
+      "id": "msq0wp2s8m6inp2nbef",
+      "type": "arrow",
+      "x": 756,
+      "y": 555,
+      "strokeColor": "#b45309",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1 : N (servicio)"
+      },
+      "points": [
+        [0, 0],
+        [-66, 0]
+      ],
+      "start": {
+        "id": "services"
+      },
+      "end": {
+        "id": "appointments"
+      },
+      "createdAt": "2026-08-12T11:46:01.593Z",
+      "updatedAt": "2026-08-12T11:46:01.593Z",
+      "version": 1
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": null
+  }
+}

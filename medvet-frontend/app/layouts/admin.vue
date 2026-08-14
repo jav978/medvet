@@ -26,7 +26,7 @@
         </div>
 
         <!-- Section label -->
-        <div class="sidebar-section-label">PANEL CLÍNICO</div>
+        <div class="sidebar-section-label">CENTRO CLÍNICO & GESTIÓN</div>
 
         <!-- Nav links -->
         <nav class="sidebar-nav">
@@ -45,8 +45,8 @@
               <svg v-else-if="item.icon === 'professionals'" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/></svg>
               <svg v-else-if="item.icon === 'schedules'" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.8 2.8a1 1 0 101.414-1.414L11 9.586V6z" clip-rule="evenodd"/></svg>
             </span>
-            <span>{{ item.label }}</span>
-            <span v-if="isActive(item.to)" class="sidebar-active-bar"></span>
+            <span class="sidebar-link-text">{{ item.label }}</span>
+            <span v-if="isActive(item.to)" class="sidebar-active-dot"></span>
           </NuxtLink>
         </nav>
 
@@ -54,11 +54,11 @@
         <div class="sidebar-footer">
           <div class="sidebar-user">
             <div class="sidebar-user-avatar">
-              {{ authStore.user?.name?.slice(0, 2) || 'AD' }}
+              {{ (authStore.user?.name || 'AD').slice(0, 2).toUpperCase() }}
             </div>
             <div class="sidebar-user-info">
               <div class="sidebar-user-name">{{ authStore.user?.name || 'Administrador' }}</div>
-              <div class="sidebar-user-role">Admin del Sistema</div>
+              <div class="sidebar-user-role">Cuerpo Médico / Admin</div>
             </div>
           </div>
           <button @click="handleLogout" class="sidebar-logout" aria-label="Cerrar sesión">
@@ -78,11 +78,17 @@
           <button @click="sidebarOpen = true" class="topbar-hamburger lg:hidden" aria-label="Abrir menú">
             <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
           </button>
-          <h1 class="topbar-title">{{ pageTitle }}</h1>
+          <div class="topbar-title-block">
+            <h2 class="topbar-title">{{ pageTitle }}</h2>
+            <span class="topbar-live-clock font-mono-numbers">{{ currentTime }}</span>
+          </div>
         </div>
         <div class="topbar-right">
-          <span class="topbar-username">{{ authStore.user?.name }}</span>
-          <NuxtLink to="/" class="topbar-front-link">← Ver sitio</NuxtLink>
+          <span class="topbar-username font-semibold">{{ authStore.user?.name || 'Admin' }}</span>
+          <NuxtLink to="/" class="topbar-front-link">
+            <span>🌐</span>
+            <span>Ver Sitio Público</span>
+          </NuxtLink>
         </div>
       </header>
 
@@ -101,14 +107,23 @@ const router = useRouter()
 const route = useRoute()
 
 const sidebarOpen = ref(false)
+const currentTime = ref('')
+
+const updateTime = () => {
+  const now = new Date()
+  currentTime.value = now.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+}
+
+let timerInterval = null
 
 const navItems = [
-  { to: '/admin',               label: 'Dashboard',     icon: 'home' },
-  { to: '/admin/users',         label: 'Usuarios',      icon: 'users' },
-  { to: '/admin/appointments',  label: 'Citas',         icon: 'calendar' },
-  { to: '/admin/services',      label: 'Servicios',     icon: 'services' },
-  { to: '/admin/professionals', label: 'Profesionales', icon: 'professionals' },
-  { to: '/admin/schedules',     label: 'Horarios',      icon: 'schedules' },
+  { to: '/admin',               label: 'Dashboard Clínico', icon: 'home' },
+  { to: '/admin/appointments',  label: 'Gestión de Citas',  icon: 'calendar' },
+  { to: '/admin/payments',      label: 'Facturación & Caja',icon: 'services' },
+  { to: '/admin/users',         label: 'Usuarios & Tutores', icon: 'users' },
+  { to: '/admin/services',      label: 'Servicios Médicos',  icon: 'services' },
+  { to: '/admin/professionals', label: 'Cuerpo Médico',     icon: 'professionals' },
+  { to: '/admin/schedules',     label: 'Horarios & Guardias',icon: 'schedules' },
 ]
 
 const pageTitle = computed(() => {
@@ -116,11 +131,12 @@ const pageTitle = computed(() => {
     '/admin':               'Dashboard Clínico',
     '/admin/users':         'Gestión de Usuarios',
     '/admin/appointments':  'Gestión de Citas',
+    '/admin/payments':      'Facturación & Control de Caja',
     '/admin/services':      'Gestión de Servicios',
     '/admin/professionals': 'Cuerpo Médico',
     '/admin/schedules':     'Gestión de Horarios'
   }
-  return titles[route.path] || 'Admin'
+  return titles[route.path] || 'Administración MedVet'
 })
 
 const isActive = (path) =>
@@ -132,12 +148,18 @@ const handleLogout = async () => {
 }
 
 onMounted(async () => {
+  updateTime()
+  timerInterval = setInterval(updateTime, 1000)
   try {
     await authStore.reAuthenticate()
     if (!authStore.canAccessAdmin) router.push('/dashboard')
   } catch {
     router.push('/login')
   }
+})
+
+onUnmounted(() => {
+  if (timerInterval) clearInterval(timerInterval)
 })
 </script>
 
@@ -149,20 +171,24 @@ onMounted(async () => {
   background: var(--color-cream-100);
 }
 
+.dark .admin-shell {
+  background: #040706;
+}
+
 /* ── Sidebar ── */
 .sidebar-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(3, 7, 18, 0.45);
+  background: rgba(0, 0, 0, 0.7);
   z-index: 40;
   backdrop-filter: blur(4px);
 }
 
 .admin-sidebar {
-  width: 256px;
+  width: 260px;
   flex-shrink: 0;
-  background: #080c16; /* Midnight Premium dark */
-  border-right: 1px solid rgba(99, 102, 241, 0.12);
+  background: #060c09;
+  border-right: 1px solid rgba(0, 245, 155, 0.12);
   display: flex;
   flex-direction: column;
   position: sticky;
@@ -188,7 +214,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 1.5rem 1rem;
+  padding: 1.5rem 1.15rem;
   gap: 0;
 }
 
@@ -198,8 +224,8 @@ onMounted(async () => {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(99, 102, 241, 0.15);
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(0, 245, 155, 0.15);
 }
 
 .sidebar-logo {
@@ -213,25 +239,25 @@ onMounted(async () => {
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 10px;
-  background: var(--color-amber-600); /* Índigo */
-  color: #fff;
+  background: #00f59b;
+  color: #040706;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 0 16px rgba(0, 245, 155, 0.4);
 }
 
-.sidebar-logo-mark svg { width: 1.125rem; height: 1.125rem; }
+.sidebar-logo-mark svg { width: 1.15rem; height: 1.15rem; }
 
 .sidebar-logo-text {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #f1faf5;
   letter-spacing: -0.02em;
 }
 
-.sidebar-logo-text span { color: var(--color-forest-600); }
+.sidebar-logo-text span { color: #00f59b; }
 
 .sidebar-close {
   background: transparent;
@@ -242,195 +268,185 @@ onMounted(async () => {
   display: flex;
 }
 .sidebar-close svg { width: 1.25rem; height: 1.25rem; }
-.sidebar-close:hover { color: #fff; }
+.sidebar-close:hover { color: #00f59b; }
 
 /* Section label */
 .sidebar-section-label {
-  font-size: 0.6rem;
+  font-size: 0.62rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.25);
-  margin-bottom: 0.5rem;
-  padding-left: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #5c7365;
+  margin-bottom: 0.75rem;
+  padding-left: 0.65rem;
 }
 
 /* Nav */
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
-  flex: 1;
+  gap: 0.35rem;
+  flex-grow: 1;
 }
 
 .sidebar-link {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.65rem 0.75rem;
+  padding: 0.75rem 0.85rem;
   border-radius: 12px;
   text-decoration: none;
-  font-size: 0.875rem;
+  font-size: 0.84rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.45);
-  transition: all 0.15s ease;
+  color: #8ca395;
+  transition: all 0.18s ease;
   position: relative;
 }
 
 .sidebar-link:hover {
-  background: rgba(99, 102, 241, 0.08);
-  color: #ffffff;
+  background: rgba(0, 245, 155, 0.08);
+  color: #00f59b;
 }
 
 .sidebar-link--active {
-  background: rgba(99, 102, 241, 0.15);
-  color: #ffffff;
-  font-weight: 600;
+  background: rgba(0, 245, 155, 0.14);
+  color: #00f59b;
+  font-weight: 700;
 }
 
 .sidebar-link-icon {
   width: 1.25rem;
   height: 1.25rem;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
-.sidebar-link-icon svg {
-  width: 100%;
-  height: 100%;
-}
 
-.sidebar-active-bar {
-  position: absolute;
-  left: 0;
-  top: 25%;
-  bottom: 25%;
-  width: 3px;
-  border-radius: 0 3px 3px 0;
-  background: var(--color-forest-600);
-  box-shadow: 0 0 8px var(--color-forest-600);
+.sidebar-link-icon svg { width: 1.15rem; height: 1.15rem; }
+
+.sidebar-link-text { flex: 1; }
+
+.sidebar-active-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00f59b;
+  box-shadow: 0 0 8px #00f59b;
 }
 
 /* Footer */
 .sidebar-footer {
-  margin-top: auto;
   padding-top: 1.25rem;
-  border-top: 1px solid rgba(99, 102, 241, 0.12);
+  border-top: 1px solid rgba(0, 245, 155, 0.12);
   display: flex;
-  flex-direction: column;
-  gap: 0.875rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 
 .sidebar-user {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem;
+  gap: 0.65rem;
+  min-width: 0;
 }
 
 .sidebar-user-avatar {
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--color-amber-600) 0%, var(--color-forest-600) 100%);
-  color: #fff;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 8px;
+  background: #00f59b;
+  color: #040706;
+  font-weight: 800;
+  font-size: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 0.75rem;
   flex-shrink: 0;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
-.sidebar-user-name {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.85);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 140px;
-}
-
-.sidebar-user-role {
-  font-size: 0.65rem;
-  color: rgba(255, 255, 255, 0.35);
-}
+.sidebar-user-info { min-width: 0; }
+.sidebar-user-name { font-size: 0.78rem; font-weight: 700; color: #f1faf5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sidebar-user-role { font-size: 0.65rem; color: #5c7365; }
 
 .sidebar-logout {
+  background: transparent;
+  border: none;
+  color: #5c7365;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 0.75rem;
-  border-radius: 10px;
-  background: transparent;
-  border: 1px solid rgba(99, 102, 241, 0.18);
-  color: rgba(255, 255, 255, 0.45);
-  font-family: var(--font-body);
-  font-size: 0.8125rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s;
-  width: 100%;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  transition: all 0.15s ease;
 }
-.sidebar-logout:hover {
-  border-color: rgba(239, 68, 68, 0.4);
-  color: #ef4444;
-  background: rgba(239, 68, 68, 0.08);
-}
-.sidebar-logout svg { width: 1rem; height: 1rem; }
 
-/* ── Admin body ── */
+.sidebar-logout:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.sidebar-logout svg { width: 0.95rem; height: 0.95rem; }
+
+/* ── Main content ── */
 .admin-body {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  min-width: 0;
-  min-height: 100vh;
 }
 
-/* Topbar */
 .admin-topbar {
-  position: sticky;
-  top: 0;
-  z-index: 30;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--color-cream-200);
-  padding: 0.875rem 1.5rem;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  padding: 1.15rem 2rem;
+  background: var(--color-cream-50);
+  border-bottom: 1px solid var(--color-cream-200);
 }
 
 .dark .admin-topbar {
-  background: rgba(3, 7, 18, 0.85);
+  background: #060c09;
+  border-bottom-color: rgba(0, 245, 155, 0.12);
 }
 
 .topbar-left {
   display: flex;
   align-items: center;
-  gap: 0.875rem;
+  gap: 1rem;
 }
 
-.topbar-hamburger {
-  background: transparent;
-  border: none;
-  color: var(--color-ink-600);
-  cursor: pointer;
-  padding: 0.25rem;
+.topbar-title-block {
   display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
-.topbar-hamburger svg { width: 1.25rem; height: 1.25rem; }
 
 .topbar-title {
   font-family: var(--font-display);
-  font-size: 1.125rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--color-ink-900);
   margin: 0;
+}
+
+.dark .topbar-title { color: #f1faf5; }
+
+.topbar-live-clock {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(0, 168, 107, 0.1);
+  color: #00a86b;
+}
+
+.dark .topbar-live-clock {
+  background: rgba(0, 245, 155, 0.12);
+  color: #00f59b;
 }
 
 .topbar-right {
@@ -441,32 +457,35 @@ onMounted(async () => {
 
 .topbar-username {
   font-size: 0.8125rem;
-  color: var(--color-ink-500);
-  display: none;
+  color: var(--color-ink-700);
 }
-@media (min-width: 640px) { .topbar-username { display: block; } }
+
+.dark .topbar-username { color: #d6e8de; }
 
 .topbar-front-link {
-  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  color: var(--color-amber-600);
+  color: #00a86b;
   text-decoration: none;
   padding: 0.35rem 0.75rem;
   border-radius: 8px;
-  border: 1.5px solid rgba(99, 102, 241, 0.25);
-  transition: all 0.15s;
-}
-.topbar-front-link:hover {
-  background: var(--color-amber-100);
-  border-color: var(--color-amber-400);
+  border: 1px solid rgba(0, 168, 107, 0.2);
 }
 
-/* Admin content */
+.dark .topbar-front-link {
+  color: #00f59b;
+  border-color: rgba(0, 245, 155, 0.25);
+}
+
 .admin-content {
+  padding: 2rem;
   flex: 1;
-  padding: 2rem 1.5rem;
-  max-width: 1280px;
-  width: 100%;
-  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  .admin-content { padding: 1.25rem; }
 }
 </style>

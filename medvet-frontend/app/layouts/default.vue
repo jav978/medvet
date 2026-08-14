@@ -43,6 +43,8 @@
           </NuxtLink>
           <template v-if="authStore.isAuthenticated">
             <NuxtLink to="/dashboard" class="nav-link" active-class="nav-link--active">Mi Panel</NuxtLink>
+            <NuxtLink to="/pets" class="nav-link" active-class="nav-link--active">Mis Mascotas</NuxtLink>
+            <NuxtLink to="/dashboard/payments" class="nav-link" active-class="nav-link--active">Pagos</NuxtLink>
             <NuxtLink v-if="authStore.canAccessAdmin" to="/admin" class="nav-link" active-class="nav-link--active">Admin</NuxtLink>
           </template>
         </nav>
@@ -100,6 +102,8 @@
             <NuxtLink to="/book" class="mobile-nav-link" @click="mobileMenuOpen = false">Reservar Cita</NuxtLink>
             <template v-if="authStore.isAuthenticated">
               <NuxtLink to="/dashboard" class="mobile-nav-link" @click="mobileMenuOpen = false">Mi Panel</NuxtLink>
+              <NuxtLink to="/pets" class="mobile-nav-link" @click="mobileMenuOpen = false">Mis Mascotas</NuxtLink>
+              <NuxtLink to="/dashboard/payments" class="mobile-nav-link" @click="mobileMenuOpen = false">Pagos & Facturación</NuxtLink>
               <NuxtLink v-if="authStore.canAccessAdmin" to="/admin" class="mobile-nav-link" @click="mobileMenuOpen = false">Admin</NuxtLink>
               <div class="mobile-nav-divider"></div>
               <button @click="handleLogout" class="mobile-logout">Cerrar Sesión</button>
@@ -228,8 +232,8 @@ const handleLogout = async () => {
 }
 
 .dark .layout-root {
-  background-color: var(--color-forest-950);
-  color: #e8ede9;
+  background-color: #040706;
+  color: #e7f2f1;
 }
 
 /* ────────────────────────────────────────
@@ -253,9 +257,9 @@ const handleLogout = async () => {
   display: inline-flex;
   padding: 0.15rem 0.55rem;
   border-radius: 999px;
-  background: rgba(200, 134, 10, 0.2);
-  border: 1px solid rgba(200, 134, 10, 0.35);
-  color: var(--color-amber-500);
+  background: rgba(255, 122, 0, 0.18);
+  border: 1px solid rgba(255, 122, 0, 0.35);
+  color: var(--color-joy-tangerine);
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -279,7 +283,7 @@ const handleLogout = async () => {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(247, 243, 238, 0.9);
+  background: rgba(244, 247, 245, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--color-cream-200);
@@ -287,8 +291,8 @@ const handleLogout = async () => {
 }
 
 .dark .site-header {
-  background: rgba(14, 31, 20, 0.92);
-  border-bottom-color: rgba(45, 90, 61, 0.3);
+  background: rgba(4, 7, 6, 0.85);
+  border-bottom-color: rgba(0, 245, 155, 0.15);
 }
 
 .header-inner {
@@ -317,8 +321,8 @@ const handleLogout = async () => {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 12px;
-  background: var(--color-forest-900);
-  color: var(--color-forest-200);
+  background: #00a86b;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -331,7 +335,9 @@ const handleLogout = async () => {
 }
 
 .dark .brand-icon {
-  background: var(--color-forest-800);
+  background: #00f59b;
+  color: #040706;
+  box-shadow: 0 0 16px rgba(0, 245, 155, 0.4);
 }
 
 .brand-text {
@@ -348,18 +354,18 @@ const handleLogout = async () => {
   color: var(--color-ink-900);
 }
 
-.dark .brand-name { color: #e0ece0; }
+.dark .brand-name { color: #f1faf5; }
 
-.brand-name-accent { color: var(--color-forest-700); }
+.brand-name-accent { color: #00a86b; }
 
-.dark .brand-name-accent { color: var(--color-forest-400); }
+.dark .brand-name-accent { color: #00f59b; }
 
 .brand-tagline {
   font-size: 0.6rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-ink-300);
+  color: var(--color-ink-400);
   margin-top: 0.05rem;
 }
 
@@ -393,22 +399,22 @@ const handleLogout = async () => {
   background: var(--color-forest-100);
 }
 
-.dark .nav-link { color: #7aab7e; }
+.dark .nav-link { color: #8ca395; }
 
 .dark .nav-link:hover {
-  color: var(--color-forest-300, #a0c8a8);
-  background: rgba(45, 90, 61, 0.15);
+  color: #ffffff;
+  background: rgba(0, 245, 155, 0.1);
 }
 
 .nav-link--active {
-  color: var(--color-forest-800) !important;
+  color: #00a86b !important;
   font-weight: 600;
   background: var(--color-forest-100) !important;
 }
 
 .dark .nav-link--active {
-  color: var(--color-forest-300, #a0c8a8) !important;
-  background: rgba(45, 90, 61, 0.2) !important;
+  color: #00f59b !important;
+  background: rgba(0, 245, 155, 0.14) !important;
 }
 
 .nav-link--book {
@@ -460,8 +466,8 @@ const handleLogout = async () => {
 }
 
 .dark .theme-toggle {
-  background: rgba(45, 90, 61, 0.3);
-  border-color: rgba(61, 122, 82, 0.4);
+  background: rgba(16, 28, 22, 0.8);
+  border-color: rgba(0, 245, 155, 0.28);
 }
 
 .theme-toggle-thumb {
@@ -479,10 +485,11 @@ const handleLogout = async () => {
 
 .theme-toggle-thumb--dark {
   transform: translateX(1.6rem);
-  background: var(--color-forest-700);
+  background: #00f59b;
+  box-shadow: 0 0 12px rgba(0, 245, 155, 0.8);
 }
 
-.theme-icon { width: 0.75rem; height: 0.75rem; color: var(--color-ink-500); }
+.theme-icon { width: 0.75rem; height: 0.75rem; color: #040706; }
 .theme-icon--sun { color: var(--color-amber-600); }
 
 /* Mobile controls */
@@ -500,8 +507,8 @@ const handleLogout = async () => {
 .mobile-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(14, 31, 20, 0.5);
-  backdrop-filter: blur(4px);
+  background: rgba(4, 7, 6, 0.7);
+  backdrop-filter: blur(8px);
   z-index: 40;
 }
 
@@ -522,8 +529,9 @@ const handleLogout = async () => {
 .mobile-icon-btn:hover { background: var(--color-cream-300); }
 
 .dark .mobile-icon-btn {
-  background: rgba(45, 90, 61, 0.2);
-  color: #a0c8a8;
+  background: rgba(16, 28, 22, 0.8);
+  border: 1px solid rgba(0, 245, 155, 0.2);
+  color: #00f59b;
 }
 
 .mobile-theme-icon { width: 1.125rem; height: 1.125rem; }
@@ -535,8 +543,8 @@ const handleLogout = async () => {
 }
 
 .dark .mobile-menu {
-  border-top-color: rgba(45, 90, 61, 0.25);
-  background: #0e1f14;
+  border-top-color: rgba(0, 245, 155, 0.15);
+  background: #060c09;
 }
 
 .mobile-nav {
@@ -564,10 +572,11 @@ const handleLogout = async () => {
   color: var(--color-forest-800);
 }
 
-.dark .mobile-nav-link { color: #a0c8a8; }
+.dark .mobile-nav-link { color: #8ca395; }
 
 .dark .mobile-nav-link:hover {
-  background: rgba(45, 90, 61, 0.15);
+  background: rgba(0, 245, 155, 0.1);
+  color: #ffffff;
 }
 
 .mobile-nav-divider {
@@ -576,15 +585,15 @@ const handleLogout = async () => {
   margin: 0.5rem 0;
 }
 
-.dark .mobile-nav-divider { background: rgba(45, 90, 61, 0.2); }
+.dark .mobile-nav-divider { background: rgba(0, 245, 155, 0.15); }
 
 .mobile-logout {
   width: 100%;
   padding: 0.875rem 1rem;
   border-radius: 12px;
-  background: rgba(200, 134, 10, 0.1);
-  border: 1px solid rgba(200, 134, 10, 0.25);
-  color: var(--color-amber-700);
+  background: rgba(255, 122, 0, 0.12);
+  border: 1px solid rgba(255, 122, 0, 0.25);
+  color: var(--color-joy-tangerine);
   font-family: var(--font-body);
   font-size: 0.875rem;
   font-weight: 600;
@@ -594,7 +603,7 @@ const handleLogout = async () => {
 }
 
 .mobile-logout:hover {
-  background: rgba(200, 134, 10, 0.18);
+  background: rgba(255, 122, 0, 0.2);
 }
 
 .mobile-full-btn {
@@ -614,9 +623,10 @@ const handleLogout = async () => {
    FOOTER
 ──────────────────────────────────────── */
 .site-footer {
-  background: var(--color-forest-950);
-  color: rgba(200, 232, 200, 0.55);
+  background: #020403;
+  color: rgba(223, 240, 238, 0.55);
   padding: 4rem 0 2.5rem;
+  border-top: 1px solid rgba(0, 245, 155, 0.1);
 }
 
 .footer-inner {
@@ -630,7 +640,7 @@ const handleLogout = async () => {
   grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
   gap: 3rem;
   padding-bottom: 3rem;
-  border-bottom: 1px solid rgba(45, 90, 61, 0.25);
+  border-bottom: 1px solid rgba(0, 245, 155, 0.12);
 }
 
 @media (max-width: 900px) {
@@ -654,29 +664,30 @@ const handleLogout = async () => {
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 10px;
-  background: var(--color-forest-800);
+  background: rgba(0, 245, 155, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  border: 1px solid rgba(0, 245, 155, 0.3);
 }
 
 .footer-brand-icon svg {
   width: 1.1rem;
   height: 1.1rem;
-  fill: var(--color-forest-300, #a0c8a8);
+  fill: #00f59b;
 }
 
 .footer-brand-name {
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 800;
-  color: #c8e8c8;
+  color: #f1faf5;
   letter-spacing: -0.02em;
 }
 
 .footer-brand-name span {
-  color: var(--color-forest-400);
+  color: #00f59b;
 }
 
 .footer-brand-desc {
@@ -691,14 +702,14 @@ const handleLogout = async () => {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.75rem;
-  color: rgba(200, 232, 200, 0.4);
+  color: rgba(223, 240, 238, 0.4);
 }
 
 .footer-open-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--color-forest-400);
+  background: #00f59b;
   animation: pulse-ring 2.5s infinite;
   flex-shrink: 0;
 }
@@ -731,7 +742,7 @@ const handleLogout = async () => {
 }
 
 .footer-links li a:hover {
-  color: var(--color-forest-300, #a0c8a8);
+  color: #00f59b;
 }
 
 /* Contact */
@@ -759,13 +770,13 @@ const handleLogout = async () => {
 }
 
 .footer-contact li a:hover {
-  color: var(--color-forest-300, #a0c8a8);
+  color: #00f59b;
 }
 
 .contact-icon {
   width: 1rem;
   height: 1rem;
-  color: var(--color-forest-600);
+  color: #00f59b;
   flex-shrink: 0;
   margin-top: 0.1rem;
 }
@@ -794,7 +805,7 @@ const handleLogout = async () => {
 }
 
 .footer-bottom-links a:hover {
-  color: rgba(200, 232, 200, 0.5);
+  color: #00f59b;
 }
 
 /* ────────────────────────────────────────

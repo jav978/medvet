@@ -211,7 +211,7 @@ const vetBars = computed(() => {
 
 /* ── FRONT ── */
 .vetcard-front {
-  background: linear-gradient(160deg, #0D1B4A 0%, #1E3A70 60%, #1E78E0 100%);
+  background: linear-gradient(160deg, #0B2440 0%, #1E3A70 60%, #2563EB 100%);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -249,7 +249,7 @@ const vetBars = computed(() => {
   border-radius: 8px;
   background: rgba(255,255,255,0.15);
   display: flex; align-items: center; justify-content: center;
-  color: #B2EDE8; flex-shrink: 0;
+  color: #99F6E4; flex-shrink: 0;
 }
 .vcard-logo svg { width: 1rem; height: 1rem; }
 
@@ -335,9 +335,9 @@ const vetBars = computed(() => {
   font-size: 0.6rem; font-weight: 600;
   padding: 0.2rem 0.5rem;
   border-radius: 999px;
-  background: rgba(0,181,163,0.2);
-  color: #B2EDE8;
-  border: 1px solid rgba(0,181,163,0.35);
+  background: rgba(20, 184, 166, 0.2);
+  color: #99F6E4;
+  border: 1px solid rgba(20, 184, 166, 0.35);
 }
 
 /* Footer */
@@ -368,7 +368,7 @@ const vetBars = computed(() => {
 /* ── BACK ── */
 .vetcard-back {
   transform: rotateY(180deg);
-  background: #F4F6F8;
+  background: #F4F7FB;
   display: flex;
   flex-direction: column;
 }
@@ -387,7 +387,7 @@ const vetBars = computed(() => {
   display: flex; flex-direction: column; align-items: center;
   padding: 1.25rem 1rem 0.875rem; gap: 0.5rem;
   background: #fff;
-  border-bottom: 1px solid #E0E6EA;
+  border-bottom: 1px solid #E2E8F0;
 }
 .back-qr-box {
   width: 100px; height: 100px;
@@ -397,9 +397,9 @@ const vetBars = computed(() => {
   display: flex; align-items: center; justify-content: center;
   padding: 0.4rem;
 }
-.vet-qr-svg { width: 100%; height: 100%; color: #0D1B4A; }
+.vet-qr-svg { width: 100%; height: 100%; color: #0B2440; }
 .back-qr-label {
-  font-size: 0.6rem; color: #607080; text-align: center;
+  font-size: 0.6rem; color: #475569; text-align: center;
   max-width: 150px; margin: 0;
 }
 
@@ -411,21 +411,21 @@ const vetBars = computed(() => {
 }
 .bc-row { display: flex; align-items: flex-start; gap: 0.5rem; }
 .bc-ico { font-size: 0.875rem; flex-shrink: 0; }
-.bc-val { font-size: 0.78rem; color: #2C3E50; line-height: 1.4; }
+.bc-val { font-size: 0.78rem; color: #334155; line-height: 1.4; }
 
 /* Terms */
 .back-terms {
   font-size: 0.58rem;
-  color: #9DB0C0;
+  color: #94A3B8;
   padding: 0 1.25rem 0.625rem;
   line-height: 1.6;
-  border-top: 1px solid #E0E6EA;
+  border-top: 1px solid #E2E8F0;
   padding-top: 0.625rem;
 }
 
 /* Back footer */
 .back-footer-vet {
-  background: #0D1B4A;
+  background: #0B2440;
   padding: 0.625rem 1.125rem;
   display: flex; align-items: center; gap: 0.5rem;
 }

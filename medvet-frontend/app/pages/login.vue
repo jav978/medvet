@@ -265,7 +265,7 @@ const handleLogin = async () => {
 
 .form-input:focus {
   border-color: var(--color-amber-500);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .form-error {

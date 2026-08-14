@@ -1,44 +1,90 @@
-# MedVet Design System — Google Stitch Inspired
+# MedVet Design System — "Nuxt Emerald & Deep Space"
 
 ## Design Philosophy
 
-**"Simple, Clean, Intent-Driven"**
+**"Modern, Tech-Forward, Clean & Patient-Centered"**
 
-MedVet follows Google Stitch's design principles:
-- **Clarity**: Every element has purpose
-- **Whitespace**: Breathing room between elements
-- **Consistency**: Predictable patterns across all pages
-- **Accessibility**: WCAG 2.1 AA compliant
+Inspirado en la estética visual de la web oficial de [Nuxt.com](https://nuxt.com/):
+- **Clarity & Legibility**: Tipografía geométrica y nítida (**DM Sans** + **Public Sans**) para una experiencia de lectura ultra moderna.
+- **Nuxt Signature Emerald**: Acentos en verde esmeralda neón (`#00DC82` / `#00C16A` / `#36E4DA`) que combinan salud, vanguardia tecnológica y bienestar veterinario.
+- **Deep Space Dark Mode**: Fondo medianoche profundo `#020420` con tarjetas `#080C1E` y bordes glow sutiles en `rgba(0, 220, 130, 0.15)`.
+- **Crisp Minimal Light Mode**: Fondo ultra limpio `#F8FAFC`, tarjetas en blanco puro `#FFFFFF` y píldoras `#E6FBF2`.
+- **Accessibility**: Estricto cumplimiento WCAG 2.1 AA en ambos modos.
 
 ---
 
 ## Color Palette
 
-### Primary Colors
+The palette is defined as CSS variables in `medvet-frontend/app/assets/css/main.css` (single source of truth).
+
+### Nuxt Emerald & Health (Salud / Vitalidad / Acciones)
 | Token | Hex | Usage |
 |-------|-----|-------|
-| `primary-50` | `#eff6ff` | Light backgrounds |
-| `primary-100` | `#dbeafe` | Hover states |
-| `primary-500` | `#3b82f6` | Buttons, links |
-| `primary-600` | `#2563eb` | Active states |
-| `primary-900` | `#1e3a5a` | Dark accents |
+| `forest-50` | `#f0fdf7` | Tint suave |
+| `forest-100` | `#e6fbf2` | Ghost hover bg / badges Nuxt |
+| `forest-200` | `#8cf3c4` | Light accents |
+| `forest-300` | `#42e89f` | Dark panels text |
+| `forest-400` | `#00dc82` | **NUXT SIGNATURE GREEN** |
+| `forest-500` | `#00a155` | Nuxt Green 500 |
+| `forest-600` | `#008244` | Acento de salud primario en Light |
+| `forest-700` | `#00703c` | Botones secundarios de salud |
+| `forest-800` | `#025734` | Hover secundario |
+| `forest-900` | `#013821` | Panels oscuros |
+| `forest-950` | `#012817` | Footer / deepest |
+
+### Nuxt CTA & Accents (Reserva / Glow / Cyan)
+| Token | Hex | Usage |
+|-------|-----|-------|
+| `amber-100` | `#e6fbf2` | Soft tint badges |
+| `amber-400` | `#36e4da` | Nuxt Cyan |
+| `amber-500` | `#00dc82` | **Signature Nuxt Green** |
+| `amber-600` | `#008244` (Light) / `#00dc82` (Dark) | **Primary Action CTA** |
+| `amber-700` | `#0284c7` | Hover / pressed |
+| `amber-800` | `#0369a1` | Dark accents |
+
+### Joyful Warmth — Warm Amber & Tangerine (Mascotas Felices / Destacados)
+| Token | Hex | Usage |
+|-------|-----|-------|
+| `joy-amber` | `#f59e0b` | Calificaciones (4.9 ★), avisos amigables |
+| `joy-orange` | `#f97316` | Acentos enérgicos y llamadas a la acción |
+| `joy-bg` | `#fffbeb` | Fondos de avisos cálidos |
 
 ### Semantic Colors
 | Token | Hex | Usage |
 |-------|-----|-------|
-| `success` | `#22c55e` | Active, confirmed, available |
+| `success` | `#00dc82` | Active, confirmed, available |
 | `warning` | `#f59e0b` | Pending, attention needed |
-| `error` | `#ef4444` | Cancelled, errors |
-| `info` | `#3b82f6` | Information, completed |
+| `error` | `#dc2626` | Cancelled, errors |
+| `info` | `#36e4da` | Information, completed |
+| `coral-glow` | `#f43f5e` | Alerts, live indicators, urgencias |
 
-### Neutrals
+### Neutrals — Crisp Minimal
 | Token | Hex | Usage |
 |-------|-----|-------|
-| `gray-50` | `#f9fafb` | Page background |
-| `gray-100` | `#f3f4f6` | Card backgrounds |
-| `gray-200` | `#e5e7eb` | Borders |
-| `gray-500` | `#6b7280` | Secondary text |
-| `gray-900` | `#111827` | Primary text |
+| `cream-50` | `#ffffff` | Card backgrounds |
+| `cream-100` | `#f8fafc` | Page background ultra limpio |
+| `cream-200` | `#e2e8f0` | Borders |
+| `cream-300` | `#cbd5e1` | Stronger borders |
+| `cream-400` | `#94a3b8` | Disabled |
+| `ink-900` | `#020420` | Primary text (Nuxt Midnight) |
+| `ink-700` | `#1e293b` | Secondary text |
+| `ink-600` | `#334155` | Tertiary text |
+| `ink-500` | `#64748b` | Muted text |
+| `ink-400` | `#94a3b8` | Placeholders |
+| `ink-300` | `#cbd5e1` | Faint text |
+
+### Dark Mode — Nuxt Deep Space Midnight
+| Token | Light | Dark | Usage |
+|-------|-------|------|-------|
+| Background | `cream-100` `#f8fafc` | `#020420` | Page bg (Nuxt Deep Space) |
+| Surface | `cream-50` `#ffffff` | `#080c1e` | Cards (Nuxt Dark Card) |
+| Border | `cream-200` `#e2e8f0` | `#111a36` | Dividers |
+| CTA | `amber-600` `#008244` | `#00dc82` | Primary buttons (Nuxt Glow) |
+| Accent | `forest-600` `#008244` | `#00dc82` | Health accents |
+| Joy Accent | `joy-amber` `#f59e0b` | `#fbbf24` | Warm highlights |
+| Text Primary | `ink-900` `#020420` | `#ffffff` | Headings |
+| Text Secondary | `ink-500` `#64748b` | `#94a3b8` | Body muted |
+| Alerts | `coral-glow` `#f43f5e` | `#fb7185` | Alerts |
 
 ---
 
@@ -46,7 +92,8 @@ MedVet follows Google Stitch's design principles:
 
 ### Font Stack
 ```css
-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+/* Títulos y Cuerpo: Moderna, geométrica y ultra legible */
+font-family: 'DM Sans', 'Public Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 ```
 
 ### Scale
@@ -120,10 +167,10 @@ Based on 4px grid:
 ### Badges (Status)
 | Status | Color | Background |
 |--------|-------|------------|
-| Active/Confirmed | Green | `green-100` |
-| Pending | Yellow | `yellow-100` |
-| Inactive/Cancelled | Red | `red-100` |
-| Info/Completed | Blue | `blue-100` |
+| Active/Confirmed | Green | `teal-100` / `#ccfbf1` |
+| Pending | Yellow | `amber-100` / `#fef3c7` |
+| Inactive/Cancelled | Red | `red-100` / `#fee2e2` |
+| Info/Completed | Blue | `blue-100` / `#dbeafe` |
 
 ### Tables
 - Header: `gray-50` background
@@ -190,15 +237,6 @@ Based on 4px grid:
 
 ## Dark Mode
 
-### Color Overrides
-| Token | Light | Dark |
-|-------|-------|------|
-| Background | `gray-50` | `gray-900` |
-| Surface | `white` | `gray-800` |
-| Border | `gray-200` | `gray-700` |
-| Text Primary | `gray-900` | `gray-50` |
-| Text Secondary | `gray-500` | `gray-400` |
-
 ### Implementation
 ```nuxt
 // nuxt.config.ts
@@ -208,6 +246,8 @@ export default defineNuxtConfig({
   }
 })
 ```
+
+Dark mode toggles with the `.dark` class on `<html>` (see `main.css`): all `--color-*` tokens swap to the Marine Navy set. The palette is tokenized — never use raw hex values in components.
 
 ---
 
