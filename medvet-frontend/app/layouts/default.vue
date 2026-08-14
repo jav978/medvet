@@ -842,7 +842,7 @@ const handleLogout = async () => {
 }
 
 .dark .footer-brand-name {
-  color: #f1faf5;
+  color: #f8fafc;
 }
 
 .footer-brand-name span {
@@ -862,7 +862,7 @@ const handleLogout = async () => {
 }
 
 .dark .footer-brand-desc {
-  color: rgba(223, 240, 238, 0.55);
+  color: #94a3b8;
 }
 
 .footer-open {
@@ -874,7 +874,7 @@ const handleLogout = async () => {
 }
 
 .dark .footer-open {
-  color: rgba(223, 240, 238, 0.4);
+  color: #64748b;
 }
 
 .footer-open-dot {
@@ -902,7 +902,7 @@ const handleLogout = async () => {
 }
 
 .dark .footer-col-title {
-  color: rgba(200, 232, 200, 0.5);
+  color: #cbd5e1;
 }
 
 .footer-links {
@@ -926,7 +926,7 @@ const handleLogout = async () => {
 }
 
 .dark .footer-links li a {
-  color: rgba(200, 232, 200, 0.45);
+  color: #94a3b8;
 }
 
 .dark .footer-links li a:hover {
@@ -952,7 +952,7 @@ const handleLogout = async () => {
 }
 
 .dark .footer-contact li {
-  color: rgba(200, 232, 200, 0.45);
+  color: #94a3b8;
 }
 
 .footer-contact li a {
@@ -1007,12 +1007,11 @@ const handleLogout = async () => {
   gap: 1.25rem;
   font-size: 0.775rem;
   color: var(--color-ink-500);
-  padding-right: 5rem; /* Safe area for floating WhatsApp button on desktop */
 }
 
 :global(.dark) .footer-bottom {
   border-top: none;
-  color: rgba(200, 232, 200, 0.6);
+  color: #64748b;
 }
 
 .footer-bottom-info {
@@ -1028,7 +1027,7 @@ const handleLogout = async () => {
 }
 
 :global(.dark) .footer-copy-text {
-  color: rgba(223, 240, 238, 0.65);
+  color: #94a3b8;
 }
 
 .footer-dev-credit {
@@ -1045,7 +1044,7 @@ const handleLogout = async () => {
 }
 
 :global(.dark) .dev-tag-text {
-  color: rgba(223, 240, 238, 0.7);
+  color: #64748b;
 }
 
 .dev-author-link {
