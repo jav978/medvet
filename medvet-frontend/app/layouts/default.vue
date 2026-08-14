@@ -755,7 +755,7 @@ const handleLogout = async () => {
 .site-footer {
   background: var(--color-cream-100);
   color: var(--color-ink-600);
-  padding: 4rem 0 2.5rem;
+  padding: 3rem 0 2rem;
   border-top: 1px solid var(--color-cream-300);
   transition: background-color 0.25s ease, border-color 0.25s ease;
 }
@@ -775,13 +775,8 @@ const handleLogout = async () => {
 .footer-grid {
   display: grid;
   grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
-  gap: 3rem;
-  padding-bottom: 3rem;
-  border-bottom: 1px solid var(--color-cream-300);
-}
-
-.dark .footer-grid {
-  border-bottom: 1px solid rgba(0, 245, 155, 0.12);
+  gap: 2.5rem;
+  padding-bottom: 1.75rem;
 }
 
 @media (max-width: 900px) {
@@ -992,7 +987,7 @@ const handleLogout = async () => {
    BOTTOM BAR & DEVELOPER SIGNATURE (COMPACT & UNIFIED)
 ──────────────────────────────────────── */
 .footer-bottom {
-  margin-top: 1.75rem;
+  margin-top: 0;
   padding-top: 1.25rem;
   border-top: 1px solid #e2e8f0;
   display: flex;
