@@ -481,6 +481,9 @@ onMounted(async () => {
 ──────────────────────────────────────── */
 .page-root {
   background-color: var(--color-cream-100);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .dark .page-root {
@@ -1607,6 +1610,9 @@ onMounted(async () => {
   padding: 5rem 0 6rem;
   background: var(--color-cream-50);
   transition: background-color 0.25s ease;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 .dark .urgent-section {
