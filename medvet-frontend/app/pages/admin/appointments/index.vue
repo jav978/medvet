@@ -78,7 +78,7 @@ definePageMeta({
   layout: 'admin',
   middleware: 'auth',
   requiresAuth: true,
-  requiredRole: 'admin'
+  requiresAdmin: true
 })
 
 const appointments = ref([])

@@ -216,7 +216,8 @@
 definePageMeta({
   layout: 'admin',
   middleware: 'auth',
-  requiresAuth: true
+  requiresAuth: true,
+  requiresAdmin: true
 })
 
 const activeShiftTab = ref('all')

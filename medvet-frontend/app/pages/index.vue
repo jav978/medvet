@@ -1543,6 +1543,7 @@ onMounted(async () => {
 .urgent-section {
   padding: 5rem 0 6rem;
   background: var(--color-cream-50);
+  transition: background-color 0.25s ease;
 }
 
 .dark .urgent-section {
@@ -1552,14 +1553,22 @@ onMounted(async () => {
 .urgent-banner {
   position: relative;
   overflow: hidden;
-  background: var(--color-forest-900);
+  background: var(--color-cream-100);
+  border: 1.5px solid var(--color-cream-300);
   border-radius: 28px;
   padding: 3.5rem 3rem;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 2rem 3rem;
   align-items: center;
-  box-shadow: 0 24px 80px -20px rgba(13, 88, 82, 0.45);
+  box-shadow: 0 20px 60px -15px rgba(0, 80, 50, 0.08);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.dark .urgent-banner {
+  background: #0a110e;
+  border-color: rgba(0, 245, 155, 0.22);
+  box-shadow: 0 24px 80px -20px rgba(0, 0, 0, 0.8);
 }
 
 @media (max-width: 768px) {
@@ -1575,8 +1584,12 @@ onMounted(async () => {
   top: -60px;
   width: 340px;
   height: 340px;
-  color: rgba(255, 255, 255, 0.04);
+  color: rgba(0, 168, 107, 0.05);
   pointer-events: none;
+}
+
+.dark .urgent-bg-paw {
+  color: rgba(0, 245, 155, 0.04);
 }
 
 .urgent-content {
@@ -1592,17 +1605,23 @@ onMounted(async () => {
   font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: rgba(223, 240, 238, 0.8);
-  background: rgba(245, 158, 11, 0.14);
-  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #b45309;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
   padding: 0.3rem 0.7rem;
   border-radius: 999px;
   margin-bottom: 1rem;
 }
 
+.dark .urgent-badge {
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
 .urgent-dot {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--color-amber-500);
   animation: pulse-ring 2s infinite;
@@ -1611,18 +1630,26 @@ onMounted(async () => {
 .urgent-title {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-  font-weight: 700;
-  color: #fff;
+  font-weight: 800;
+  color: var(--color-ink-900);
   margin: 0 0 0.75rem;
   line-height: 1.2;
 }
 
+.dark .urgent-title {
+  color: #f1faf5;
+}
+
 .urgent-sub {
   font-size: 0.9375rem;
-  color: rgba(223, 240, 238, 0.65);
+  color: var(--color-ink-600);
   line-height: 1.6;
   margin: 0;
   max-width: 520px;
+}
+
+.dark .urgent-sub {
+  color: #8ca395;
 }
 
 .urgent-actions {
@@ -1636,13 +1663,27 @@ onMounted(async () => {
 }
 
 .urgent-ghost {
-  border-color: rgba(223, 240, 238, 0.2);
-  color: rgba(223, 240, 238, 0.72);
+  border-color: var(--color-cream-300);
+  color: var(--color-ink-700);
   justify-content: center;
+  background: var(--color-cream-50);
 }
 
 .urgent-ghost:hover {
-  border-color: rgba(223, 240, 238, 0.5);
-  background: rgba(255,255,255,0.05);
+  border-color: #00a86b;
+  color: #007a4d;
+  background: var(--color-cream-100);
+}
+
+.dark .urgent-ghost {
+  border-color: rgba(0, 245, 155, 0.2);
+  color: #d6e8de;
+  background: transparent;
+}
+
+.dark .urgent-ghost:hover {
+  border-color: #00f59b;
+  color: #00f59b;
+  background: rgba(0, 245, 155, 0.08);
 }
 </style>

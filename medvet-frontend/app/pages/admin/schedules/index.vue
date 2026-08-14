@@ -84,7 +84,7 @@ definePageMeta({
   layout: 'admin',
   middleware: 'auth',
   requiresAuth: true,
-  requiredRole: 'admin'
+  requiresAdmin: true
 })
 
 const scheduleSchema = z.object({

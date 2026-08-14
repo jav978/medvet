@@ -623,9 +623,16 @@ const handleLogout = async () => {
    FOOTER
 ──────────────────────────────────────── */
 .site-footer {
+  background: var(--color-cream-100);
+  color: var(--color-ink-600);
+  padding: 4rem 0 2.5rem;
+  border-top: 1px solid var(--color-cream-300);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.dark .site-footer {
   background: #020403;
   color: rgba(223, 240, 238, 0.55);
-  padding: 4rem 0 2.5rem;
   border-top: 1px solid rgba(0, 245, 155, 0.1);
 }
 
@@ -640,6 +647,10 @@ const handleLogout = async () => {
   grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
   gap: 3rem;
   padding-bottom: 3rem;
+  border-bottom: 1px solid var(--color-cream-300);
+}
+
+.dark .footer-grid {
   border-bottom: 1px solid rgba(0, 245, 155, 0.12);
 }
 
@@ -664,17 +675,26 @@ const handleLogout = async () => {
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 10px;
-  background: rgba(0, 245, 155, 0.15);
+  background: rgba(0, 168, 107, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 1px solid rgba(0, 245, 155, 0.3);
+  border: 1px solid rgba(0, 168, 107, 0.25);
+}
+
+.dark .footer-brand-icon {
+  background: rgba(0, 245, 155, 0.15);
+  border-color: rgba(0, 245, 155, 0.3);
 }
 
 .footer-brand-icon svg {
   width: 1.1rem;
   height: 1.1rem;
+  fill: #00a86b;
+}
+
+.dark .footer-brand-icon svg {
   fill: #00f59b;
 }
 
@@ -682,11 +702,19 @@ const handleLogout = async () => {
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 800;
-  color: #f1faf5;
+  color: var(--color-ink-900);
   letter-spacing: -0.02em;
 }
 
+.dark .footer-brand-name {
+  color: #f1faf5;
+}
+
 .footer-brand-name span {
+  color: #00a86b;
+}
+
+.dark .footer-brand-name span {
   color: #00f59b;
 }
 
@@ -695,6 +723,11 @@ const handleLogout = async () => {
   line-height: 1.65;
   margin: 0 0 1rem;
   max-width: 280px;
+  color: var(--color-ink-500);
+}
+
+.dark .footer-brand-desc {
+  color: rgba(223, 240, 238, 0.55);
 }
 
 .footer-open {
@@ -702,6 +735,10 @@ const handleLogout = async () => {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.75rem;
+  color: var(--color-ink-500);
+}
+
+.dark .footer-open {
   color: rgba(223, 240, 238, 0.4);
 }
 
@@ -709,9 +746,13 @@ const handleLogout = async () => {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #00f59b;
+  background: #00a86b;
   animation: pulse-ring 2.5s infinite;
   flex-shrink: 0;
+}
+
+.dark .footer-open-dot {
+  background: #00f59b;
 }
 
 /* Cols */
@@ -721,8 +762,12 @@ const handleLogout = async () => {
   font-weight: 700;
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: rgba(200, 232, 200, 0.5);
+  color: var(--color-ink-900);
   margin: 0 0 1rem;
+}
+
+.dark .footer-col-title {
+  color: rgba(200, 232, 200, 0.5);
 }
 
 .footer-links {
@@ -736,12 +781,20 @@ const handleLogout = async () => {
 
 .footer-links li a {
   font-size: 0.8125rem;
-  color: rgba(200, 232, 200, 0.45);
+  color: var(--color-ink-600);
   text-decoration: none;
   transition: color 0.15s ease;
 }
 
 .footer-links li a:hover {
+  color: #00a86b;
+}
+
+.dark .footer-links li a {
+  color: rgba(200, 232, 200, 0.45);
+}
+
+.dark .footer-links li a:hover {
   color: #00f59b;
 }
 
@@ -760,6 +813,10 @@ const handleLogout = async () => {
   align-items: flex-start;
   gap: 0.6rem;
   font-size: 0.8rem;
+  color: var(--color-ink-600);
+}
+
+.dark .footer-contact li {
   color: rgba(200, 232, 200, 0.45);
 }
 
@@ -770,15 +827,23 @@ const handleLogout = async () => {
 }
 
 .footer-contact li a:hover {
+  color: #00a86b;
+}
+
+.dark .footer-contact li a:hover {
   color: #00f59b;
 }
 
 .contact-icon {
   width: 1rem;
   height: 1rem;
-  color: #00f59b;
+  color: #00a86b;
   flex-shrink: 0;
   margin-top: 0.1rem;
+}
+
+.dark .contact-icon {
+  color: #00f59b;
 }
 
 /* Bottom bar */
@@ -790,6 +855,10 @@ const handleLogout = async () => {
   align-items: center;
   gap: 0.75rem;
   font-size: 0.75rem;
+  color: var(--color-ink-400);
+}
+
+.dark .footer-bottom {
   color: rgba(200, 232, 200, 0.25);
 }
 
@@ -805,6 +874,10 @@ const handleLogout = async () => {
 }
 
 .footer-bottom-links a:hover {
+  color: #00a86b;
+}
+
+.dark .footer-bottom-links a:hover {
   color: #00f59b;
 }
 
