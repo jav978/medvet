@@ -85,6 +85,7 @@
           </div>
         </div>
         <div class="topbar-right">
+          <BcvRateWidget />
           <span class="topbar-username font-semibold">{{ authStore.user?.name || 'Admin' }}</span>
           <NuxtLink to="/" class="topbar-front-link">
             <span>🌐</span>
@@ -106,6 +107,7 @@
 const authStore = useAuthStore()
 const router = useRouter()
 const route = useRoute()
+const { initCurrency } = useCurrency()
 
 const sidebarOpen = ref(false)
 const currentTime = ref('')

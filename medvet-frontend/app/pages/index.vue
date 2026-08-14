@@ -227,14 +227,25 @@
               <div class="sc-icon-wrap">
                 <component :is="'span'" class="sc-icon">{{ getServiceEmoji(service.category) }}</component>
               </div>
-              <span class="sc-duration font-mono-numbers">{{ service.duration }} min</span>
+              <div class="sc-top-actions">
+                <span class="sc-duration font-mono-numbers">{{ service.duration }} min</span>
+                <button
+                  type="button"
+                  class="sc-curr-toggle"
+                  @click.stop="toggleCardCurrency(service.id)"
+                  :title="`Cambiar a ${getCardCurrency(service.id) === 'USD' ? 'Bolívares (VES)' : 'Dólares (USD)'}`"
+                >
+                  ⇄ {{ getCardCurrency(service.id) }}
+                </button>
+              </div>
             </div>
             <h3 class="sc-name">{{ service.name }}</h3>
             <p class="sc-desc">{{ service.description }}</p>
             <div class="sc-footer">
               <div class="sc-price">
                 <span class="sc-price-label">Arancel estimado</span>
-                <span class="sc-price-value font-mono-numbers">${{ service.price?.toLocaleString() }}</span>
+                <span class="sc-price-value font-mono-numbers">{{ formatPrice(service.price, getCardCurrency(service.id)) }}</span>
+                <span class="sc-price-sub font-mono-numbers">≈ {{ formatPrice(service.price, getCardCurrency(service.id) === 'USD' ? 'VES' : 'USD') }}</span>
               </div>
               <NuxtLink :to="`/book?service=${service.id}`" class="btn-primary sc-btn">
                 Agendar
@@ -312,8 +323,18 @@
 </template>
 
 <script setup>
+const { activeCurrency, formatPrice, toggleCurrency } = useCurrency()
+
 const selectedSpecies = ref('dog')
 const selectedCategory = ref('consulta')
+const cardCurrencies = ref({})
+
+const getCardCurrency = (id) => cardCurrencies.value[id] || activeCurrency.value
+
+const toggleCardCurrency = (id) => {
+  const current = getCardCurrency(id)
+  cardCurrencies.value[id] = current === 'USD' ? 'VES' : 'USD'
+}
 
 const serviceCategories = [
   { id: 'consulta', name: 'Consulta', icon: '🩺' },
@@ -348,7 +369,7 @@ const fallbackServices = [
     category: 'consulta',
     description: 'Evaluación integral del estado de salud, auscultación, revisión dermatológica y nutricional.',
     duration: 30,
-    price: 15000
+    price: 15
   },
   {
     id: 2,
@@ -356,7 +377,7 @@ const fallbackServices = [
     category: 'vacuna',
     description: 'Aplicación de vacunas quíntuple/séxtuple, antirrábica y desparasitación interna/externa.',
     duration: 20,
-    price: 18000
+    price: 18
   },
   {
     id: 3,
@@ -364,7 +385,7 @@ const fallbackServices = [
     category: 'laboratorio',
     description: 'Hemograma completo, perfil renal, hepático y análisis bioquímico de control.',
     duration: 25,
-    price: 22000
+    price: 22
   },
   {
     id: 4,
@@ -372,7 +393,7 @@ const fallbackServices = [
     category: 'cirugia',
     description: 'Procedimiento quirúrgico con monitoreo anestésico inhalatorio y postoperatorio.',
     duration: 60,
-    price: 45000
+    price: 45
   },
   {
     id: 5,
@@ -380,7 +401,7 @@ const fallbackServices = [
     category: 'estetica',
     description: 'Baño medicado dermatológico, corte de uñas, limpieza de oídos y drenaje anal.',
     duration: 45,
-    price: 14000
+    price: 14
   },
   {
     id: 6,
@@ -388,7 +409,7 @@ const fallbackServices = [
     category: 'emergencia',
     description: 'Diagnóstico ecográfico de alta resolución y estabilización de emergencia.',
     duration: 45,
-    price: 30000
+    price: 30
   }
 ]
 
@@ -1455,13 +1476,55 @@ onMounted(async () => {
   color: var(--color-ink-300);
 }
 
+.sc-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.sc-curr-toggle {
+  padding: 0.2rem 0.45rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 6px;
+  background: rgba(0, 168, 107, 0.1);
+  border: 1px solid rgba(0, 168, 107, 0.25);
+  color: #059669;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sc-curr-toggle:hover {
+  background: rgba(0, 168, 107, 0.2);
+}
+
+.dark .sc-curr-toggle {
+  background: rgba(0, 245, 155, 0.1);
+  border-color: rgba(0, 245, 155, 0.3);
+  color: #00f59b;
+}
+
+.dark .sc-curr-toggle:hover {
+  background: rgba(0, 245, 155, 0.22);
+}
+
 .sc-price-value {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--color-ink-900);
+  line-height: 1.2;
 }
 
 .dark .sc-price-value { color: #f1faf5; }
+
+.sc-price-sub {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--color-ink-400);
+  margin-top: 2px;
+}
+
+.dark .sc-price-sub { color: rgba(223, 240, 238, 0.55); }
 
 .sc-btn {
   font-size: 0.8125rem;

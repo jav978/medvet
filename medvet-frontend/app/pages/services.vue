@@ -8,13 +8,13 @@
       <div class="services-hero">
         <span class="eyebrow-pill">
           <span class="eyebrow-tag">ARANCELES CLÍNICOS</span>
-          <span class="eyebrow-text">Transparencia & Cobertura Integral</span>
+          <span class="eyebrow-text">Transparencia & Tasa Oficial BCV</span>
         </span>
         <h1 class="services-title">
           Servicios Médicos & <span class="gradient-text-mint">Especialidades</span>
         </h1>
         <p class="services-subtitle">
-          Consultas clínicas, cirugías de alta complejidad, diagnóstico por imágenes y estética veterinaria con tecnología de vanguardia.
+          Consultas clínicas, cirugías de alta complejidad, diagnóstico por imágenes y estética veterinaria. Precios convertibles en tiempo real a Dólares y Bolívares.
         </p>
 
         <!-- Category Filter Pills -->
@@ -41,9 +41,19 @@
         >
           <div class="service-card-top">
             <div class="service-icon-box">{{ service.emoji }}</div>
-            <span class="service-duration font-mono-numbers">
-              ⏱️ {{ service.duration }} min
-            </span>
+            <div class="service-top-badges">
+              <span class="service-duration font-mono-numbers">
+                ⏱️ {{ service.duration }} min
+              </span>
+              <button
+                type="button"
+                class="card-curr-switch-chip"
+                @click.stop="toggleCardCurrency(service.id)"
+                :title="`Cambiar a ${getCardCurrency(service.id) === 'USD' ? 'Bolívares (VES)' : 'Dólares (USD)'}`"
+              >
+                ⇄ {{ getCardCurrency(service.id) }}
+              </button>
+            </div>
           </div>
 
           <h2 class="service-card-title">{{ service.title }}</h2>
@@ -58,8 +68,15 @@
 
           <div class="service-card-footer">
             <div class="service-price-block">
-              <span class="price-lbl">Arancel sugerido</span>
-              <span class="price-val font-mono-numbers">${{ Number(service.price).toLocaleString() }}</span>
+              <div class="price-header-row">
+                <span class="price-lbl">Arancel sugerido</span>
+              </div>
+              <div class="price-val font-mono-numbers">
+                {{ formatPrice(service.price, getCardCurrency(service.id)) }}
+              </div>
+              <div class="price-equiv font-mono-numbers">
+                ≈ {{ formatPrice(service.price, getCardCurrency(service.id) === 'USD' ? 'VES' : 'USD') }} (BCV)
+              </div>
             </div>
             <NuxtLink :to="`/book?service=${service.id}`" class="btn-primary svc-cta-btn">
               Agendar Turno →
@@ -73,11 +90,11 @@
         <div class="calc-header">
           <div class="calc-badge">
             <span class="calc-dot"></span>
-            COTIZADOR INTERACTIVO
+            COTIZADOR MULTIMONEDA BCV
           </div>
           <h2 class="calc-title">Calculadora de Presupuesto Médico</h2>
           <p class="calc-sub">
-            Seleccioná los estudios o consultas combinadas para calcular el arancel total estimado para tu mascota.
+            Seleccioná los estudios o consultas combinadas para calcular el arancel total estimado en Bolívares y Dólares con tasa oficial BCV.
           </p>
         </div>
 
@@ -99,7 +116,10 @@
                 <strong class="calc-item-name">{{ item.title }}</strong>
                 <span class="calc-item-dur">{{ item.duration }} min · {{ item.category }}</span>
               </div>
-              <span class="calc-item-price font-mono-numbers">${{ item.price.toLocaleString() }}</span>
+              <div class="calc-item-pricing">
+                <span class="calc-item-price font-mono-numbers">{{ formatPrice(item.price) }}</span>
+                <span class="calc-item-sub font-mono-numbers">≈ {{ formatPrice(item.price, activeCurrency === 'USD' ? 'VES' : 'USD') }}</span>
+              </div>
             </label>
           </div>
 
@@ -112,25 +132,28 @@
             <div class="summary-items-list" v-if="selectedItems.length">
               <div v-for="si in selectedItems" :key="si.id" class="summary-row">
                 <span>{{ si.emoji }} {{ si.title }}</span>
-                <span class="font-mono-numbers">${{ si.price.toLocaleString() }}</span>
+                <span class="font-mono-numbers">{{ formatPrice(si.price) }}</span>
               </div>
             </div>
             <div v-else class="summary-empty">
               Seleccioná uno o más servicios del listado para ver el desglose.
             </div>
 
-            <div class="summary-total-box font-mono-numbers">
+            <div class="summary-total-box">
               <div>
                 <span class="total-lbl">Total Estimado:</span>
-                <span class="total-note">Aboná en clínica con tarjetas o MercadoPago</span>
+                <span class="total-note">Tasa oficial BCV · Tarjetas, Pago Móvil o Divisas</span>
               </div>
-              <span class="total-amount">${{ calculatedTotal.toLocaleString() }}</span>
+              <div class="total-values-stack font-mono-numbers">
+                <span class="total-amount">{{ formatPrice(calculatedTotal) }}</span>
+                <span class="total-secondary">≈ {{ formatPrice(calculatedTotal, activeCurrency === 'USD' ? 'VES' : 'USD') }} (BCV)</span>
+              </div>
             </div>
 
             <!-- Cashea BNPL Option -->
             <div class="cashea-callout-pill font-mono-numbers">
               <span class="cashea-badge-mini">💛 Cashea</span>
-              <span>o pagá en 3 cuotas de <strong>${{ Math.round((calculatedTotal * 0.6) / 3).toLocaleString() }}</strong> (Inicial ${{ Math.round(calculatedTotal * 0.4).toLocaleString() }})</span>
+              <span>o pagá en 3 cuotas de <strong>{{ formatPrice((calculatedTotal * 0.6) / 3) }}</strong> (Inicial {{ formatPrice(calculatedTotal * 0.4) }})</span>
             </div>
 
             <NuxtLink to="/book" class="btn-amber summary-book-btn">
@@ -145,8 +168,18 @@
 </template>
 
 <script setup>
+const { activeCurrency, bcvRate, formatPrice, toggleCurrency } = useCurrency()
+
 const activeCategory = ref('all')
 const selectedCalcIds = ref([1, 2])
+const cardCurrencies = ref({})
+
+const getCardCurrency = (id) => cardCurrencies.value[id] || activeCurrency.value
+
+const toggleCardCurrency = (id) => {
+  const current = getCardCurrency(id)
+  cardCurrencies.value[id] = current === 'USD' ? 'VES' : 'USD'
+}
 
 const categories = [
   { id: 'all',         name: 'Todos',        icon: '🐾' },
@@ -164,7 +197,7 @@ const servicesList = [
     emoji: '🩺',
     title: 'Consulta Clínica General',
     duration: 30,
-    price: 15000,
+    price: 15,
     description: 'Examen físico minucioso, auscultación cardiopulmonar, revisión de mucosas, ojos, oídos y palpación abdominal.',
     features: [
       'Evaluación clínica integral',
@@ -178,7 +211,7 @@ const servicesList = [
     emoji: '💉',
     title: 'Vacunación Séxtuple Canina',
     duration: 20,
-    price: 18000,
+    price: 18,
     description: 'Inmunización completa con certificado oficial y sello profesional contra Parvovirus, Moquillo y Leptospira.',
     features: [
       'Examen clínico pre-vacunal',
@@ -192,7 +225,7 @@ const servicesList = [
     emoji: '💉',
     title: 'Vacunación Triple Felina',
     duration: 20,
-    price: 17500,
+    price: 17.5,
     description: 'Inmunización contra Rinotraqueítis, Calicivirus y Panleucopenia felina para gatos de todas las edades.',
     features: [
       'Revisión clínica preventiva',
@@ -206,7 +239,7 @@ const servicesList = [
     emoji: '🔬',
     title: 'Perfil Bioquímico & Sangre',
     duration: 25,
-    price: 22000,
+    price: 22,
     description: 'Laboratorio de alta precisión con resultados en 24hs. Evalúa función hepática, renal y hemograma.',
     features: [
       'Hemograma completo',
@@ -220,7 +253,7 @@ const servicesList = [
     emoji: '📸',
     title: 'Ecografía Abdominal Completa',
     duration: 35,
-    price: 28000,
+    price: 28,
     description: 'Estudio de imágenes de alta resolución en tiempo real con informe descriptivo firmado por especialista.',
     features: [
       'Revisión de todos los órganos digestivos',
@@ -234,7 +267,7 @@ const servicesList = [
     emoji: '🏥',
     title: 'Castración / Esterilización',
     duration: 60,
-    price: 48000,
+    price: 48,
     description: 'Cirugía ambulatoria de mínima invasión con monitoreo anestésico multiparamétrico y analgesia preventiva.',
     features: [
       'Quirófano estéril de alta tecnología',
@@ -248,7 +281,7 @@ const servicesList = [
     emoji: '✂️',
     title: 'Baño Terapéutico & Deslanado',
     duration: 45,
-    price: 16000,
+    price: 16,
     description: 'Cuidado dermatológico profesional con shampoo medicado y corte higiénico.',
     features: [
       'Corte de uñas y limpieza de oídos',
@@ -321,25 +354,74 @@ const calculatedTotal = computed(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1rem;
 }
+
+.eyebrow-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem 0.25rem 0.35rem;
+  border-radius: 999px;
+  background: rgba(0, 168, 107, 0.1);
+  border: 1px solid rgba(0, 168, 107, 0.25);
+  font-size: 0.8125rem;
+  color: var(--color-forest-700);
+}
+
+.dark .eyebrow-pill {
+  background: rgba(0, 245, 155, 0.1);
+  border-color: rgba(0, 245, 155, 0.28);
+  color: #00f59b;
+}
+
+.eyebrow-tag {
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(0, 168, 107, 0.15);
+  color: #007a4d;
+}
+
+.dark .eyebrow-tag {
+  background: #00f59b;
+  color: #040706;
+}
+
+.eyebrow-text { font-weight: 500; }
 
 .services-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
   font-weight: 800;
   letter-spacing: -0.025em;
   color: var(--color-ink-900);
-  margin: 0.85rem 0 0.5rem;
+  margin: 0;
   line-height: 1.15;
 }
 
 .dark .services-title { color: #f1faf5; }
 
+.gradient-text-mint {
+  background: linear-gradient(135deg, #00a86b 0%, #00c48c 50%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .gradient-text-mint {
+  background: linear-gradient(180deg, #ffffff 0%, #d0ffed 40%, #00f59b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .services-subtitle {
-  font-size: 0.9375rem;
+  font-size: 1rem;
   color: var(--color-ink-500);
   line-height: 1.6;
-  margin: 0 0 1.75rem;
+  margin: 0;
 }
 
 .dark .services-subtitle { color: #8ca395; }
@@ -347,82 +429,84 @@ const calculatedTotal = computed(() => {
 /* Category Pills */
 .category-pills {
   display: flex;
-  gap: 0.5rem;
   flex-wrap: wrap;
+  gap: 0.5rem;
   justify-content: center;
+  margin-top: 0.5rem;
 }
 
 .cat-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.55rem 1rem;
+  gap: 0.4rem;
+  padding: 0.45rem 0.95rem;
   border-radius: 999px;
-  border: 1.5px solid var(--color-cream-300);
-  background: var(--color-cream-50);
-  font-family: var(--font-body);
   font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--color-ink-700);
+  font-weight: 600;
+  background: var(--color-cream-200);
+  border: 1px solid var(--color-cream-300);
+  color: var(--color-ink-600);
   cursor: pointer;
-  transition: all 0.18s ease;
+  transition: all 0.2s ease;
 }
 
-.cat-pill:hover { border-color: #00a86b; color: #007a4d; }
+.cat-pill:hover {
+  background: var(--color-cream-300);
+  color: var(--color-ink-900);
+}
 
 .cat-pill--active {
   background: #00a86b;
   border-color: #00a86b;
-  color: #fff;
-  font-weight: 700;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 168, 107, 0.3);
 }
 
 .dark .cat-pill {
-  background: #0a110e;
+  background: rgba(16, 28, 22, 0.7);
   border-color: rgba(0, 245, 155, 0.15);
-  color: #d6e8de;
+  color: #8ca395;
 }
 
-.dark .cat-pill:hover { border-color: #00f59b; color: #00f59b; }
+.dark .cat-pill:hover {
+  background: rgba(0, 245, 155, 0.12);
+  color: #f1faf5;
+}
 
 .dark .cat-pill--active {
   background: #00f59b;
   border-color: #00f59b;
   color: #040706;
-  box-shadow: 0 0 16px rgba(0, 245, 155, 0.4);
+  box-shadow: 0 0 16px rgba(0, 245, 155, 0.35);
 }
 
-/* Services Grid */
+/* Grid */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.5rem;
 }
 
-@media (max-width: 960px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .services-grid { grid-template-columns: 1fr; } }
-
 .service-card {
   background: var(--color-cream-50);
-  border: 1px solid var(--color-cream-200);
+  border: 1.5px solid var(--color-cream-300);
   border-radius: 24px;
   padding: 1.75rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  box-shadow: 0 10px 30px -8px rgba(0, 80, 50, 0.06);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  gap: 1.15rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .service-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   border-color: #00a86b;
+  box-shadow: 0 16px 32px -8px rgba(0, 80, 50, 0.12);
 }
 
 .dark .service-card {
-  background: #0a110e;
-  border-color: rgba(0, 245, 155, 0.16);
-  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.7);
+  background: #080f0c;
+  border-color: rgba(0, 245, 155, 0.14);
 }
 
 .dark .service-card:hover {
@@ -452,6 +536,12 @@ const calculatedTotal = computed(() => {
   border: 1px solid rgba(0, 245, 155, 0.2);
 }
 
+.service-top-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
 .service-duration {
   font-size: 0.72rem;
   font-weight: 600;
@@ -464,6 +554,32 @@ const calculatedTotal = computed(() => {
 .dark .service-duration {
   background: rgba(16, 28, 22, 0.8);
   color: #8ca395;
+}
+
+.card-curr-switch-chip {
+  padding: 0.22rem 0.5rem;
+  font-size: 0.675rem;
+  font-weight: 700;
+  border-radius: 8px;
+  background: rgba(0, 168, 107, 0.1);
+  border: 1px solid rgba(0, 168, 107, 0.25);
+  color: #059669;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.card-curr-switch-chip:hover {
+  background: rgba(0, 168, 107, 0.2);
+}
+
+.dark .card-curr-switch-chip {
+  background: rgba(0, 245, 155, 0.1);
+  border-color: rgba(0, 245, 155, 0.3);
+  color: #00f59b;
+}
+
+.dark .card-curr-switch-chip:hover {
+  background: rgba(0, 245, 155, 0.22);
 }
 
 .service-card-title {
@@ -519,9 +635,27 @@ const calculatedTotal = computed(() => {
 
 .dark .service-card-footer { border-top-color: rgba(0, 245, 155, 0.12); }
 
-.price-lbl { display: block; font-size: 0.65rem; text-transform: uppercase; color: var(--color-ink-400); }
-.price-val { font-size: 1.25rem; font-weight: 800; color: #00a86b; }
+.service-price-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.price-lbl { display: block; font-size: 0.65rem; text-transform: uppercase; color: var(--color-ink-400); font-weight: 600; }
+.price-val { font-size: 1.25rem; font-weight: 800; color: #00a86b; line-height: 1.2; }
 .dark .price-val { color: #00f59b; }
+
+.price-equiv {
+  font-size: 0.68rem;
+  color: var(--color-ink-400);
+  margin-top: 2px;
+}
+.dark .price-equiv { color: rgba(223, 240, 238, 0.55); }
 
 .svc-cta-btn {
   font-size: 0.78rem;
@@ -579,7 +713,7 @@ const calculatedTotal = computed(() => {
 
 .calc-grid {
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: 1fr 360px;
   gap: 1.75rem;
   align-items: start;
 }
@@ -627,8 +761,17 @@ const calculatedTotal = computed(() => {
 .calc-item-name { font-size: 0.875rem; color: var(--color-ink-900); }
 .dark .calc-item-name { color: #f1faf5; }
 .calc-item-dur { font-size: 0.72rem; color: var(--color-ink-400); }
+
+.calc-item-pricing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
 .calc-item-price { font-weight: 700; font-size: 0.9375rem; color: #00a86b; }
 .dark .calc-item-price { color: #00f59b; }
+.calc-item-sub { font-size: 0.68rem; color: var(--color-ink-400); }
+.dark .calc-item-sub { color: rgba(223, 240, 238, 0.5); }
 
 .calc-summary-panel {
   background: var(--color-cream-100);
@@ -676,8 +819,17 @@ const calculatedTotal = computed(() => {
 .total-lbl { display: block; font-family: var(--font-display); font-size: 0.9375rem; font-weight: 700; color: var(--color-ink-900); }
 .dark .total-lbl { color: #f1faf5; }
 .total-note { display: block; font-size: 0.65rem; color: var(--color-ink-400); font-family: var(--font-body); }
-.total-amount { font-size: 1.65rem; font-weight: 800; color: #00a86b; }
+
+.total-values-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.total-amount { font-size: 1.5rem; font-weight: 800; color: #00a86b; }
 .dark .total-amount { color: #00f59b; }
+.total-secondary { font-size: 0.75rem; color: var(--color-ink-400); }
+.dark .total-secondary { color: rgba(223, 240, 238, 0.6); }
 
 .cashea-callout-pill {
   background: #fffbeb;

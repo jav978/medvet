@@ -113,8 +113,11 @@
             <p class="pick-desc">{{ service.description }}</p>
 
             <div class="pick-price-row">
-              <span class="pick-price-label">Arancel Estimado</span>
-              <span class="pick-price font-mono-numbers">${{ Number(service.price || 0).toLocaleString() }}</span>
+              <div class="pick-price-left">
+                <span class="pick-price-label">Arancel Estimado</span>
+                <span class="pick-price-equiv font-mono-numbers">≈ {{ formatPrice(service.price || 0, activeCurrency === 'USD' ? 'VES' : 'USD') }}</span>
+              </div>
+              <span class="pick-price font-mono-numbers">{{ formatPrice(service.price || 0) }}</span>
             </div>
           </div>
         </div>
@@ -453,11 +456,16 @@
           <div class="ticket-total-bar">
             <div>
               <span class="ticket-total-label">Total a Abonar en Clínica:</span>
-              <span class="ticket-total-sub">Aceptamos efectivo, tarjetas y transferencia</span>
+              <span class="ticket-total-sub">Tasa oficial BCV · Tarjetas, Pago Móvil, Efectivo o Divisas</span>
             </div>
-            <span class="ticket-total-val font-mono-numbers">
-              ${{ Number(bookingStore.selectedService?.price || 0).toLocaleString() }}
-            </span>
+            <div class="ticket-total-col font-mono-numbers">
+              <span class="ticket-total-val">
+                {{ formatPrice(bookingStore.selectedService?.price || 0) }}
+              </span>
+              <span class="ticket-total-equiv">
+                ≈ {{ formatPrice(bookingStore.selectedService?.price || 0, activeCurrency === 'USD' ? 'VES' : 'USD') }} (BCV)
+              </span>
+            </div>
           </div>
         </div>
 
@@ -523,6 +531,7 @@
 </template>
 
 <script setup>
+const { activeCurrency, formatPrice, toggleCurrency } = useCurrency()
 const authStore = useAuthStore()
 const bookingStore = useBookingStore()
 const router = useRouter()
@@ -593,13 +602,13 @@ const getSpeciesEmoji = (species) => {
 }
 
 const fallbackServices = [
-  { id: 1, name: 'Consulta Clínica General', category: 'consulta', description: 'Revisión médica completa, diagnóstico y prescripción.', duration: 30, price: 15000 },
-  { id: 2, name: 'Vacunación Séxtuple Canina', category: 'vacuna', description: 'Inmunización completa con certificado oficial y sello profesional.', duration: 20, price: 18000 },
-  { id: 3, name: 'Vacunación Triple Felina', category: 'vacuna', description: 'Protección integral para gatos de todas las edades.', duration: 20, price: 17500 },
-  { id: 4, name: 'Perfil Bioquímico & Sangre', category: 'diagnostico', description: 'Laboratorio de alta precisión con resultados en 24hs.', duration: 25, price: 22000 },
-  { id: 5, name: 'Ecografía Abdominal Completa', category: 'diagnostico', description: 'Estudio de imágenes de alta resolución con informe digital.', duration: 35, price: 28000 },
-  { id: 6, name: 'Castración / Esterilización', category: 'cirugia', description: 'Cirugía ambulatoria de mínima invasión con monitoreo anestésico.', duration: 60, price: 48000 },
-  { id: 7, name: 'Baño Terapéutico & Deslanado', category: 'estetica', description: 'Cuidado dermatológico profesional con shampoo medicado.', duration: 45, price: 16000 }
+  { id: 1, name: 'Consulta Clínica General', category: 'consulta', description: 'Revisión médica completa, diagnóstico y prescripción.', duration: 30, price: 15 },
+  { id: 2, name: 'Vacunación Séxtuple Canina', category: 'vacuna', description: 'Inmunización completa con certificado oficial y sello profesional.', duration: 20, price: 18 },
+  { id: 3, name: 'Vacunación Triple Felina', category: 'vacuna', description: 'Protección integral para gatos de todas las edades.', duration: 20, price: 17.5 },
+  { id: 4, name: 'Perfil Bioquímico & Sangre', category: 'diagnostico', description: 'Laboratorio de alta precisión con resultados en 24hs.', duration: 25, price: 22 },
+  { id: 5, name: 'Ecografía Abdominal Completa', category: 'diagnostico', description: 'Estudio de imágenes de alta resolución con informe digital.', duration: 35, price: 28 },
+  { id: 6, name: 'Castración / Esterilización', category: 'cirugia', description: 'Cirugía ambulatoria de mínima invasión con monitoreo anestésico.', duration: 60, price: 48 },
+  { id: 7, name: 'Baño Terapéutico & Deslanado', category: 'estetica', description: 'Cuidado dermatológico profesional con shampoo medicado.', duration: 45, price: 16 }
 ]
 
 const availableServices = computed(() => bookingStore.services?.length ? bookingStore.services : fallbackServices)
@@ -1226,13 +1235,18 @@ onMounted(async () => {
 .pick-price-row {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: flex-end;
   padding-top: 0.75rem;
   border-top: 1px solid var(--color-cream-200);
   margin-top: 0.25rem;
 }
 
 .dark .pick-price-row { border-top-color: rgba(0, 245, 155, 0.15); }
+
+.pick-price-left {
+  display: flex;
+  flex-direction: column;
+}
 
 .pick-price-label {
   font-size: 0.65rem;
@@ -1242,10 +1256,19 @@ onMounted(async () => {
   font-weight: 600;
 }
 
+.pick-price-equiv {
+  font-size: 0.68rem;
+  color: var(--color-ink-400);
+  margin-top: 1px;
+}
+
+.dark .pick-price-equiv { color: rgba(223, 240, 238, 0.55); }
+
 .pick-price {
   font-size: 1.15rem;
   font-weight: 700;
   color: #00a86b;
+  line-height: 1.2;
 }
 
 .dark .pick-price { color: #00f59b; }
@@ -1938,15 +1961,27 @@ onMounted(async () => {
 
 .dark .ticket-total-label { color: #f1faf5; }
 
-.ticket-total-sub { display: block; font-size: 0.7rem; color: var(--color-ink-400); }
+.ticket-total-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
 
 .ticket-total-val {
-  font-size: 1.75rem;
+  font-size: 1.65rem;
   font-weight: 800;
   color: #00a86b;
+  line-height: 1.2;
 }
 
 .dark .ticket-total-val { color: #00f59b; }
+
+.ticket-total-equiv {
+  font-size: 0.78rem;
+  color: var(--color-ink-400);
+}
+
+.dark .ticket-total-equiv { color: rgba(223, 240, 238, 0.6); }
 
 .notes-card {
   display: flex;
