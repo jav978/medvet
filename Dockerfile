@@ -17,17 +17,16 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3030
 
-COPY medvet-backend/package*.json ./
-RUN npm ci --only=production
-
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/lib ./lib
 COPY --from=builder /app/config ./config
-COPY --from=builder /app/knexfile.ts ./knexfile.ts
-COPY --from=builder /app/src/migrations ./src/migrations
+COPY --from=builder /app/knexfile.js ./knexfile.js
+COPY --from=builder /app/migrate-prod.js ./migrate-prod.js
 
 # Ensure public and uploads directories exist
 RUN mkdir -p /app/public/uploads
 
 EXPOSE 3030
 
-CMD ["sh", "-c", "node -r ts-node/register ./node_modules/.bin/knex migrate:latest --knexfile knexfile.ts && node lib/index.js"]
+CMD ["sh", "-c", "node migrate-prod.js && node lib/index.js"]
