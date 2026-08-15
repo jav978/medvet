@@ -33,9 +33,10 @@ export const configureKnex = (app: Application) => {
 
   let connection: any = dbUrl || knexConfig.connection
   if (dbUrl) {
+    const isLocal = dbUrl.includes('sslmode=disable') || dbUrl.includes('localhost') || dbUrl.includes('127.0.0.1')
     connection = {
       connectionString: dbUrl,
-      ssl: dbUrl.includes('sslmode=disable')
+      ssl: isLocal
         ? false
         : { rejectUnauthorized: false }
     }
