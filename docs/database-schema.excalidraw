@@ -1,0 +1,365 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "mcp-excalidraw-server",
+  "elements": [
+    {
+      "id": "title-doc",
+      "type": "text",
+      "x": 380,
+      "y": 40,
+      "text": "MEDVET — MODELO Y ESQUEMA DE BASE DE DATOS",
+      "fontSize": 24,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T00:24:46.882Z",
+      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "version": 1
+    },
+    {
+      "id": "subtitle-doc",
+      "type": "text",
+      "x": 430,
+      "y": 75,
+      "text": "Arquitectura Relacional PostgreSQL / Knex / FeathersJS",
+      "fontSize": 16,
+      "fontFamily": 2,
+      "createdAt": "2026-08-15T00:24:46.882Z",
+      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "version": 1
+    },
+    {
+      "id": "tbl-users",
+      "type": "rectangle",
+      "x": 80,
+      "y": 140,
+      "width": 300,
+      "height": 280,
+      "backgroundColor": "#e7f5ff",
+      "strokeColor": "#1971c2",
+      "label": {
+        "text": "USERS (Usuarios)\n-------------------------\n🔑 id : UUID (PK)\n📧 email : VARCHAR (UQ)\n🔒 password : VARCHAR (Hash)\n👤 name : VARCHAR\n📞 phone : VARCHAR\n🎭 role : ENUM ('admin', 'vet'...)\n⚡ active : BOOLEAN (true)\n⏱️ created_at : TIMESTAMP\n⏱️ updated_at : TIMESTAMP"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T00:24:46.882Z",
+      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "version": 1
+    },
+    {
+      "id": "tbl-professionals",
+      "type": "rectangle",
+      "x": 500,
+      "y": 140,
+      "width": 300,
+      "height": 220,
+      "backgroundColor": "#ebfbee",
+      "strokeColor": "#2f9e44",
+      "label": {
+        "text": "PROFESSIONALS (Especialistas)\n-------------------------\n🔑 id : UUID (PK)\n🔗 user_id : UUID (FK->users.id, UQ)\n🩺 specialty : VARCHAR\n⚡ active : BOOLEAN (true)\n⏱️ created_at : TIMESTAMP"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T00:24:46.882Z",
+      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "version": 1
+    },
+    {
+      "id": "tbl-schedules",
+      "type": "rectangle",
+      "x": 920,
+      "y": 140,
+      "width": 300,
+      "height": 220,
+      "backgroundColor": "#ebfbee",
+      "strokeColor": "#2f9e44",
+      "label": {
+        "text": "SCHEDULES (Horarios / Turnos)\n-------------------------\n🔑 id : UUID (PK)\n🔗 professional_id : UUID (FK->prof.)\n📅 day_of_week : INT (0-6)\n⏰ start_time : TIME\n⏰ end_time : TIME\n⚡ active : BOOLEAN (true)"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T00:24:46.882Z",
+      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "version": 1
+    },
+    {
+      "id": "tbl-pets",
+      "type": "rectangle",
+      "x": 80,
+      "y": 480,
+      "width": 300,
+      "height": 280,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "label": {
+        "text": "PETS (Mascotas / Pacientes)\n-------------------------\n🔑 id : UUID (PK)\n🔗 user_id : UUID (FK->users.id)\n🐾 name : VARCHAR\n🐕 species : VARCHAR\n🧬 breed : VARCHAR\n🎂 age : INT\n⚖️ weight : DECIMAL(5,2)\n🖼️ photo : VARCHAR\n⏱️ created_at : TIMESTAMP"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T00:24:46.882Z",
+      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "version": 1
+    },
+    {
+      "id": "tbl-services",
+      "type": "rectangle",
+      "x": 920,
+      "y": 480,
+      "width": 300,
+      "height": 260,
+      "backgroundColor": "#e3fafc",
+      "strokeColor": "#0c8599",
+      "label": {
+        "text": "SERVICES (Catálogo Clínico)\n-------------------------\n🔑 id : UUID (PK)\n📋 name : VARCHAR\n📝 description : TEXT\n⏳ duration : INT (Minutos)\n💵 price : DECIMAL(10,2) (USD)\n🏷️ category : ENUM ('consulta'...)\n⚡ active : BOOLEAN (true)\n⏱️ created_at : TIMESTAMP"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T00:24:46.882Z",
+      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "version": 1
+    },
+    {
+      "id": "tbl-appointments",
+      "type": "rectangle",
+      "x": 480,
+      "y": 440,
+      "width": 340,
+      "height": 340,
+      "backgroundColor": "#f3d9fa",
+      "strokeColor": "#9c36b5",
+      "label": {
+        "text": "APPOINTMENTS (Citas Médicas)\n-------------------------\n🔑 id : UUID (PK)\n🔗 user_id : UUID (FK->users.id)\n🔗 pet_id : UUID (FK->pets.id)\n🔗 professional_id : UUID (FK->prof.)\n🔗 service_id : UUID (FK->services.id)\n📅 date : DATE\n⏰ start_time : TIME\n⏰ end_time : TIME\n📊 status : ENUM ('pending', 'confirmed'...)\n📋 notes : TEXT\n⏱️ created_at : TIMESTAMP\n⏱️ updated_at : TIMESTAMP"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T00:24:46.882Z",
+      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "version": 1
+    },
+    {
+      "id": "arr-users-prof",
+      "type": "arrow",
+      "x": 387.9796695986459,
+      "y": 268.715737885811,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1:1"
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          104.0406608027082,
+          -7.43147577162199
+        ]
+      ],
+      "start": {
+        "id": "tbl-users"
+      },
+      "end": {
+        "id": "tbl-professionals"
+      },
+      "createdAt": "2026-08-15T00:24:46.882Z",
+      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "version": 1
+    },
+    {
+      "id": "arr-prof-sched",
+      "type": "arrow",
+      "x": 808,
+      "y": 250,
+      "strokeColor": "#2f9e44",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1:N"
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          104,
+          2.842170943040401e-14
+        ]
+      ],
+      "start": {
+        "id": "tbl-professionals"
+      },
+      "end": {
+        "id": "tbl-schedules"
+      },
+      "createdAt": "2026-08-15T00:24:46.882Z",
+      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "version": 1
+    },
+    {
+      "id": "arr-users-pets",
+      "type": "arrow",
+      "x": 230,
+      "y": 428,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1:N"
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          44
+        ]
+      ],
+      "start": {
+        "id": "tbl-users"
+      },
+      "end": {
+        "id": "tbl-pets"
+      },
+      "createdAt": "2026-08-15T00:24:46.882Z",
+      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "version": 1
+    },
+    {
+      "id": "arr-users-appt",
+      "type": "arrow",
+      "x": 386.2905467105794,
+      "y": 402.7997152725981,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1:N"
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          87.41890657884119,
+          68.68628374051809
+        ]
+      ],
+      "start": {
+        "id": "tbl-users"
+      },
+      "end": {
+        "id": "tbl-appointments"
+      },
+      "createdAt": "2026-08-15T00:24:46.882Z",
+      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "version": 1
+    },
+    {
+      "id": "arr-pets-appt",
+      "type": "arrow",
+      "x": 387.9977333899531,
+      "y": 616.2381492050012,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1:N"
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          84.00453322009378,
+          -2.000107933811819
+        ]
+      ],
+      "start": {
+        "id": "tbl-pets"
+      },
+      "end": {
+        "id": "tbl-appointments"
+      },
+      "createdAt": "2026-08-15T00:24:46.882Z",
+      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "version": 1
+    },
+    {
+      "id": "arr-prof-appt",
+      "type": "arrow",
+      "x": 650,
+      "y": 368,
+      "strokeColor": "#2f9e44",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1:N"
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          64
+        ]
+      ],
+      "start": {
+        "id": "tbl-professionals"
+      },
+      "end": {
+        "id": "tbl-appointments"
+      },
+      "createdAt": "2026-08-15T00:24:46.882Z",
+      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "version": 1
+    },
+    {
+      "id": "arr-serv-appt",
+      "type": "arrow",
+      "x": 912,
+      "y": 610,
+      "strokeColor": "#0c8599",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1:N"
+      },
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -84,
+          0
+        ]
+      ],
+      "start": {
+        "id": "tbl-services"
+      },
+      "end": {
+        "id": "tbl-appointments"
+      },
+      "createdAt": "2026-08-15T00:24:46.883Z",
+      "updatedAt": "2026-08-15T00:24:46.883Z",
+      "version": 1
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": null
+  }
+}
