@@ -13,6 +13,12 @@
       "skillPath": "skills/frontend-design/SKILL.md",
       "computedHash": "4eabc66183767153e404b39d1b839b1c37f2d82d86f0a0d7e880a579d8d62336"
     },
+    "responsive-design": {
+      "source": "akillness/jeo-skills",
+      "sourceType": "github",
+      "skillPath": ".agent-skills/responsive-design/SKILL.md",
+      "computedHash": "a9aea1536368dd77361d6a3d58d4343c6b8661f9cc86b0a79e27e82f3dcd3370"
+    },
     "tailwindcss-responsive-darkmode": {
       "source": "josiahsiegel/claude-plugin-marketplace",
       "sourceType": "github",
