@@ -48,6 +48,22 @@ app.configure(socketio({
   }
 }))
 
+// Health check middleware
+app.use((req: any, res: any, next: any) => {
+  if (req.path === '/' && req.method === 'GET') {
+    return res.json({
+      status: 'ok',
+      name: 'MedVet 24/7 API',
+      version: '1.0.0',
+      timestamp: new Date().toISOString()
+    })
+  }
+  if (req.path === '/health' && req.method === 'GET') {
+    return res.json({ status: 'healthy' })
+  }
+  next()
+})
+
 // Set up services
 app.configure(authentication)
 app.configure(configureServices)
