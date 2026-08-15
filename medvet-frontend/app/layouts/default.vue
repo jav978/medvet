@@ -44,7 +44,6 @@
           <template v-if="authStore.isAuthenticated">
             <NuxtLink to="/dashboard" class="nav-link" active-class="nav-link--active">Mi Panel</NuxtLink>
             <NuxtLink to="/pets" class="nav-link" active-class="nav-link--active">Mis Mascotas</NuxtLink>
-            <NuxtLink to="/dashboard/payments" class="nav-link" active-class="nav-link--active">Pagos</NuxtLink>
             <NuxtLink v-if="authStore.canAccessAdmin" to="/admin" class="nav-link" active-class="nav-link--active">Admin</NuxtLink>
           </template>
         </nav>
@@ -59,11 +58,7 @@
           <ThemeToggle variant="switch" />
 
           <template v-if="authStore.isAuthenticated">
-            <div class="user-chip" :title="authStore.user?.email">
-              <span class="user-chip-avatar">🐾</span>
-              <span class="user-chip-email">{{ authStore.user?.email }}</span>
-            </div>
-            <button @click="handleLogout" class="btn-ghost btn-sm">Salir</button>
+            <UserMenuDropdown />
           </template>
 
           <template v-else>
@@ -523,40 +518,6 @@ const handleLogout = async () => {
 
 @media (max-width: 1040px) {
   .desktop-actions { display: none; }
-}
-
-.user-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  background: var(--color-cream-200);
-  border: 1px solid var(--color-cream-300);
-  max-width: 180px;
-}
-
-.dark .user-chip {
-  background: rgba(16, 28, 22, 0.6);
-  border-color: rgba(0, 245, 155, 0.2);
-}
-
-.user-chip-avatar {
-  font-size: 0.85rem;
-  flex-shrink: 0;
-}
-
-.user-chip-email {
-  font-size: 0.78rem;
-  color: var(--color-ink-700);
-  font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.dark .user-chip-email {
-  color: #c8e0d4;
 }
 
 .btn-sm {
