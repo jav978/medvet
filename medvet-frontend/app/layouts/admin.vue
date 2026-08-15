@@ -409,9 +409,10 @@ onUnmounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.15rem 2rem;
+  padding: clamp(0.75rem, 2vw, 1.15rem) clamp(0.875rem, 3vw, 2rem);
   background: var(--color-cream-50);
   border-bottom: 1px solid var(--color-cream-200);
+  gap: 0.75rem;
 }
 
 .dark .admin-topbar {
@@ -422,21 +423,27 @@ onUnmounted(() => {
 .topbar-left {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: clamp(0.5rem, 2vw, 1rem);
+  min-width: 0;
 }
 
 .topbar-title-block {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem 0.75rem;
+  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .topbar-title {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
   font-weight: 700;
   color: var(--color-ink-900);
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .dark .topbar-title { color: #f1faf5; }
@@ -448,6 +455,7 @@ onUnmounted(() => {
   border-radius: 6px;
   background: rgba(0, 168, 107, 0.1);
   color: #00a86b;
+  white-space: nowrap;
 }
 
 .dark .topbar-live-clock {
@@ -458,12 +466,18 @@ onUnmounted(() => {
 .topbar-right {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: clamp(0.5rem, 1.5vw, 1rem);
+  flex-shrink: 0;
 }
 
 .topbar-username {
   font-size: 0.8125rem;
   color: var(--color-ink-700);
+}
+
+@media (max-width: 640px) {
+  .topbar-username { display: none; }
+  .topbar-live-clock { display: none; }
 }
 
 .dark .topbar-username { color: #d6e8de; }
@@ -479,6 +493,12 @@ onUnmounted(() => {
   padding: 0.35rem 0.75rem;
   border-radius: 8px;
   border: 1px solid rgba(0, 168, 107, 0.2);
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .topbar-front-link span:last-child { display: none; }
+  .topbar-front-link { padding: 0.35rem 0.5rem; }
 }
 
 .dark .topbar-front-link {
@@ -487,11 +507,9 @@ onUnmounted(() => {
 }
 
 .admin-content {
-  padding: 2rem;
+  padding: clamp(1rem, 3vw, 2rem);
   flex: 1;
-}
-
-@media (max-width: 640px) {
-  .admin-content { padding: 1.25rem; }
+  min-width: 0;
+  width: 100%;
 }
 </style>

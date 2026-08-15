@@ -155,7 +155,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const authStore = useAuthStore()
 const router = useRouter()
 const route = useRoute()
@@ -215,11 +215,12 @@ const handleGoogleRegister = async () => {
 
 <style scoped>
 .auth-page {
-  min-height: 90vh;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3rem 1rem;
+  padding: clamp(1.5rem, 4vw, 3rem) 1rem;
   position: relative;
   overflow: hidden;
   background: var(--color-cream-100);
@@ -229,8 +230,8 @@ const handleGoogleRegister = async () => {
   position: absolute;
   top: -80px;
   right: -80px;
-  width: 360px;
-  height: 360px;
+  width: clamp(240px, 30vw, 360px);
+  height: clamp(240px, 30vw, 360px);
   color: var(--color-forest-200);
   opacity: 0.3;
   pointer-events: none;
@@ -247,10 +248,12 @@ const handleGoogleRegister = async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .auth-brand {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .auth-brand-link {
@@ -285,7 +288,7 @@ const handleGoogleRegister = async () => {
 
 .auth-brand-name {
   font-family: var(--font-display);
-  font-size: 1.625rem;
+  font-size: clamp(1.4rem, 3vw, 1.625rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--color-ink-900);
@@ -300,11 +303,12 @@ const handleGoogleRegister = async () => {
 
 .auth-title {
   font-family: var(--font-display);
-  font-size: 1.75rem;
+  font-size: clamp(1.35rem, 3.5vw + 0.25rem, 1.75rem);
   font-weight: 800;
   color: var(--color-ink-900);
   text-align: center;
   margin: 0 0 0.4rem;
+  line-height: 1.25;
 }
 
 .dark .auth-title {
@@ -312,10 +316,11 @@ const handleGoogleRegister = async () => {
 }
 
 .auth-sub {
-  font-size: 0.875rem;
+  font-size: clamp(0.8125rem, 1vw + 0.5rem, 0.875rem);
   color: var(--color-ink-500);
   text-align: center;
-  margin: 0 0 1.5rem;
+  margin: 0 0 1.25rem;
+  line-height: 1.4;
 }
 
 .dark .auth-sub {
@@ -326,8 +331,8 @@ const handleGoogleRegister = async () => {
   width: 100%;
   background: var(--color-cream-50);
   border: 1px solid var(--color-cream-200);
-  border-radius: 24px;
-  padding: 2rem;
+  border-radius: clamp(16px, 3vw, 24px);
+  padding: clamp(1.25rem, 4vw, 2rem);
   box-shadow: 0 16px 48px -12px rgba(15, 23, 42, 0.08);
 }
 
@@ -340,6 +345,7 @@ const handleGoogleRegister = async () => {
 /* Google Button */
 .btn-google {
   width: 100%;
+  min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -418,12 +424,8 @@ const handleGoogleRegister = async () => {
 
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 0.875rem;
-}
-
-@media (max-width: 480px) {
-  .form-row { grid-template-columns: 1fr; }
 }
 
 .form-field {

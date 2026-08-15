@@ -787,6 +787,54 @@ function handleExportCsv() {
   font-weight: 700;
 }
 
+/* Responsive Modal Adjustments */
+@media (max-width: 680px) {
+  .inv-modal-backdrop {
+    padding: 0.5rem;
+  }
+  
+  .inv-modal-toolbar {
+    padding: 0.75rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  
+  .toolbar-actions {
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .invoice-sheet {
+    padding: 1.25rem 1rem;
+  }
+  
+  .sheet-header {
+    flex-direction: column;
+  }
+  
+  .clinic-brand {
+    max-width: 100%;
+  }
+  
+  .invoice-fiscal-box {
+    width: 100%;
+  }
+  
+  .parties-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .sheet-footer {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .totals-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Print Optimization */
 @media print {
   body * {

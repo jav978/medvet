@@ -841,8 +841,8 @@ onMounted(async () => {
 .stepper-card {
   background: var(--color-cream-50);
   border: 1px solid var(--color-cream-200);
-  border-radius: 20px;
-  padding: 1.5rem 2rem;
+  border-radius: clamp(16px, 2.5vw, 20px);
+  padding: clamp(0.875rem, 2.5vw, 1.5rem) clamp(0.875rem, 3vw, 2rem);
   box-shadow: 0 12px 32px -8px rgba(0, 80, 50, 0.06);
 }
 
@@ -863,10 +863,11 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
   position: relative;
   z-index: 1;
   flex: 1;
+  min-width: 0;
 }
 
 .stepper-item--clickable {
