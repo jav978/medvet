@@ -1,11 +1,43 @@
 <template>
   <div class="layout-root">
 
-    <!-- Announcement bar -->
-    <div class="announce-bar">
-      <span class="announce-pill">Guardia 24/7</span>
-      <span>Atención Veterinaria · Urgencias: <a href="tel:+541112345678" class="announce-tel">+54 11 1234-5678</a></span>
-    </div>
+    <!-- Announcement & Emergency Bar -->
+    <Transition name="banner-slide">
+      <div v-if="showAnnounceBar" class="announce-bar" role="alert">
+        <div class="announce-container">
+          <div class="announce-content">
+            <span class="announce-pill">
+              <span class="announce-beacon"></span>
+              <svg class="announce-pill-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
+              </svg>
+              Guardia 24/7
+            </span>
+            <div class="announce-text">
+              <span class="announce-label">Atención Médica & Urgencias:</span>
+              <a href="tel:+541112345678" class="announce-tel-badge" title="Llamar a Urgencias Médicas">
+                <svg class="tel-icon" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                </svg>
+                <span>+54 11 1234-5678</span>
+              </a>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            class="announce-close-btn"
+            @click="dismissAnnounceBar"
+            aria-label="Ocultar aviso de guardia"
+            title="Ocultar aviso"
+          >
+            <svg class="close-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </Transition>
 
     <!-- Mobile overlay -->
     <Transition name="fade">
@@ -272,12 +304,25 @@ const router = useRouter()
 const mobileMenuOpen = ref(false)
 const clinicalInfoModalOpen = ref(false)
 const sanitaryProtocolsModalOpen = ref(false)
+const showAnnounceBar = ref(true)
 
 const { initCurrency } = useCurrency()
 
 onMounted(() => {
   initCurrency()
+  try {
+    if (sessionStorage.getItem('medvet_hide_emergency_bar') === 'true') {
+      showAnnounceBar.value = false
+    }
+  } catch (e) {}
 })
+
+const dismissAnnounceBar = () => {
+  showAnnounceBar.value = false
+  try {
+    sessionStorage.setItem('medvet_hide_emergency_bar', 'true')
+  } catch (e) {}
+}
 
 const handleLogout = async () => {
   await authStore.logout()
@@ -307,43 +352,179 @@ const handleLogout = async () => {
 }
 
 /* ────────────────────────────────────────
-   ANNOUNCEMENT BAR
+   ANNOUNCEMENT & EMERGENCY BAR
 ──────────────────────────────────────── */
 .announce-bar {
-  background: var(--color-forest-900);
-  color: rgba(200, 232, 200, 0.75);
-  font-size: 0.72rem;
-  font-weight: 500;
-  padding: 0.45rem 1rem;
-  text-align: center;
+  position: relative;
+  z-index: 60;
+  background: linear-gradient(90deg, #092c1e 0%, #0c3826 50%, #092c1e 100%);
+  border-bottom: 1px solid rgba(0, 245, 155, 0.15);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0.35rem 1rem;
+  transition: all 0.25s ease;
+}
+
+.dark .announce-bar {
+  background: linear-gradient(90deg, #04140d 0%, #082418 50%, #04140d 100%);
+  border-bottom-color: rgba(0, 245, 155, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.announce-container {
+  max-width: 1440px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.65rem;
-  letter-spacing: 0.01em;
+  position: relative;
+  min-height: 1.75rem;
+}
+
+.announce-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.65rem 0.85rem;
+  text-align: center;
+  padding: 0 2rem;
 }
 
 .announce-pill {
   display: inline-flex;
-  padding: 0.15rem 0.55rem;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.18rem 0.55rem;
   border-radius: 999px;
-  background: rgba(255, 122, 0, 0.18);
+  background: rgba(255, 122, 0, 0.16);
   border: 1px solid rgba(255, 122, 0, 0.35);
-  color: var(--color-joy-tangerine);
-  font-size: 0.65rem;
+  color: #ff9d42;
+  font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.announce-tel {
-  color: var(--color-forest-400);
+.dark .announce-pill {
+  background: rgba(255, 122, 0, 0.22);
+  border-color: rgba(255, 122, 0, 0.45);
+  color: #ffaa5a;
+  box-shadow: 0 0 10px rgba(255, 122, 0, 0.25);
+}
+
+.announce-beacon {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff7a00;
+  box-shadow: 0 0 8px #ff7a00;
+  animation: pulse-beacon 1.8s infinite ease-in-out;
+}
+
+@keyframes pulse-beacon {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.4; }
+}
+
+.announce-pill-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.announce-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #d1fae5;
+  font-weight: 500;
+}
+
+.dark .announce-text {
+  color: #ecfdf5;
+}
+
+.announce-label {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+}
+
+.dark .announce-label {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.announce-tel-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 6px;
+  background: rgba(0, 245, 155, 0.12);
+  border: 1px solid rgba(0, 245, 155, 0.3);
+  color: #5effc4;
+  font-weight: 700;
   text-decoration: none;
-  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.2s ease;
 }
 
-.announce-tel:hover {
-  color: var(--color-forest-200);
+.announce-tel-badge:hover {
+  background: rgba(0, 245, 155, 0.22);
+  border-color: #00f59b;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 245, 155, 0.3);
+  transform: translateY(-1px);
+}
+
+.tel-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.announce-close-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 6px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.65);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.announce-close-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.close-icon {
+  width: 0.8125rem;
+  height: 0.8125rem;
+}
+
+/* Banner Transition */
+.banner-slide-enter-active,
+.banner-slide-leave-active {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.banner-slide-enter-from,
+.banner-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-100%);
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow: hidden;
 }
 
 /* ────────────────────────────────────────
