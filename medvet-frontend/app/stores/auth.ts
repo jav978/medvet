@@ -52,7 +52,10 @@ function getStoredCurrentUser(): User | null {
 }
 
 function formatNameFromEmail(email: string): string {
-  const prefix = email.split('@')[0] || 'Usuario'
+  const prefix = (email || '').split('@')[0] || ''
+  if (!prefix || prefix.toLowerCase() === 'usuario' || prefix.toLowerCase() === 'user') {
+    return 'Javier Silva'
+  }
   const cleaned = prefix.replace(/[._-]+/g, ' ')
   return cleaned
     .split(' ')
@@ -148,12 +151,25 @@ export const useAuthStore = defineStore('auth', {
         let name = nameHint?.trim()
 
         if (!email) {
-          // If no email was provided in form, use a realistic clean Google account
-          email = 'usuario@gmail.com'
+          // Check if user was previously saved in this browser
+          const saved = getStoredCurrentUser()
+          if (saved?.email && saved.email !== 'usuario@gmail.com') {
+            email = saved.email
+            name = name || saved.name
+          } else {
+            const db = getSavedUsers()
+            const firstSaved = Object.values(db)[0]
+            if (firstSaved?.user?.email) {
+              email = firstSaved.user.email
+              name = name || firstSaved.user.name
+            } else {
+              email = 'javier.silva@gmail.com'
+            }
+          }
         }
 
-        if (!name) {
-          name = formatNameFromEmail(email) || 'Usuario'
+        if (!name || name.toLowerCase() === 'usuario') {
+          name = formatNameFromEmail(email)
         }
 
         this.user = {

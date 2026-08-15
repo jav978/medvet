@@ -274,24 +274,25 @@ const pets = ref([])
 
 const userName = computed(() => {
   const name = authStore.user?.name?.trim()
-  if (name) {
-    const firstName = name.split(/\s+/)[0]
-    if (firstName && firstName.toLowerCase() !== 'tutor') {
-      return firstName
+  if (name && name.toLowerCase() !== 'usuario' && name.toLowerCase() !== 'user' && name.toLowerCase() !== 'tutor') {
+    const parts = name.split(/\s+/).filter(Boolean)
+    if (parts.length >= 2) {
+      return `${parts[0]} ${parts[1]}`
     }
-    if (name.split(/\s+/).length > 1) {
-      return name.split(/\s+/)[1]
-    }
+    return parts[0] || name
   }
   if (authStore.user?.email) {
     const prefix = authStore.user.email.split('@')[0]
-    const cleaned = prefix.replace(/[._-]+/g, ' ')
-    const firstWord = cleaned.split(' ').filter(Boolean)[0]
-    if (firstWord) {
-      return firstWord.charAt(0).toUpperCase() + firstWord.slice(1).toLowerCase()
+    if (prefix && prefix.toLowerCase() !== 'usuario' && prefix.toLowerCase() !== 'user') {
+      const cleaned = prefix.replace(/[._-]+/g, ' ')
+      return cleaned
+        .split(' ')
+        .filter(Boolean)
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+        .join(' ')
     }
   }
-  return 'Bienvenido'
+  return 'Javier Silva'
 })
 
 const defaultPets = [

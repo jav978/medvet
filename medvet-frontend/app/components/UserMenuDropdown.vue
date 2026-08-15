@@ -42,17 +42,22 @@ const handleLogout = async () => {
 
 // Format display name
 const displayName = computed(() => {
-  if (authStore.user?.name) return authStore.user.name
+  const name = authStore.user?.name?.trim()
+  if (name && name.toLowerCase() !== 'usuario' && name.toLowerCase() !== 'user') {
+    return name
+  }
   if (authStore.user?.email) {
     const prefix = authStore.user.email.split('@')[0]
-    const cleaned = prefix.replace(/[._-]+/g, ' ')
-    return cleaned
-      .split(' ')
-      .filter(Boolean)
-      .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
-      .join(' ')
+    if (prefix && prefix.toLowerCase() !== 'usuario' && prefix.toLowerCase() !== 'user') {
+      const cleaned = prefix.replace(/[._-]+/g, ' ')
+      return cleaned
+        .split(' ')
+        .filter(Boolean)
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+        .join(' ')
+    }
   }
-  return 'Mi Cuenta'
+  return 'Javier Silva'
 })
 
 const displayInitial = computed(() => {
@@ -707,5 +712,19 @@ const roleLabel = computed(() => {
 .dropdown-anim-leave-to {
   opacity: 0;
   transform: translateY(-8px) scale(0.96);
+}
+
+@media (max-width: 640px) {
+  .user-info-preview {
+    display: none;
+  }
+  .user-menu-trigger {
+    padding: 0.25rem;
+    gap: 0.25rem;
+  }
+  .user-dropdown-card {
+    right: -0.5rem;
+    width: min(290px, calc(100vw - 1.5rem));
+  }
 }
 </style>

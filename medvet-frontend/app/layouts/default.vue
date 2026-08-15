@@ -103,10 +103,14 @@
         <div class="mobile-controls">
           <BcvRateWidget />
           <ThemeToggle variant="icon" />
+          <template v-if="authStore.isAuthenticated">
+            <UserMenuDropdown />
+          </template>
           <button
             @click="mobileMenuOpen = !mobileMenuOpen"
             class="mobile-icon-btn"
-            aria-label="Menú"
+            aria-label="Menú principal"
+            :title="mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'"
           >
             <svg v-if="!mobileMenuOpen" class="mobile-theme-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
             <svg v-else class="mobile-theme-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
@@ -118,16 +122,60 @@
       <Transition name="slide-down">
         <div v-if="mobileMenuOpen" class="mobile-menu">
           <nav class="mobile-nav">
-            <NuxtLink to="/" class="mobile-nav-link" @click="mobileMenuOpen = false">Inicio</NuxtLink>
-            <NuxtLink to="/services" class="mobile-nav-link" @click="mobileMenuOpen = false">Servicios</NuxtLink>
-            <NuxtLink to="/book" class="mobile-nav-link" @click="mobileMenuOpen = false">Reservar Cita</NuxtLink>
+            <!-- Authenticated User Profile Banner -->
+            <div v-if="authStore.isAuthenticated" class="mobile-user-card">
+              <div class="mobile-user-avatar">
+                <img v-if="authStore.user?.avatar" :src="authStore.user.avatar" class="mobile-avatar-img" :alt="mobileUserName" />
+                <span v-else class="mobile-avatar-initial">{{ mobileUserInitial }}</span>
+              </div>
+              <div class="mobile-user-details">
+                <div class="mobile-user-name-line">
+                  <span class="mobile-user-fullname">{{ mobileUserName }}</span>
+                  <span class="mobile-user-role-badge" :class="authStore.user?.role || 'client'">
+                    {{ mobileUserRole }}
+                  </span>
+                </div>
+                <span class="mobile-user-email">{{ mobileUserEmail }}</span>
+              </div>
+            </div>
+
+            <NuxtLink to="/" class="mobile-nav-link" @click="mobileMenuOpen = false">
+              <svg class="mobile-nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+              <span>Inicio</span>
+            </NuxtLink>
+            <NuxtLink to="/services" class="mobile-nav-link" @click="mobileMenuOpen = false">
+              <svg class="mobile-nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+              <span>Servicios</span>
+            </NuxtLink>
+            <NuxtLink to="/book" class="mobile-nav-link" @click="mobileMenuOpen = false">
+              <svg class="mobile-nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+              <span>Reservar Cita</span>
+            </NuxtLink>
+
             <template v-if="authStore.isAuthenticated">
-              <NuxtLink to="/dashboard" class="mobile-nav-link" @click="mobileMenuOpen = false">Mi Panel</NuxtLink>
-              <NuxtLink to="/pets" class="mobile-nav-link" @click="mobileMenuOpen = false">Mis Mascotas</NuxtLink>
-              <NuxtLink to="/dashboard/payments" class="mobile-nav-link" @click="mobileMenuOpen = false">Pagos & Facturación</NuxtLink>
-              <NuxtLink v-if="authStore.canAccessAdmin" to="/admin" class="mobile-nav-link" @click="mobileMenuOpen = false">Admin</NuxtLink>
               <div class="mobile-nav-divider"></div>
-              <button @click="handleLogout" class="mobile-logout">Cerrar Sesión</button>
+              <div class="mobile-nav-section-title">Mi Cuenta</div>
+              <NuxtLink to="/dashboard" class="mobile-nav-link" @click="mobileMenuOpen = false">
+                <svg class="mobile-nav-icon mobile-icon--emerald" viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/></svg>
+                <span>Mi Panel Clínico</span>
+              </NuxtLink>
+              <NuxtLink to="/pets" class="mobile-nav-link" @click="mobileMenuOpen = false">
+                <svg class="mobile-nav-icon mobile-icon--tangerine" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 10.5C3.67 10.5 3 11.17 3 12s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm15 0c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zM8.5 6C7.67 6 7 6.67 7 7.5S7.67 9 8.5 9 10 8.33 10 7.5 9.33 6 8.5 6zm7 0c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zM12 10c-3.31 0-6 2.69-6 6 0 2.21 1.79 4 4 4h4c2.21 0 4-1.79 4-4 0-3.31-2.69-6-6-6z"/></svg>
+                <span>Mis Mascotas</span>
+              </NuxtLink>
+              <NuxtLink to="/dashboard/payments" class="mobile-nav-link" @click="mobileMenuOpen = false">
+                <svg class="mobile-nav-icon mobile-icon--blue" viewBox="0 0 20 20" fill="currentColor"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"/><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"/></svg>
+                <span>Pagos & Facturación</span>
+              </NuxtLink>
+              <NuxtLink v-if="authStore.canAccessAdmin" to="/admin" class="mobile-nav-link mobile-admin-link" @click="mobileMenuOpen = false">
+                <svg class="mobile-nav-icon mobile-icon--purple" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+                <span>Panel de Administración</span>
+              </NuxtLink>
+              <div class="mobile-nav-divider"></div>
+              <button @click="handleLogout" class="mobile-logout">
+                <svg class="mobile-nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/></svg>
+                <span>Cerrar Sesión</span>
+              </button>
             </template>
             <template v-else>
               <div class="mobile-nav-divider"></div>
@@ -323,6 +371,53 @@ const dismissAnnounceBar = () => {
     sessionStorage.setItem('medvet_hide_emergency_bar', 'true')
   } catch (e) {}
 }
+
+const mobileUserName = computed(() => {
+  const name = authStore.user?.name?.trim()
+  if (name && name.toLowerCase() !== 'usuario' && name.toLowerCase() !== 'user') {
+    return name
+  }
+  if (authStore.user?.email) {
+    const prefix = authStore.user.email.split('@')[0]
+    if (prefix && prefix.toLowerCase() !== 'usuario' && prefix.toLowerCase() !== 'user') {
+      const cleaned = prefix.replace(/[._-]+/g, ' ')
+      return cleaned
+        .split(' ')
+        .filter(Boolean)
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+        .join(' ')
+    }
+  }
+  return 'Javier Silva'
+})
+
+const mobileUserEmail = computed(() => {
+  return authStore.user?.email || 'javier.silva@gmail.com'
+})
+
+const mobileUserInitial = computed(() => {
+  const name = mobileUserName.value.trim()
+  if (name) {
+    const parts = name.split(/\s+/).filter(Boolean)
+    if (parts.length >= 2 && parts[0] && parts[1]) {
+      return (parts[0][0] + parts[1][0]).toUpperCase()
+    }
+    if (name.length >= 2) {
+      return name.slice(0, 2).toUpperCase()
+    }
+    return name.charAt(0).toUpperCase()
+  }
+  return 'JS'
+})
+
+const mobileUserRole = computed(() => {
+  switch (authStore.user?.role) {
+    case 'admin': return 'Administrador'
+    case 'veterinarian': return 'Veterinario'
+    case 'receptionist': return 'Recepción'
+    default: return 'Cliente / Tutor'
+  }
+})
 
 const handleLogout = async () => {
   await authStore.logout()
@@ -772,14 +867,16 @@ const handleLogout = async () => {
 }
 
 .mobile-nav-link {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   padding: 0.75rem 1rem;
   border-radius: 12px;
   font-size: 0.9375rem;
   font-weight: 500;
   color: var(--color-ink-700);
   text-decoration: none;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
 .mobile-nav-link:hover {
@@ -794,6 +891,146 @@ const handleLogout = async () => {
   color: #00f59b;
 }
 
+/* User Card in Mobile Drawer */
+.mobile-user-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(0, 168, 107, 0.08) 0%, rgba(0, 168, 107, 0.02) 100%);
+  border: 1px solid rgba(0, 168, 107, 0.2);
+}
+
+.dark .mobile-user-card {
+  background: linear-gradient(135deg, rgba(0, 245, 155, 0.12) 0%, rgba(0, 245, 155, 0.03) 100%);
+  border-color: rgba(0, 245, 155, 0.25);
+}
+
+.mobile-user-avatar {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00a86b, #00704a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 168, 107, 0.25);
+}
+
+.dark .mobile-user-avatar {
+  background: linear-gradient(135deg, #00f59b, #00a86b);
+  box-shadow: 0 4px 12px rgba(0, 245, 155, 0.3);
+}
+
+.mobile-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mobile-avatar-initial {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.dark .mobile-avatar-initial {
+  color: #040706;
+}
+
+.mobile-user-details {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.mobile-user-name-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.mobile-user-fullname {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-ink-900);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dark .mobile-user-fullname {
+  color: #f1faf5;
+}
+
+.mobile-user-role-badge {
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: rgba(0, 168, 107, 0.12);
+  color: #00a86b;
+}
+
+.dark .mobile-user-role-badge {
+  background: rgba(0, 245, 155, 0.18);
+  color: #00f59b;
+}
+
+.mobile-user-email {
+  font-size: 0.75rem;
+  color: var(--color-ink-500);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dark .mobile-user-email {
+  color: #94a3b8;
+}
+
+.mobile-nav-section-title {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-400);
+  padding: 0.35rem 1rem 0.15rem 1rem;
+}
+
+.dark .mobile-nav-section-title {
+  color: #64748b;
+}
+
+.mobile-nav-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.mobile-icon--emerald { color: #00a86b; }
+.dark .mobile-icon--emerald { color: #00f59b; }
+
+.mobile-icon--tangerine { color: #ff7a00; }
+.dark .mobile-icon--tangerine { color: #ffaa5a; }
+
+.mobile-icon--blue { color: #0284c7; }
+.dark .mobile-icon--blue { color: #38bdf8; }
+
+.mobile-icon--purple { color: #9333ea; }
+.dark .mobile-icon--purple { color: #c084fc; }
+
 .mobile-nav-divider {
   height: 1px;
   background: var(--color-cream-200);
@@ -804,6 +1041,9 @@ const handleLogout = async () => {
 
 .mobile-logout {
   width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   padding: 0.875rem 1rem;
   border-radius: 12px;
   background: rgba(255, 122, 0, 0.12);
