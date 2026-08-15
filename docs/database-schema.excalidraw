@@ -1,39 +1,39 @@
 {
   "type": "excalidraw",
   "version": 2,
-  "source": "mcp-excalidraw-server",
+  "source": "medvet-arch-tool",
   "elements": [
     {
       "id": "title-doc",
       "type": "text",
-      "x": 380,
-      "y": 40,
-      "text": "MEDVET — MODELO Y ESQUEMA DE BASE DE DATOS",
+      "x": 600,
+      "y": 30,
+      "text": "MEDVET — MODELO Y ESQUEMA DE BASE DE DATOS (11 ENTIDADES)",
       "fontSize": 24,
       "fontFamily": 3,
-      "createdAt": "2026-08-15T00:24:46.882Z",
-      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
       "version": 1
     },
     {
       "id": "subtitle-doc",
       "type": "text",
-      "x": 430,
-      "y": 75,
-      "text": "Arquitectura Relacional PostgreSQL / Knex / FeathersJS",
-      "fontSize": 16,
+      "x": 620,
+      "y": 65,
+      "text": "Arquitectura Relacional PostgreSQL / Knex / FeathersJS — EHR & Guardia 24/7",
+      "fontSize": 15,
       "fontFamily": 2,
-      "createdAt": "2026-08-15T00:24:46.882Z",
-      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
       "version": 1
     },
     {
       "id": "tbl-users",
       "type": "rectangle",
-      "x": 80,
-      "y": 140,
-      "width": 300,
-      "height": 280,
+      "x": 50,
+      "y": 120,
+      "width": 280,
+      "height": 260,
       "backgroundColor": "#e7f5ff",
       "strokeColor": "#1971c2",
       "label": {
@@ -43,17 +43,17 @@
         "type": 3
       },
       "fillStyle": "solid",
-      "createdAt": "2026-08-15T00:24:46.882Z",
-      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
       "version": 1
     },
     {
       "id": "tbl-professionals",
       "type": "rectangle",
-      "x": 500,
-      "y": 140,
-      "width": 300,
-      "height": 220,
+      "x": 420,
+      "y": 120,
+      "width": 280,
+      "height": 200,
       "backgroundColor": "#ebfbee",
       "strokeColor": "#2f9e44",
       "label": {
@@ -63,17 +63,17 @@
         "type": 3
       },
       "fillStyle": "solid",
-      "createdAt": "2026-08-15T00:24:46.882Z",
-      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
       "version": 1
     },
     {
       "id": "tbl-schedules",
       "type": "rectangle",
-      "x": 920,
-      "y": 140,
-      "width": 300,
-      "height": 220,
+      "x": 780,
+      "y": 120,
+      "width": 280,
+      "height": 200,
       "backgroundColor": "#ebfbee",
       "strokeColor": "#2f9e44",
       "label": {
@@ -83,17 +83,37 @@
         "type": 3
       },
       "fillStyle": "solid",
-      "createdAt": "2026-08-15T00:24:46.882Z",
-      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
+      "version": 1
+    },
+    {
+      "id": "tbl-shift-handovers",
+      "type": "rectangle",
+      "x": 1140,
+      "y": 120,
+      "width": 300,
+      "height": 260,
+      "backgroundColor": "#ffe8cc",
+      "strokeColor": "#d9480f",
+      "label": {
+        "text": "SHIFT_HANDOVERS (Pase Guardia 24/7)\n-------------------------\n🔑 id : UUID (PK)\n🔗 outgoing_doctor_id : UUID (FK->prof.)\n🔗 incoming_doctor_id : UUID (FK->prof.)\n🚨 shift_type : ENUM ('guardia_24h'...)\n📅 shift_date : DATE\n🏥 admitted_patients_count : INT\n🔪 surgeries_count : INT\n🚨 emergencies_count : INT\n✅ discharges_count : INT\n⚠️ critical_patients_notes : TEXT\n📌 pending_tasks : TEXT"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
       "version": 1
     },
     {
       "id": "tbl-pets",
       "type": "rectangle",
-      "x": 80,
-      "y": 480,
-      "width": 300,
-      "height": 280,
+      "x": 50,
+      "y": 450,
+      "width": 280,
+      "height": 270,
       "backgroundColor": "#fff4e6",
       "strokeColor": "#e8590c",
       "label": {
@@ -103,17 +123,37 @@
         "type": 3
       },
       "fillStyle": "solid",
-      "createdAt": "2026-08-15T00:24:46.882Z",
-      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
+      "version": 1
+    },
+    {
+      "id": "tbl-appointments",
+      "type": "rectangle",
+      "x": 420,
+      "y": 420,
+      "width": 300,
+      "height": 300,
+      "backgroundColor": "#f3d9fa",
+      "strokeColor": "#9c36b5",
+      "label": {
+        "text": "APPOINTMENTS (Citas Médicas)\n-------------------------\n🔑 id : UUID (PK)\n🔗 user_id : UUID (FK->users.id)\n🔗 pet_id : UUID (FK->pets.id)\n🔗 professional_id : UUID (FK->prof.)\n🔗 service_id : UUID (FK->services.id)\n📅 date : DATE\n⏰ start_time : TIME\n⏰ end_time : TIME\n📊 status : ENUM ('pending', 'confirmed'...)\n📋 notes : TEXT\n⏱️ created_at : TIMESTAMP"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
       "version": 1
     },
     {
       "id": "tbl-services",
       "type": "rectangle",
-      "x": 920,
-      "y": 480,
-      "width": 300,
-      "height": 260,
+      "x": 780,
+      "y": 420,
+      "width": 280,
+      "height": 250,
       "backgroundColor": "#e3fafc",
       "strokeColor": "#0c8599",
       "label": {
@@ -123,100 +163,163 @@
         "type": 3
       },
       "fillStyle": "solid",
-      "createdAt": "2026-08-15T00:24:46.882Z",
-      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
       "version": 1
     },
     {
-      "id": "tbl-appointments",
+      "id": "tbl-vaccinations",
       "type": "rectangle",
-      "x": 480,
-      "y": 440,
-      "width": 340,
-      "height": 340,
-      "backgroundColor": "#f3d9fa",
-      "strokeColor": "#9c36b5",
+      "x": 50,
+      "y": 790,
+      "width": 300,
+      "height": 280,
+      "backgroundColor": "#e3fafc",
+      "strokeColor": "#1098ad",
       "label": {
-        "text": "APPOINTMENTS (Citas Médicas)\n-------------------------\n🔑 id : UUID (PK)\n🔗 user_id : UUID (FK->users.id)\n🔗 pet_id : UUID (FK->pets.id)\n🔗 professional_id : UUID (FK->prof.)\n🔗 service_id : UUID (FK->services.id)\n📅 date : DATE\n⏰ start_time : TIME\n⏰ end_time : TIME\n📊 status : ENUM ('pending', 'confirmed'...)\n📋 notes : TEXT\n⏱️ created_at : TIMESTAMP\n⏱️ updated_at : TIMESTAMP"
+        "text": "VACCINATIONS (Carnet QR)\n-------------------------\n🔑 id : UUID (PK)\n🔗 pet_id : UUID (FK->pets.id)\n🔗 professional_id : UUID (FK->prof.)\n💉 vaccine_name : VARCHAR\n🏷️ type : ENUM ('vacuna', 'desparasitacion'...)\n📦 batch_number : VARCHAR\n🏢 manufacturer : VARCHAR\n📅 applied_date : DATE\n📅 next_due_date : DATE\n📊 status : ENUM ('aplicada', 'pendiente')"
       },
       "roundness": {
         "type": 3
       },
       "fillStyle": "solid",
-      "createdAt": "2026-08-15T00:24:46.882Z",
-      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
+      "version": 1
+    },
+    {
+      "id": "tbl-medical-records",
+      "type": "rectangle",
+      "x": 420,
+      "y": 790,
+      "width": 320,
+      "height": 330,
+      "backgroundColor": "#e6fcf5",
+      "strokeColor": "#0ca678",
+      "label": {
+        "text": "MEDICAL_RECORDS (Historia Clínica EHR)\n-------------------------\n🔑 id : UUID (PK)\n🔗 pet_id : UUID (FK->pets.id)\n🔗 professional_id : UUID (FK->prof.)\n🔗 appointment_id : UUID (FK->appt.)\n🏷️ record_type : ENUM ('consulta', 'urgencia'...)\n📝 reason_for_visit : TEXT\n⚖️ weight_kg / temp / hr / rr : DECIMAL/INT\n👄 mucous_membranes / crt : VARCHAR\n📖 anamnesis / findings : TEXT\n🔬 presumptive / definitive diag : TEXT\n💊 treatment_plan / prescription : TEXT\n📊 patient_status : ENUM ('estable', 'critico'...)"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
+      "version": 1
+    },
+    {
+      "id": "tbl-clinical-attachments",
+      "type": "rectangle",
+      "x": 800,
+      "y": 790,
+      "width": 300,
+      "height": 280,
+      "backgroundColor": "#fff9db",
+      "strokeColor": "#f08c00",
+      "label": {
+        "text": "CLINICAL_ATTACHMENTS (Visor RX & Lab)\n-------------------------\n🔑 id : UUID (PK)\n🔗 pet_id : UUID (FK->pets.id)\n🔗 medical_record_id : UUID (FK->med_rec)\n🔗 uploaded_by : UUID (FK->users.id)\n🩻 title : VARCHAR\n📁 category : ENUM ('radiografia', 'ecografia'...)\n🌐 file_url : VARCHAR\n🖼️ thumbnail_url : VARCHAR\n📝 findings : TEXT\n📅 study_date : DATE"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
+      "version": 1
+    },
+    {
+      "id": "tbl-surgeries",
+      "type": "rectangle",
+      "x": 1160,
+      "y": 790,
+      "width": 300,
+      "height": 280,
+      "backgroundColor": "#f8f0fc",
+      "strokeColor": "#ae3ec9",
+      "label": {
+        "text": "SURGERIES (Quirófano & Protocolos)\n-------------------------\n🔑 id : UUID (PK)\n🔗 pet_id : UUID (FK->pets.id)\n🔗 professional_id : UUID (FK->prof.)\n🔗 medical_record_id : UUID (FK->med_rec)\n🔪 surgery_name : VARCHAR\n🏷️ surgery_type : ENUM ('programada'...)\n🩺 pre_op_evaluation (ASA) : TEXT\n💉 anesthesia_protocol : TEXT\n🔪 surgical_technique : TEXT\n🛌 post_op_orders : TEXT\n📊 status : ENUM ('programada', 'completada')"
+      },
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
       "version": 1
     },
     {
       "id": "arr-users-prof",
       "type": "arrow",
-      "x": 387.9796695986459,
-      "y": 268.715737885811,
+      "x": 190,
+      "y": 250,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          370,
+          -30
+        ]
+      ],
       "strokeColor": "#1971c2",
       "strokeWidth": 2,
       "label": {
         "text": "1:1"
       },
-      "points": [
-        [
-          0,
-          0
-        ],
-        [
-          104.0406608027082,
-          -7.43147577162199
-        ]
-      ],
-      "start": {
-        "id": "tbl-users"
+      "startBinding": {
+        "elementId": "tbl-users",
+        "focus": 0,
+        "gap": 1
       },
-      "end": {
-        "id": "tbl-professionals"
+      "endBinding": {
+        "elementId": "tbl-professionals",
+        "focus": 0,
+        "gap": 1
       },
-      "createdAt": "2026-08-15T00:24:46.882Z",
-      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
       "version": 1
     },
     {
       "id": "arr-prof-sched",
       "type": "arrow",
-      "x": 808,
-      "y": 250,
-      "strokeColor": "#2f9e44",
-      "strokeWidth": 2,
-      "label": {
-        "text": "1:N"
-      },
+      "x": 560,
+      "y": 220,
       "points": [
         [
           0,
           0
         ],
         [
-          104,
-          2.842170943040401e-14
+          360,
+          0
         ]
       ],
-      "start": {
-        "id": "tbl-professionals"
+      "strokeColor": "#2f9e44",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1:N"
       },
-      "end": {
-        "id": "tbl-schedules"
+      "startBinding": {
+        "elementId": "tbl-professionals",
+        "focus": 0,
+        "gap": 1
       },
-      "createdAt": "2026-08-15T00:24:46.882Z",
-      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "endBinding": {
+        "elementId": "tbl-schedules",
+        "focus": 0,
+        "gap": 1
+      },
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
       "version": 1
     },
     {
       "id": "arr-users-pets",
       "type": "arrow",
-      "x": 230,
-      "y": 428,
-      "strokeColor": "#e8590c",
-      "strokeWidth": 2,
-      "label": {
-        "text": "1:N"
-      },
+      "x": 190,
+      "y": 250,
       "points": [
         [
           0,
@@ -224,142 +327,333 @@
         ],
         [
           0,
-          44
+          335
         ]
       ],
-      "start": {
-        "id": "tbl-users"
+      "strokeColor": "#e8590c",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1:N"
       },
-      "end": {
-        "id": "tbl-pets"
+      "startBinding": {
+        "elementId": "tbl-users",
+        "focus": 0,
+        "gap": 1
       },
-      "createdAt": "2026-08-15T00:24:46.882Z",
-      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "endBinding": {
+        "elementId": "tbl-pets",
+        "focus": 0,
+        "gap": 1
+      },
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
       "version": 1
     },
     {
       "id": "arr-users-appt",
       "type": "arrow",
-      "x": 386.2905467105794,
-      "y": 402.7997152725981,
+      "x": 190,
+      "y": 250,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          380,
+          320
+        ]
+      ],
       "strokeColor": "#1971c2",
       "strokeWidth": 2,
       "label": {
         "text": "1:N"
       },
-      "points": [
-        [
-          0,
-          0
-        ],
-        [
-          87.41890657884119,
-          68.68628374051809
-        ]
-      ],
-      "start": {
-        "id": "tbl-users"
+      "startBinding": {
+        "elementId": "tbl-users",
+        "focus": 0,
+        "gap": 1
       },
-      "end": {
-        "id": "tbl-appointments"
+      "endBinding": {
+        "elementId": "tbl-appointments",
+        "focus": 0,
+        "gap": 1
       },
-      "createdAt": "2026-08-15T00:24:46.882Z",
-      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
       "version": 1
     },
     {
       "id": "arr-pets-appt",
       "type": "arrow",
-      "x": 387.9977333899531,
-      "y": 616.2381492050012,
+      "x": 190,
+      "y": 585,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          380,
+          -15
+        ]
+      ],
       "strokeColor": "#e8590c",
       "strokeWidth": 2,
       "label": {
         "text": "1:N"
       },
-      "points": [
-        [
-          0,
-          0
-        ],
-        [
-          84.00453322009378,
-          -2.000107933811819
-        ]
-      ],
-      "start": {
-        "id": "tbl-pets"
+      "startBinding": {
+        "elementId": "tbl-pets",
+        "focus": 0,
+        "gap": 1
       },
-      "end": {
-        "id": "tbl-appointments"
+      "endBinding": {
+        "elementId": "tbl-appointments",
+        "focus": 0,
+        "gap": 1
       },
-      "createdAt": "2026-08-15T00:24:46.882Z",
-      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
       "version": 1
     },
     {
       "id": "arr-prof-appt",
       "type": "arrow",
-      "x": 650,
-      "y": 368,
+      "x": 560,
+      "y": 220,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          10,
+          350
+        ]
+      ],
       "strokeColor": "#2f9e44",
       "strokeWidth": 2,
       "label": {
         "text": "1:N"
       },
-      "points": [
-        [
-          0,
-          0
-        ],
-        [
-          0,
-          64
-        ]
-      ],
-      "start": {
-        "id": "tbl-professionals"
+      "startBinding": {
+        "elementId": "tbl-professionals",
+        "focus": 0,
+        "gap": 1
       },
-      "end": {
-        "id": "tbl-appointments"
+      "endBinding": {
+        "elementId": "tbl-appointments",
+        "focus": 0,
+        "gap": 1
       },
-      "createdAt": "2026-08-15T00:24:46.882Z",
-      "updatedAt": "2026-08-15T00:24:46.882Z",
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
       "version": 1
     },
     {
       "id": "arr-serv-appt",
       "type": "arrow",
-      "x": 912,
-      "y": 610,
-      "strokeColor": "#0c8599",
-      "strokeWidth": 2,
-      "label": {
-        "text": "1:N"
-      },
+      "x": 920,
+      "y": 545,
       "points": [
         [
           0,
           0
         ],
         [
-          -84,
-          0
+          -350,
+          25
         ]
       ],
-      "start": {
-        "id": "tbl-services"
+      "strokeColor": "#0c8599",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1:N"
       },
-      "end": {
-        "id": "tbl-appointments"
+      "startBinding": {
+        "elementId": "tbl-services",
+        "focus": 0,
+        "gap": 1
       },
-      "createdAt": "2026-08-15T00:24:46.883Z",
-      "updatedAt": "2026-08-15T00:24:46.883Z",
+      "endBinding": {
+        "elementId": "tbl-appointments",
+        "focus": 0,
+        "gap": 1
+      },
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
+      "version": 1
+    },
+    {
+      "id": "arr-pets-medrec",
+      "type": "arrow",
+      "x": 190,
+      "y": 585,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          390,
+          370
+        ]
+      ],
+      "strokeColor": "#0ca678",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1:N"
+      },
+      "startBinding": {
+        "elementId": "tbl-pets",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "tbl-medical-records",
+        "focus": 0,
+        "gap": 1
+      },
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
+      "version": 1
+    },
+    {
+      "id": "arr-pets-vac",
+      "type": "arrow",
+      "x": 190,
+      "y": 585,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          10,
+          345
+        ]
+      ],
+      "strokeColor": "#1098ad",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1:N"
+      },
+      "startBinding": {
+        "elementId": "tbl-pets",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "tbl-vaccinations",
+        "focus": 0,
+        "gap": 1
+      },
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
+      "version": 1
+    },
+    {
+      "id": "arr-medrec-attach",
+      "type": "arrow",
+      "x": 580,
+      "y": 955,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          370,
+          -25
+        ]
+      ],
+      "strokeColor": "#f08c00",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1:N"
+      },
+      "startBinding": {
+        "elementId": "tbl-medical-records",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "tbl-clinical-attachments",
+        "focus": 0,
+        "gap": 1
+      },
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
+      "version": 1
+    },
+    {
+      "id": "arr-medrec-surg",
+      "type": "arrow",
+      "x": 580,
+      "y": 955,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          730,
+          -25
+        ]
+      ],
+      "strokeColor": "#ae3ec9",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1:N"
+      },
+      "startBinding": {
+        "elementId": "tbl-medical-records",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "tbl-surgeries",
+        "focus": 0,
+        "gap": 1
+      },
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
+      "version": 1
+    },
+    {
+      "id": "arr-prof-shift",
+      "type": "arrow",
+      "x": 560,
+      "y": 220,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          730,
+          30
+        ]
+      ],
+      "strokeColor": "#d9480f",
+      "strokeWidth": 2,
+      "label": {
+        "text": "1:N"
+      },
+      "startBinding": {
+        "elementId": "tbl-professionals",
+        "focus": 0,
+        "gap": 1
+      },
+      "endBinding": {
+        "elementId": "tbl-shift-handovers",
+        "focus": 0,
+        "gap": 1
+      },
+      "createdAt": "2026-08-15T02:52:16.904Z",
+      "updatedAt": "2026-08-15T02:52:16.904Z",
       "version": 1
     }
-  ],
-  "appState": {
-    "viewBackgroundColor": "#ffffff",
-    "gridSize": null
-  }
+  ]
 }

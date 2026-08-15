@@ -1,211 +1,138 @@
-# 5. Backend Schema & Architecture — MedVet v1.0
+# 5. Backend Schema & Architecture — MedVet v2.0 (EHR & Guardia 24/7)
 
-**Document Version:** 1.0.0  
-**Stack:** FeathersJS v5 (Dove) + TypeScript + Knex.js + PostgreSQL 16 + Redis 7  
+**Document Version:** 2.0.0  
+**Stack:** FeathersJS v5 (Dove) + TypeScript + Knex.js + PostgreSQL 16+ + Redis 7  
 **Status:** Approved / Active  
-**Author:** MedVet Backend Team  
+**Author:** MedVet Architecture Team  
 **Last Updated:** Agosto 2026  
 
 ---
 
-## 1. Diagrama Entidad-Relación (ERD)
+## 1. Diagrama Entidad-Relación Completo (11 Tablas)
 
 ```mermaid
 erDiagram
-    USERS ||--o{ PETS : "owns"
-    USERS ||--o{ PROFESSIONALS : "profile"
-    USERS ||--o{ APPOINTMENTS : "books"
-    PETS ||--o{ APPOINTMENTS : "receives"
-    PROFESSIONALS ||--o{ SCHEDULES : "works"
-    PROFESSIONALS ||--o{ APPOINTMENTS : "attends"
-    SERVICES ||--o{ APPOINTMENTS : "categorizes"
-
-    USERS {
-        uuid id PK
-        string email UK
-        string password
-        string full_name
-        string phone
-        enum role "admin, professional, receptionist, client"
-        timestamp created_at
-        timestamp updated_at
-    }
-
-    PETS {
-        uuid id PK
-        uuid user_id FK
-        string name
-        enum species "dog, cat, bird, rabbit, other"
-        string breed
-        date birth_date
-        decimal weight_kg
-        string photo_url
-        text medical_notes
-        timestamp created_at
-        timestamp updated_at
-    }
-
-    PROFESSIONALS {
-        uuid id PK
-        uuid user_id FK
-        string license_number UK
-        string specialty
-        text bio
-        boolean is_active
-        timestamp created_at
-        timestamp updated_at
-    }
-
-    SCHEDULES {
-        uuid id PK
-        uuid professional_id FK
-        integer day_of_week "0=Domingo .. 6=Sabado"
-        time start_time
-        time end_time
-        integer slot_duration_minutes "Default: 30"
-        timestamp created_at
-        timestamp updated_at
-    }
-
-    SERVICES {
-        uuid id PK
-        string name
-        text description
-        decimal price_usd
-        integer duration_minutes
-        string category
-        boolean is_active
-        timestamp created_at
-        timestamp updated_at
-    }
-
-    APPOINTMENTS {
-        uuid id PK
-        uuid pet_id FK
-        uuid professional_id FK
-        uuid service_id FK
-        date appointment_date
-        time start_time
-        time end_time
-        enum status "pending, confirmed, in_progress, completed, cancelled, no_show"
-        text reason
-        text diagnosis
-        text prescription
-        timestamp created_at
-        timestamp updated_at
-    }
+    USERS ||--o| PROFESSIONALS : "es perfil profesional (1:1)"
+    USERS ||--o{ PETS : "es tutor de (1:N)"
+    USERS ||--o{ APPOINTMENTS : "reserva turno (1:N)"
+    PROFESSIONALS ||--o{ SCHEDULES : "configura turnos (1:N)"
+    PROFESSIONALS ||--o{ APPOINTMENTS : "atiende cita (1:N)"
+    PROFESSIONALS ||--o{ MEDICAL_RECORDS : "asienta consulta (1:N)"
+    PROFESSIONALS ||--o{ VACCINATIONS : "aplica vacuna (1:N)"
+    PROFESSIONALS ||--o{ SURGERIES : "opera (1:N)"
+    PROFESSIONALS ||--o{ SHIFT_HANDOVERS : "emite parte guardia (1:N)"
+    SERVICES ||--o{ APPOINTMENTS : "categoriza (1:N)"
+    PETS ||--o{ APPOINTMENTS : "recibe turno (1:N)"
+    PETS ||--o{ MEDICAL_RECORDS : "posee historial EHR (1:N)"
+    PETS ||--o{ CLINICAL_ATTACHMENTS : "posee placas RX y análisis (1:N)"
+    PETS ||--o{ VACCINATIONS : "tiene carnet vacunas (1:N)"
+    PETS ||--o{ SURGERIES : "posee historial quirúrgico (1:N)"
+    MEDICAL_RECORDS ||--o{ CLINICAL_ATTACHMENTS : "adjunta estudios (1:N)"
+    MEDICAL_RECORDS ||--o{ SURGERIES : "vincula protocolo (1:N)"
 ```
 
 ---
 
-## 2. Diccionario de Datos & Especificación de Tablas (PostgreSQL)
+## 2. Catálogo de Servicios Backend FeathersJS (TypeScript)
 
-### Tabla: `users`
-Almacena las credenciales y perfiles de todos los actores del sistema.
-* `id` (`UUID`, PK, `DEFAULT gen_random_uuid()`): Identificador único.
-* `email` (`VARCHAR(255)`, UNIQUE, NOT NULL): Correo electrónico del usuario.
-* `password` (`VARCHAR(255)`, NOT NULL): Hash bcrypt con factor de costo 10.
-* `full_name` (`VARCHAR(255)`, NOT NULL): Nombre y apellido del usuario.
-* `phone` (`VARCHAR(50)`, NULL): Teléfono de contacto / WhatsApp.
-* `role` (`ENUM('admin', 'professional', 'receptionist', 'client')`, NOT NULL, `DEFAULT 'client'`).
-* `created_at` / `updated_at` (`TIMESTAMPTZ`, `DEFAULT NOW()`).
-
-### Tabla: `pets`
-Registro de pacientes animales vinculados a sus tutores.
-* `id` (`UUID`, PK, `DEFAULT gen_random_uuid()`).
-* `user_id` (`UUID`, FK -> `users.id`, ON DELETE CASCADE, NOT NULL).
-* `name` (`VARCHAR(100)`, NOT NULL): Nombre de la mascota.
-* `species` (`ENUM('dog', 'cat', 'bird', 'rabbit', 'other')`, NOT NULL).
-* `breed` (`VARCHAR(100)`, NULL): Raza de la mascota.
-* `birth_date` (`DATE`, NULL): Fecha de nacimiento aproximada.
-* `weight_kg` (`DECIMAL(5,2)`, NULL): Peso en kilogramos.
-* `photo_url` (`TEXT`, NULL): URL de la foto de perfil.
-* `medical_notes` (`TEXT`, NULL): Alergias o condiciones preexistentes.
-* **Índices**: `CREATE INDEX idx_pets_user_id ON pets(user_id);`
-
-### Tabla: `professionals`
-Datos médicos y especialidad de los veterinarios.
-* `id` (`UUID`, PK, `DEFAULT gen_random_uuid()`).
-* `user_id` (`UUID`, FK -> `users.id`, ON DELETE CASCADE, NOT NULL).
-* `license_number` (`VARCHAR(100)`, UNIQUE, NOT NULL): Nro. de colegiado / matrícula.
-* `specialty` (`VARCHAR(150)`, NOT NULL): Ej. "Cirugía", "Dermatología", "Medicina General".
-* `bio` (`TEXT`, NULL): Resumen profesional.
-* `is_active` (`BOOLEAN`, `DEFAULT TRUE`).
-
-### Tabla: `schedules`
-Definición de turnos laborales regulares por día de la semana.
-* `id` (`UUID`, PK, `DEFAULT gen_random_uuid()`).
-* `professional_id` (`UUID`, FK -> `professionals.id`, ON DELETE CASCADE, NOT NULL).
-* `day_of_week` (`SMALLINT`, NOT NULL): `0` = Domingo, `1` = Lunes, ..., `6` = Sábado.
-* `start_time` (`TIME`, NOT NULL): Ej. `08:00:00`.
-* `end_time` (`TIME`, NOT NULL): Ej. `17:00:00`.
-* `slot_duration_minutes` (`INTEGER`, `DEFAULT 30`).
-* **Índices**: `CREATE INDEX idx_schedules_prof_day ON schedules(professional_id, day_of_week);`
-
-### Tabla: `services`
-Catálogo de prestaciones veterinarias con precios y duraciones estándar.
-* `id` (`UUID`, PK, `DEFAULT gen_random_uuid()`).
-* `name` (`VARCHAR(150)`, NOT NULL): Ej. "Consulta General", "Vacunación Antirrábica".
-* `description` (`TEXT`, NULL).
-* `price_usd` (`DECIMAL(10,2)`, NOT NULL): Precio base en USD.
-* `duration_minutes` (`INTEGER`, NOT NULL, `DEFAULT 30`).
-* `category` (`VARCHAR(100)`, `DEFAULT 'general'`).
-* `is_active` (`BOOLEAN`, `DEFAULT TRUE`).
-
-### Tabla: `appointments`
-Registro central de consultas médicas y agendamientos.
-* `id` (`UUID`, PK, `DEFAULT gen_random_uuid()`).
-* `pet_id` (`UUID`, FK -> `pets.id`, NOT NULL).
-* `professional_id` (`UUID`, FK -> `professionals.id`, NOT NULL).
-* `service_id` (`UUID`, FK -> `services.id`, NOT NULL).
-* `appointment_date` (`DATE`, NOT NULL).
-* `start_time` (`TIME`, NOT NULL).
-* `end_time` (`TIME`, NOT NULL).
-* `status` (`ENUM('pending', 'confirmed', 'in_progress', 'completed', 'cancelled', 'no_show')`, `DEFAULT 'pending'`).
-* `reason` (`TEXT`, NULL): Motivo de consulta manifestado por el tutor.
-* `diagnosis` (`TEXT`, NULL): Diagnóstico emitido por el veterinario.
-* `prescription` (`TEXT`, NULL): Receta e indicaciones terapéuticas.
-* **Índices**: `CREATE INDEX idx_appointments_lookup ON appointments(professional_id, appointment_date, status);`
+| Endpoint / Servicio | Protocolo | Autenticación | Rol Permitido | Descripción |
+| :--- | :--- | :--- | :--- | :--- |
+| `/authentication` | POST | Local / JWT | Todos | Inicio de sesión y renovación de token JWT |
+| `/users` | REST / WS | JWT | `admin`, `client` (self) | Gestión de usuarios y tutores |
+| `/professionals` | REST / WS | JWT (Lectura pública) | `admin` | Veterinarios y especialistas |
+| `/schedules` | REST / WS | JWT | `admin`, `veterinarian` | Disponibilidad horaria de médicos |
+| `/pets` | REST / WS | JWT | `admin`, `veterinarian`, `client` | Fichas de mascotas y pacientes |
+| `/services` | REST / WS | JWT (Lectura pública) | `admin` | Catálogo de prestaciones y aranceles |
+| `/appointments` | REST / WS | JWT | Todos | Citas, salas de espera y turnos |
+| `/medical-records` | REST / WS | JWT | `admin`, `veterinarian` | Consultas, anamnesis, constantes y recetas |
+| `/clinical-attachments` | REST / WS | JWT | `admin`, `veterinarian` | Registros de Rayos X, ecografías y laboratorio |
+| `/clinical-upload` | POST (REST) | JWT | `admin`, `veterinarian` | Carga optimizada de imágenes RX y PDFs |
+| `/vaccinations` | REST / WS | JWT | `admin`, `veterinarian` | Inmunizaciones, lotes y revacunación |
+| `/surgeries` | REST / WS | JWT | `admin`, `veterinarian` | Protocolos quirúrgicos, ASA y postoperatorio |
+| `/shift-handovers` | REST / WS | JWT | `admin`, `veterinarian` | Partes de guardia 24/7 y relevos médicos |
+| `/public-carnet/:id` | GET (REST) | Pública (Sin Auth) | Acceso Universal | Validación instantánea por código QR |
 
 ---
 
-## 3. Pipeline de Hooks de FeathersJS (Dove)
+## 3. Modelo de Tablas y Restricciones (PostgreSQL)
 
-FeathersJS procesa cada petición a través de tres etapas secuenciales de middleware/hooks:
+### 3.1. `medical_records` (Historia Clínica)
+- `id` (UUID PK)
+- `pet_id` (UUID FK -> `pets.id` ON DELETE CASCADE)
+- `professional_id` (UUID FK -> `professionals.id` ON DELETE SET NULL)
+- `appointment_id` (UUID FK -> `appointments.id` ON DELETE SET NULL)
+- `record_type` (VARCHAR: `consulta`, `control`, `urgencia`, `postquirurgico`, `vacunacion`)
+- `reason_for_visit` (TEXT NOT NULL)
+- `weight_kg` (DECIMAL(5,2)), `temperature` (DECIMAL(4,2)), `heart_rate` (INT), `respiratory_rate` (INT)
+- `mucous_membranes` (VARCHAR), `capillary_refill_time` (VARCHAR)
+- `anamnesis` (TEXT), `physical_exam_findings` (TEXT)
+- `presumptive_diagnosis` (TEXT), `definitive_diagnosis` (TEXT)
+- `treatment_plan` (TEXT), `medical_prescription` (TEXT)
+- `patient_status` (VARCHAR: `estable`, `observacion`, `critico`, `hospitalizado`, `prequirurgico`, `postquirurgico`, `alta`)
+- `notes` (TEXT)
+- `created_at`, `updated_at` (TIMESTAMP)
 
-```
-[ Request In ] 
-     │
-     ▼
-┌────────────────────────┐
-│      BEFORE HOOKS      │  -> authenticate('jwt')
-│                        │  -> authorizeRoles(['admin', ...])
-│                        │  -> validateSchema(joi / typebox)
-└───────────┬────────────┘
-            │
-            ▼
-┌────────────────────────┐
-│     SERVICE METHOD     │  -> Knex / PostgreSQL DB Transaction
-└───────────┬────────────┘
-            │
-            ▼
-┌────────────────────────┐
-│      AFTER HOOKS       │  -> protect('password')
-│                        │  -> redisCache.invalidate()
-│                        │  -> socketIo.emit('event')
-└───────────┬────────────┘
-            │
-            ▼
-[ Response Out ]
-```
+### 3.2. `clinical_attachments` (Visor RX & Estudios)
+- `id` (UUID PK)
+- `pet_id` (UUID FK -> `pets.id` ON DELETE CASCADE)
+- `medical_record_id` (UUID FK -> `medical_records.id` ON DELETE SET NULL)
+- `uploaded_by` (UUID FK -> `users.id` ON DELETE SET NULL)
+- `title` (VARCHAR NOT NULL)
+- `category` (VARCHAR: `radiografia`, `ecografia`, `sangre`, `orina`, `biopsia`, `informe_medico`, `otro`)
+- `file_url` (VARCHAR NOT NULL)
+- `thumbnail_url` (VARCHAR)
+- `findings` (TEXT)
+- `study_date` (DATE)
+- `created_at` (TIMESTAMP)
+
+### 3.3. `vaccinations` (Carnet y Sanidad)
+- `id` (UUID PK)
+- `pet_id` (UUID FK -> `pets.id` ON DELETE CASCADE)
+- `professional_id` (UUID FK -> `professionals.id` ON DELETE SET NULL)
+- `vaccine_name` (VARCHAR NOT NULL)
+- `type` (VARCHAR: `vacuna`, `refuerzo`, `desparasitacion`, `antirrabica`, `otro`)
+- `batch_number` (VARCHAR), `manufacturer` (VARCHAR)
+- `applied_date` (DATE NOT NULL), `next_due_date` (DATE)
+- `status` (VARCHAR: `aplicada`, `pendiente`, `vencida`)
+- `notes` (TEXT)
+- `created_at` (TIMESTAMP)
+
+### 3.4. `surgeries` (Quirófano)
+- `id` (UUID PK)
+- `pet_id` (UUID FK -> `pets.id` ON DELETE CASCADE)
+- `professional_id` (UUID FK -> `professionals.id` ON DELETE SET NULL)
+- `medical_record_id` (UUID FK -> `medical_records.id` ON DELETE SET NULL)
+- `surgery_name` (VARCHAR NOT NULL)
+- `surgery_type` (VARCHAR: `programada`, `urgencia`, `ambulatoria`, `mayor`, `menor`)
+- `pre_op_evaluation` (TEXT - Riesgo ASA)
+- `anesthesia_protocol` (TEXT)
+- `surgical_technique` (TEXT)
+- `post_op_orders` (TEXT)
+- `status` (VARCHAR: `programada`, `en_curso`, `completada`, `cancelada`)
+- `surgery_date` (TIMESTAMP NOT NULL)
+- `created_at`, `updated_at` (TIMESTAMP)
+
+### 3.5. `shift_handovers` (Pase de Guardia 24/7)
+- `id` (UUID PK)
+- `outgoing_doctor_id` (UUID FK -> `professionals.id` ON DELETE SET NULL)
+- `incoming_doctor_id` (UUID FK -> `professionals.id` ON DELETE SET NULL)
+- `shift_type` (VARCHAR: `guardia_24h`, `noche`, `manana`, `tarde`)
+- `shift_date` (DATE NOT NULL)
+- `admitted_patients_count` (INT DEFAULT 0)
+- `surgeries_count` (INT DEFAULT 0)
+- `emergencies_count` (INT DEFAULT 0)
+- `discharges_count` (INT DEFAULT 0)
+- `critical_patients_notes` (TEXT)
+- `pending_tasks` (TEXT)
+- `shift_summary` (TEXT)
+- `created_at` (TIMESTAMP)
 
 ---
 
-## 4. Estrategia de Caché en Redis y WebSockets
+## 4. Migraciones y Versionado con Knex
 
-1. **Gestión de Turnos Disponibles**:
-   - **Clave Redis**: `slots:{professionalId}:{date}`
-   - **TTL**: 60 segundos con invalidación inmediata ante creación (`POST /appointments`) o cancelación de citas.
-2. **Canales de Socket.io**:
-   - `admin-clinic`: Recibe en tiempo real `appointments::created`, `appointments::patched` para alimentar la agenda interactiva sin requerir recargas de página.
-   - `client:{userId}`: Recibe notificaciones personalizadas sobre cambios de estado en sus citas y recordatorios de vacunas.
+Las migraciones se ejecutan de manera transaccional:
+```bash
+npm run migrate # Ejecuta las migraciones 20260812000000 y 20260815000000
+npm run seed    # Carga los datos maestros y clínicos de demostración
+```
