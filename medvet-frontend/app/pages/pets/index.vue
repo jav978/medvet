@@ -520,7 +520,14 @@ onMounted(async () => {
   position: relative;
   display: flex;
   align-items: center;
-  min-width: 280px;
+  min-width: 260px;
+}
+
+@media (max-width: 640px) {
+  .pets-search-wrap {
+    width: 100%;
+    min-width: 100%;
+  }
 }
 
 .search-icon {

@@ -1322,6 +1322,37 @@ function getCategoryIcon(cat?: string) {
   .patient-master-top {
     flex-direction: column;
     align-items: flex-start;
+    gap: 1rem;
+  }
+  .patient-qr-box {
+    text-align: left;
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .record-top-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .record-top-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .record-top-actions > * {
+    flex: 1;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .patient-master-card {
+    padding: 1.25rem;
+  }
+  .vitals-strip {
+    grid-template-columns: 1fr;
   }
 }
 </style>

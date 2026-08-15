@@ -706,7 +706,10 @@ const handleExportCsvReport = () => {
   border-radius: 24px;
   width: 100%;
   max-width: 520px;
-  padding: 2rem;
+  max-height: 90vh;
+  max-height: 90dvh;
+  overflow-y: auto;
+  padding: clamp(1.25rem, 3.5vw, 2rem);
   box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;

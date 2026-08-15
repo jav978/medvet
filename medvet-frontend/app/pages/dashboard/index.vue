@@ -600,6 +600,7 @@ onMounted(async () => {
   border-radius: 20px;
   background: rgba(0, 168, 107, 0.08);
   border: 1.5px solid rgba(0, 168, 107, 0.25);
+  flex-wrap: wrap;
 }
 
 .dark .vaccine-alert-card {
@@ -608,7 +609,7 @@ onMounted(async () => {
 }
 
 .vaccine-alert-icon { font-size: 1.75rem; flex-shrink: 0; }
-.vaccine-alert-content { flex: 1; min-width: 0; }
+.vaccine-alert-content { flex: 1; min-width: 220px; }
 
 .vaccine-alert-title {
   font-family: var(--font-display);
@@ -628,7 +629,7 @@ onMounted(async () => {
 
 .dark .vaccine-alert-desc { color: #d6e8de; }
 
-.vaccine-alert-cta { flex-shrink: 0; }
+.vaccine-alert-cta { flex-shrink: 0; min-height: 44px; }
 
 /* Main 2-Col Grid */
 .dash-grid {
@@ -637,7 +638,7 @@ onMounted(async () => {
   gap: 1.5rem;
 }
 
-@media (max-width: 800px) { .dash-grid { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .dash-grid { grid-template-columns: 1fr; } }
 
 .dash-panel {
   background: var(--color-cream-50);
@@ -847,6 +848,24 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .pet-dash-card {
+    align-items: flex-start;
+  }
+  .pet-dash-ctas {
+    width: 100%;
+    flex-direction: row;
+  }
+  .pet-cta-btn {
+    flex: 1;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .dark .pet-dash-card {

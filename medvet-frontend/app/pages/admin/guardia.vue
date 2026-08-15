@@ -1062,7 +1062,53 @@ function exportHandoverCsv(ho: any) {
     grid-template-columns: 1fr;
   }
   .shift-stats-strip {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .guardia-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+  .header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .header-actions > * {
+    flex: 1;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .shift-stats-strip {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .counts-input-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .form-row--2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .shift-stats-strip {
+    grid-template-columns: 1fr;
+  }
+  .guard-beacon-box {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+  .beacon-icon {
+    font-size: 1.35rem;
+  }
+  .header-title {
+    font-size: 1.2rem;
   }
 }
 </style>

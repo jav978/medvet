@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "design-principles": {
+      "source": "infrasity-labs/dev-gtm-claude-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/design-principles/SKILL.md",
+      "computedHash": "d2a325f208b23f3b0bf7f50737061a182d0f16235d661c4a431eea3eebfeaab4"
+    },
     "design-taste-frontend": {
       "source": "leonxlnx/taste-skill",
       "sourceType": "github",
@@ -36,6 +42,24 @@
       "sourceType": "github",
       "skillPath": "plugins/tailwindcss-master/skills/tailwindcss-responsive-darkmode/SKILL.md",
       "computedHash": "f1314c098117940943199b4346181f26b18a6ffb101f087c455d4e3a01b77c9e"
+    },
+    "ui-styling": {
+      "source": "infrasity-labs/dev-gtm-claude-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/ui-styling/SKILL.md",
+      "computedHash": "b49f6a8d3e6a25b4ed3cac32ad35e15d5b0de9a43d5d4514e74a840e5c5a937e"
+    },
+    "ui-ux-pro-max": {
+      "source": "infrasity-labs/dev-gtm-claude-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/ui-ux-pro-max/SKILL.md",
+      "computedHash": "8c3fc917e7bf109613bb5c18cd11f4e4e066af6f5ac2fd2904955acd31d199ba"
+    },
+    "workflow-builder": {
+      "source": "infrasity-labs/dev-gtm-claude-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/workflow-builder/SKILL.md",
+      "computedHash": "734f3f118fef38c14f005adf4e726dc373153700858e0612f366d38efb708d82"
     }
   }
 }

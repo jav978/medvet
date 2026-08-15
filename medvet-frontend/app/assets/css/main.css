@@ -403,17 +403,112 @@ h1, h2, h3, h4, .font-display {
 }
 
 /* =====================
-   RESPONSIVE UTILITIES & FLUID CONTAINER
+   RESPONSIVE UTILITIES & FLUID SYSTEM (Mobile, Tablet, Desktop)
    ===================== */
+
+:root {
+  --fluid-pad-sm: clamp(0.5rem, 1.5vw, 0.75rem);
+  --fluid-pad-md: clamp(0.875rem, 2.5vw, 1.5rem);
+  --fluid-pad-lg: clamp(1.25rem, 4vw, 2.5rem);
+  --fluid-gap: clamp(0.75rem, 2vw, 1.5rem);
+  --fluid-section-gap: clamp(2rem, 5vw, 5rem);
+}
 
 .min-h-dvh {
   min-height: 100vh;
   min-height: 100dvh;
 }
 
+/* Touch targets >= 44px - 48px */
 .touch-target {
-  min-height: 44px;
-  min-width: 44px;
+  min-height: 48px;
+  min-width: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.touch-target-sm {
+  min-height: 40px;
+  min-width: 40px;
+}
+
+/* Fluid responsive typography */
+.text-fluid-hero {
+  font-size: clamp(2rem, 5vw + 1rem, 3.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.text-fluid-title {
+  font-size: clamp(1.4rem, 3vw + 0.5rem, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.text-fluid-subtitle {
+  font-size: clamp(0.875rem, 1.2vw + 0.5rem, 1.125rem);
+  line-height: 1.5;
+}
+
+.text-fluid-caption {
+  font-size: clamp(0.75rem, 1vw + 0.35rem, 0.875rem);
+  line-height: 1.4;
+}
+
+/* Responsive Adaptive Grid Utilities */
+.grid-responsive-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: var(--fluid-gap);
+}
+
+.grid-responsive-2col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--fluid-gap);
+}
+
+@media (min-width: 641px) {
+  .grid-responsive-2col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.grid-responsive-3col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--fluid-gap);
+}
+
+@media (min-width: 641px) {
+  .grid-responsive-3col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1025px) {
+  .grid-responsive-3col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.grid-responsive-4col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--fluid-gap);
+}
+
+@media (min-width: 520px) {
+  .grid-responsive-4col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1025px) {
+  .grid-responsive-4col {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 /* Responsive Table Wrapper */
@@ -423,21 +518,38 @@ h1, h2, h3, h4, .font-display {
   -webkit-overflow-scrolling: touch;
   border-radius: 12px;
   position: relative;
+  max-width: 100%;
 }
 
-/* Responsive Fluid Text Utilities */
-.text-fluid-title {
-  font-size: clamp(1.5rem, 4vw + 0.5rem, 2.5rem);
-  line-height: 1.15;
+/* Mobile Sticky Action Bar */
+.mobile-sticky-action-bar {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--color-cream-200);
 }
 
-.text-fluid-subtitle {
-  font-size: clamp(0.875rem, 1.5vw + 0.5rem, 1.125rem);
-  line-height: 1.5;
+.dark .mobile-sticky-action-bar {
+  background: rgba(17, 25, 20, 0.95);
+  border-top: 1px solid rgba(0, 245, 155, 0.2);
 }
 
 /* Container query container */
 .container-query-card {
   container-type: inline-size;
+}
+
+/* Safe area insets */
+.safe-bottom {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
+}
+.safe-top {
+  padding-top: max(1rem, env(safe-area-inset-top, 1rem));
 }
 

@@ -483,15 +483,15 @@ const calculatedTotal = computed(() => {
 /* Grid */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
 }
 
 .service-card {
   background: var(--color-cream-50);
   border: 1.5px solid var(--color-cream-300);
   border-radius: 24px;
-  padding: 1.75rem;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
   display: flex;
   flex-direction: column;
   gap: 1.15rem;
@@ -629,6 +629,8 @@ const calculatedTotal = computed(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   padding-top: 1rem;
   border-top: 1px solid var(--color-cream-200);
 }
@@ -661,6 +663,7 @@ const calculatedTotal = computed(() => {
   font-size: 0.78rem;
   padding: 0.55rem 1rem;
   text-decoration: none;
+  min-height: 44px;
 }
 
 /* Budget Calculator Card */
@@ -668,7 +671,7 @@ const calculatedTotal = computed(() => {
   background: var(--color-cream-50);
   border: 1.5px solid var(--color-cream-300);
   border-radius: 28px;
-  padding: 2.25rem;
+  padding: clamp(1.25rem, 3.5vw, 2.25rem);
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
