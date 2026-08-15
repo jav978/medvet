@@ -281,7 +281,7 @@ onUnmounted(() => {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #5c7365;
+  color: #94a3b8;
   margin-bottom: 0.75rem;
   padding-left: 0.65rem;
 }
@@ -303,7 +303,7 @@ onUnmounted(() => {
   text-decoration: none;
   font-size: 0.84rem;
   font-weight: 500;
-  color: #8ca395;
+  color: #cbd5e1;
   transition: all 0.18s ease;
   position: relative;
 }
@@ -373,12 +373,12 @@ onUnmounted(() => {
 
 .sidebar-user-info { min-width: 0; }
 .sidebar-user-name { font-size: 0.78rem; font-weight: 700; color: #f1faf5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.sidebar-user-role { font-size: 0.65rem; color: #5c7365; }
+.sidebar-user-role { font-size: 0.65rem; color: #94a3b8; }
 
 .sidebar-logout {
   background: transparent;
   border: none;
-  color: #5c7365;
+  color: #94a3b8;
   cursor: pointer;
   display: flex;
   align-items: center;

@@ -709,7 +709,7 @@ const handleDownloadLab = (lab) => {
   margin: 0.2rem 0 0;
 }
 
-:global(.dark) .patient-sub { color: #8ca395; }
+:global(.dark) .patient-sub { color: #cbd5e1; }
 
 .patient-qr-box {
   padding: 0.85rem 1.25rem;
@@ -857,7 +857,7 @@ const handleDownloadLab = (lab) => {
   margin: 0.2rem 0 0;
 }
 
-:global(.dark) .tab-sub { color: #8ca395; }
+:global(.dark) .tab-sub { color: #cbd5e1; }
 
 /* Timeline */
 .timeline-wrap {
@@ -950,7 +950,7 @@ const handleDownloadLab = (lab) => {
   color: var(--color-ink-700);
 }
 
-:global(.dark) .ev-type-badge { background: rgba(16, 28, 22, 0.8); color: #8ca395; }
+:global(.dark) .ev-type-badge { background: rgba(16, 28, 22, 0.8); color: #cbd5e1; }
 
 .ev-body { display: flex; flex-direction: column; gap: 0.65rem; }
 .ev-sec-title { font-size: 0.72rem; font-weight: 700; color: var(--color-ink-400); text-transform: uppercase; }
@@ -1032,7 +1032,7 @@ const handleDownloadLab = (lab) => {
 :global(.dark) .vac-name { color: #f1faf5; }
 
 .vac-desc { font-size: 0.78rem; color: var(--color-ink-500); margin: 0; line-height: 1.4; }
-:global(.dark) .vac-desc { color: #8ca395; }
+:global(.dark) .vac-desc { color: #cbd5e1; }
 
 .vac-meta-box {
   background: var(--color-cream-100);

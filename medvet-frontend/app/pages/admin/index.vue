@@ -475,7 +475,7 @@ const saveNotes = (id) => {
   margin: 0;
 }
 
-.dark .admin-subtitle { color: #8ca395; }
+.dark .admin-subtitle { color: #cbd5e1; }
 
 .admin-header-actions {
   display: flex;
@@ -564,7 +564,7 @@ const saveNotes = (id) => {
   color: var(--color-ink-500);
 }
 
-.dark .kpi-sub { color: #8ca395; }
+.dark .kpi-sub { color: #cbd5e1; }
 
 /* Section Common */
 .section-title {
@@ -583,7 +583,7 @@ const saveNotes = (id) => {
   margin: 0;
 }
 
-.dark .section-sub { color: #8ca395; }
+.dark .section-sub { color: #cbd5e1; }
 
 /* Quick Modules */
 .quick-modules {
@@ -794,7 +794,7 @@ const saveNotes = (id) => {
   color: var(--color-ink-600);
 }
 
-.dark .p-species-pill { background: rgba(16, 28, 22, 0.8); color: #8ca395; }
+.dark .p-species-pill { background: rgba(16, 28, 22, 0.8); color: #cbd5e1; }
 
 .p-service { font-size: 0.8125rem; font-weight: 600; color: #00a86b; margin-top: 0.15rem; }
 .dark .p-service { color: #00f59b; }
@@ -805,7 +805,7 @@ const saveNotes = (id) => {
 .doc-name { font-size: 0.8125rem; font-weight: 700; color: var(--color-ink-900); }
 .dark .doc-name { color: #f1faf5; }
 .doc-room { font-size: 0.72rem; color: var(--color-ink-500); }
-.dark .doc-room { color: #8ca395; }
+.dark .doc-room { color: #cbd5e1; }
 
 .agenda-status-wrap { display: flex; flex-direction: column; gap: 0.25rem; }
 .status-lbl { font-size: 0.65rem; text-transform: uppercase; color: var(--color-ink-400); }

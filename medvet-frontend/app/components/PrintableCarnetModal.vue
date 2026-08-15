@@ -309,7 +309,7 @@ const handlePrint = () => {
   margin: 0;
 }
 
-.dark .toolbar-sub { color: #8ca395; }
+.dark .toolbar-sub { color: #cbd5e1; }
 
 .toolbar-actions {
   display: flex;

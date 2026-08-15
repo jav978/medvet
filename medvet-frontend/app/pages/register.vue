@@ -319,7 +319,7 @@ const handleGoogleRegister = async () => {
 }
 
 .dark .auth-sub {
-  color: #8ca395;
+  color: #cbd5e1;
 }
 
 .auth-card {
@@ -561,7 +561,7 @@ const handleGoogleRegister = async () => {
 
 .dark .auth-divider {
   border-top-color: rgba(0, 245, 155, 0.12);
-  color: #8ca395;
+  color: #cbd5e1;
 }
 
 .auth-link {

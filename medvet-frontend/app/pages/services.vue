@@ -424,7 +424,7 @@ const calculatedTotal = computed(() => {
   margin: 0;
 }
 
-:global(.dark) .services-subtitle { color: #8ca395; }
+:global(.dark) .services-subtitle { color: #cbd5e1; }
 
 /* Category Pills */
 .category-pills {
@@ -463,9 +463,9 @@ const calculatedTotal = computed(() => {
 }
 
 :global(.dark) .cat-pill {
-  background: rgba(16, 28, 22, 0.7);
-  border-color: rgba(0, 245, 155, 0.15);
-  color: #8ca395;
+  background: rgba(16, 28, 22, 0.6);
+  border-color: rgba(0, 245, 155, 0.2);
+  color: #cbd5e1;
 }
 
 :global(.dark) .cat-pill:hover {
@@ -552,8 +552,8 @@ const calculatedTotal = computed(() => {
 }
 
 :global(.dark) .service-duration {
-  background: rgba(16, 28, 22, 0.8);
-  color: #8ca395;
+  background: rgba(16, 28, 22, 0.7);
+  color: #cbd5e1;
 }
 
 .card-curr-switch-chip {
@@ -600,7 +600,7 @@ const calculatedTotal = computed(() => {
   margin: 0;
 }
 
-:global(.dark) .service-card-desc { color: #8ca395; }
+:global(.dark) .service-card-desc { color: #cbd5e1; }
 
 .service-features-list {
   list-style: none;
@@ -709,7 +709,7 @@ const calculatedTotal = computed(() => {
 :global(.dark) .calc-title { color: #f1faf5; }
 
 .calc-sub { font-size: 0.875rem; color: var(--color-ink-500); margin: 0; }
-:global(.dark) .calc-sub { color: #8ca395; }
+:global(.dark) .calc-sub { color: #cbd5e1; }
 
 .calc-grid {
   display: grid;

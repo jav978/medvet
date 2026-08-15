@@ -921,7 +921,7 @@ onMounted(async () => {
 
 :global(.dark) .stepper-circle--pending {
   background: rgba(16, 28, 22, 0.7);
-  color: #5c7365;
+  color: #94a3b8;
 }
 
 .stepper-check { width: 1.1rem; height: 1.1rem; }
@@ -1192,7 +1192,7 @@ onMounted(async () => {
 
 :global(.dark) .pick-duration {
   background: rgba(16, 28, 22, 0.8);
-  color: #8ca395;
+  color: #cbd5e1;
 }
 
 .clock-icon { width: 13px; height: 13px; color: var(--color-forest-600); }
@@ -1267,7 +1267,7 @@ onMounted(async () => {
   margin-top: 1px;
 }
 
-:global(.dark) .pick-price-equiv { color: #8ca395; }
+:global(.dark) .pick-price-equiv { color: #cbd5e1; }
 
 .pick-price {
   font-size: 1.15rem;
@@ -1316,7 +1316,7 @@ onMounted(async () => {
   margin: 0.2rem 0 0;
 }
 
-:global(.dark) .add-pet-sub { color: #8ca395; }
+:global(.dark) .add-pet-sub { color: #cbd5e1; }
 
 .species-grid {
   display: grid;
@@ -1986,7 +1986,7 @@ onMounted(async () => {
   color: var(--color-ink-400);
 }
 
-:global(.dark) .ticket-total-equiv { color: #8ca395; }
+:global(.dark) .ticket-total-equiv { color: #cbd5e1; }
 
 .notes-card {
   display: flex;

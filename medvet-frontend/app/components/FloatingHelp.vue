@@ -492,7 +492,7 @@ onUnmounted(() => {
   line-height: 1.45;
 }
 
-:global(.dark) .popover-desc { color: #8ca395; }
+:global(.dark) .popover-desc { color: #cbd5e1; }
 
 .action-list {
   display: flex;
@@ -594,7 +594,7 @@ onUnmounted(() => {
   line-height: 1.25;
 }
 
-:global(.dark) .action-sub { color: #8ca395; }
+:global(.dark) .action-sub { color: #cbd5e1; }
 
 /* Custom Chat Box */
 .custom-chat-box {
@@ -725,7 +725,7 @@ onUnmounted(() => {
 :global(.dark) .popover-footer {
   background: #060e0a;
   border-color: rgba(255, 255, 255, 0.05);
-  color: #8ca395;
+  color: #cbd5e1;
 }
 
 /* Transitions */

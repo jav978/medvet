@@ -400,8 +400,8 @@ const handleLogout = async () => {
 }
 
 :global(.dark) .site-header {
-  background: rgba(4, 7, 6, 0.85);
-  border-bottom-color: rgba(0, 245, 155, 0.15);
+  background: rgba(9, 13, 11, 0.92);
+  border-bottom-color: rgba(0, 245, 155, 0.2);
 }
 
 .header-inner {
@@ -518,11 +518,11 @@ const handleLogout = async () => {
   background: var(--color-forest-100);
 }
 
-:global(.dark) .nav-link { color: #8ca395; }
+:global(.dark) .nav-link { color: #cbd5e1; }
 
 :global(.dark) .nav-link:hover {
-  color: #ffffff;
-  background: rgba(0, 245, 155, 0.1);
+  color: #00f59b;
+  background: rgba(0, 245, 155, 0.12);
 }
 
 .nav-link--active {
@@ -720,11 +720,11 @@ const handleLogout = async () => {
   color: var(--color-forest-800);
 }
 
-:global(.dark) .mobile-nav-link { color: #8ca395; }
+:global(.dark) .mobile-nav-link { color: #cbd5e1; }
 
 :global(.dark) .mobile-nav-link:hover {
-  background: rgba(0, 245, 155, 0.1);
-  color: #ffffff;
+  background: rgba(0, 245, 155, 0.12);
+  color: #00f59b;
 }
 
 .mobile-nav-divider {
@@ -784,9 +784,9 @@ const handleLogout = async () => {
 }
 
 :global(.dark) .site-footer {
-  background-color: #040706;
-  color: #94a3b8;
-  border-top: 1px solid rgba(0, 245, 155, 0.12);
+  background-color: #090d0b;
+  color: #cbd5e1;
+  border-top: 1px solid rgba(0, 245, 155, 0.18);
 }
 
 .footer-inner {
@@ -875,7 +875,7 @@ const handleLogout = async () => {
 }
 
 :global(.dark) .footer-brand-desc {
-  color: #94a3b8;
+  color: #cbd5e1;
 }
 
 .footer-open {
@@ -887,7 +887,7 @@ const handleLogout = async () => {
 }
 
 :global(.dark) .footer-open {
-  color: #64748b;
+  color: #94a3b8;
 }
 
 .footer-open-dot {
@@ -939,7 +939,7 @@ const handleLogout = async () => {
 }
 
 :global(.dark) .footer-links li a {
-  color: #94a3b8;
+  color: #cbd5e1;
 }
 
 :global(.dark) .footer-links li a:hover {
@@ -965,7 +965,7 @@ const handleLogout = async () => {
 }
 
 :global(.dark) .footer-contact li {
-  color: #94a3b8;
+  color: #cbd5e1;
 }
 
 .footer-contact li a {

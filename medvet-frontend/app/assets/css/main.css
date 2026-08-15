@@ -3,120 +3,106 @@
 @tailwind utilities;
 
 /* ============================================================
-   MEDVET — DESIGN SYSTEM "Cyber Mint & Obsidian Glow"
-   Inspired by Vercel, Linear, Dark X & Lessa Dashboard
-   Typography: Plus Jakarta Sans + Outfit + DM Sans + JetBrains Mono
-   Palette: Cyber Mint (#00F59B / #00A86B) + Electric Cyan (#38BDF8)
-            + Joy Tangerine (#FF7A00)
-            over Obsidian Carbon (#040706) & Lessa Clean (#F4F7F5)
+   MEDVET — DESIGN SYSTEM "Clinical Vitality & Cyber Mint"
+   Inspired by Linear, Vercel, Apple & Modern Medical Tech
    ============================================================ */
 
 :root {
-  /* Typography — Ultra Modern & Sharp */
+  /* Typography */
   --font-display: 'Plus Jakarta Sans', 'Outfit', 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-body:    'Plus Jakarta Sans', 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono:    'JetBrains Mono', monospace;
 
-  /* ── MINT EMERALD & CLINICAL VITALITY (Light Mode - Lessa style) ── */
+  /* ─── LIGHT MODE TOKENS (Default) ─── */
   --color-forest-950: #021a10;
   --color-forest-900: #042e1d;
   --color-forest-800: #07472e;
   --color-forest-700: #007a4d;
-  --color-forest-600: #00a86b;   /* Verde Menta Clínico en Light */
-  --color-forest-500: #00c48c;   /* Mint Teal 500 */
-  --color-forest-400: #00f59b;   /* Cyber Mint Neón */
+  --color-forest-600: #00a86b;   /* Clinical Emerald */
+  --color-forest-500: #00c48c;
+  --color-forest-400: #00f59b;   /* Cyber Mint */
   --color-forest-300: #42f9b3;
   --color-forest-200: #8effd0;
-  --color-forest-100: #e6fcf3;   /* Tint menta suave para badges y chips */
+  --color-forest-100: #e6fcf3;
   --color-forest-50:  #f0fdf8;
 
-  /* ── CTA & ACCENTS — Mint Glow & Cyan ── */
+  /* Accents & CTA */
   --color-amber-800: #034863;
   --color-amber-700: #026d94;
-  --color-amber-600: #00a86b;    /* Primary Action en Light */
-  --color-amber-500: #00f59b;    /* Signature Mint */
-  --color-amber-400: #38bdf8;    /* Electric Cyan */
+  --color-amber-600: #00a86b;
+  --color-amber-500: #00f59b;
+  --color-amber-400: #38bdf8;
   --color-amber-100: #e6fcf3;
 
-  /* ── ALEGRÍA & CALIDEZ MASCOTAS — Warm Tangerine & Amber (Lessa) ── */
+  /* Joy & Warmth (Pets) */
   --color-joy-amber:   #ff7a00;
   --color-joy-orange:  #f97316;
   --color-joy-bg:      #fff7ed;
 
-  /* ── SLATE NEUTRAL ── */
-  --color-slate-700: #2d3b33;
-  --color-slate-600: #44564c;
-  --color-slate-500: #5f7568;
+  /* Surfaces & Backgrounds - Light */
+  --color-cream-50:  #ffffff;    /* Card Surface */
+  --color-cream-100: #f8faf9;    /* Page Background */
+  --color-cream-200: #e2e8f0;    /* Crisp Borders */
+  --color-cream-300: #cbd5e1;
+  --color-cream-400: #94a3b8;
 
-  /* ── FONDOS & SUPERFICIES — Lessa Clean Light ── */
-  --color-cream-50:  #ffffff;    /* Superficie tarjetas blanca pura */
-  --color-cream-100: #f4f7f5;    /* Fondo principal orgánico y limpio */
-  --color-cream-200: #e2eae5;    /* Bordes y divisores nítidos */
-  --color-cream-300: #cad6d0;
-  --color-cream-400: #93a69c;
+  /* Text & Ink - Light (High Contrast) */
+  --color-ink-900: #0f172a;      /* Headings: Deep Slate */
+  --color-ink-700: #1e293b;      /* Strong Text */
+  --color-ink-600: #334155;      /* Body Text */
+  --color-ink-500: #64748b;      /* Secondary / Muted */
+  --color-ink-400: #94a3b8;      /* Captions */
+  --color-ink-300: #cbd5e1;
 
-  /* ── TEXTO — Alto contraste ── */
-  --color-ink-900: #0b130e;      /* Título profundo */
-  --color-ink-700: #1a2920;
-  --color-ink-600: #32473a;
-  --color-ink-500: #52665a;
-  --color-ink-400: #7e9487;
-  --color-ink-300: #b5c7bd;
-
-  /* ── ALERTAS & URGENCIAS — Rose Coral ── */
+  /* Alerts */
   --color-coral-glow: #f43f5e;
 }
 
-/* ─── DARK MODE — Obsidian Carbon (#040706) & Cyber Mint Glow ─── */
+/* ─── DARK MODE TOKENS ─── */
 :root.dark,
 html.dark,
 .dark,
 [data-theme='dark'] {
-  /* Cyber Mint & Electric Cyan en Dark Mode */
   --color-forest-950: #020504;
   --color-forest-900: #050d09;
   --color-forest-800: #0a1811;
   --color-forest-700: #00a86b;
-  --color-forest-600: #00f59b;   /* ACENTO CYBER MINT GLOW PRIMARIO */
-  --color-forest-500: #42f9b3;   /* Mint Glow */
-  --color-forest-400: #00f59b;   /* Cyber Mint Neón */
+  --color-forest-600: #00f59b;   /* Cyber Mint Glow */
+  --color-forest-500: #42f9b3;
+  --color-forest-400: #00f59b;
   --color-forest-300: #8effd0;
   --color-forest-200: #d0ffed;
-  --color-forest-100: rgba(0, 245, 155, 0.14);  /* Tint glow dark */
-  --color-forest-50:  #0a110e;
+  --color-forest-100: rgba(0, 245, 155, 0.15);
+  --color-forest-50:  #0d1410;
 
-  /* Action & Glow en Dark Mode */
   --color-amber-800: #032d3d;
   --color-amber-700: #0369a1;
-  --color-amber-600: #00f59b;    /* CTA — Cyber Mint Glow */
-  --color-amber-500: #38bdf8;    /* Neon Cyan */
-  --color-amber-400: #818cf8;    /* Cosmic Indigo */
-  --color-amber-100: rgba(0, 245, 155, 0.18);
+  --color-amber-600: #00f59b;
+  --color-amber-500: #38bdf8;
+  --color-amber-400: #818cf8;
+  --color-amber-100: rgba(0, 245, 155, 0.2);
 
-  /* Alegría & Calidez en Dark Mode */
   --color-joy-amber:   #fbbf24;
   --color-joy-orange:  #fb923c;
-  --color-joy-bg:      rgba(255, 122, 0, 0.14);
+  --color-joy-bg:      rgba(255, 122, 0, 0.16);
 
-  /* Fondos oscuros — Obsidian Carbon (#040706) */
-  --color-cream-50:  #0a110e;    /* Superficie card dark obsidian */
-  --color-cream-100: #040706;    /* FONDO PRINCIPAL OBSIDIAN CARBON */
-  --color-cream-200: #14211a;    /* Bordes sutiles dark */
-  --color-cream-300: #1f3328;
-  --color-cream-400: #385645;
+  /* Surfaces & Backgrounds - Dark (Obsidian) */
+  --color-cream-50:  #111914;    /* Card Surface */
+  --color-cream-100: #090d0b;    /* Page Background */
+  --color-cream-200: #1a2920;    /* Borders */
+  --color-cream-300: #263c2f;
+  --color-cream-400: #446852;
 
-  /* Texto en Dark Mode — Suave, elegante y descansado sin deslumbramiento */
-  --color-ink-900: #f8fafc;
-  --color-ink-700: #cbd5e1;
-  --color-ink-600: #94a3b8;
-  --color-ink-500: #64748b;
-  --color-ink-400: #475569;
-  --color-ink-300: #334155;
+  /* Text & Ink - Dark (Crisp White & Light Slate) */
+  --color-ink-900: #ffffff;      /* Headings: Pure Crisp White */
+  --color-ink-700: #f1f5f9;      /* Strong Text */
+  --color-ink-600: #e2e8f0;      /* Body Text (Crisp & Clear) */
+  --color-ink-500: #cbd5e1;      /* Secondary */
+  --color-ink-400: #94a3b8;      /* Captions */
+  --color-ink-300: #64748b;
 
-  /* Alertas — Rose */
   --color-coral-glow: #fb7185;
 }
-
 
 /* =====================
    BASE RESET & BODY
@@ -132,12 +118,8 @@ html {
   max-width: 100%;
   width: 100%;
   background-color: var(--color-cream-100);
-}
-
-:root.dark,
-html.dark,
-.dark {
-  background-color: #040706;
+  color: var(--color-ink-900);
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 body {
@@ -155,25 +137,6 @@ body {
   line-height: 1.6;
 }
 
-:root.dark body,
-html.dark body,
-.dark body {
-  background-color: #040706;
-  color: var(--color-ink-900);
-}
-
-:root.dark p,
-html.dark p,
-.dark p {
-  color: var(--color-ink-600);
-}
-
-:root.dark h1, :root.dark h2, :root.dark h3, :root.dark h4, :root.dark h5, :root.dark h6,
-html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6,
-.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
-  color: var(--color-ink-900);
-}
-
 #__nuxt {
   min-height: 100vh;
   width: 100%;
@@ -188,7 +151,8 @@ html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark 
 h1, h2, h3, h4, .font-display {
   font-family: var(--font-display);
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
+  color: var(--color-ink-900);
 }
 
 .font-body { font-family: var(--font-body); }
@@ -199,23 +163,7 @@ h1, h2, h3, h4, .font-display {
 }
 
 /* =====================
-   COLOUR UTILITIES
-   ===================== */
-
-.bg-cream        { background-color: var(--color-cream-100); }
-.bg-cream-white  { background-color: var(--color-cream-50); }
-.bg-forest       { background-color: var(--color-forest-900); }
-.bg-forest-deep  { background-color: var(--color-forest-950); }
-.text-forest     { color: var(--color-forest-600); }
-.text-forest-lt  { color: var(--color-forest-400); }
-.text-amber      { color: var(--color-forest-400); }
-.text-ink        { color: var(--color-ink-900); }
-.text-ink-muted  { color: var(--color-ink-500); }
-.text-joy        { color: var(--color-joy-amber); }
-.bg-joy          { background-color: var(--color-joy-bg); }
-
-/* =====================
-   RADIAL & VERTICAL TREATMENTS (Vercel & Dark X Style)
+   GRADIENT TEXT & HEADINGS
    ===================== */
 
 .gradient-text-forest,
@@ -249,140 +197,128 @@ h1, h2, h3, h4, .font-display {
 }
 
 /* =====================
-   SURFACE TREATMENTS & GLASS
+   SURFACE TREATMENTS & CARDS
    ===================== */
 
-/* Frosted glass — light */
 .surface-glass {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(226, 234, 229, 0.9);
+  border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
 .dark .surface-glass {
-  background: rgba(10, 17, 14, 0.85);
+  background: rgba(17, 25, 20, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(0, 245, 155, 0.2);
 }
 
-/* Elevated card with subtle ambient glow */
 .surface-card {
   background: var(--color-cream-50);
   border: 1px solid var(--color-cream-200);
-  box-shadow: 0 8px 32px -8px rgba(0, 80, 50, 0.07), 0 1px 3px rgba(0, 0, 0, 0.03);
-  border-radius: 20px;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+  border-radius: 16px;
 }
 
 .dark .surface-card {
-  background: #0a110e;
-  border: 1px solid rgba(0, 245, 155, 0.18);
-  box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.8), 0 0 24px -6px rgba(0, 245, 155, 0.15);
-}
-
-/* Panel */
-.surface-forest {
-  background: var(--color-forest-900);
-  color: var(--color-forest-100);
-}
-
-.dark .surface-forest {
-  color: var(--color-forest-300);
+  background: #111914;
+  border: 1px solid rgba(0, 245, 155, 0.2);
+  box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.6), 0 0 24px -6px rgba(0, 245, 155, 0.12);
 }
 
 /* =====================
-   BUTTONS (Cyber Mint Glow)
+   BUTTONS
    ===================== */
 
-/* Primary — Cyber Mint */
 .btn-primary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  background-color: var(--color-forest-600);
-  color: #fff;
+  background-color: #00a86b;
+  color: #ffffff;
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.9375rem;
-  padding: 0.875rem 1.75rem;
-  border-radius: 12px;
-  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  border: 1px solid transparent;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 16px -2px rgba(0, 168, 107, 0.35);
+  box-shadow: 0 4px 14px -2px rgba(0, 168, 107, 0.35);
   text-decoration: none;
   white-space: nowrap;
 }
 
 .btn-primary:hover {
-  background-color: var(--color-forest-700);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px -4px rgba(0, 168, 107, 0.5);
+  background-color: #008a57;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px -3px rgba(0, 168, 107, 0.5);
 }
 
 .dark .btn-primary {
   background-color: #00f59b;
   color: #040706;
   font-weight: 700;
-  box-shadow: 0 0 24px -2px rgba(0, 245, 155, 0.6);
+  box-shadow: 0 0 20px rgba(0, 245, 155, 0.5);
 }
 
 .dark .btn-primary:hover {
   background-color: #38bdf8;
-  box-shadow: 0 0 36px -2px rgba(56, 189, 248, 0.85);
+  box-shadow: 0 0 28px rgba(56, 189, 248, 0.75);
 }
 
-/* CTA Cyber Mint Glow */
 .btn-amber {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  background: linear-gradient(135deg, #00f59b 0%, #00a86b 100%);
-  color: #040706;
+  background: #00a86b;
+  color: #ffffff;
   font-family: var(--font-body);
   font-weight: 700;
   font-size: 0.9375rem;
-  padding: 0.875rem 1.75rem;
-  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 20px -2px rgba(0, 245, 155, 0.5);
+  box-shadow: 0 4px 16px rgba(0, 168, 107, 0.35);
   text-decoration: none;
   white-space: nowrap;
 }
 
 .btn-amber:hover {
-  background: linear-gradient(135deg, #38bdf8 0%, #00f59b 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px -4px rgba(0, 245, 155, 0.75);
+  background: #008a57;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(0, 168, 107, 0.5);
 }
 
 .dark .btn-amber {
-  background: linear-gradient(135deg, #00f59b 0%, #00d984 100%);
+  background: #00f59b;
   color: #040706;
-  box-shadow: 0 0 28px -2px rgba(0, 245, 155, 0.65);
+  box-shadow: 0 0 24px rgba(0, 245, 155, 0.6);
 }
 
 .dark .btn-amber:hover {
-  background: linear-gradient(135deg, #38bdf8 0%, #00f59b 100%);
-  box-shadow: 0 0 36px -2px rgba(56, 189, 248, 0.9), 0 0 20px rgba(0, 245, 155, 0.7);
+  background: #38bdf8;
+  box-shadow: 0 0 32px rgba(56, 189, 248, 0.8);
 }
 
-/* Ghost — outlined with subtle glow */
 .btn-ghost {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   background: transparent;
-  color: var(--color-ink-900);
+  color: var(--color-ink-700);
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.9375rem;
-  padding: 0.875rem 1.75rem;
-  border-radius: 12px;
-  border: 1.5px solid var(--color-cream-300);
+  padding: 0.75rem 1.4rem;
+  border-radius: 10px;
+  border: 1px solid var(--color-cream-300);
   cursor: pointer;
   transition: all 0.18s ease;
   text-decoration: none;
@@ -390,70 +326,49 @@ h1, h2, h3, h4, .font-display {
 }
 
 .btn-ghost:hover {
-  border-color: var(--color-forest-400);
-  background: var(--color-forest-100);
-  color: var(--color-forest-600);
+  border-color: #00a86b;
+  background: rgba(0, 168, 107, 0.08);
+  color: #00a86b;
+  transform: translateY(-1px);
 }
 
 .dark .btn-ghost {
   color: #ffffff;
-  background: rgba(10, 17, 14, 0.6);
+  background: rgba(17, 25, 20, 0.6);
   border-color: rgba(0, 245, 155, 0.25);
-  backdrop-filter: blur(12px);
 }
 
 .dark .btn-ghost:hover {
   border-color: #00f59b;
   background: rgba(0, 245, 155, 0.12);
   color: #00f59b;
-  box-shadow: 0 0 20px rgba(0, 245, 155, 0.25);
+  box-shadow: 0 0 16px rgba(0, 245, 155, 0.2);
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  border-radius: 8px;
 }
 
 /* =====================
-   ANIMATIONS
-   ===================== */
-
-@keyframes rotate-slow {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-@keyframes float-gentle {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-8px); }
-}
-
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pulse-ring {
-  0%   { box-shadow: 0 0 0 0 rgba(0, 245, 155, 0.5); }
-  70%  { box-shadow: 0 0 0 12px rgba(0, 245, 155, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(0, 245, 155, 0); }
-}
-
-.animate-rotate-slow { animation: rotate-slow 60s linear infinite; }
-.animate-float       { animation: float-gentle 5s ease-in-out infinite; }
-.animate-fade-up     { animation: fade-up 0.6s ease-out both; }
-.animate-pulse-ring  { animation: pulse-ring 2.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite; }
-
-/* =====================
-   FOCUS STATES
+   FOCUS & ACCESSIBILITY
    ===================== */
 
 *:focus-visible {
-  outline: 2px solid var(--color-amber-600);
+  outline: 2px solid #00a86b;
   outline-offset: 2px;
-  border-radius: 4px;
+  border-radius: 6px;
+}
+
+.dark *:focus-visible {
+  outline-color: #00f59b;
 }
 
 /* =====================
    SCROLLBAR & VIEWPORT STABILITY
    ===================== */
 
-/* Completely hide and eliminate horizontal scrollbar everywhere */
 ::-webkit-scrollbar:horizontal {
   height: 0px !important;
   width: 0px !important;
@@ -461,101 +376,28 @@ h1, h2, h3, h4, .font-display {
   background: transparent !important;
 }
 
-/* Vertical scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
   background: transparent;
 }
 
-::-webkit-scrollbar-track,
-::-webkit-scrollbar-track-piece,
-::-webkit-scrollbar-corner,
-::-webkit-resizer {
-  background: transparent !important;
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 168, 107, 0.35);
-  border-radius: 4px;
+  background: rgba(0, 168, 107, 0.25);
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 168, 107, 0.65);
+  background: rgba(0, 168, 107, 0.5);
 }
 
-:root.dark ::-webkit-scrollbar-track,
-html.dark ::-webkit-scrollbar-track,
-.dark ::-webkit-scrollbar-track,
-:root.dark ::-webkit-scrollbar-corner,
-html.dark ::-webkit-scrollbar-corner,
-.dark ::-webkit-scrollbar-corner {
-  background: transparent !important;
-}
-
-:root.dark ::-webkit-scrollbar-thumb,
-html.dark ::-webkit-scrollbar-thumb,
 .dark ::-webkit-scrollbar-thumb {
-  background: #14211a;
-  border-radius: 4px;
-  border: 1px solid rgba(0, 245, 155, 0.15);
+  background: rgba(0, 245, 155, 0.25);
 }
 
-:root.dark ::-webkit-scrollbar-thumb:hover,
-html.dark ::-webkit-scrollbar-thumb:hover,
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: #00f59b;
-  box-shadow: 0 0 10px rgba(0, 245, 155, 0.5);
-}
-
-/* Enforce zero horizontal overflow without trapping vertical wheel scroll */
-html, body {
-  overflow-x: hidden;
-  max-width: 100%;
-}
-
-/* =====================
-   NAV ACTIVE STATES
-   ===================== */
-
-.nav-link-active {
-  color: var(--color-forest-700);
-  font-weight: 600;
-}
-
-/* =====================
-   LEGACY COMPAT
-   ===================== */
-
-/* Glass panel — header */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-.dark .glass-panel {
-  background: rgba(10, 17, 14, 0.9);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-/* Glass card */
-.glass-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 234, 229, 0.6);
-}
-
-.dark .glass-card {
-  background: rgba(10, 17, 14, 0.88);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 245, 155, 0.16);
-}
-
-/* Gradient teal (legacy compat) */
-.gradient-text-teal {
-  background: linear-gradient(135deg, var(--color-forest-700) 0%, var(--color-forest-400) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  background: rgba(0, 245, 155, 0.5);
 }

@@ -451,7 +451,7 @@ onMounted(async () => {
   max-width: 600px;
 }
 
-:global(.dark) .pets-subtitle { color: #8ca395; }
+:global(.dark) .pets-subtitle { color: #cbd5e1; }
 
 .pets-add-btn {
   display: inline-flex;
@@ -642,7 +642,7 @@ onMounted(async () => {
   color: var(--color-ink-500);
 }
 
-:global(.dark) .pet-health-status { color: #8ca395; }
+:global(.dark) .pet-health-status { color: #cbd5e1; }
 
 .health-dot {
   width: 6px;
@@ -674,7 +674,7 @@ onMounted(async () => {
   margin: 0 0 0.5rem;
 }
 
-:global(.dark) .pet-card-breed { color: #8ca395; }
+:global(.dark) .pet-card-breed { color: #cbd5e1; }
 
 .pet-vitals-grid {
   display: grid;

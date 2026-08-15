@@ -481,7 +481,7 @@ onMounted(async () => {
   max-width: 580px;
 }
 
-:global(.dark) .dash-subtitle { color: #8ca395; }
+:global(.dark) .dash-subtitle { color: #cbd5e1; }
 
 .dash-ctas {
   display: flex;
@@ -570,7 +570,7 @@ onMounted(async () => {
   font-weight: 600;
 }
 
-:global(.dark) .stat-label { color: #8ca395; }
+:global(.dark) .stat-label { color: #cbd5e1; }
 
 /* Vaccine Alert */
 .vaccine-alert-card {
@@ -691,7 +691,7 @@ onMounted(async () => {
 
 :global(.dark) .panel-count {
   background: rgba(16, 28, 22, 0.8);
-  color: #8ca395;
+  color: #cbd5e1;
 }
 
 /* Appointments */
@@ -750,7 +750,7 @@ onMounted(async () => {
   margin-top: 0.15rem;
 }
 
-:global(.dark) .apt-patient-meta { color: #8ca395; }
+:global(.dark) .apt-patient-meta { color: #cbd5e1; }
 
 .apt-badge {
   font-size: 0.65rem;
@@ -890,7 +890,7 @@ onMounted(async () => {
   margin: 0.1rem 0 0.25rem;
 }
 
-:global(.dark) .pet-dash-breed { color: #8ca395; }
+:global(.dark) .pet-dash-breed { color: #cbd5e1; }
 
 .pet-dash-stats {
   display: flex;
@@ -976,7 +976,7 @@ onMounted(async () => {
   font-size: 0.75rem;
 }
 
-:global(.dark) .history-notes { color: #8ca395; }
+:global(.dark) .history-notes { color: #cbd5e1; }
 
 .status-pill-completed {
   font-size: 0.68rem;
@@ -1003,5 +1003,5 @@ onMounted(async () => {
 
 .panel-empty-icon { font-size: 2rem; opacity: 0.8; }
 .panel-empty-text { font-size: 0.8125rem; color: var(--color-ink-500); margin: 0 0 0.5rem; }
-:global(.dark) .panel-empty-text { color: #8ca395; }
+:global(.dark) .panel-empty-text { color: #cbd5e1; }
 </style>

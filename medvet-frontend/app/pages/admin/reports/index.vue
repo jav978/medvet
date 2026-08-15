@@ -646,7 +646,7 @@ const handlePrintAction = () => {
   max-width: 700px;
 }
 
-.dark .reports-subtitle { color: #8ca395; }
+.dark .reports-subtitle { color: #cbd5e1; }
 
 .reports-header-actions {
   display: flex;
@@ -690,7 +690,7 @@ const handlePrintAction = () => {
   transition: all 0.15s ease;
 }
 
-.dark .tab-btn { color: #8ca395; }
+.dark .tab-btn { color: #cbd5e1; }
 
 .tab-btn:hover {
   background: #f4f7f5;
@@ -785,7 +785,7 @@ const handlePrintAction = () => {
   color: var(--color-ink-500);
 }
 
-.dark .kpi-sub { color: #8ca395; }
+.dark .kpi-sub { color: #cbd5e1; }
 
 .text-mint { color: #00a86b; }
 .dark .text-mint { color: #00f59b; }
@@ -951,7 +951,7 @@ const handlePrintAction = () => {
 .t-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; margin: 0; color: var(--color-ink-900); }
 .dark .t-title { color: #f1faf5; }
 .t-sub { font-size: 0.8125rem; color: var(--color-ink-500); margin: 0; }
-.dark .t-sub { color: #8ca395; }
+.dark .t-sub { color: #cbd5e1; }
 .toolbar-btns { display: flex; gap: 0.75rem; }
 
 .printable-report-sheet {

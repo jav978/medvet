@@ -589,7 +589,7 @@ const barcodeBars = computed(() => {
 }
 
 .dark .qr-label {
-  color: #8ca395;
+  color: #cbd5e1;
 }
 
 /* Back info */

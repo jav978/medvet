@@ -453,7 +453,7 @@ const handleExportExcel = () => {
   max-width: 620px;
 }
 
-:global(.dark) .payments-subtitle { color: #8ca395; }
+:global(.dark) .payments-subtitle { color: #cbd5e1; }
 
 /* Summary Cards */
 .summary-cards-grid {
@@ -485,7 +485,7 @@ const handleExportExcel = () => {
 :global(.dark) .sum-val { color: #00f59b; }
 .sum-val--pending { color: var(--color-joy-tangerine); }
 .sum-sub { font-size: 0.72rem; color: var(--color-ink-500); }
-:global(.dark) .sum-sub { color: #8ca395; }
+:global(.dark) .sum-sub { color: #cbd5e1; }
 
 /* Pending Banner */
 .pending-banner {
@@ -528,7 +528,7 @@ const handleExportExcel = () => {
 .panel-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--color-ink-900); margin: 0; }
 :global(.dark) .panel-title { color: #f1faf5; }
 .panel-sub { font-size: 0.78rem; color: var(--color-ink-500); margin: 0.15rem 0 0; }
-:global(.dark) .panel-sub { color: #8ca395; }
+:global(.dark) .panel-sub { color: #cbd5e1; }
 
 .table-wrap { overflow-x: auto; }
 

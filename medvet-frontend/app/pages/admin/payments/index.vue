@@ -285,7 +285,7 @@ const handlePrintReport = () => {
 }
 .dark .admin-title { color: #f1faf5; }
 .admin-subtitle { font-size: 0.9375rem; color: var(--color-ink-500); margin: 0; }
-.dark .admin-subtitle { color: #8ca395; }
+.dark .admin-subtitle { color: #cbd5e1; }
 
 /* KPI Grid */
 .kpi-grid {
@@ -312,7 +312,7 @@ const handlePrintReport = () => {
 .text-mint { color: #00a86b; }
 .dark .text-mint { color: #00f59b; }
 .kpi-note { font-size: 0.72rem; color: var(--color-ink-500); }
-.dark .kpi-note { color: #8ca395; }
+.dark .kpi-note { color: #cbd5e1; }
 
 /* Ledger */
 .ledger-panel {
@@ -341,7 +341,7 @@ const handlePrintReport = () => {
 .section-title { font-family: var(--font-display); font-size: 1.1875rem; font-weight: 700; color: var(--color-ink-900); margin: 0; }
 .dark .section-title { color: #f1faf5; }
 .section-sub { font-size: 0.8125rem; color: var(--color-ink-500); margin: 0.2rem 0 0; }
-.dark .section-sub { color: #8ca395; }
+.dark .section-sub { color: #cbd5e1; }
 
 .ledger-search {
   padding: 0.5rem 0.85rem;

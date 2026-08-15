@@ -375,7 +375,7 @@ onMounted(async () => {
   max-width: 600px;
 }
 
-:global(.dark) .carnet-subtitle { color: #8ca395; }
+:global(.dark) .carnet-subtitle { color: #cbd5e1; }
 
 .carnet-header-actions {
   display: flex;
@@ -475,7 +475,7 @@ onMounted(async () => {
 :global(.dark) .flip-helper-box {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.2);
-  color: #8ca395;
+  color: #cbd5e1;
 }
 
 .flip-icon { font-size: 1rem; }
@@ -622,7 +622,7 @@ onMounted(async () => {
   color: var(--color-ink-500);
 }
 
-:global(.dark) .vac-meta { color: #8ca395; }
+:global(.dark) .vac-meta { color: #cbd5e1; }
 
 .vac-entry-right {
   display: flex;
@@ -694,7 +694,7 @@ onMounted(async () => {
   color: var(--color-ink-500);
 }
 
-:global(.dark) .deworm-date { color: #8ca395; }
+:global(.dark) .deworm-date { color: #cbd5e1; }
 
 .deworm-status {
   font-size: 0.72rem;

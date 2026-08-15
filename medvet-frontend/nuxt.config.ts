@@ -11,8 +11,8 @@ export default defineNuxtConfig({
   ],
 
   colorMode: {
-    preference: 'dark',
-    fallback: 'dark',
+    preference: 'light',
+    fallback: 'light',
     classSuffix: '',
     storageKey: 'medvet-theme'
   },

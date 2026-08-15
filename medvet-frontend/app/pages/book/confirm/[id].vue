@@ -267,7 +267,7 @@ onMounted(async () => {
   max-width: 520px;
 }
 
-:global(.dark) .confirm-subtitle { color: #8ca395; }
+:global(.dark) .confirm-subtitle { color: #cbd5e1; }
 
 /* Receipt Card */
 .receipt-card {
@@ -385,7 +385,7 @@ onMounted(async () => {
 :global(.dark) .cell-val { color: #f1faf5; }
 
 .cell-sub { font-size: 0.75rem; color: var(--color-ink-500); }
-:global(.dark) .cell-sub { color: #8ca395; }
+:global(.dark) .cell-sub { color: #cbd5e1; }
 
 .receipt-footer {
   padding: 1.25rem 1.75rem;
@@ -418,7 +418,7 @@ onMounted(async () => {
   color: var(--color-ink-500);
 }
 
-:global(.dark) .receipt-note { color: #8ca395; }
+:global(.dark) .receipt-note { color: #cbd5e1; }
 
 /* Utility buttons */
 .utility-actions {

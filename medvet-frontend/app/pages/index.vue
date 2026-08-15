@@ -659,7 +659,7 @@ onMounted(async () => {
   max-width: 520px;
 }
 
-:global(.dark) .hero-sub { color: #8ca395; }
+:global(.dark) .hero-sub { color: #cbd5e1; }
 
 /* CTAs Button Group */
 .hero-ctas {
@@ -920,8 +920,8 @@ onMounted(async () => {
   color: var(--color-ink-900);
 }
 
-:global(.dark) .studio-tab { color: #8ca395; }
-:global(.dark) .studio-tab:hover { color: #ffffff; }
+:global(.dark) .studio-tab { color: #cbd5e1; }
+:global(.dark) .studio-tab:hover { color: #00f59b; }
 
 .studio-tab--active {
   color: var(--color-forest-700);
@@ -961,7 +961,7 @@ onMounted(async () => {
   color: var(--color-ink-400);
 }
 
-:global(.dark) .studio-file-name { color: #8ca395; }
+:global(.dark) .studio-file-name { color: #cbd5e1; }
 
 .studio-live-pill {
   display: inline-flex;
@@ -1071,7 +1071,7 @@ onMounted(async () => {
   color: var(--color-ink-400);
 }
 
-:global(.dark) .species-label-compact { color: #5c7365; }
+:global(.dark) .species-label-compact { color: #94a3b8; }
 
 .species-pills-compact {
   display: flex;
@@ -1142,7 +1142,7 @@ onMounted(async () => {
   color: var(--color-ink-500);
 }
 
-:global(.dark) .bc-slot-label { color: #8ca395; }
+:global(.dark) .bc-slot-label { color: #cbd5e1; }
 
 .slot-icon {
   width: 14px;
@@ -1262,7 +1262,7 @@ onMounted(async () => {
   margin-bottom: 1.5rem;
 }
 
-:global(.dark) .trust-bar-caption { color: #64748b; }
+:global(.dark) .trust-bar-caption { color: #94a3b8; }
 
 .trust-logos-row {
   display: flex;
@@ -1289,11 +1289,11 @@ onMounted(async () => {
 }
 
 :global(.dark) .trust-logo-item {
-  color: #475569;
+  color: #94a3b8;
 }
 
 :global(.dark) .trust-logo-item:hover {
-  color: #94a3b8;
+  color: #00f59b;
 }
 
 .logo-dot {
@@ -1436,7 +1436,7 @@ onMounted(async () => {
 
 :global(.dark) .sc-duration {
   background: rgba(16, 28, 22, 0.7);
-  color: #8ca395;
+  color: #cbd5e1;
 }
 
 .sc-name {
@@ -1458,7 +1458,7 @@ onMounted(async () => {
   margin: 0;
 }
 
-:global(.dark) .sc-desc { color: #8ca395; }
+:global(.dark) .sc-desc { color: #cbd5e1; }
 
 .sc-footer {
   display: flex;
@@ -1601,7 +1601,7 @@ onMounted(async () => {
   margin: 0;
 }
 
-:global(.dark) .fc-desc { color: #8ca395; }
+:global(.dark) .fc-desc { color: #cbd5e1; }
 
 /* ────────────────────────────────────────
    URGENT BANNER
@@ -1718,7 +1718,7 @@ onMounted(async () => {
 }
 
 :global(.dark) .urgent-sub {
-  color: #8ca395;
+  color: #cbd5e1;
 }
 
 .urgent-actions {
