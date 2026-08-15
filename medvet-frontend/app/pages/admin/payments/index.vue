@@ -18,13 +18,21 @@
       </div>
 
       <div class="admin-header-actions">
-        <button type="button" @click="handleExportExcel" class="btn-ghost">
+        <button type="button" @click="handleExportDocxReport" class="btn-ghost">
+          <span>📝</span>
+          <span>Word (.docx)</span>
+        </button>
+        <button type="button" @click="handleExportExcelReport" class="btn-ghost">
           <span>📊</span>
-          <span>Exportar a Excel</span>
+          <span>Excel (.xlsx)</span>
+        </button>
+        <button type="button" @click="handleExportCsvReport" class="btn-ghost">
+          <span>📑</span>
+          <span>CSV</span>
         </button>
         <button type="button" @click="handlePrintReport" class="btn-ghost">
           <span>🖨️</span>
-          <span>Imprimir Reporte</span>
+          <span>Imprimir</span>
         </button>
         <button type="button" @click="showNewInvoiceModal = true" class="btn-primary">
           <span>＋</span>
@@ -38,7 +46,7 @@
       <div class="kpi-box">
         <span class="kpi-lbl">Recaudación de Hoy</span>
         <span class="kpi-amount font-mono-numbers text-mint">${{ todayRevenue.toLocaleString() }}</span>
-        <span class="kpi-note">13 transacciones registradas</span>
+        <span class="kpi-note">{{ transactions.length }} transacciones registradas</span>
       </div>
 
       <div class="kpi-box">
@@ -88,6 +96,7 @@
               <th>Medio de Cobro</th>
               <th>Importe</th>
               <th>Estado</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -102,11 +111,23 @@
               <td>
                 <span class="paid-badge">Acreditado</span>
               </td>
+              <td>
+                <button type="button" @click="handleOpenInvoiceViewer(tx)" class="btn-ghost btn-xs">
+                  📄 Ver Factura
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+
+    <!-- Invoice Viewer Modal -->
+    <InvoiceViewerModal
+      :is-open="showInvoiceViewer"
+      :invoice="selectedInvoice"
+      @close="showInvoiceViewer = false"
+    />
 
     <!-- Modal Emitir Factura -->
     <div v-if="showNewInvoiceModal" class="modal-backdrop" @click.self="showNewInvoiceModal = false">
@@ -166,6 +187,12 @@
 </template>
 
 <script setup>
+import {
+  exportReportToDocx,
+  exportReportToExcel,
+  exportReportToCsv
+} from '~/utils/exportEngine'
+
 definePageMeta({
   layout: 'admin',
   middleware: 'auth',
@@ -174,17 +201,166 @@ definePageMeta({
 })
 
 const showNewInvoiceModal = ref(false)
+const showInvoiceViewer = ref(false)
+const selectedInvoice = ref(null)
 const searchQuery = ref('')
 
 const todayRevenue = ref(245000)
 
 const transactions = ref([
-  { id: 1, code: 'FAC-B-0001-0004991', time: '08:45', tutor: 'Juan Pérez', pet: 'Thor', concept: 'Consulta Clínica General', method: 'Cashea (3 Cuotas sin Interés)', amount: 15000 },
-  { id: 2, code: 'FAC-B-0001-0004992', time: '09:30', tutor: 'Carla Morales', pet: 'Luna', concept: 'Vacunación Triple Felina', method: 'Tarjeta de Débito', amount: 17500 },
-  { id: 3, code: 'FAC-B-0001-0004993', time: '10:20', tutor: 'Martín Rossi', pet: 'Rocky', concept: 'Ecografía Abdominal Completa', method: 'Transferencia CBU', amount: 28000 },
-  { id: 4, code: 'FAC-B-0001-0004994', time: '11:15', tutor: 'Sofía Álvarez', pet: 'Simba', concept: 'Consulta Dermatológica + Medicación', method: 'MercadoPago / QR', amount: 26000 },
-  { id: 5, code: 'FAC-B-0001-0004995', time: '12:00', tutor: 'Diego Fernández', pet: 'Coco', concept: 'Vacunación Antirrábica Obligatoria', method: 'Efectivo en Caja', amount: 12000 },
-  { id: 6, code: 'FAC-B-0001-0004996', time: '12:45', tutor: 'Luciana Gómez', pet: 'Milo', concept: 'Perfil Bioquímico Completo', method: 'Cashea (3 Cuotas sin Interés)', amount: 32000 }
+  {
+    id: 1,
+    code: 'FAC-B-0001-0004991',
+    date: new Date().toLocaleDateString('es-ES'),
+    time: '08:45 hs',
+    tutor: 'Juan Pérez',
+    clientName: 'Juan Pérez',
+    clientDoc: 'V-14.921.800',
+    clientPhone: '+58 (414) 987-6543',
+    clientEmail: 'juan.perez@email.com',
+    clientAddress: 'Av. Bolívar, Res. Los Samanes, Maracay',
+    pet: 'Thor',
+    petName: 'Thor',
+    petSpecies: 'Canino',
+    petBreed: 'Golden Retriever',
+    petChip: 'ISO-11784-98214',
+    concept: 'Consulta Clínica General',
+    method: 'Cashea (3 Cuotas sin Interés)',
+    paymentMethod: 'Cashea (3 Cuotas sin Interés)',
+    amount: 15000,
+    status: 'paid',
+    items: [
+      { code: 'MED-001', description: 'Consulta Médica General Canina', quantity: 1, unitPrice: 15000, discount: 0, subtotal: 15000 }
+    ]
+  },
+  {
+    id: 2,
+    code: 'FAC-B-0001-0004992',
+    date: new Date().toLocaleDateString('es-ES'),
+    time: '09:30 hs',
+    tutor: 'Carla Morales',
+    clientName: 'Carla Morales',
+    clientDoc: 'V-18.441.992',
+    clientPhone: '+58 (412) 112-9844',
+    clientEmail: 'carla.m@email.com',
+    clientAddress: 'Calle Mariño, Edif. Centro, Caracas',
+    pet: 'Luna',
+    petName: 'Luna',
+    petSpecies: 'Felino',
+    petBreed: 'Siamés',
+    petChip: 'ISO-11784-66231',
+    concept: 'Vacunación Triple Felina',
+    method: 'Tarjeta de Débito',
+    paymentMethod: 'Tarjeta de Débito',
+    amount: 17500,
+    status: 'paid',
+    items: [
+      { code: 'VAC-002', description: 'Vacuna Triple Felina + Refuerzo Anual', quantity: 1, unitPrice: 14000, discount: 0, subtotal: 14000 },
+      { code: 'FAR-011', description: 'Aplicador Descartable y Control de Temperatura', quantity: 1, unitPrice: 3500, discount: 0, subtotal: 3500 }
+    ]
+  },
+  {
+    id: 3,
+    code: 'FAC-B-0001-0004993',
+    date: new Date().toLocaleDateString('es-ES'),
+    time: '10:20 hs',
+    tutor: 'Martín Rossi',
+    clientName: 'Martín Rossi',
+    clientDoc: 'V-20.103.541',
+    clientPhone: '+58 (424) 334-9021',
+    clientEmail: 'martin.rossi@email.com',
+    clientAddress: 'Urb. La Soledad, Calle 2, Maracay',
+    pet: 'Rocky',
+    petName: 'Rocky',
+    petSpecies: 'Canino',
+    petBreed: 'Bulldog Francés',
+    petChip: 'ISO-11784-11928',
+    concept: 'Ecografía Abdominal Completa',
+    method: 'Transferencia CBU',
+    paymentMethod: 'Transferencia CBU',
+    amount: 28000,
+    status: 'paid',
+    items: [
+      { code: 'IMG-004', description: 'Ecografía Abdominal Multi-Frecuencia de Alta Resolución', quantity: 1, unitPrice: 28000, discount: 0, subtotal: 28000 }
+    ]
+  },
+  {
+    id: 4,
+    code: 'FAC-B-0001-0004994',
+    date: new Date().toLocaleDateString('es-ES'),
+    time: '11:15 hs',
+    tutor: 'Sofía Álvarez',
+    clientName: 'Sofía Álvarez',
+    clientDoc: 'V-22.771.092',
+    clientPhone: '+58 (416) 445-1288',
+    clientEmail: 'sofia.a@email.com',
+    clientAddress: 'Av. Las Américas, Torre A, Maracay',
+    pet: 'Simba',
+    petName: 'Simba',
+    petSpecies: 'Felino',
+    petBreed: 'Persa',
+    petChip: 'ISO-11784-88412',
+    concept: 'Consulta Dermatológica + Medicación',
+    method: 'MercadoPago / QR',
+    paymentMethod: 'MercadoPago / QR',
+    amount: 26000,
+    status: 'paid',
+    items: [
+      { code: 'DERM-01', description: 'Evaluación Tricográfica y Raspado Cutáneo', quantity: 1, unitPrice: 16000, discount: 0, subtotal: 16000 },
+      { code: 'FAR-042', description: 'Tratamiento Tópico Antiséptico + Champú Medicado', quantity: 1, unitPrice: 10000, discount: 0, subtotal: 10000 }
+    ]
+  },
+  {
+    id: 5,
+    code: 'FAC-B-0001-0004995',
+    date: new Date().toLocaleDateString('es-ES'),
+    time: '12:00 hs',
+    tutor: 'Diego Fernández',
+    clientName: 'Diego Fernández',
+    clientDoc: 'V-16.554.890',
+    clientPhone: '+58 (412) 667-8901',
+    clientEmail: 'diego.f@email.com',
+    clientAddress: 'El Castaño, Maracay',
+    pet: 'Coco',
+    petName: 'Coco',
+    petSpecies: 'Canino',
+    petBreed: 'Poodle',
+    petChip: 'ISO-11784-77192',
+    concept: 'Vacunación Antirrábica Obligatoria',
+    method: 'Efectivo en Caja',
+    paymentMethod: 'Efectivo en Caja',
+    amount: 12000,
+    status: 'paid',
+    items: [
+      { code: 'VAC-004', description: 'Vacuna Antirrábica Oficial Certificada', quantity: 1, unitPrice: 12000, discount: 0, subtotal: 12000 }
+    ]
+  },
+  {
+    id: 6,
+    code: 'FAC-B-0001-0004996',
+    date: new Date().toLocaleDateString('es-ES'),
+    time: '12:45 hs',
+    tutor: 'Luciana Gómez',
+    clientName: 'Luciana Gómez',
+    clientDoc: 'V-17.992.341',
+    clientPhone: '+58 (414) 223-4567',
+    clientEmail: 'luciana.g@email.com',
+    clientAddress: 'Calicanto, Maracay',
+    pet: 'Milo',
+    petName: 'Milo',
+    petSpecies: 'Canino',
+    petBreed: 'Beagle',
+    petChip: 'ISO-11784-33418',
+    concept: 'Perfil Bioquímico Completo',
+    method: 'Cashea (3 Cuotas sin Interés)',
+    paymentMethod: 'Cashea (3 Cuotas sin Interés)',
+    amount: 32000,
+    status: 'paid',
+    items: [
+      { code: 'LAB-005', description: 'Perfil Metabólico & Panel de Enzimas Hepáticas', quantity: 1, unitPrice: 24000, discount: 0, subtotal: 24000 },
+      { code: 'LAB-001', description: 'Hemograma Completo Automatizado', quantity: 1, unitPrice: 8000, discount: 0, subtotal: 8000 }
+    ]
+  }
 ])
 
 const newTx = reactive({
@@ -206,17 +382,37 @@ const filteredTransactions = computed(() => {
   )
 })
 
+const handleOpenInvoiceViewer = (tx) => {
+  selectedInvoice.value = tx
+  showInvoiceViewer.value = true
+}
+
 const handleCreateInvoice = () => {
   const now = new Date()
   const tx = {
     id: Date.now(),
     code: `FAC-B-0001-000${Math.floor(5000 + Math.random() * 1000)}`,
-    time: now.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }),
+    date: now.toLocaleDateString('es-ES'),
+    time: now.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }) + ' hs',
     tutor: newTx.tutor,
+    clientName: newTx.tutor,
+    clientDoc: 'V-19.000.000',
+    clientPhone: '+58 (412) 000-0000',
+    clientEmail: 'cliente@medvet.com',
+    clientAddress: 'Maracay, Estado Aragua',
     pet: newTx.pet,
+    petName: newTx.pet,
+    petSpecies: 'Canino',
+    petBreed: 'Mestizo',
+    petChip: 'ISO-11784-00000',
     concept: newTx.concept,
     method: newTx.method,
-    amount: Number(newTx.amount) || 15000
+    paymentMethod: newTx.method,
+    amount: Number(newTx.amount) || 15000,
+    status: 'paid',
+    items: [
+      { code: 'SRV-REC', description: newTx.concept, quantity: 1, unitPrice: Number(newTx.amount) || 15000, discount: 0, subtotal: Number(newTx.amount) || 15000 }
+    ]
   }
   transactions.value.unshift(tx)
   todayRevenue.value += tx.amount
@@ -224,17 +420,39 @@ const handleCreateInvoice = () => {
   Object.assign(newTx, { tutor: '', pet: '', concept: '', amount: null, method: 'Cashea (3 Cuotas sin Interés)' })
 }
 
-const handleExportExcel = () => {
-  const columns = [
-    { key: 'code', label: 'Nº Factura' },
-    { key: 'time', label: 'Hora' },
-    { key: 'tutor', label: 'Cliente / Tutor' },
-    { key: 'pet', label: 'Paciente' },
-    { key: 'concept', label: 'Concepto / Servicio' },
-    { key: 'method', label: 'Medio de Cobro' },
-    { key: 'amount', label: 'Importe ($)', formatter: (v) => `$${Number(v).toLocaleString()}` }
-  ]
-  exportToExcel(transactions.value, columns, 'Facturacion_Diaria_MedVet')
+const getReportLedgerData = () => {
+  const headers = ['Nº Factura', 'Hora', 'Cliente / Tutor', 'Paciente', 'Concepto / Servicio', 'Medio de Cobro', 'Importe ($)']
+  const rows = transactions.value.map(t => [
+    t.code,
+    t.time,
+    t.tutor,
+    t.pet,
+    t.concept,
+    t.method,
+    `$${t.amount.toLocaleString()}`
+  ])
+  return { headers, rows }
+}
+
+const handleExportDocxReport = async () => {
+  const { headers, rows } = getReportLedgerData()
+  await exportReportToDocx(
+    'Cierre Diario de Caja y Facturación',
+    `Jornada: ${new Date().toLocaleDateString('es-ES')} - Recaudación Total: $${todayRevenue.value.toLocaleString()}`,
+    headers,
+    rows,
+    `Total Recaudado en el día: $${todayRevenue.value.toLocaleString()} USD a través de ${transactions.value.length} comprobantes oficiales.`
+  )
+}
+
+const handleExportExcelReport = () => {
+  const { headers, rows } = getReportLedgerData()
+  exportReportToExcel('Facturacion_Diaria_MedVet', headers, rows)
+}
+
+const handleExportCsvReport = () => {
+  const { headers, rows } = getReportLedgerData()
+  exportReportToCsv('Facturacion_Diaria_MedVet', headers, rows)
 }
 
 const handlePrintReport = () => {

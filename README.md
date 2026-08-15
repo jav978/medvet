@@ -33,7 +33,17 @@ Sistema web integral de alta gama diseñado para clínicas veterinarias, hospita
 ### 5. 🚨 Tablero de Guardia 24/7 & Entrega de Turno (Shift Handover)
 - **Monitoreo de boxes de hospitalización y UCI**: Pacientes en observación, postquirúrgicos y alertas críticas de fluidoterapia o medicación.
 - **Actas oficiales de entrega de guardia**: Registro del parte médico de salida, conteo de ingresos, cirugías, urgencias atendidas, pacientes dados de alta y tareas pendientes para el veterinario entrante.
-- **Impresión de parte de guardia**: Generación de reportes clínicos imprimibles.
+- **Exportación multiformato de actas**: Descarga de actas de turno en Word (.docx), Excel (.xlsx), CSV y PDF.
+
+### 6. 🧾 Facturación Digital con Membrete Oficial & Exportación Multiformato
+- **Membrete institucional homologado**: Emisión de comprobantes con RIF, CUIT, providencia fiscal, dirección, teléfonos de emergencia y código QR de validación tributaria.
+- **Desglose financiero completo**: Subtotales gravados y exentos, cálculo de IVA, descuentos, conversión a moneda local y formas de pago (*Contado*, *Tarjeta*, *Transferencia*, *Cashea 0% interés*).
+- **Exportación en 4 formatos profesionales (Sin capturas de pantalla)**:
+  - 🖨️ **PDF / Impresión A4**: Hoja formal formateada con `@media print`.
+  - 📝 **Microsoft Word (.docx)**: Archivo OpenXML editable con membrete, estilos tipográficos y tablas.
+  - 📊 **Microsoft Excel (.xlsx)**: Planilla de cálculo con fórmulas y estilos financieros.
+  - 📑 **CSV**: Archivo plano con codificación UTF-8 BOM para conciliación contable en ERP.
+- **Centro de Reportería Administrativa**: Exportación de libros de ventas, pacientes atendidos y créditos en Word, Excel, CSV y PDF.
 
 ---
 

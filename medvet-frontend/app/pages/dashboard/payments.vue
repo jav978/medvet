@@ -71,67 +71,81 @@
             <h2 class="panel-title">Historial de Comprobantes & Recibos</h2>
             <p class="panel-sub">Facturas electrónicas oficiales válidas ante AFIP/DGI</p>
           </div>
-          <div class="panel-actions">
-            <button type="button" @click="handleExportExcel" class="btn-ghost btn-sm">
-              <span>📊</span>
-              <span>Exportar a Excel</span>
-            </button>
+            <div class="panel-actions">
+              <button type="button" @click="handleExportDocxReport" class="btn-ghost btn-sm">
+                <span>📝</span>
+                <span>Word</span>
+              </button>
+              <button type="button" @click="handleExportExcelReport" class="btn-ghost btn-sm">
+                <span>📊</span>
+                <span>Excel</span>
+              </button>
+              <button type="button" @click="handleExportCsvReport" class="btn-ghost btn-sm">
+                <span>📑</span>
+                <span>CSV</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="invoices-table">
+              <thead>
+                <tr>
+                  <th>Nº Comprobante</th>
+                  <th>Fecha</th>
+                  <th>Concepto / Paciente</th>
+                  <th>Método de Pago</th>
+                  <th>Total</th>
+                  <th>Estado</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="inv in invoicesList" :key="inv.id">
+                  <td class="font-mono-numbers font-bold">{{ inv.code }}</td>
+                  <td class="font-mono-numbers">{{ inv.date }}</td>
+                  <td>
+                    <strong class="inv-service">{{ inv.service }}</strong>
+                    <div class="inv-pet">🐾 {{ inv.petName }}</div>
+                  </td>
+                  <td>{{ inv.paymentMethod }}</td>
+                  <td class="font-mono-numbers font-bold text-mint">${{ inv.amount.toLocaleString() }}</td>
+                  <td>
+                    <span :class="['status-badge', inv.status === 'paid' ? 'status-badge--paid' : 'status-badge--pending']">
+                      {{ inv.status === 'paid' ? 'Abonado' : 'Pendiente' }}
+                    </span>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      @click="viewInvoiceDetails(inv)"
+                      class="btn-ghost btn-xs"
+                    >
+                      📄 Ver Factura
+                    </button>
+                    <button
+                      v-if="inv.status !== 'paid'"
+                      type="button"
+                      @click="openCheckout(inv)"
+                      class="btn-primary btn-xs ml-1"
+                    >
+                      💳 Pagar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
-        <div class="table-wrap">
-          <table class="invoices-table">
-            <thead>
-              <tr>
-                <th>Nº Comprobante</th>
-                <th>Fecha</th>
-                <th>Concepto / Paciente</th>
-                <th>Método de Pago</th>
-                <th>Total</th>
-                <th>Estado</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="inv in invoicesList" :key="inv.id">
-                <td class="font-mono-numbers font-bold">{{ inv.code }}</td>
-                <td class="font-mono-numbers">{{ inv.date }}</td>
-                <td>
-                  <strong class="inv-service">{{ inv.service }}</strong>
-                  <div class="inv-pet">🐾 {{ inv.petName }}</div>
-                </td>
-                <td>{{ inv.paymentMethod }}</td>
-                <td class="font-mono-numbers font-bold text-mint">${{ inv.amount.toLocaleString() }}</td>
-                <td>
-                  <span :class="['status-badge', inv.status === 'paid' ? 'status-badge--paid' : 'status-badge--pending']">
-                    {{ inv.status === 'paid' ? 'Abonado' : 'Pendiente' }}
-                  </span>
-                </td>
-                <td>
-                  <button
-                    v-if="inv.status === 'paid'"
-                    type="button"
-                    @click="handlePrintInvoice(inv)"
-                    class="btn-ghost btn-xs"
-                  >
-                    📄 Factura
-                  </button>
-                  <button
-                    v-else
-                    type="button"
-                    @click="openCheckout(inv)"
-                    class="btn-primary btn-xs"
-                  >
-                    💳 Pagar
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </div>
 
-    </div>
+      <!-- Professional Invoice Viewer Modal -->
+      <InvoiceViewerModal
+        :is-open="showInvoiceViewer"
+        :invoice="selectedInvoiceForView"
+        @close="showInvoiceViewer = false"
+      />
 
     <!-- Modal Checkout de Pago -->
     <div v-if="showCheckoutModal" class="modal-backdrop" @click.self="showCheckoutModal = false">
@@ -242,12 +256,20 @@
 </template>
 
 <script setup>
+import {
+  exportReportToDocx,
+  exportReportToExcel,
+  exportReportToCsv
+} from '~/utils/exportEngine'
+
 definePageMeta({
   middleware: 'auth',
   requiresAuth: true
 })
 
 const showCheckoutModal = ref(false)
+const showInvoiceViewer = ref(false)
+const selectedInvoiceForView = ref(null)
 const activeInvoice = ref(null)
 const selectedPaymentMethod = ref('cashea')
 const casheaCode = ref('')
@@ -258,41 +280,93 @@ const invoicesList = ref([
     id: 1,
     code: 'FAC-B-0001-0004821',
     date: '10/06/2026',
+    time: '11:15 hs',
     service: 'Perfil Bioquímico & Sangre',
     petName: 'Thor',
+    petSpecies: 'Canino',
+    petBreed: 'Golden Retriever',
+    petChip: 'ISO-11784-98214',
+    clientName: 'María García',
+    clientDoc: 'V-19.824.551',
+    clientPhone: '+58 (412) 345-6789',
+    clientEmail: 'maria.garcia@gmail.com',
+    clientAddress: 'Urb. Los Olivos, Calle 4, Maracay',
     paymentMethod: 'MercadoPago / QR',
     amount: 22000,
-    status: 'paid'
+    status: 'paid',
+    items: [
+      { code: 'LAB-001', description: 'Hemograma Completo Automatizado + Plaquetas', quantity: 1, unitPrice: 8000, discount: 0, subtotal: 8000 },
+      { code: 'LAB-004', description: 'Perfil Renal & Hepático (Urea, Creatinina, ALT, AST)', quantity: 1, unitPrice: 10000, discount: 0, subtotal: 10000 },
+      { code: 'FAR-019', description: 'Toma de Muestra y Descartables Estériles', quantity: 1, unitPrice: 4000, discount: 0, subtotal: 4000 }
+    ]
   },
   {
     id: 2,
     code: 'FAC-B-0001-0004110',
     date: '15/04/2026',
+    time: '09:30 hs',
     service: 'Vacunación Triple Felina',
     petName: 'Luna',
+    petSpecies: 'Felino',
+    petBreed: 'Siamés',
+    petChip: 'ISO-11784-66231',
+    clientName: 'María García',
+    clientDoc: 'V-19.824.551',
+    clientPhone: '+58 (412) 345-6789',
+    clientEmail: 'maria.garcia@gmail.com',
+    clientAddress: 'Urb. Los Olivos, Calle 4, Maracay',
     paymentMethod: 'Tarjeta de Débito',
     amount: 17500,
-    status: 'paid'
+    status: 'paid',
+    items: [
+      { code: 'VAC-002', description: 'Vacuna Triple Felina (Rinotraqueítis, Calicivirus, Panleucopenia)', quantity: 1, unitPrice: 14000, discount: 0, subtotal: 14000 },
+      { code: 'CLI-001', description: 'Examen Físico Preventivo Pre-Vacunal', quantity: 1, unitPrice: 3500, discount: 0, subtotal: 3500 }
+    ]
   },
   {
     id: 3,
     code: 'FAC-B-0001-0003990',
     date: '15/03/2026',
+    time: '16:45 hs',
     service: 'Vacunación Séxtuple Canina',
     petName: 'Thor',
+    petSpecies: 'Canino',
+    petBreed: 'Golden Retriever',
+    petChip: 'ISO-11784-98214',
+    clientName: 'María García',
+    clientDoc: 'V-19.824.551',
+    clientPhone: '+58 (412) 345-6789',
+    clientEmail: 'maria.garcia@gmail.com',
+    clientAddress: 'Urb. Los Olivos, Calle 4, Maracay',
     paymentMethod: 'Transferencia CBU',
     amount: 18000,
-    status: 'paid'
+    status: 'paid',
+    items: [
+      { code: 'VAC-001', description: 'Vacuna Séxtuple Canina Vanguard Plus', quantity: 1, unitPrice: 15000, discount: 0, subtotal: 15000 },
+      { code: 'FAR-005', description: 'Desparasitación Interna Oral (Total F)', quantity: 1, unitPrice: 3000, discount: 0, subtotal: 3000 }
+    ]
   },
   {
     id: 4,
     code: 'FAC-B-0001-0004995',
     date: '22/01/2026',
+    time: '14:00 hs',
     service: 'Consulta Dermatológica Especializada',
     petName: 'Thor',
+    petSpecies: 'Canino',
+    petBreed: 'Golden Retriever',
+    petChip: 'ISO-11784-98214',
+    clientName: 'María García',
+    clientDoc: 'V-19.824.551',
+    clientPhone: '+58 (412) 345-6789',
+    clientEmail: 'maria.garcia@gmail.com',
+    clientAddress: 'Urb. Los Olivos, Calle 4, Maracay',
     paymentMethod: 'Pendiente de Pago',
     amount: 15000,
-    status: 'pending'
+    status: 'pending',
+    items: [
+      { code: 'CLI-008', description: 'Consulta Especializada Dermatología & Citología Cutánea', quantity: 1, unitPrice: 15000, discount: 0, subtotal: 15000 }
+    ]
   }
 ])
 
@@ -315,6 +389,11 @@ const openCheckout = (inv) => {
   showCheckoutModal.value = true
 }
 
+const viewInvoiceDetails = (inv) => {
+  selectedInvoiceForView.value = inv
+  showInvoiceViewer.value = true
+}
+
 const handleProcessPayment = () => {
   processingPayment.value = true
   setTimeout(() => {
@@ -330,21 +409,39 @@ const handleProcessPayment = () => {
   }, 1000)
 }
 
-const handlePrintInvoice = (inv) => {
-  if (typeof window !== 'undefined') window.print()
+const getReportHeadersAndRows = () => {
+  const headers = ['Nº Comprobante', 'Fecha', 'Concepto / Servicio', 'Paciente', 'Método de Pago', 'Importe ($)', 'Estado']
+  const rows = invoicesList.value.map(inv => [
+    inv.code,
+    inv.date,
+    inv.service,
+    inv.petName,
+    inv.paymentMethod,
+    `$${inv.amount.toLocaleString()}`,
+    inv.status === 'paid' ? 'Abonado' : 'Pendiente'
+  ])
+  return { headers, rows }
 }
 
-const handleExportExcel = () => {
-  const columns = [
-    { key: 'code', label: 'Nº Comprobante' },
-    { key: 'date', label: 'Fecha' },
-    { key: 'service', label: 'Concepto / Servicio' },
-    { key: 'petName', label: 'Paciente' },
-    { key: 'paymentMethod', label: 'Método de Pago' },
-    { key: 'amount', label: 'Importe ($)', formatter: (v) => `$${Number(v).toLocaleString()}` },
-    { key: 'status', label: 'Estado', formatter: (v) => v === 'paid' ? 'Abonado' : 'Pendiente' }
-  ]
-  exportToExcel(invoicesList.value, columns, 'Mis_Facturas_MedVet')
+const handleExportDocxReport = async () => {
+  const { headers, rows } = getReportHeadersAndRows()
+  await exportReportToDocx(
+    'Comprobantes y Facturación Tutor',
+    `Historial de pagos emitidos para María García - Total: $${totalSpent.value.toLocaleString()}`,
+    headers,
+    rows,
+    `Total Abonado: $${totalSpent.value.toLocaleString()} | Total Pendiente: $${pendingAmount.value.toLocaleString()}`
+  )
+}
+
+const handleExportExcelReport = () => {
+  const { headers, rows } = getReportHeadersAndRows()
+  exportReportToExcel('Facturas_MedVet', headers, rows)
+}
+
+const handleExportCsvReport = () => {
+  const { headers, rows } = getReportHeadersAndRows()
+  exportReportToCsv('Facturas_MedVet', headers, rows)
 }
 </script>
 

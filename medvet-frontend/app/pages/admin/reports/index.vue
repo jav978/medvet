@@ -18,9 +18,17 @@
       </div>
 
       <div class="reports-header-actions">
+        <button type="button" @click="handleExportActiveDocx" class="btn-ghost">
+          <span>📝</span>
+          <span>Word (.docx)</span>
+        </button>
         <button type="button" @click="handleExportActiveExcel" class="btn-ghost">
           <span>📊</span>
-          <span>Exportar a Excel (.csv)</span>
+          <span>Excel (.xlsx)</span>
+        </button>
+        <button type="button" @click="handleExportActiveCsv" class="btn-ghost">
+          <span>📑</span>
+          <span>CSV</span>
         </button>
         <button type="button" @click="openPrintModal" class="btn-primary">
           <span>🖨️</span>
@@ -155,6 +163,7 @@
               <th>IVA (21%)</th>
               <th>Total</th>
               <th>Estado</th>
+              <th>Acción</th>
             </tr>
           </thead>
           <tbody>
@@ -173,6 +182,11 @@
               <td class="font-mono-numbers text-ink-500">${{ Math.round(inv.amount - (inv.amount / 1.21)).toLocaleString() }}</td>
               <td class="font-mono-numbers font-bold text-mint">${{ inv.amount.toLocaleString() }}</td>
               <td><span class="badge-success">Emitida</span></td>
+              <td>
+                <button type="button" @click="handleOpenInvoice(inv)" class="btn-ghost btn-xs">
+                  📄 Factura
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -453,10 +467,23 @@
       </div>
     </div>
 
+    <!-- Invoice Viewer Modal -->
+    <InvoiceViewerModal
+      :is-open="showInvoiceViewer"
+      :invoice="selectedInvoice"
+      @close="showInvoiceViewer = false"
+    />
+
   </div>
 </template>
 
 <script setup>
+import {
+  exportReportToDocx,
+  exportReportToExcel,
+  exportReportToCsv
+} from '~/utils/exportEngine'
+
 definePageMeta({
   layout: 'admin',
   middleware: 'auth',
@@ -467,6 +494,8 @@ definePageMeta({
 const activeTab = ref('invoices')
 const selectedPeriod = ref('month')
 const showPrintModal = ref(false)
+const showInvoiceViewer = ref(false)
+const selectedInvoice = ref(null)
 
 const currentDateFormatted = computed(() => {
   const d = new Date()
@@ -475,14 +504,201 @@ const currentDateFormatted = computed(() => {
 
 // Mock Invoices Dataset
 const invoicesList = ref([
-  { code: 'FAC-B-0001-0004991', date: '14/08/2026', time: '08:45', tutor: 'Juan Pérez', pet: 'Thor', concept: 'Consulta Clínica General', method: 'Cashea (3 Cuotas)', amount: 15000 },
-  { code: 'FAC-B-0001-0004992', date: '14/08/2026', time: '09:30', tutor: 'Carla Morales', pet: 'Luna', concept: 'Vacunación Triple Felina', method: 'Tarjeta de Débito', amount: 17500 },
-  { code: 'FAC-B-0001-0004993', date: '14/08/2026', time: '10:20', tutor: 'Martín Rossi', pet: 'Rocky', concept: 'Ecografía Abdominal Completa', method: 'Transferencia CBU', amount: 28000 },
-  { code: 'FAC-B-0001-0004994', date: '14/08/2026', time: '11:15', tutor: 'Sofía Álvarez', pet: 'Simba', concept: 'Consulta Dermatológica + Medicación', method: 'MercadoPago / QR', amount: 26000 },
-  { code: 'FAC-B-0001-0004995', date: '14/08/2026', time: '12:00', tutor: 'Diego Fernández', pet: 'Coco', concept: 'Vacunación Antirrábica Obligatoria', method: 'Efectivo en Caja', amount: 12000 },
-  { code: 'FAC-B-0001-0004996', date: '14/08/2026', time: '12:45', tutor: 'Luciana Gómez', pet: 'Milo', concept: 'Perfil Bioquímico Completo & Sangre', method: 'Cashea (3 Cuotas)', amount: 32000 },
-  { code: 'FAC-B-0001-0004997', date: '13/08/2026', time: '15:10', tutor: 'Gonzalo Varela', pet: 'Baco', concept: 'Cirugía Limpieza Dental por Ultrasonido', method: 'Cashea (3 Cuotas)', amount: 45000 },
-  { code: 'FAC-B-0001-0004998', date: '13/08/2026', time: '16:40', tutor: 'Mariana Castro', pet: 'Kira', concept: 'Radiografía Digital de Tórax (2 vistas)', method: 'Tarjeta de Crédito', amount: 24000 }
+  {
+    code: 'FAC-B-0001-0004991',
+    date: '14/08/2026',
+    time: '08:45 hs',
+    tutor: 'Juan Pérez',
+    clientName: 'Juan Pérez',
+    clientDoc: 'V-14.921.800',
+    clientPhone: '+58 (414) 987-6543',
+    clientEmail: 'juan.perez@email.com',
+    clientAddress: 'Av. Bolívar, Res. Los Samanes, Maracay',
+    pet: 'Thor',
+    petName: 'Thor',
+    petSpecies: 'Canino',
+    petBreed: 'Golden Retriever',
+    petChip: 'ISO-11784-98214',
+    concept: 'Consulta Clínica General',
+    method: 'Cashea (3 Cuotas)',
+    paymentMethod: 'Cashea (3 Cuotas sin Interés)',
+    amount: 15000,
+    status: 'paid',
+    items: [
+      { code: 'MED-001', description: 'Consulta Médica General Canina', quantity: 1, unitPrice: 15000, discount: 0, subtotal: 15000 }
+    ]
+  },
+  {
+    code: 'FAC-B-0001-0004992',
+    date: '14/08/2026',
+    time: '09:30 hs',
+    tutor: 'Carla Morales',
+    clientName: 'Carla Morales',
+    clientDoc: 'V-18.441.992',
+    clientPhone: '+58 (412) 112-9844',
+    clientEmail: 'carla.m@email.com',
+    clientAddress: 'Calle Mariño, Edif. Centro, Caracas',
+    pet: 'Luna',
+    petName: 'Luna',
+    petSpecies: 'Felino',
+    petBreed: 'Siamés',
+    petChip: 'ISO-11784-66231',
+    concept: 'Vacunación Triple Felina',
+    method: 'Tarjeta de Débito',
+    paymentMethod: 'Tarjeta de Débito',
+    amount: 17500,
+    status: 'paid',
+    items: [
+      { code: 'VAC-002', description: 'Vacuna Triple Felina + Refuerzo Anual', quantity: 1, unitPrice: 14000, discount: 0, subtotal: 14000 },
+      { code: 'FAR-011', description: 'Aplicador Descartable y Control de Temperatura', quantity: 1, unitPrice: 3500, discount: 0, subtotal: 3500 }
+    ]
+  },
+  {
+    code: 'FAC-B-0001-0004993',
+    date: '14/08/2026',
+    time: '10:20 hs',
+    tutor: 'Martín Rossi',
+    clientName: 'Martín Rossi',
+    clientDoc: 'V-20.103.541',
+    clientPhone: '+58 (424) 334-9021',
+    clientEmail: 'martin.rossi@email.com',
+    clientAddress: 'Urb. La Soledad, Calle 2, Maracay',
+    pet: 'Rocky',
+    petName: 'Rocky',
+    petSpecies: 'Canino',
+    petBreed: 'Bulldog Francés',
+    petChip: 'ISO-11784-11928',
+    concept: 'Ecografía Abdominal Completa',
+    method: 'Transferencia CBU',
+    paymentMethod: 'Transferencia CBU',
+    amount: 28000,
+    status: 'paid',
+    items: [
+      { code: 'IMG-004', description: 'Ecografía Abdominal Multi-Frecuencia de Alta Resolución', quantity: 1, unitPrice: 28000, discount: 0, subtotal: 28000 }
+    ]
+  },
+  {
+    code: 'FAC-B-0001-0004994',
+    date: '14/08/2026',
+    time: '11:15 hs',
+    tutor: 'Sofía Álvarez',
+    clientName: 'Sofía Álvarez',
+    clientDoc: 'V-22.771.092',
+    clientPhone: '+58 (416) 445-1288',
+    clientEmail: 'sofia.a@email.com',
+    clientAddress: 'Av. Las Américas, Torre A, Maracay',
+    pet: 'Simba',
+    petName: 'Simba',
+    petSpecies: 'Felino',
+    petBreed: 'Persa',
+    petChip: 'ISO-11784-88412',
+    concept: 'Consulta Dermatológica + Medicación',
+    method: 'MercadoPago / QR',
+    paymentMethod: 'MercadoPago / QR',
+    amount: 26000,
+    status: 'paid',
+    items: [
+      { code: 'DERM-01', description: 'Evaluación Tricográfica y Raspado Cutáneo', quantity: 1, unitPrice: 16000, discount: 0, subtotal: 16000 },
+      { code: 'FAR-042', description: 'Tratamiento Tópico Antiséptico + Champú Medicado', quantity: 1, unitPrice: 10000, discount: 0, subtotal: 10000 }
+    ]
+  },
+  {
+    code: 'FAC-B-0001-0004995',
+    date: '14/08/2026',
+    time: '12:00 hs',
+    tutor: 'Diego Fernández',
+    clientName: 'Diego Fernández',
+    clientDoc: 'V-16.554.890',
+    clientPhone: '+58 (412) 667-8901',
+    clientEmail: 'diego.f@email.com',
+    clientAddress: 'El Castaño, Maracay',
+    pet: 'Coco',
+    petName: 'Coco',
+    petSpecies: 'Canino',
+    petBreed: 'Poodle',
+    petChip: 'ISO-11784-77192',
+    concept: 'Vacunación Antirrábica Obligatoria',
+    method: 'Efectivo en Caja',
+    paymentMethod: 'Efectivo en Caja',
+    amount: 12000,
+    status: 'paid',
+    items: [
+      { code: 'VAC-004', description: 'Vacuna Antirrábica Oficial Certificada', quantity: 1, unitPrice: 12000, discount: 0, subtotal: 12000 }
+    ]
+  },
+  {
+    code: 'FAC-B-0001-0004996',
+    date: '14/08/2026',
+    time: '12:45 hs',
+    tutor: 'Luciana Gómez',
+    clientName: 'Luciana Gómez',
+    clientDoc: 'V-17.992.341',
+    clientPhone: '+58 (414) 223-4567',
+    clientEmail: 'luciana.g@email.com',
+    clientAddress: 'Calicanto, Maracay',
+    pet: 'Milo',
+    petName: 'Milo',
+    petSpecies: 'Canino',
+    petBreed: 'Beagle',
+    petChip: 'ISO-11784-33418',
+    concept: 'Perfil Bioquímico Completo & Sangre',
+    method: 'Cashea (3 Cuotas)',
+    paymentMethod: 'Cashea (3 Cuotas sin Interés)',
+    amount: 32000,
+    status: 'paid',
+    items: [
+      { code: 'LAB-005', description: 'Perfil Metabólico & Panel de Enzimas Hepáticas', quantity: 1, unitPrice: 24000, discount: 0, subtotal: 24000 },
+      { code: 'LAB-001', description: 'Hemograma Completo Automatizado', quantity: 1, unitPrice: 8000, discount: 0, subtotal: 8000 }
+    ]
+  },
+  {
+    code: 'FAC-B-0001-0004997',
+    date: '13/08/2026',
+    time: '15:10 hs',
+    tutor: 'Gonzalo Varela',
+    clientName: 'Gonzalo Varela',
+    clientDoc: 'V-15.118.902',
+    clientPhone: '+58 (412) 889-1022',
+    clientEmail: 'gonzalo.v@email.com',
+    clientAddress: 'Turmero, Edo. Aragua',
+    pet: 'Baco',
+    petName: 'Baco',
+    petSpecies: 'Canino',
+    petBreed: 'Pastor Alemán',
+    petChip: 'ISO-11784-55102',
+    concept: 'Cirugía Limpieza Dental por Ultrasonido',
+    method: 'Cashea (3 Cuotas)',
+    paymentMethod: 'Cashea (3 Cuotas sin Interés)',
+    amount: 45000,
+    status: 'paid',
+    items: [
+      { code: 'CIR-012', description: 'Limpieza Dental Ultrasonido con Profilaxis y Pulido', quantity: 1, unitPrice: 45000, discount: 0, subtotal: 45000 }
+    ]
+  },
+  {
+    code: 'FAC-B-0001-0004998',
+    date: '13/08/2026',
+    time: '16:40 hs',
+    tutor: 'Mariana Castro',
+    clientName: 'Mariana Castro',
+    clientDoc: 'V-19.445.671',
+    clientPhone: '+58 (414) 776-9011',
+    clientEmail: 'mariana.c@email.com',
+    clientAddress: 'San Jacinto, Maracay',
+    pet: 'Kira',
+    petName: 'Kira',
+    petSpecies: 'Felino',
+    petBreed: 'Común Europeo',
+    petChip: 'ISO-11784-99812',
+    concept: 'Radiografía Digital de Tórax (2 vistas)',
+    method: 'Tarjeta de Crédito',
+    paymentMethod: 'Tarjeta de Crédito',
+    amount: 24000,
+    status: 'paid',
+    items: [
+      { code: 'RX-002', description: 'Estudio Radiológico Digital Tórax LL y VD', quantity: 1, unitPrice: 24000, discount: 0, subtotal: 24000 }
+    ]
+  }
 ])
 
 // Mock Patients Dataset
@@ -514,49 +730,56 @@ const totalElectronic = computed(() => {
 const dogCount = computed(() => patientsList.value.filter(p => p.species === 'Canino').length)
 const catCount = computed(() => patientsList.value.filter(p => p.species === 'Felino').length)
 
-// Export Helpers
-const handleExportActiveExcel = () => {
+const handleOpenInvoice = (inv) => {
+  selectedInvoice.value = inv
+  showInvoiceViewer.value = true
+}
+
+const getActiveReportDataset = () => {
   if (activeTab.value === 'invoices') {
-    const columns = [
-      { key: 'code', label: 'Nº Factura' },
-      { key: 'date', label: 'Fecha' },
-      { key: 'time', label: 'Hora' },
-      { key: 'tutor', label: 'Tutor' },
-      { key: 'pet', label: 'Paciente' },
-      { key: 'concept', label: 'Concepto / Servicio' },
-      { key: 'method', label: 'Medio de Pago' },
-      { key: 'amount', label: 'Importe ($)', formatter: (v) => `$${Number(v).toLocaleString()}` }
-    ]
-    exportToExcel(invoicesList.value, columns, 'Libro_Ventas_Facturacion_MedVet')
+    const title = 'Libro_Ventas_Facturacion_MedVet'
+    const subtitle = `Reporte Fiscal de Facturación y Ventas · Total: $${totalInvoiced.value.toLocaleString()} USD`
+    const headers = ['Nº Factura', 'Fecha', 'Hora', 'Tutor / Cliente', 'Paciente', 'Concepto', 'Medio de Cobro', 'Importe ($)']
+    const rows = invoicesList.value.map(i => [
+      i.code, i.date, i.time, i.tutor, i.pet, i.concept, i.method, `$${i.amount.toLocaleString()}`
+    ])
+    const summary = `Total Facturado: $${totalInvoiced.value.toLocaleString()} USD con ${invoicesList.value.length} facturas oficiales emitidas.`
+    return { title, subtitle, headers, rows, summary }
   } else if (activeTab.value === 'patients') {
-    const columns = [
-      { key: 'hc', label: 'Nº Historia Clínica' },
-      { key: 'date', label: 'Fecha' },
-      { key: 'time', label: 'Hora' },
-      { key: 'pet', label: 'Paciente' },
-      { key: 'species', label: 'Especie' },
-      { key: 'breed', label: 'Raza' },
-      { key: 'chip', label: 'Microchip ISO' },
-      { key: 'tutor', label: 'Tutor' },
-      { key: 'phone', label: 'Teléfono' },
-      { key: 'reason', label: 'Motivo' },
-      { key: 'diagnosis', label: 'Diagnóstico' },
-      { key: 'vet', label: 'Veterinario' }
-    ]
-    exportToExcel(patientsList.value, columns, 'Pacientes_Atendidos_MedVet')
+    const title = 'Registro_Pacientes_Atendidos_MedVet'
+    const subtitle = `Registro Clínico de Atenciones y Consultas Médicas · Total: ${patientsList.value.length} pacientes`
+    const headers = ['Nº HC', 'Fecha', 'Hora', 'Paciente', 'Especie', 'Raza', 'Microchip', 'Tutor', 'Teléfono', 'Diagnóstico', 'Veterinario']
+    const rows = patientsList.value.map(p => [
+      p.hc, p.date, p.time, p.pet, p.species, p.breed, p.chip, p.tutor, p.phone, p.diagnosis, p.vet
+    ])
+    const summary = `Total Pacientes: ${patientsList.value.length} (${dogCount.value} Caninos, ${catCount.value} Felinos).`
+    return { title, subtitle, headers, rows, summary }
   } else {
-    const columns = [
-      { key: 'code', label: 'Código Cashea' },
-      { key: 'date', label: 'Fecha' },
-      { key: 'tutor', label: 'Tutor' },
-      { key: 'pet', label: 'Paciente' },
-      { key: 'service', label: 'Servicio' },
-      { key: 'amount', label: 'Monto Total ($)', formatter: (v) => `$${Number(v).toLocaleString()}` },
-      { key: 'amount', label: 'Pago Inicial 40% ($)', formatter: (v) => `$${Math.round(Number(v) * 0.4).toLocaleString()}` },
-      { key: 'amount', label: 'Cuotas Quincenales ($)', formatter: (v) => `3 x $${Math.round((Number(v) * 0.6) / 3).toLocaleString()}` }
-    ]
-    exportToExcel(casheaList.value, columns, 'Financiamiento_Cashea_MedVet')
+    const title = 'Financiamiento_Cashea_MedVet'
+    const subtitle = `Informe de Operaciones en Cuotas Cashea (0% Interés) · Total: $${totalCashea.value.toLocaleString()} USD`
+    const headers = ['Código Cashea', 'Fecha', 'Tutor', 'Paciente', 'Servicio', 'Monto Total ($)', 'Inicial 40% ($)', '3 Cuotas ($)']
+    const rows = casheaList.value.map(c => [
+      c.code, c.date, c.tutor, c.pet, c.service, `$${c.amount.toLocaleString()}`, `$${Math.round(c.amount * 0.4).toLocaleString()}`, `3x $${Math.round((c.amount * 0.6) / 3).toLocaleString()}`
+    ])
+    const summary = `Total Financiado Cashea: $${totalCashea.value.toLocaleString()} USD.`
+    return { title, subtitle, headers, rows, summary }
   }
+}
+
+// Export Handlers
+const handleExportActiveDocx = async () => {
+  const { title, subtitle, headers, rows, summary } = getActiveReportDataset()
+  await exportReportToDocx(title, subtitle, headers, rows, summary)
+}
+
+const handleExportActiveExcel = () => {
+  const { title, headers, rows } = getActiveReportDataset()
+  exportReportToExcel(title, headers, rows)
+}
+
+const handleExportActiveCsv = () => {
+  const { title, headers, rows } = getActiveReportDataset()
+  exportReportToCsv(title, headers, rows)
 }
 
 const openPrintModal = () => {

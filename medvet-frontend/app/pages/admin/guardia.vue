@@ -145,9 +145,20 @@
                   <span class="ho-type-badge font-mono-numbers">{{ formatShiftType(ho.shift_type) }}</span>
                   <span class="ho-date font-mono-numbers">{{ formatDate(ho.shift_date) }}</span>
                 </div>
-                <button type="button" class="btn-print-sm" @click="printHandover(ho)">
-                  🖨️ Imprimir Parte
-                </button>
+                <div class="ho-export-actions">
+                  <button type="button" class="btn-print-sm" @click="exportHandoverWord(ho)" title="Descargar en Word">
+                    📝 Word
+                  </button>
+                  <button type="button" class="btn-print-sm" @click="exportHandoverExcel(ho)" title="Descargar en Excel">
+                    📊 Excel
+                  </button>
+                  <button type="button" class="btn-print-sm" @click="exportHandoverCsv(ho)" title="Descargar en CSV">
+                    📑 CSV
+                  </button>
+                  <button type="button" class="btn-print-sm" @click="printHandover(ho)" title="Imprimir Parte / PDF">
+                    🖨️ PDF
+                  </button>
+                </div>
               </div>
 
               <!-- Handover Counts -->
@@ -273,6 +284,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import {
+  exportReportToDocx,
+  exportReportToExcel,
+  exportReportToCsv
+} from '~/utils/exportEngine'
 
 const config = useRuntimeConfig()
 const apiBase = config.public.apiBase || 'http://localhost:3030'
@@ -418,6 +434,60 @@ function formatDate(dateStr?: string) {
 
 function printHandover(ho: any) {
   window.print()
+}
+
+async function exportHandoverWord(ho: any) {
+  const headers = ['Métrica / Campo', 'Detalle / Conteo']
+  const rows = [
+    ['Tipo de Turno', formatShiftType(ho.shift_type)],
+    ['Fecha', formatDate(ho.shift_date)],
+    ['Pacientes Hospitalizados', String(ho.admitted_patients_count || 0)],
+    ['Cirugías Realizadas', String(ho.surgeries_count || 0)],
+    ['Urgencias del Turno', String(ho.emergencies_count || 0)],
+    ['Altas Médicas Otorgadas', String(ho.discharges_count || 0)],
+    ['Alertas Críticas', ho.critical_patients_notes || 'Sin alertas críticas'],
+    ['Tareas Pendientes Relevo', ho.pending_tasks || 'Sin tareas pendientes'],
+    ['Resumen General', ho.shift_summary || 'Guardia completada sin novedades extraordinarias']
+  ]
+  await exportReportToDocx(
+    `Acta Entrega de Guardia - ${formatShiftType(ho.shift_type)}`,
+    `Fecha del Turno: ${formatDate(ho.shift_date)} · Guardia Activa MedVet 24/7`,
+    headers,
+    rows,
+    `Hospitalizados: ${ho.admitted_patients_count} | Cirugías: ${ho.surgeries_count} | Urgencias: ${ho.emergencies_count}`
+  )
+}
+
+function exportHandoverExcel(ho: any) {
+  const headers = ['Parámetro', 'Valor']
+  const rows = [
+    ['Tipo de Turno', formatShiftType(ho.shift_type)],
+    ['Fecha', formatDate(ho.shift_date)],
+    ['Hospitalizados', ho.admitted_patients_count || 0],
+    ['Cirugías', ho.surgeries_count || 0],
+    ['Urgencias', ho.emergencies_count || 0],
+    ['Altas', ho.discharges_count || 0],
+    ['Pacientes Críticos', ho.critical_patients_notes || '—'],
+    ['Tareas Pendientes', ho.pending_tasks || '—'],
+    ['Resumen', ho.shift_summary || '—']
+  ]
+  exportReportToExcel(`Guardia_${ho.shift_date}`, headers, rows)
+}
+
+function exportHandoverCsv(ho: any) {
+  const headers = ['Parámetro', 'Valor']
+  const rows = [
+    ['Tipo de Turno', formatShiftType(ho.shift_type)],
+    ['Fecha', formatDate(ho.shift_date)],
+    ['Hospitalizados', ho.admitted_patients_count || 0],
+    ['Cirugías', ho.surgeries_count || 0],
+    ['Urgencias', ho.emergencies_count || 0],
+    ['Altas', ho.discharges_count || 0],
+    ['Pacientes Críticos', ho.critical_patients_notes || '—'],
+    ['Tareas Pendientes', ho.pending_tasks || '—'],
+    ['Resumen', ho.shift_summary || '—']
+  ]
+  exportReportToCsv(`Guardia_${ho.shift_date}`, headers, rows)
 }
 </script>
 
