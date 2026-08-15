@@ -55,28 +55,6 @@
           <!-- BCV Official Exchange Rate & Currency Switcher Widget -->
           <BcvRateWidget />
 
-          <!-- Dark mode toggle -->
-          <ClientOnly>
-            <button
-              @click="toggleColorMode"
-              class="theme-toggle"
-              :title="colorMode.value === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
-              aria-label="Cambiar modo"
-            >
-              <span :class="['theme-toggle-thumb', colorMode.value === 'dark' ? 'theme-toggle-thumb--dark' : '']">
-                <svg v-if="colorMode.value === 'dark'" class="theme-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
-                <svg v-else class="theme-icon theme-icon--sun" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/></svg>
-              </span>
-            </button>
-            <template #fallback>
-              <div class="theme-toggle" style="opacity:0.6;">
-                <span class="theme-toggle-thumb theme-toggle-thumb--dark">
-                  <svg class="theme-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
-                </span>
-              </div>
-            </template>
-          </ClientOnly>
-
           <template v-if="authStore.isAuthenticated">
             <div class="user-chip" :title="authStore.user?.email">
               <span class="user-chip-avatar">🐾</span>
@@ -94,17 +72,6 @@
         <!-- Mobile controls -->
         <div class="mobile-controls">
           <BcvRateWidget />
-          <ClientOnly>
-            <button @click="toggleColorMode" class="mobile-icon-btn" aria-label="Modo oscuro">
-              <svg v-if="colorMode.value === 'dark'" class="mobile-theme-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
-              <svg v-else class="mobile-theme-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/></svg>
-            </button>
-            <template #fallback>
-              <button class="mobile-icon-btn" aria-label="Modo oscuro" style="opacity:0.6;">
-                <svg class="mobile-theme-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
-              </button>
-            </template>
-          </ClientOnly>
           <button
             @click="mobileMenuOpen = !mobileMenuOpen"
             class="mobile-icon-btn"
@@ -301,7 +268,6 @@
 </template>
 
 <script setup>
-const colorMode = useColorMode()
 const authStore = useAuthStore()
 const router = useRouter()
 const mobileMenuOpen = ref(false)
@@ -313,10 +279,6 @@ const { initCurrency } = useCurrency()
 onMounted(() => {
   initCurrency()
 })
-
-const toggleColorMode = () => {
-  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-}
 
 const handleLogout = async () => {
   await authStore.logout()
@@ -598,47 +560,6 @@ const handleLogout = async () => {
   padding: 0.5rem 1rem;
 }
 
-/* Theme toggle */
-.theme-toggle {
-  width: 3.5rem;
-  height: 1.875rem;
-  border-radius: 999px;
-  background: var(--color-cream-200);
-  border: 1.5px solid var(--color-cream-300);
-  cursor: pointer;
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding: 0.2rem;
-  transition: background 0.2s ease, border-color 0.2s ease;
-}
-
-:global(.dark) .theme-toggle {
-  background: rgba(16, 28, 22, 0.8);
-  border-color: rgba(0, 245, 155, 0.28);
-}
-
-.theme-toggle-thumb {
-  width: 1.375rem;
-  height: 1.375rem;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateX(0);
-  transition: transform 0.2s ease;
-}
-
-.theme-toggle-thumb--dark {
-  transform: translateX(1.6rem);
-  background: #00f59b;
-  box-shadow: 0 0 12px rgba(0, 245, 155, 0.8);
-}
-
-.theme-icon { width: 0.75rem; height: 0.75rem; color: #040706; }
-.theme-icon--sun { color: var(--color-amber-600); }
 
 /* Mobile controls */
 .mobile-controls {
