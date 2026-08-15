@@ -1,0 +1,6 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nuxtjs",
+  "buildCommand": "cd medvet-frontend && npm install && npm run build",
+  "outputDirectory": "medvet-frontend/.output/public"
+}

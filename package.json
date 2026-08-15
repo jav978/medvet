@@ -1,0 +1,7 @@
+{
+  "name": "medvet-root",
+  "private": true,
+  "scripts": {
+    "build": "cd medvet-frontend && npm install && npm run build"
+  }
+}
