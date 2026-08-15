@@ -56,8 +56,27 @@ app.configure(socketio({
   }
 }))
 
-// Health check middleware
+// Health check & DB setup middleware
 app.use(async (req: any, res: any, next: any) => {
+  if (req.path === '/api/setup-database') {
+    try {
+      const knexClient = app.get('knexClient')
+      if (!knexClient) throw new Error('Database client not initialized')
+      const { ensureDatabaseSchema } = await import('./knex')
+      await ensureDatabaseSchema(knexClient)
+      const tables = await knexClient('information_schema.tables')
+        .select('table_name')
+        .where('table_schema', 'public')
+      return res.json({
+        success: true,
+        message: 'Database schema ensured and verified',
+        tables: tables.map((t: any) => t.table_name)
+      })
+    } catch (err: any) {
+      return res.status(500).json({ success: false, error: err.message })
+    }
+  }
+
   if (req.path === '/' && req.method === 'GET') {
     let dbConnected = false
     let dbDetails = 'No database configured'
