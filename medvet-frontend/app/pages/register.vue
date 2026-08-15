@@ -192,8 +192,8 @@ const handleRegister = async () => {
       password: form.password
     })
     redirectUser()
-  } catch {
-    error.value = 'Error al registrar la cuenta. Intentalo nuevamente.'
+  } catch (err: any) {
+    error.value = err?.message || 'Error al registrar la cuenta. Intentalo nuevamente.'
   } finally {
     loading.value = false
   }

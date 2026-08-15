@@ -29,12 +29,20 @@ app.configure(configureKnex)
 app.configure(redis)
 
 // Set up libraries and middleware
-const allowedOrigins = process.env.FRONTEND_URL
-  ? [process.env.FRONTEND_URL, 'http://localhost:3000', 'http://localhost:3001']
-  : ['http://localhost:3000', 'http://localhost:3001', '*']
-
 app.use(cors({
-  origin: allowedOrigins,
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true)
+    // Allow localhost, vercel deployments, and custom frontends
+    if (
+      origin.includes('localhost') ||
+      origin.includes('vercel.app') ||
+      origin.includes('onrender.com') ||
+      (process.env.FRONTEND_URL && origin.startsWith(process.env.FRONTEND_URL))
+    ) {
+      return callback(null, true)
+    }
+    return callback(null, true)
+  },
   credentials: true
 }))
 app.use(json({ limit: '10mb' }))
@@ -43,18 +51,37 @@ app.use(serveStatic(app.get('public')))
 app.configure(rest())
 app.configure(socketio({
   cors: {
-    origin: allowedOrigins,
+    origin: '*',
     credentials: true
   }
 }))
 
 // Health check middleware
-app.use((req: any, res: any, next: any) => {
+app.use(async (req: any, res: any, next: any) => {
   if (req.path === '/' && req.method === 'GET') {
+    let dbConnected = false
+    let dbDetails = 'No database configured'
+    try {
+      const knexClient = app.get('knexClient')
+      if (knexClient) {
+        await knexClient.raw('SELECT 1')
+        dbConnected = true
+        dbDetails = 'PostgreSQL connected and operational'
+      }
+    } catch (err: any) {
+      dbConnected = false
+      dbDetails = err.message || 'Database connection failed'
+    }
+
     return res.json({
       status: 'ok',
       name: 'MedVet 24/7 API',
       version: '1.0.0',
+      database: {
+        connected: dbConnected,
+        configured: Boolean(process.env.DATABASE_URL || process.env.DB_HOST),
+        status: dbDetails
+      },
       timestamp: new Date().toISOString()
     })
   }
