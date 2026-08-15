@@ -45,15 +45,36 @@ const displayName = computed(() => {
   if (authStore.user?.name) return authStore.user.name
   if (authStore.user?.email) {
     const prefix = authStore.user.email.split('@')[0]
-    return prefix.charAt(0).toUpperCase() + prefix.slice(1)
+    const cleaned = prefix.replace(/[._-]+/g, ' ')
+    return cleaned
+      .split(' ')
+      .filter(Boolean)
+      .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+      .join(' ')
   }
   return 'Mi Cuenta'
 })
 
 const displayInitial = computed(() => {
-  if (authStore.user?.name) return authStore.user.name.charAt(0).toUpperCase()
-  if (authStore.user?.email) return authStore.user.email.charAt(0).toUpperCase()
-  return 'U'
+  const name = authStore.user?.name?.trim()
+  if (name) {
+    const parts = name.split(/\s+/).filter(Boolean)
+    if (parts.length >= 2 && parts[0] && parts[1]) {
+      return (parts[0][0] + parts[1][0]).toUpperCase()
+    }
+    if (name.length >= 2) {
+      return name.slice(0, 2).toUpperCase()
+    }
+    return name.charAt(0).toUpperCase()
+  }
+  if (authStore.user?.email) {
+    const prefix = authStore.user.email.split('@')[0].replace(/[^a-zA-Z0-9]/g, '')
+    if (prefix.length >= 2) {
+      return prefix.slice(0, 2).toUpperCase()
+    }
+    return authStore.user.email.charAt(0).toUpperCase()
+  }
+  return 'CL'
 })
 
 const roleLabel = computed(() => {
@@ -62,7 +83,7 @@ const roleLabel = computed(() => {
     case 'admin': return 'Administrador'
     case 'veterinarian': return 'Veterinario'
     case 'receptionist': return 'Recepción'
-    default: return 'Tutor / Cliente'
+    default: return 'Cliente'
   }
 })
 </script>
@@ -80,11 +101,12 @@ const roleLabel = computed(() => {
       title="Opciones de perfil y cuenta"
     >
       <div class="user-avatar-badge">
-        <span class="user-avatar-text">{{ displayInitial }}</span>
+        <img v-if="authStore.user?.avatar" :src="authStore.user.avatar" class="user-avatar-img" :alt="displayName" />
+        <span v-else class="user-avatar-text">{{ displayInitial }}</span>
         <span class="status-indicator"></span>
       </div>
       <div class="user-info-preview">
-        <span class="user-name-preview">{{ displayName }}</span>
+        <span class="user-name-preview" :title="displayName">{{ displayName }}</span>
         <span class="user-role-mini">{{ roleLabel }}</span>
       </div>
       <svg
@@ -107,7 +129,8 @@ const roleLabel = computed(() => {
         <!-- User Identity Header -->
         <div class="dropdown-user-header">
           <div class="header-avatar">
-            <span class="header-avatar-initial">{{ displayInitial }}</span>
+            <img v-if="authStore.user?.avatar" :src="authStore.user.avatar" class="header-avatar-img" :alt="displayName" />
+            <span v-else class="header-avatar-initial">{{ displayInitial }}</span>
           </div>
           <div class="header-text-info">
             <div class="header-name-row">
@@ -116,7 +139,7 @@ const roleLabel = computed(() => {
                 {{ roleLabel }}
               </span>
             </div>
-            <p class="header-user-email">{{ authStore.user?.email }}</p>
+            <p class="header-user-email">{{ authStore.user?.email || 'Sin correo registrado' }}</p>
           </div>
         </div>
 
@@ -292,8 +315,8 @@ const roleLabel = computed(() => {
 /* Avatar Badge */
 .user-avatar-badge {
   position: relative;
-  width: 2rem;
-  height: 2rem;
+  width: 2.125rem;
+  height: 2.125rem;
   border-radius: 50%;
   background: linear-gradient(135deg, #00a86b 0%, #00704a 100%);
   display: flex;
@@ -301,16 +324,25 @@ const roleLabel = computed(() => {
   justify-content: center;
   flex-shrink: 0;
   box-shadow: 0 2px 5px rgba(0, 168, 107, 0.25);
+  overflow: visible;
 }
 
 .dark .user-avatar-badge {
   background: linear-gradient(135deg, #00f59b 0%, #00a86b 100%);
 }
 
+.user-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .user-avatar-text {
   color: #ffffff;
-  font-size: 0.875rem;
-  font-weight: 700;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   line-height: 1;
 }
 
@@ -327,6 +359,7 @@ const roleLabel = computed(() => {
   border-radius: 50%;
   background: #10b981;
   border: 1.5px solid #ffffff;
+  z-index: 2;
 }
 
 .dark .status-indicator {
@@ -346,7 +379,7 @@ const roleLabel = computed(() => {
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--color-ink-900, #0f172a);
-  max-width: 120px;
+  max-width: 140px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -421,23 +454,31 @@ const roleLabel = computed(() => {
 }
 
 .header-avatar {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
   background: linear-gradient(135deg, #00a86b, #00704a);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
 .dark .header-avatar {
   background: linear-gradient(135deg, #00f59b, #00a86b);
 }
 
+.header-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .header-avatar-initial {
-  font-size: 1.125rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: #ffffff;
 }
 

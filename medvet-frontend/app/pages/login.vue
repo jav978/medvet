@@ -145,7 +145,7 @@ const handleGoogleLogin = async () => {
   googleLoading.value = true
   error.value = ''
   try {
-    await authStore.loginWithGoogle()
+    await authStore.loginWithGoogle(form.email)
     redirectUser()
   } catch {
     error.value = 'No se pudo completar el inicio con Google. Probá de nuevo.'

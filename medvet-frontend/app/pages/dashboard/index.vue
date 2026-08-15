@@ -273,7 +273,25 @@ const appointments = ref([])
 const pets = ref([])
 
 const userName = computed(() => {
-  return authStore.user?.name ? authStore.user.name.split(' ')[0] : 'Tutor'
+  const name = authStore.user?.name?.trim()
+  if (name) {
+    const firstName = name.split(/\s+/)[0]
+    if (firstName && firstName.toLowerCase() !== 'tutor') {
+      return firstName
+    }
+    if (name.split(/\s+/).length > 1) {
+      return name.split(/\s+/)[1]
+    }
+  }
+  if (authStore.user?.email) {
+    const prefix = authStore.user.email.split('@')[0]
+    const cleaned = prefix.replace(/[._-]+/g, ' ')
+    const firstWord = cleaned.split(' ').filter(Boolean)[0]
+    if (firstWord) {
+      return firstWord.charAt(0).toUpperCase() + firstWord.slice(1).toLowerCase()
+    }
+  }
+  return 'Bienvenido'
 })
 
 const defaultPets = [

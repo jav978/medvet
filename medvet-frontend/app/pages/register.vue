@@ -203,7 +203,7 @@ const handleGoogleRegister = async () => {
   googleLoading.value = true
   error.value = ''
   try {
-    await authStore.loginWithGoogle()
+    await authStore.loginWithGoogle(form.email, form.name)
     redirectUser()
   } catch {
     error.value = 'No se pudo completar el registro con Google. Probá de nuevo.'

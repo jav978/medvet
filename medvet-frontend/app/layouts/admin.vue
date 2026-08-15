@@ -55,10 +55,10 @@
         <div class="sidebar-footer">
           <div class="sidebar-user">
             <div class="sidebar-user-avatar">
-              {{ (authStore.user?.name || 'AD').slice(0, 2).toUpperCase() }}
+              {{ userInitials }}
             </div>
             <div class="sidebar-user-info">
-              <div class="sidebar-user-name">{{ authStore.user?.name || 'Administrador' }}</div>
+              <div class="sidebar-user-name">{{ adminDisplayName }}</div>
               <div class="sidebar-user-role">Cuerpo Médico / Admin</div>
             </div>
           </div>
@@ -87,7 +87,7 @@
         <div class="topbar-right">
           <BcvRateWidget />
           <ThemeToggle variant="icon" />
-          <span class="topbar-username font-semibold">{{ authStore.user?.name || 'Admin' }}</span>
+          <span class="topbar-username font-semibold">{{ adminDisplayName }}</span>
           <NuxtLink to="/" class="topbar-front-link">
             <span>🌐</span>
             <span>Ver Sitio Público</span>
@@ -112,6 +112,35 @@ const { initCurrency } = useCurrency()
 
 const sidebarOpen = ref(false)
 const currentTime = ref('')
+
+const adminDisplayName = computed(() => {
+  if (authStore.user?.name) return authStore.user.name
+  if (authStore.user?.email) {
+    const prefix = authStore.user.email.split('@')[0]
+    const cleaned = prefix.replace(/[._-]+/g, ' ')
+    return cleaned
+      .split(' ')
+      .filter(Boolean)
+      .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+      .join(' ')
+  }
+  return 'Administrador'
+})
+
+const userInitials = computed(() => {
+  const name = authStore.user?.name?.trim()
+  if (name) {
+    const parts = name.split(/\s+/).filter(Boolean)
+    if (parts.length >= 2 && parts[0] && parts[1]) {
+      return (parts[0][0] + parts[1][0]).toUpperCase()
+    }
+    return name.slice(0, 2).toUpperCase()
+  }
+  if (authStore.user?.email) {
+    return authStore.user.email.slice(0, 2).toUpperCase()
+  }
+  return 'AD'
+})
 
 const updateTime = () => {
   const now = new Date()
