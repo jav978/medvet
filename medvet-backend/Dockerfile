@@ -23,8 +23,10 @@ RUN npm ci --only=production
 COPY --from=builder /app/lib ./lib
 COPY --from=builder /app/config ./config
 COPY --from=builder /app/knexfile.ts ./knexfile.ts
-COPY --from=builder /app/public ./public
 COPY --from=builder /app/src/migrations ./src/migrations
+
+# Ensure public and uploads directories exist
+RUN mkdir -p /app/public/uploads
 
 EXPOSE 3030
 
