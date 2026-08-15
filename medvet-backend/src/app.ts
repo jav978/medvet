@@ -29,8 +29,12 @@ app.configure(configureKnex)
 app.configure(redis)
 
 // Set up libraries and middleware
+const allowedOrigins = process.env.FRONTEND_URL
+  ? [process.env.FRONTEND_URL, 'http://localhost:3000', 'http://localhost:3001']
+  : ['http://localhost:3000', 'http://localhost:3001', '*']
+
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  origin: allowedOrigins,
   credentials: true
 }))
 app.use(json({ limit: '10mb' }))
@@ -39,7 +43,7 @@ app.use(serveStatic(app.get('public')))
 app.configure(rest())
 app.configure(socketio({
   cors: {
-    origin: ['http://localhost:3000', 'http://localhost:3001'],
+    origin: allowedOrigins,
     credentials: true
   }
 }))
