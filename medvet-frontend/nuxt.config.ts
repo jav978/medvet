@@ -34,7 +34,7 @@ export default defineNuxtConfig({
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'description', content: 'Plataforma moderna de atención y reserva de citas veterinarias.' },
-        { name: 'color-scheme', content: 'light' }
+        { name: 'color-scheme', content: 'light dark' }
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

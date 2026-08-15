@@ -55,6 +55,9 @@
           <!-- BCV Official Exchange Rate & Currency Switcher Widget -->
           <BcvRateWidget />
 
+          <!-- Dark / Light mode toggle -->
+          <ThemeToggle variant="switch" />
+
           <template v-if="authStore.isAuthenticated">
             <div class="user-chip" :title="authStore.user?.email">
               <span class="user-chip-avatar">🐾</span>
@@ -72,6 +75,7 @@
         <!-- Mobile controls -->
         <div class="mobile-controls">
           <BcvRateWidget />
+          <ThemeToggle variant="icon" />
           <button
             @click="mobileMenuOpen = !mobileMenuOpen"
             class="mobile-icon-btn"
@@ -302,7 +306,7 @@ const handleLogout = async () => {
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-:global(.dark) .layout-root {
+.dark .layout-root {
   background-color: #040706;
   color: #e7f2f1;
 }
@@ -361,7 +365,7 @@ const handleLogout = async () => {
   transition: background 0.25s ease;
 }
 
-:global(.dark) .site-header {
+.dark .site-header {
   background: rgba(9, 13, 11, 0.92);
   border-bottom-color: rgba(0, 245, 155, 0.2);
 }
@@ -405,7 +409,7 @@ const handleLogout = async () => {
   height: 1.2rem;
 }
 
-:global(.dark) .brand-icon {
+.dark .brand-icon {
   background: #00f59b;
   color: #040706;
   box-shadow: 0 0 16px rgba(0, 245, 155, 0.4);
@@ -425,11 +429,11 @@ const handleLogout = async () => {
   color: var(--color-ink-900);
 }
 
-:global(.dark) .brand-name { color: #f1faf5; }
+.dark .brand-name { color: #f1faf5; }
 
 .brand-name-accent { color: #00a86b; }
 
-:global(.dark) .brand-name-accent { color: #00f59b; }
+.dark .brand-name-accent { color: #00f59b; }
 
 .brand-tagline {
   font-size: 0.6rem;
@@ -480,9 +484,9 @@ const handleLogout = async () => {
   background: var(--color-forest-100);
 }
 
-:global(.dark) .nav-link { color: #cbd5e1; }
+.dark .nav-link { color: #cbd5e1; }
 
-:global(.dark) .nav-link:hover {
+.dark .nav-link:hover {
   color: #00f59b;
   background: rgba(0, 245, 155, 0.12);
 }
@@ -493,7 +497,7 @@ const handleLogout = async () => {
   background: var(--color-forest-100) !important;
 }
 
-:global(.dark) .nav-link--active {
+.dark .nav-link--active {
   color: #00f59b !important;
   background: rgba(0, 245, 155, 0.14) !important;
 }
@@ -532,7 +536,7 @@ const handleLogout = async () => {
   max-width: 180px;
 }
 
-:global(.dark) .user-chip {
+.dark .user-chip {
   background: rgba(16, 28, 22, 0.6);
   border-color: rgba(0, 245, 155, 0.2);
 }
@@ -551,7 +555,7 @@ const handleLogout = async () => {
   white-space: nowrap;
 }
 
-:global(.dark) .user-chip-email {
+.dark .user-chip-email {
   color: #c8e0d4;
 }
 
@@ -597,7 +601,7 @@ const handleLogout = async () => {
 
 .mobile-icon-btn:hover { background: var(--color-cream-300); }
 
-:global(.dark) .mobile-icon-btn {
+.dark .mobile-icon-btn {
   background: rgba(16, 28, 22, 0.8);
   border: 1px solid rgba(0, 245, 155, 0.2);
   color: #00f59b;
@@ -611,7 +615,7 @@ const handleLogout = async () => {
   background: var(--color-cream-50);
 }
 
-:global(.dark) .mobile-menu {
+.dark .mobile-menu {
   border-top-color: rgba(0, 245, 155, 0.15);
   background: #060c09;
 }
@@ -641,9 +645,9 @@ const handleLogout = async () => {
   color: var(--color-forest-800);
 }
 
-:global(.dark) .mobile-nav-link { color: #cbd5e1; }
+.dark .mobile-nav-link { color: #cbd5e1; }
 
-:global(.dark) .mobile-nav-link:hover {
+.dark .mobile-nav-link:hover {
   background: rgba(0, 245, 155, 0.12);
   color: #00f59b;
 }
@@ -654,7 +658,7 @@ const handleLogout = async () => {
   margin: 0.5rem 0;
 }
 
-:global(.dark) .mobile-nav-divider { background: rgba(0, 245, 155, 0.15); }
+.dark .mobile-nav-divider { background: rgba(0, 245, 155, 0.15); }
 
 .mobile-logout {
   width: 100%;
@@ -704,7 +708,7 @@ const handleLogout = async () => {
   margin: 0;
 }
 
-:global(.dark) .site-footer {
+.dark .site-footer {
   background-color: #090d0b;
   color: #cbd5e1;
   border-top: 1px solid rgba(0, 245, 155, 0.18);
@@ -752,7 +756,7 @@ const handleLogout = async () => {
   border: 1px solid rgba(0, 168, 107, 0.25);
 }
 
-:global(.dark) .footer-brand-icon {
+.dark .footer-brand-icon {
   background: rgba(0, 245, 155, 0.15);
   border-color: rgba(0, 245, 155, 0.3);
 }
@@ -763,7 +767,7 @@ const handleLogout = async () => {
   fill: #00a86b;
 }
 
-:global(.dark) .footer-brand-icon svg {
+.dark .footer-brand-icon svg {
   fill: #00f59b;
 }
 
@@ -775,7 +779,7 @@ const handleLogout = async () => {
   letter-spacing: -0.02em;
 }
 
-:global(.dark) .footer-brand-name {
+.dark .footer-brand-name {
   color: #f8fafc;
 }
 
@@ -783,7 +787,7 @@ const handleLogout = async () => {
   color: #00a86b;
 }
 
-:global(.dark) .footer-brand-name span {
+.dark .footer-brand-name span {
   color: #00f59b;
 }
 
@@ -795,7 +799,7 @@ const handleLogout = async () => {
   color: var(--color-ink-500);
 }
 
-:global(.dark) .footer-brand-desc {
+.dark .footer-brand-desc {
   color: #cbd5e1;
 }
 
@@ -807,7 +811,7 @@ const handleLogout = async () => {
   color: var(--color-ink-500);
 }
 
-:global(.dark) .footer-open {
+.dark .footer-open {
   color: #94a3b8;
 }
 
@@ -820,7 +824,7 @@ const handleLogout = async () => {
   flex-shrink: 0;
 }
 
-:global(.dark) .footer-open-dot {
+.dark .footer-open-dot {
   background: #00f59b;
 }
 
@@ -835,7 +839,7 @@ const handleLogout = async () => {
   margin: 0 0 1rem;
 }
 
-:global(.dark) .footer-col-title {
+.dark .footer-col-title {
   color: #cbd5e1;
 }
 
@@ -859,11 +863,11 @@ const handleLogout = async () => {
   color: #00a86b;
 }
 
-:global(.dark) .footer-links li a {
+.dark .footer-links li a {
   color: #cbd5e1;
 }
 
-:global(.dark) .footer-links li a:hover {
+.dark .footer-links li a:hover {
   color: #00f59b;
 }
 
@@ -885,7 +889,7 @@ const handleLogout = async () => {
   color: var(--color-ink-600);
 }
 
-:global(.dark) .footer-contact li {
+.dark .footer-contact li {
   color: #cbd5e1;
 }
 
@@ -899,7 +903,7 @@ const handleLogout = async () => {
   color: #00a86b;
 }
 
-:global(.dark) .footer-contact li a:hover {
+.dark .footer-contact li a:hover {
   color: #00f59b;
 }
 
@@ -923,7 +927,7 @@ const handleLogout = async () => {
   color: #00a86b;
 }
 
-:global(.dark) .schedule-tag {
+.dark .schedule-tag {
   color: #00f59b;
 }
 
@@ -943,7 +947,7 @@ const handleLogout = async () => {
   color: var(--color-ink-500);
 }
 
-:global(.dark) .footer-bottom {
+.dark .footer-bottom {
   border-top: none;
   color: #64748b;
 }
@@ -960,7 +964,7 @@ const handleLogout = async () => {
   color: var(--color-ink-600);
 }
 
-:global(.dark) .footer-copy-text {
+.dark .footer-copy-text {
   color: #94a3b8;
 }
 
@@ -977,7 +981,7 @@ const handleLogout = async () => {
   font-weight: 500;
 }
 
-:global(.dark) .dev-tag-text {
+.dark .dev-tag-text {
   color: #64748b;
 }
 
@@ -993,11 +997,11 @@ const handleLogout = async () => {
   text-decoration: underline;
 }
 
-:global(.dark) .dev-author-link {
+.dark .dev-author-link {
   color: #00f59b;
 }
 
-:global(.dark) .dev-author-link:hover {
+.dark .dev-author-link:hover {
   color: #5effc4;
 }
 
@@ -1079,22 +1083,22 @@ const handleLogout = async () => {
   box-shadow: 0 4px 10px rgba(234, 67, 53, 0.35);
 }
 
-:global(.dark) .social-icon-circle.wa {
+.dark .social-icon-circle.wa {
   background: rgba(37, 211, 102, 0.18);
   border-color: rgba(37, 211, 102, 0.45);
 }
 
-:global(.dark) .social-icon-circle.ig {
+.dark .social-icon-circle.ig {
   background: rgba(225, 48, 108, 0.16);
   border-color: rgba(225, 48, 108, 0.35);
 }
 
-:global(.dark) .social-icon-circle.fb {
+.dark .social-icon-circle.fb {
   background: rgba(24, 119, 242, 0.16);
   border-color: rgba(24, 119, 242, 0.35);
 }
 
-:global(.dark) .social-icon-circle.ml {
+.dark .social-icon-circle.ml {
   background: rgba(234, 67, 53, 0.16);
   border-color: rgba(234, 67, 53, 0.35);
 }
@@ -1127,13 +1131,13 @@ const handleLogout = async () => {
   transform: translateY(-1px);
 }
 
-:global(.dark) .footer-modal-trigger-btn {
+.dark .footer-modal-trigger-btn {
   background: rgba(0, 245, 155, 0.08);
   border: 1px solid rgba(0, 245, 155, 0.3);
   color: #00f59b;
 }
 
-:global(.dark) .footer-modal-trigger-btn:hover {
+.dark .footer-modal-trigger-btn:hover {
   background: rgba(0, 245, 155, 0.16);
   border-color: rgba(0, 245, 155, 0.55);
   color: #5effc4;

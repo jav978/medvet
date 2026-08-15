@@ -552,7 +552,7 @@ const handleDownloadLab = (lab) => {
   overflow: hidden;
 }
 
-:global(.dark) .pet-record-page {
+.dark .pet-record-page {
   background-color: #040706;
 }
 
@@ -596,7 +596,7 @@ const handleDownloadLab = (lab) => {
   text-decoration: none;
 }
 
-:global(.dark) .back-link { color: #00f59b; }
+.dark .back-link { color: #00f59b; }
 
 .record-top-actions {
   display: flex;
@@ -615,7 +615,7 @@ const handleDownloadLab = (lab) => {
   box-shadow: 0 12px 36px -8px rgba(0, 80, 50, 0.08);
 }
 
-:global(.dark) .patient-master-card {
+.dark .patient-master-card {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.18);
   box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.7);
@@ -647,7 +647,7 @@ const handleDownloadLab = (lab) => {
   flex-shrink: 0;
 }
 
-:global(.dark) .patient-avatar-box {
+.dark .patient-avatar-box {
   background: rgba(16, 28, 22, 0.9);
   border: 1.5px solid rgba(0, 245, 155, 0.25);
 }
@@ -668,7 +668,7 @@ const handleDownloadLab = (lab) => {
   color: #007a4d;
 }
 
-:global(.dark) .species-badge {
+.dark .species-badge {
   background: rgba(0, 245, 155, 0.15);
   color: #00f59b;
 }
@@ -682,7 +682,7 @@ const handleDownloadLab = (lab) => {
   color: var(--color-ink-600);
 }
 
-:global(.dark) .health-chip { color: #d6e8de; }
+.dark .health-chip { color: #d6e8de; }
 
 .chip-pulse {
   width: 6px;
@@ -701,7 +701,7 @@ const handleDownloadLab = (lab) => {
   line-height: 1.1;
 }
 
-:global(.dark) .patient-name { color: #f1faf5; }
+.dark .patient-name { color: #f1faf5; }
 
 .patient-sub {
   font-size: 0.8125rem;
@@ -709,7 +709,7 @@ const handleDownloadLab = (lab) => {
   margin: 0.2rem 0 0;
 }
 
-:global(.dark) .patient-sub { color: #cbd5e1; }
+.dark .patient-sub { color: #cbd5e1; }
 
 .patient-qr-box {
   padding: 0.85rem 1.25rem;
@@ -719,7 +719,7 @@ const handleDownloadLab = (lab) => {
   text-align: right;
 }
 
-:global(.dark) .patient-qr-box {
+.dark .patient-qr-box {
   background: rgba(16, 28, 22, 0.7);
   border-color: rgba(0, 245, 155, 0.2);
 }
@@ -740,7 +740,7 @@ const handleDownloadLab = (lab) => {
   margin-top: 0.15rem;
 }
 
-:global(.dark) .qr-code { color: #00f59b; }
+.dark .qr-code { color: #00f59b; }
 
 /* Vitals Strip */
 .vitals-strip {
@@ -754,7 +754,7 @@ const handleDownloadLab = (lab) => {
 
 @media (max-width: 768px) { .vitals-strip { grid-template-columns: repeat(2, 1fr); } }
 
-:global(.dark) .vitals-strip { background: rgba(16, 28, 22, 0.6); }
+.dark .vitals-strip { background: rgba(16, 28, 22, 0.6); }
 
 .vital-block {
   display: flex;
@@ -764,7 +764,7 @@ const handleDownloadLab = (lab) => {
 
 .vb-icon { font-size: 1.4rem; }
 .vb-val { display: block; font-size: 1.125rem; font-weight: 800; color: var(--color-ink-900); }
-:global(.dark) .vb-val { color: #f1faf5; }
+.dark .vb-val { color: #f1faf5; }
 .vb-lbl { display: block; font-size: 0.68rem; color: var(--color-ink-400); font-family: var(--font-body); }
 
 /* Tabs */
@@ -800,15 +800,15 @@ const handleDownloadLab = (lab) => {
   color: #fff;
 }
 
-:global(.dark) .record-tab-btn {
+.dark .record-tab-btn {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.15);
   color: #d6e8de;
 }
 
-:global(.dark) .record-tab-btn:hover { border-color: #00f59b; color: #00f59b; }
+.dark .record-tab-btn:hover { border-color: #00f59b; color: #00f59b; }
 
-:global(.dark) .record-tab-btn--active {
+.dark .record-tab-btn--active {
   background: #00f59b;
   border-color: #00f59b;
   color: #040706;
@@ -822,7 +822,7 @@ const handleDownloadLab = (lab) => {
   background: rgba(0, 0, 0, 0.1);
 }
 
-:global(.dark) .record-tab-btn--active .tab-badge {
+.dark .record-tab-btn--active .tab-badge {
   background: rgba(0, 0, 0, 0.2);
 }
 
@@ -849,7 +849,7 @@ const handleDownloadLab = (lab) => {
   margin: 0;
 }
 
-:global(.dark) .tab-title { color: #f1faf5; }
+.dark .tab-title { color: #f1faf5; }
 
 .tab-sub {
   font-size: 0.8125rem;
@@ -857,7 +857,7 @@ const handleDownloadLab = (lab) => {
   margin: 0.2rem 0 0;
 }
 
-:global(.dark) .tab-sub { color: #cbd5e1; }
+.dark .tab-sub { color: #cbd5e1; }
 
 /* Timeline */
 .timeline-wrap {
@@ -888,7 +888,7 @@ const handleDownloadLab = (lab) => {
   flex-shrink: 0;
 }
 
-:global(.dark) .timeline-dot {
+.dark .timeline-dot {
   background: #00f59b;
   box-shadow: 0 0 12px rgba(0, 245, 155, 0.7);
 }
@@ -900,7 +900,7 @@ const handleDownloadLab = (lab) => {
   margin-top: 0.5rem;
 }
 
-:global(.dark) .timeline-line { background: rgba(0, 245, 155, 0.15); }
+.dark .timeline-line { background: rgba(0, 245, 155, 0.15); }
 
 .timeline-card {
   background: var(--color-cream-50);
@@ -913,7 +913,7 @@ const handleDownloadLab = (lab) => {
   box-shadow: 0 8px 24px -6px rgba(0, 80, 50, 0.05);
 }
 
-:global(.dark) .timeline-card {
+.dark .timeline-card {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.16);
 }
@@ -926,10 +926,10 @@ const handleDownloadLab = (lab) => {
   border-bottom: 1px solid var(--color-cream-200);
 }
 
-:global(.dark) .timeline-card-header { border-bottom-color: rgba(0, 245, 155, 0.12); }
+.dark .timeline-card-header { border-bottom-color: rgba(0, 245, 155, 0.12); }
 
 .ev-date { font-size: 0.75rem; font-weight: 700; color: #00a86b; }
-:global(.dark) .ev-date { color: #00f59b; }
+.dark .ev-date { color: #00f59b; }
 
 .ev-service {
   font-family: var(--font-display);
@@ -939,7 +939,7 @@ const handleDownloadLab = (lab) => {
   margin: 0.15rem 0 0;
 }
 
-:global(.dark) .ev-service { color: #f1faf5; }
+.dark .ev-service { color: #f1faf5; }
 
 .ev-type-badge {
   font-size: 0.65rem;
@@ -950,14 +950,14 @@ const handleDownloadLab = (lab) => {
   color: var(--color-ink-700);
 }
 
-:global(.dark) .ev-type-badge { background: rgba(16, 28, 22, 0.8); color: #cbd5e1; }
+.dark .ev-type-badge { background: rgba(16, 28, 22, 0.8); color: #cbd5e1; }
 
 .ev-body { display: flex; flex-direction: column; gap: 0.65rem; }
 .ev-sec-title { font-size: 0.72rem; font-weight: 700; color: var(--color-ink-400); text-transform: uppercase; }
 .ev-sec-text { font-size: 0.84rem; color: var(--color-ink-700); margin: 0.15rem 0 0; line-height: 1.45; }
-:global(.dark) .ev-sec-text { color: #d6e8de; }
+.dark .ev-sec-text { color: #d6e8de; }
 .ev-sec-text--diag { color: var(--color-ink-900); font-weight: 600; }
-:global(.dark) .ev-sec-text--diag { color: #f1faf5; }
+.dark .ev-sec-text--diag { color: #f1faf5; }
 
 .ev-footer {
   display: flex;
@@ -967,12 +967,12 @@ const handleDownloadLab = (lab) => {
   border-top: 1px dashed var(--color-cream-200);
 }
 
-:global(.dark) .ev-footer { border-top-color: rgba(0, 245, 155, 0.12); }
+.dark .ev-footer { border-top-color: rgba(0, 245, 155, 0.12); }
 
 .doc-badge { display: flex; align-items: center; gap: 0.5rem; }
 .doc-avatar { font-size: 1.25rem; }
 .doc-name { display: block; font-size: 0.78rem; font-weight: 700; color: var(--color-ink-900); }
-:global(.dark) .doc-name { color: #f1faf5; }
+.dark .doc-name { color: #f1faf5; }
 .doc-reg { display: block; font-size: 0.68rem; color: var(--color-ink-400); }
 
 .signed-badge {
@@ -981,7 +981,7 @@ const handleDownloadLab = (lab) => {
   color: #00a86b;
 }
 
-:global(.dark) .signed-badge { color: #00f59b; }
+.dark .signed-badge { color: #00f59b; }
 
 /* Vaccines Tab */
 .vaccines-grid {
@@ -1002,7 +1002,7 @@ const handleDownloadLab = (lab) => {
   gap: 0.75rem;
 }
 
-:global(.dark) .vac-card {
+.dark .vac-card {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.16);
 }
@@ -1018,7 +1018,7 @@ const handleDownloadLab = (lab) => {
 }
 
 .vac-status-pill--ok { background: rgba(0, 168, 107, 0.15); color: #007a4d; }
-:global(.dark) .vac-status-pill--ok { background: rgba(0, 245, 155, 0.15); color: #00f59b; }
+.dark .vac-status-pill--ok { background: rgba(0, 245, 155, 0.15); color: #00f59b; }
 .vac-status-pill--warn { background: rgba(255, 122, 0, 0.15); color: var(--color-joy-tangerine); }
 
 .vac-name {
@@ -1029,10 +1029,10 @@ const handleDownloadLab = (lab) => {
   margin: 0;
 }
 
-:global(.dark) .vac-name { color: #f1faf5; }
+.dark .vac-name { color: #f1faf5; }
 
 .vac-desc { font-size: 0.78rem; color: var(--color-ink-500); margin: 0; line-height: 1.4; }
-:global(.dark) .vac-desc { color: #cbd5e1; }
+.dark .vac-desc { color: #cbd5e1; }
 
 .vac-meta-box {
   background: var(--color-cream-100);
@@ -1044,12 +1044,12 @@ const handleDownloadLab = (lab) => {
   font-size: 0.72rem;
 }
 
-:global(.dark) .vac-meta-box { background: rgba(16, 28, 22, 0.6); }
+.dark .vac-meta-box { background: rgba(16, 28, 22, 0.6); }
 
 .vmb-row { display: flex; justify-content: space-between; color: var(--color-ink-600); }
-:global(.dark) .vmb-row { color: #d6e8de; }
+.dark .vmb-row { color: #d6e8de; }
 .vmb-due { color: #00a86b; font-weight: 700; }
-:global(.dark) .vmb-due { color: #00f59b; }
+.dark .vmb-due { color: #00f59b; }
 
 .vac-card-footer { font-size: 0.72rem; color: var(--color-ink-400); text-align: right; }
 
@@ -1070,7 +1070,7 @@ const handleDownloadLab = (lab) => {
   gap: 1.15rem;
 }
 
-:global(.dark) .rx-card {
+.dark .rx-card {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.16);
 }
@@ -1083,7 +1083,7 @@ const handleDownloadLab = (lab) => {
   border-bottom: 1px solid var(--color-cream-200);
 }
 
-:global(.dark) .rx-header { border-bottom-color: rgba(0, 245, 155, 0.12); }
+.dark .rx-header { border-bottom-color: rgba(0, 245, 155, 0.12); }
 
 .rx-brand { display: flex; align-items: center; gap: 0.75rem; }
 
@@ -1094,7 +1094,7 @@ const handleDownloadLab = (lab) => {
   color: #00a86b;
 }
 
-:global(.dark) .rx-symbol { color: #00f59b; }
+.dark .rx-symbol { color: #00f59b; }
 
 .rx-title {
   font-family: var(--font-display);
@@ -1104,7 +1104,7 @@ const handleDownloadLab = (lab) => {
   margin: 0;
 }
 
-:global(.dark) .rx-title { color: #f1faf5; }
+.dark .rx-title { color: #f1faf5; }
 .rx-date { font-size: 0.72rem; color: var(--color-ink-400); }
 
 .rx-drugs-list { display: flex; flex-direction: column; gap: 0.75rem; }
@@ -1118,14 +1118,14 @@ const handleDownloadLab = (lab) => {
   gap: 0.25rem;
 }
 
-:global(.dark) .drug-item { background: rgba(16, 28, 22, 0.6); }
+.dark .drug-item { background: rgba(16, 28, 22, 0.6); }
 
 .drug-name-row { display: flex; justify-content: space-between; align-items: baseline; }
 .drug-name { font-size: 0.875rem; color: var(--color-ink-900); }
-:global(.dark) .drug-name { color: #f1faf5; }
+.dark .drug-name { color: #f1faf5; }
 .drug-sub { font-size: 0.72rem; color: var(--color-ink-400); }
 .drug-posology { font-size: 0.78rem; color: var(--color-ink-700); }
-:global(.dark) .drug-posology { color: #d6e8de; }
+.dark .drug-posology { color: #d6e8de; }
 .drug-notes { font-size: 0.72rem; color: var(--color-ink-500); }
 
 .rx-footer {
@@ -1137,9 +1137,9 @@ const handleDownloadLab = (lab) => {
   font-size: 0.75rem;
 }
 
-:global(.dark) .rx-footer { border-top-color: rgba(0, 245, 155, 0.12); }
+.dark .rx-footer { border-top-color: rgba(0, 245, 155, 0.12); }
 .rx-valid-badge { color: #00a86b; font-weight: 600; font-size: 0.7rem; }
-:global(.dark) .rx-valid-badge { color: #00f59b; }
+.dark .rx-valid-badge { color: #00f59b; }
 
 /* Lab Tab */
 .lab-grid {
@@ -1160,7 +1160,7 @@ const handleDownloadLab = (lab) => {
   gap: 0.65rem;
 }
 
-:global(.dark) .lab-card {
+.dark .lab-card {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.16);
 }
@@ -1177,7 +1177,7 @@ const handleDownloadLab = (lab) => {
   color: #007a4d;
 }
 
-:global(.dark) .lab-status-badge {
+.dark .lab-status-badge {
   background: rgba(0, 245, 155, 0.15);
   color: #00f59b;
 }
@@ -1190,7 +1190,7 @@ const handleDownloadLab = (lab) => {
   margin: 0;
 }
 
-:global(.dark) .lab-title { color: #f1faf5; }
+.dark .lab-title { color: #f1faf5; }
 .lab-date { font-size: 0.72rem; color: var(--color-ink-400); margin: 0; }
 
 .lab-result-preview {
@@ -1202,7 +1202,7 @@ const handleDownloadLab = (lab) => {
   flex-grow: 1;
 }
 
-:global(.dark) .lab-result-preview { background: rgba(16, 28, 22, 0.6); color: #d6e8de; }
+.dark .lab-result-preview { background: rgba(16, 28, 22, 0.6); color: #d6e8de; }
 .lab-result-preview p { margin: 0.2rem 0 0; }
 
 .lab-dl-btn { justify-content: center; width: 100%; margin-top: 0.25rem; }
@@ -1230,7 +1230,7 @@ const handleDownloadLab = (lab) => {
   box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6);
 }
 
-:global(.dark) .modal-box {
+.dark .modal-box {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.25);
 }
@@ -1243,15 +1243,15 @@ const handleDownloadLab = (lab) => {
 }
 
 .modal-eyebrow { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: #00a86b; }
-:global(.dark) .modal-eyebrow { color: #00f59b; }
+.dark .modal-eyebrow { color: #00f59b; }
 .modal-title { font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--color-ink-900); margin: 0.2rem 0 0; }
-:global(.dark) .modal-title { color: #f1faf5; }
+.dark .modal-title { color: #f1faf5; }
 .modal-close-btn { background: transparent; border: none; font-size: 1.25rem; color: var(--color-ink-400); cursor: pointer; }
 
 .modal-form { display: flex; flex-direction: column; gap: 1rem; }
 .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
 .form-label { font-size: 0.78rem; font-weight: 600; color: var(--color-ink-700); }
-:global(.dark) .form-label { color: #d6e8de; }
+.dark .form-label { color: #d6e8de; }
 
 .form-input {
   padding: 0.65rem 0.85rem;
@@ -1264,7 +1264,7 @@ const handleDownloadLab = (lab) => {
   outline: none;
 }
 
-:global(.dark) .form-input {
+.dark .form-input {
   background: rgba(16, 28, 22, 0.7);
   border-color: rgba(0, 245, 155, 0.2);
   color: #f1faf5;

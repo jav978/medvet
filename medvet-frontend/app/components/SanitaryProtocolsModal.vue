@@ -187,7 +187,7 @@ defineEmits(['close'])
   overflow: hidden;
 }
 
-:global(.dark) .modal-card {
+.dark .modal-card {
   background: #0d171e;
   border-color: rgba(0, 245, 155, 0.15);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
@@ -202,7 +202,7 @@ defineEmits(['close'])
   border-bottom: 1px solid #f1f5f9;
 }
 
-:global(.dark) .modal-header {
+.dark .modal-header {
   border-bottom-color: rgba(255, 255, 255, 0.07);
 }
 
@@ -223,7 +223,7 @@ defineEmits(['close'])
   border-radius: 0.75rem;
 }
 
-:global(.dark) .header-icon-box {
+.dark .header-icon-box {
   background: rgba(59, 130, 246, 0.15);
   color: #60a5fa;
 }
@@ -235,7 +235,7 @@ defineEmits(['close'])
   margin: 0;
 }
 
-:global(.dark) .modal-title {
+.dark .modal-title {
   color: #f8fafc;
 }
 
@@ -248,7 +248,7 @@ defineEmits(['close'])
   border-radius: 9999px;
 }
 
-:global(.dark) .status-badge {
+.dark .status-badge {
   background: rgba(34, 197, 94, 0.15);
   color: #4ade80;
 }
@@ -259,7 +259,7 @@ defineEmits(['close'])
   margin: 0.125rem 0 0;
 }
 
-:global(.dark) .modal-subtitle {
+.dark .modal-subtitle {
   color: #94a3b8;
 }
 
@@ -275,7 +275,7 @@ defineEmits(['close'])
   color: #0f172a;
 }
 
-:global(.dark) .close-btn:hover {
+.dark .close-btn:hover {
   background: rgba(255, 255, 255, 0.08);
   color: #f8fafc;
 }
@@ -296,7 +296,7 @@ defineEmits(['close'])
   padding: 1.25rem;
 }
 
-:global(.dark) .protocol-hero-banner {
+.dark .protocol-hero-banner {
   background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.5) 100%);
   border-color: rgba(255, 255, 255, 0.1);
 }
@@ -322,7 +322,7 @@ defineEmits(['close'])
   border: 1px solid #a7f3d0;
 }
 
-:global(.dark) .pill-insai {
+.dark .pill-insai {
   background: rgba(0, 245, 155, 0.12);
   color: #00f59b;
   border-color: rgba(0, 245, 155, 0.25);
@@ -334,7 +334,7 @@ defineEmits(['close'])
   border: 1px solid #bfdbfe;
 }
 
-:global(.dark) .pill-covenin {
+.dark .pill-covenin {
   background: rgba(59, 130, 246, 0.12);
   color: #93c5fd;
   border-color: rgba(59, 130, 246, 0.25);
@@ -346,7 +346,7 @@ defineEmits(['close'])
   border: 1px solid #e9d5ff;
 }
 
-:global(.dark) .pill-iso {
+.dark .pill-iso {
   background: rgba(168, 85, 247, 0.12);
   color: #d8b4fe;
   border-color: rgba(168, 85, 247, 0.25);
@@ -359,7 +359,7 @@ defineEmits(['close'])
   margin: 0 0 0.375rem;
 }
 
-:global(.dark) .banner-title {
+.dark .banner-title {
   color: #f8fafc;
 }
 
@@ -370,7 +370,7 @@ defineEmits(['close'])
   margin: 0;
 }
 
-:global(.dark) .banner-desc {
+.dark .banner-desc {
   color: #cbd5e1;
 }
 
@@ -397,7 +397,7 @@ defineEmits(['close'])
   gap: 0.75rem;
 }
 
-:global(.dark) .pillar-card {
+.dark .pillar-card {
   background: rgba(255, 255, 255, 0.02);
   border-color: rgba(255, 255, 255, 0.07);
 }
@@ -417,7 +417,7 @@ defineEmits(['close'])
   border-radius: 0.375rem;
 }
 
-:global(.dark) .pillar-num {
+.dark .pillar-num {
   color: #00f59b;
   background: rgba(0, 245, 155, 0.1);
 }
@@ -429,7 +429,7 @@ defineEmits(['close'])
   margin: 0;
 }
 
-:global(.dark) .pillar-title {
+.dark .pillar-title {
   color: #f1f5f9;
 }
 
@@ -448,7 +448,7 @@ defineEmits(['close'])
   color: #475569;
 }
 
-:global(.dark) .pillar-list li {
+.dark .pillar-list li {
   color: #94a3b8;
 }
 
@@ -456,7 +456,7 @@ defineEmits(['close'])
   color: #0f172a;
 }
 
-:global(.dark) .pillar-list li strong {
+.dark .pillar-list li strong {
   color: #e2e8f0;
 }
 
@@ -471,7 +471,7 @@ defineEmits(['close'])
   border-radius: 0.875rem;
 }
 
-:global(.dark) .commitment-card {
+.dark .commitment-card {
   background: rgba(0, 245, 155, 0.05);
   border-color: rgba(0, 245, 155, 0.15);
 }
@@ -488,7 +488,7 @@ defineEmits(['close'])
   margin: 0 0 0.25rem;
 }
 
-:global(.dark) .commitment-title {
+.dark .commitment-title {
   color: #00f59b;
 }
 
@@ -499,7 +499,7 @@ defineEmits(['close'])
   margin: 0;
 }
 
-:global(.dark) .commitment-text {
+.dark .commitment-text {
   color: #cbd5e1;
 }
 
@@ -515,7 +515,7 @@ defineEmits(['close'])
   gap: 0.75rem;
 }
 
-:global(.dark) .modal-footer {
+.dark .modal-footer {
   background: rgba(255, 255, 255, 0.02);
   border-top-color: rgba(255, 255, 255, 0.07);
 }
@@ -554,13 +554,13 @@ defineEmits(['close'])
   color: #0f172a;
 }
 
-:global(.dark) .btn-close-action {
+.dark .btn-close-action {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.1);
   color: #cbd5e1;
 }
 
-:global(.dark) .btn-close-action:hover {
+.dark .btn-close-action:hover {
   background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
 }

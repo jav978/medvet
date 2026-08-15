@@ -86,6 +86,7 @@
         </div>
         <div class="topbar-right">
           <BcvRateWidget />
+          <ThemeToggle variant="icon" />
           <span class="topbar-username font-semibold">{{ authStore.user?.name || 'Admin' }}</span>
           <NuxtLink to="/" class="topbar-front-link">
             <span>🌐</span>

@@ -12,6 +12,12 @@
       "sourceType": "github",
       "skillPath": "skills/frontend-design/SKILL.md",
       "computedHash": "4eabc66183767153e404b39d1b839b1c37f2d82d86f0a0d7e880a579d8d62336"
+    },
+    "tailwindcss-responsive-darkmode": {
+      "source": "josiahsiegel/claude-plugin-marketplace",
+      "sourceType": "github",
+      "skillPath": "plugins/tailwindcss-master/skills/tailwindcss-responsive-darkmode/SKILL.md",
+      "computedHash": "f1314c098117940943199b4346181f26b18a6ffb101f087c455d4e3a01b77c9e"
     }
   }
 }

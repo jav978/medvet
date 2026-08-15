@@ -174,7 +174,7 @@ defineEmits(['close'])
   overflow: hidden;
 }
 
-:global(.dark) .modal-card {
+.dark .modal-card {
   background: #0d171e;
   border-color: rgba(0, 245, 155, 0.15);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
@@ -189,7 +189,7 @@ defineEmits(['close'])
   border-bottom: 1px solid #f1f5f9;
 }
 
-:global(.dark) .modal-header {
+.dark .modal-header {
   border-bottom-color: rgba(255, 255, 255, 0.07);
 }
 
@@ -210,7 +210,7 @@ defineEmits(['close'])
   border-radius: 0.75rem;
 }
 
-:global(.dark) .header-icon-box {
+.dark .header-icon-box {
   background: rgba(0, 245, 155, 0.12);
   color: #00f59b;
 }
@@ -222,7 +222,7 @@ defineEmits(['close'])
   margin: 0;
 }
 
-:global(.dark) .modal-title {
+.dark .modal-title {
   color: #f8fafc;
 }
 
@@ -235,7 +235,7 @@ defineEmits(['close'])
   border-radius: 9999px;
 }
 
-:global(.dark) .status-badge {
+.dark .status-badge {
   background: rgba(56, 189, 248, 0.15);
   color: #38bdf8;
 }
@@ -246,7 +246,7 @@ defineEmits(['close'])
   margin: 0.125rem 0 0;
 }
 
-:global(.dark) .modal-subtitle {
+.dark .modal-subtitle {
   color: #94a3b8;
 }
 
@@ -262,7 +262,7 @@ defineEmits(['close'])
   color: #0f172a;
 }
 
-:global(.dark) .close-btn:hover {
+.dark .close-btn:hover {
   background: rgba(255, 255, 255, 0.08);
   color: #f8fafc;
 }
@@ -283,7 +283,7 @@ defineEmits(['close'])
   padding: 1.25rem;
 }
 
-:global(.dark) .info-hero-banner {
+.dark .info-hero-banner {
   background: linear-gradient(135deg, rgba(0, 245, 155, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%);
   border-color: rgba(0, 245, 155, 0.2);
 }
@@ -295,7 +295,7 @@ defineEmits(['close'])
   margin: 0 0 0.375rem;
 }
 
-:global(.dark) .banner-title {
+.dark .banner-title {
   color: #00f59b;
 }
 
@@ -306,7 +306,7 @@ defineEmits(['close'])
   margin: 0;
 }
 
-:global(.dark) .banner-desc {
+.dark .banner-desc {
   color: #cbd5e1;
 }
 
@@ -332,7 +332,7 @@ defineEmits(['close'])
   border-radius: 0.875rem;
 }
 
-:global(.dark) .highlight-card {
+.dark .highlight-card {
   background: rgba(255, 255, 255, 0.03);
   border-color: rgba(255, 255, 255, 0.07);
 }
@@ -355,7 +355,7 @@ defineEmits(['close'])
   margin: 0 0 0.25rem;
 }
 
-:global(.dark) .card-title {
+.dark .card-title {
   color: #f1f5f9;
 }
 
@@ -366,7 +366,7 @@ defineEmits(['close'])
   margin: 0;
 }
 
-:global(.dark) .card-text {
+.dark .card-text {
   color: #94a3b8;
 }
 
@@ -387,7 +387,7 @@ defineEmits(['close'])
   letter-spacing: 0.05em;
 }
 
-:global(.dark) .section-heading {
+.dark .section-heading {
   color: #e2e8f0;
 }
 
@@ -398,7 +398,7 @@ defineEmits(['close'])
   border-radius: 9999px;
 }
 
-:global(.dark) .heading-pill {
+.dark .heading-pill {
   background: #00f59b;
 }
 
@@ -418,7 +418,7 @@ defineEmits(['close'])
   border: 1px solid #e2e8f0;
 }
 
-:global(.dark) .spec-tag {
+.dark .spec-tag {
   background: rgba(255, 255, 255, 0.05);
   color: #cbd5e1;
   border-color: rgba(255, 255, 255, 0.08);
@@ -443,7 +443,7 @@ defineEmits(['close'])
   border: 1px solid #e2e8f0;
 }
 
-:global(.dark) .schedule-card {
+.dark .schedule-card {
   background: rgba(255, 255, 255, 0.03);
   border-color: rgba(255, 255, 255, 0.07);
 }
@@ -456,7 +456,7 @@ defineEmits(['close'])
   margin-bottom: 0.25rem;
 }
 
-:global(.dark) .sch-title {
+.dark .sch-title {
   color: #f1f5f9;
 }
 
@@ -468,7 +468,7 @@ defineEmits(['close'])
   margin-bottom: 0.25rem;
 }
 
-:global(.dark) .sch-time {
+.dark .sch-time {
   color: #00f59b;
 }
 
@@ -478,7 +478,7 @@ defineEmits(['close'])
   margin: 0;
 }
 
-:global(.dark) .sch-desc {
+.dark .sch-desc {
   color: #94a3b8;
 }
 
@@ -494,7 +494,7 @@ defineEmits(['close'])
   gap: 0.75rem;
 }
 
-:global(.dark) .modal-footer {
+.dark .modal-footer {
   background: rgba(255, 255, 255, 0.02);
   border-top-color: rgba(255, 255, 255, 0.07);
 }
@@ -517,12 +517,12 @@ defineEmits(['close'])
   background: #047857;
 }
 
-:global(.dark) .btn-primary-action {
+.dark .btn-primary-action {
   background: #00f59b;
   color: #0d171e;
 }
 
-:global(.dark) .btn-primary-action:hover {
+.dark .btn-primary-action:hover {
   background: #00dc82;
 }
 
@@ -560,13 +560,13 @@ defineEmits(['close'])
   color: #0f172a;
 }
 
-:global(.dark) .btn-close-action {
+.dark .btn-close-action {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.1);
   color: #cbd5e1;
 }
 
-:global(.dark) .btn-close-action:hover {
+.dark .btn-close-action:hover {
   background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
 }

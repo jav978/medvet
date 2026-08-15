@@ -354,7 +354,7 @@ onMounted(async () => {
   overflow: hidden;
 }
 
-:global(.dark) .pets-page {
+.dark .pets-page {
   background-color: #040706;
 }
 
@@ -406,7 +406,7 @@ onMounted(async () => {
   color: #00a86b;
 }
 
-:global(.dark) .pets-eyebrow { color: #00f59b; }
+.dark .pets-eyebrow { color: #00f59b; }
 
 .pets-count-badge {
   display: inline-flex;
@@ -420,7 +420,7 @@ onMounted(async () => {
   color: #007a4d;
 }
 
-:global(.dark) .pets-count-badge {
+.dark .pets-count-badge {
   background: rgba(0, 245, 155, 0.12);
   color: #00f59b;
 }
@@ -442,7 +442,7 @@ onMounted(async () => {
   margin: 0 0 0.4rem;
 }
 
-:global(.dark) .pets-title { color: #f1faf5; }
+.dark .pets-title { color: #f1faf5; }
 
 .pets-subtitle {
   font-size: 0.9375rem;
@@ -451,7 +451,7 @@ onMounted(async () => {
   max-width: 600px;
 }
 
-:global(.dark) .pets-subtitle { color: #cbd5e1; }
+.dark .pets-subtitle { color: #cbd5e1; }
 
 .pets-add-btn {
   display: inline-flex;
@@ -501,15 +501,15 @@ onMounted(async () => {
   font-weight: 700;
 }
 
-:global(.dark) .spec-pill {
+.dark .spec-pill {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.15);
   color: #d6e8de;
 }
 
-:global(.dark) .spec-pill:hover { border-color: #00f59b; color: #00f59b; }
+.dark .spec-pill:hover { border-color: #00f59b; color: #00f59b; }
 
-:global(.dark) .spec-pill--active {
+.dark .spec-pill--active {
   background: #00f59b;
   border-color: #00f59b;
   color: #040706;
@@ -545,13 +545,13 @@ onMounted(async () => {
 
 .pets-search-input:focus { border-color: #00a86b; }
 
-:global(.dark) .pets-search-input {
+.dark .pets-search-input {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.2);
   color: #f1faf5;
 }
 
-:global(.dark) .pets-search-input:focus { border-color: #00f59b; }
+.dark .pets-search-input:focus { border-color: #00f59b; }
 
 /* Pets Grid */
 .pets-grid {
@@ -580,13 +580,13 @@ onMounted(async () => {
   border-color: #00a86b;
 }
 
-:global(.dark) .pet-master-card {
+.dark .pet-master-card {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.16);
   box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.7);
 }
 
-:global(.dark) .pet-master-card:hover {
+.dark .pet-master-card:hover {
   border-color: #00f59b;
   box-shadow: 0 12px 36px -8px rgba(0, 245, 155, 0.25);
 }
@@ -608,7 +608,7 @@ onMounted(async () => {
   font-size: 2rem;
 }
 
-:global(.dark) .pet-avatar-large {
+.dark .pet-avatar-large {
   background: rgba(16, 28, 22, 0.9);
   border: 1px solid rgba(0, 245, 155, 0.2);
 }
@@ -629,7 +629,7 @@ onMounted(async () => {
   color: #007a4d;
 }
 
-:global(.dark) .pet-species-tag {
+.dark .pet-species-tag {
   background: rgba(0, 245, 155, 0.15);
   color: #00f59b;
 }
@@ -642,7 +642,7 @@ onMounted(async () => {
   color: var(--color-ink-500);
 }
 
-:global(.dark) .pet-health-status { color: #cbd5e1; }
+.dark .pet-health-status { color: #cbd5e1; }
 
 .health-dot {
   width: 6px;
@@ -666,7 +666,7 @@ onMounted(async () => {
   margin: 0;
 }
 
-:global(.dark) .pet-card-name { color: #f1faf5; }
+.dark .pet-card-name { color: #f1faf5; }
 
 .pet-card-breed {
   font-size: 0.8125rem;
@@ -674,7 +674,7 @@ onMounted(async () => {
   margin: 0 0 0.5rem;
 }
 
-:global(.dark) .pet-card-breed { color: #cbd5e1; }
+.dark .pet-card-breed { color: #cbd5e1; }
 
 .pet-vitals-grid {
   display: grid;
@@ -685,14 +685,14 @@ onMounted(async () => {
   border-radius: 14px;
 }
 
-:global(.dark) .pet-vitals-grid { background: rgba(16, 28, 22, 0.6); }
+.dark .pet-vitals-grid { background: rgba(16, 28, 22, 0.6); }
 
 .vital-item { display: flex; flex-direction: column; gap: 0.1rem; }
 .vital-lbl { font-size: 0.65rem; text-transform: uppercase; color: var(--color-ink-400); font-weight: 600; }
 .vital-val { font-size: 0.8125rem; font-weight: 700; color: var(--color-ink-900); }
-:global(.dark) .vital-val { color: #f1faf5; }
+.dark .vital-val { color: #f1faf5; }
 .vital-val--chip { color: #00a86b; font-size: 0.72rem; }
-:global(.dark) .vital-val--chip { color: #00f59b; }
+.dark .vital-val--chip { color: #00f59b; }
 
 .pet-alert-box {
   display: flex;
@@ -715,7 +715,7 @@ onMounted(async () => {
   border-top: 1px solid var(--color-cream-200);
 }
 
-:global(.dark) .pet-card-footer { border-top-color: rgba(0, 245, 155, 0.12); }
+.dark .pet-card-footer { border-top-color: rgba(0, 245, 155, 0.12); }
 
 .pet-action-btn {
   width: 100%;
@@ -759,11 +759,11 @@ onMounted(async () => {
   transform: translateY(-3px);
 }
 
-:global(.dark) .add-pet-card-tile {
+.dark .add-pet-card-tile {
   border-color: rgba(0, 245, 155, 0.2);
 }
 
-:global(.dark) .add-pet-card-tile:hover {
+.dark .add-pet-card-tile:hover {
   border-color: #00f59b;
   background: rgba(0, 245, 155, 0.06);
 }
@@ -780,7 +780,7 @@ onMounted(async () => {
   font-size: 1.75rem;
 }
 
-:global(.dark) .add-tile-icon {
+.dark .add-tile-icon {
   background: rgba(0, 245, 155, 0.15);
   color: #00f59b;
 }
@@ -793,7 +793,7 @@ onMounted(async () => {
   margin: 0;
 }
 
-:global(.dark) .add-tile-title { color: #f1faf5; }
+.dark .add-tile-title { color: #f1faf5; }
 
 .add-tile-desc {
   font-size: 0.78rem;
@@ -809,7 +809,7 @@ onMounted(async () => {
   margin-top: 0.5rem;
 }
 
-:global(.dark) .add-tile-btn { color: #00f59b; }
+.dark .add-tile-btn { color: #00f59b; }
 
 /* Modal */
 .modal-backdrop {
@@ -834,7 +834,7 @@ onMounted(async () => {
   box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6);
 }
 
-:global(.dark) .modal-box {
+.dark .modal-box {
   background: #0a110e;
   border-color: rgba(0, 245, 155, 0.25);
 }
@@ -853,7 +853,7 @@ onMounted(async () => {
   color: #00a86b;
 }
 
-:global(.dark) .modal-eyebrow { color: #00f59b; }
+.dark .modal-eyebrow { color: #00f59b; }
 
 .modal-title {
   font-family: var(--font-display);
@@ -863,7 +863,7 @@ onMounted(async () => {
   margin: 0.2rem 0 0;
 }
 
-:global(.dark) .modal-title { color: #f1faf5; }
+.dark .modal-title { color: #f1faf5; }
 
 .modal-close-btn {
   background: transparent;
@@ -883,7 +883,7 @@ onMounted(async () => {
   color: var(--color-ink-700);
 }
 
-:global(.dark) .form-label { color: #d6e8de; }
+.dark .form-label { color: #d6e8de; }
 
 .form-input {
   padding: 0.65rem 0.85rem;
@@ -895,7 +895,7 @@ onMounted(async () => {
   outline: none;
 }
 
-:global(.dark) .form-input {
+.dark .form-input {
   background: rgba(16, 28, 22, 0.7);
   border-color: rgba(0, 245, 155, 0.2);
   color: #f1faf5;
@@ -931,13 +931,13 @@ onMounted(async () => {
   font-weight: 700;
 }
 
-:global(.dark) .spec-choice {
+.dark .spec-choice {
   background: rgba(16, 28, 22, 0.6);
   border-color: rgba(0, 245, 155, 0.15);
   color: #d6e8de;
 }
 
-:global(.dark) .spec-choice--active {
+.dark .spec-choice--active {
   background: #00f59b;
   border-color: #00f59b;
   color: #040706;

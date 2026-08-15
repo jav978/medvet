@@ -233,7 +233,7 @@ const formattedDate = computed(() => {
   border-radius: 0.65rem;
 }
 
-:global(.dark) .bcv-bar {
+.dark .bcv-bar {
   background: rgba(255, 255, 255, 0.04);
   border-color: rgba(255, 255, 255, 0.08);
 }
@@ -247,7 +247,7 @@ const formattedDate = computed(() => {
   padding: 2px;
 }
 
-:global(.dark) .currency-segmented-control {
+.dark .currency-segmented-control {
   background: rgba(0, 0, 0, 0.3);
 }
 
@@ -263,7 +263,7 @@ const formattedDate = computed(() => {
   transition: all 0.15s ease;
 }
 
-:global(.dark) .curr-btn {
+.dark .curr-btn {
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -273,7 +273,7 @@ const formattedDate = computed(() => {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-:global(.dark) .curr-btn.active {
+.dark .curr-btn.active {
   background: #00f59b;
   color: #032014;
   font-weight: 800;
@@ -295,7 +295,7 @@ const formattedDate = computed(() => {
   transition: all 0.2s ease;
 }
 
-:global(.dark) .bcv-pill-btn {
+.dark .bcv-pill-btn {
   background: rgba(0, 245, 155, 0.08);
   border-color: rgba(0, 245, 155, 0.25);
   color: #00f59b;
@@ -307,8 +307,8 @@ const formattedDate = computed(() => {
   border-color: #059669;
 }
 
-:global(.dark) .bcv-pill-btn:hover,
-:global(.dark) .bcv-pill-btn.is-open {
+.dark .bcv-pill-btn:hover,
+.dark .bcv-pill-btn.is-open {
   background: rgba(0, 245, 155, 0.16);
   border-color: #00f59b;
   box-shadow: 0 0 10px rgba(0, 245, 155, 0.2);
@@ -322,7 +322,7 @@ const formattedDate = computed(() => {
   display: inline-block;
 }
 
-:global(.dark) .live-dot {
+.dark .live-dot {
   background: #00f59b;
   box-shadow: 0 0 6px #00f59b;
 }
@@ -372,7 +372,7 @@ const formattedDate = computed(() => {
   gap: 0.9rem;
 }
 
-:global(.dark) .bcv-dropdown-card {
+.dark .bcv-dropdown-card {
   background: #0b1c15;
   border-color: rgba(0, 245, 155, 0.25);
   box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 245, 155, 0.1);
@@ -402,7 +402,7 @@ const formattedDate = computed(() => {
   color: var(--color-ink-900);
 }
 
-:global(.dark) .bcv-header-title {
+.dark .bcv-header-title {
   color: #f1f5f9;
 }
 
@@ -412,7 +412,7 @@ const formattedDate = computed(() => {
   color: var(--color-ink-500);
 }
 
-:global(.dark) .bcv-header-sub {
+.dark .bcv-header-sub {
   color: rgba(223, 240, 238, 0.6);
 }
 
@@ -431,7 +431,7 @@ const formattedDate = computed(() => {
   transition: all 0.15s ease;
 }
 
-:global(.dark) .bcv-refresh-btn {
+.dark .bcv-refresh-btn {
   color: #00f59b;
   background: rgba(0, 245, 155, 0.08);
   border-color: rgba(0, 245, 155, 0.25);
@@ -441,7 +441,7 @@ const formattedDate = computed(() => {
   background: rgba(0, 168, 107, 0.16);
 }
 
-:global(.dark) .bcv-refresh-btn:hover:not(:disabled) {
+.dark .bcv-refresh-btn:hover:not(:disabled) {
   background: rgba(0, 245, 155, 0.16);
 }
 
@@ -466,7 +466,7 @@ const formattedDate = computed(() => {
   gap: 0.35rem;
 }
 
-:global(.dark) .bcv-rate-display {
+.dark .bcv-rate-display {
   background: rgba(16, 28, 22, 0.85);
   border: 1px solid rgba(0, 245, 155, 0.2);
 }
@@ -477,7 +477,7 @@ const formattedDate = computed(() => {
   color: #047857;
 }
 
-:global(.dark) .rate-equation {
+.dark .rate-equation {
   color: #00f59b;
 }
 
@@ -490,7 +490,7 @@ const formattedDate = computed(() => {
   color: var(--color-ink-500);
 }
 
-:global(.dark) .rate-meta-row {
+.dark .rate-meta-row {
   color: #94a3b8;
 }
 
@@ -502,7 +502,7 @@ const formattedDate = computed(() => {
   font-weight: 700;
 }
 
-:global(.dark) .rate-status-badge {
+.dark .rate-status-badge {
   color: #00f59b;
 }
 
@@ -526,7 +526,7 @@ const formattedDate = computed(() => {
   color: var(--color-ink-700);
 }
 
-:global(.dark) .mode-label {
+.dark .mode-label {
   color: #cbd5e1;
 }
 
@@ -549,7 +549,7 @@ const formattedDate = computed(() => {
   transition: all 0.15s ease;
 }
 
-:global(.dark) .mode-choice-btn {
+.dark .mode-choice-btn {
   background: rgba(16, 28, 22, 0.7);
   border-color: rgba(0, 245, 155, 0.15);
 }
@@ -560,7 +560,7 @@ const formattedDate = computed(() => {
   color: var(--color-ink-800);
 }
 
-:global(.dark) .mode-choice-btn strong {
+.dark .mode-choice-btn strong {
   color: #f8fafc;
 }
 
@@ -570,7 +570,7 @@ const formattedDate = computed(() => {
   color: var(--color-ink-500);
 }
 
-:global(.dark) .mode-choice-btn small {
+.dark .mode-choice-btn small {
   color: #94a3b8;
 }
 
@@ -579,7 +579,7 @@ const formattedDate = computed(() => {
   border-color: #059669;
 }
 
-:global(.dark) .mode-choice-btn.selected {
+.dark .mode-choice-btn.selected {
   background: rgba(0, 245, 155, 0.12);
   border-color: #00f59b;
 }
@@ -599,7 +599,7 @@ const formattedDate = computed(() => {
   gap: 0.4rem;
 }
 
-:global(.dark) .bcv-calculator {
+.dark .bcv-calculator {
   background: rgba(16, 28, 22, 0.7);
   border-color: rgba(0, 245, 155, 0.18);
 }
@@ -610,7 +610,7 @@ const formattedDate = computed(() => {
   color: var(--color-ink-700);
 }
 
-:global(.dark) .calc-title {
+.dark .calc-title {
   color: #cbd5e1;
 }
 
@@ -633,7 +633,7 @@ const formattedDate = computed(() => {
   font-weight: 600;
 }
 
-:global(.dark) .calc-field label {
+.dark .calc-field label {
   color: #94a3b8;
 }
 
@@ -663,7 +663,7 @@ const formattedDate = computed(() => {
   color: var(--color-ink-900);
 }
 
-:global(.dark) .calc-input {
+.dark .calc-input {
   background: rgba(10, 17, 14, 0.9);
   border-color: rgba(0, 245, 155, 0.22);
   color: #f1faf5;
@@ -684,7 +684,7 @@ const formattedDate = computed(() => {
   line-height: 1.3;
 }
 
-:global(.dark) .bcv-card-footer {
+.dark .bcv-card-footer {
   color: #94a3b8;
 }
 
