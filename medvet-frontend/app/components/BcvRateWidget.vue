@@ -701,6 +701,17 @@ const formattedDate = computed(() => {
 }
 
 @media (max-width: 640px) {
+  .bcv-title-tag { display: none; }
+  .bcv-chevron { display: none; }
+  .bcv-pill-btn {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.6875rem;
+    gap: 0.25rem;
+  }
+  .curr-btn {
+    padding: 0.18rem 0.35rem;
+    font-size: 0.65rem;
+  }
   .bcv-dropdown-card {
     position: fixed;
     top: 60px;

@@ -644,11 +644,28 @@ const handleLogout = async () => {
 .header-inner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 clamp(1.25rem, 2.5vw, 2.5rem);
+  padding: 0 clamp(0.75rem, 2.5vw, 2.5rem);
   height: 72px;
   display: flex;
   align-items: center;
   gap: 1.25rem;
+}
+
+@media (max-width: 480px) {
+  .header-inner {
+    height: 62px;
+    gap: 0.5rem;
+  }
+  .brand-tagline {
+    display: none;
+  }
+  .brand-name {
+    font-size: 1.2rem;
+  }
+  .brand-icon {
+    width: 2.15rem;
+    height: 2.15rem;
+  }
 }
 
 /* Brand */
