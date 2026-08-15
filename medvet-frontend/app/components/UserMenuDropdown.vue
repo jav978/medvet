@@ -194,6 +194,24 @@ const roleLabel = computed(() => {
 
           <NuxtLink
             v-if="authStore.canAccessAdmin"
+            to="/admin/guardia"
+            class="dropdown-item"
+            @click="closeDropdown"
+            role="menuitem"
+          >
+            <div class="item-icon-wrap item-icon--tangerine">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
+              </svg>
+            </div>
+            <div class="item-content">
+              <span class="item-title">Guardia 24/7</span>
+              <span class="item-subtitle">Hospitalización y relevos</span>
+            </div>
+          </NuxtLink>
+
+          <NuxtLink
+            v-if="authStore.canAccessAdmin"
             to="/admin"
             class="dropdown-item"
             @click="closeDropdown"

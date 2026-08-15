@@ -232,11 +232,12 @@ const shiftTabs = [
 ]
 
 const moduleLinks = [
+  { to: '/admin/guardia', icon: '🚨', title: 'Guardia 24/7 & Relevo', desc: 'Hospitalización, urgencias y actas' },
   { to: '/admin/appointments', icon: '📅', title: 'Gestión de Citas', desc: 'Reprogramar y agenda mensual' },
   { to: '/admin/users', icon: '👥', title: 'Usuarios & Tutores', desc: 'Padrón de clientes y pacientes' },
   { to: '/admin/services', icon: '🩺', title: 'Servicios & Aranceles', desc: 'Tarifario y prestaciones médicas' },
   { to: '/admin/professionals', icon: '👨‍⚕️', title: 'Cuerpo Médico', desc: 'Veterinarios y especialistas' },
-  { to: '/admin/schedules', icon: '⏰', title: 'Horarios & Guardias', desc: 'Configuración de disponibilidad' }
+  { to: '/admin/schedules', icon: '⏰', title: 'Horarios & Disponibilidad', desc: 'Configuración de turnos' }
 ]
 
 const todayAppointments = reactive([

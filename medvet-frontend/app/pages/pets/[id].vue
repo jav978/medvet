@@ -4,18 +4,21 @@
 
     <div class="record-inner">
 
-      <!-- Breadcrumbs & Nav -->
+      <!-- Breadcrumbs & Top Nav -->
       <div class="record-top-nav">
         <NuxtLink to="/pets" class="back-link">
           ← Volver a Mis Mascotas
         </NuxtLink>
         <div class="record-top-actions">
-          <NuxtLink :to="`/dashboard/carnet?pet=${pet.id}`" class="btn-ghost btn-sm">
-            🪪 Carnet QR
+          <NuxtLink :to="`/carnet/${pet.id}`" target="_blank" class="btn-ghost btn-sm">
+            🪪 Carnet QR Digital
           </NuxtLink>
-          <NuxtLink :to="`/book?pet=${pet.id}`" class="btn-primary btn-sm">
-            ＋ Agendar Consulta
+          <NuxtLink :to="`/book?pet=${pet.id}`" class="btn-ghost btn-sm">
+            📅 Agendar Cita
           </NuxtLink>
+          <button type="button" @click="showAddRecordModal = true" class="btn-primary btn-sm">
+            🩺 Nueva Consulta EHR
+          </button>
         </div>
       </div>
 
@@ -29,13 +32,13 @@
             <div>
               <div class="patient-badges">
                 <span class="species-badge">{{ pet.species }}</span>
-                <span class="health-chip">
+                <span class="health-chip" :class="`health-chip--${latestStatus}`">
                   <span class="chip-pulse"></span>
-                  Estado Clínico Estable
+                  Estado: {{ formatStatus(latestStatus) }}
                 </span>
               </div>
               <h1 class="patient-name">{{ pet.name }}</h1>
-              <p class="patient-sub">{{ pet.breed }} · Tutor: {{ pet.tutorName }}</p>
+              <p class="patient-sub">{{ pet.breed || 'Mestizo' }} · Tutor: {{ pet.tutorName }}</p>
             </div>
           </div>
 
@@ -50,7 +53,7 @@
           <div class="vital-block">
             <span class="vb-icon">⚖️</span>
             <div>
-              <span class="vb-val">{{ pet.weight }} kg</span>
+              <span class="vb-val">{{ pet.weight || '—' }} kg</span>
               <span class="vb-lbl">Peso Actual</span>
             </div>
           </div>
@@ -58,7 +61,7 @@
           <div class="vital-block">
             <span class="vb-icon">🎂</span>
             <div>
-              <span class="vb-val">{{ pet.age }} años</span>
+              <span class="vb-val">{{ pet.age || '—' }} años</span>
               <span class="vb-lbl">Edad Registrada</span>
             </div>
           </div>
@@ -66,15 +69,15 @@
           <div class="vital-block">
             <span class="vb-icon">🌡️</span>
             <div>
-              <span class="vb-val">38.4 °C</span>
-              <span class="vb-lbl">Temperatura Media</span>
+              <span class="vb-val">{{ latestVitals.temperature ? `${latestVitals.temperature} °C` : '38.4 °C' }}</span>
+              <span class="vb-lbl">Temperatura</span>
             </div>
           </div>
 
           <div class="vital-block">
             <span class="vb-icon">💓</span>
             <div>
-              <span class="vb-val">96 lpm</span>
+              <span class="vb-val">{{ latestVitals.heart_rate ? `${latestVitals.heart_rate} lpm` : '96 lpm' }}</span>
               <span class="vb-lbl">Frecuencia Cardíaca</span>
             </div>
           </div>
@@ -92,7 +95,7 @@
         >
           <span>{{ tab.icon }}</span>
           <span>{{ tab.label }}</span>
-          <span v-if="tab.count" class="tab-badge font-mono-numbers">{{ tab.count }}</span>
+          <span v-if="tab.count !== undefined" class="tab-badge font-mono-numbers">{{ tab.count }}</span>
         </button>
       </div>
 
@@ -105,45 +108,70 @@
             <h2 class="tab-title">Evolución Cronológica & Consultas</h2>
             <p class="tab-sub">Registro detallado de atenciones, anamnesis y diagnósticos clínicos</p>
           </div>
-          <button @click="showAddNoteModal = true" class="btn-ghost btn-sm">
-            ＋ Añadir Evolución
+          <button @click="showAddRecordModal = true" class="btn-primary btn-sm">
+            ＋ Nueva Consulta
           </button>
         </div>
 
         <div class="timeline-wrap">
+          <div v-if="medicalRecordsList.length === 0" class="empty-tab-msg">
+            No hay consultas médicas registradas aún para este paciente.
+          </div>
+
           <div
-            v-for="(ev, idx) in clinicalEvolutions"
-            :key="idx"
+            v-for="(ev, idx) in medicalRecordsList"
+            :key="ev.id || idx"
             class="timeline-item"
           >
             <div class="timeline-dot-wrap">
               <div class="timeline-dot"></div>
-              <div class="timeline-line" v-if="idx < clinicalEvolutions.length - 1"></div>
+              <div class="timeline-line" v-if="idx < medicalRecordsList.length - 1"></div>
             </div>
 
             <div class="timeline-card">
               <div class="timeline-card-header">
                 <div>
-                  <span class="ev-date font-mono-numbers">📅 {{ ev.date }} — {{ ev.time }} hs</span>
-                  <h3 class="ev-service">{{ ev.service }}</h3>
+                  <span class="ev-date font-mono-numbers">📅 {{ formatDate(ev.created_at) }}</span>
+                  <h3 class="ev-service">{{ ev.reason_for_visit }}</h3>
                 </div>
-                <span class="ev-type-badge">{{ ev.type }}</span>
+                <span class="ev-type-badge">{{ ev.record_type }}</span>
+              </div>
+
+              <!-- Vitals strip inside consultation -->
+              <div class="ev-vitals-mini font-mono-numbers" v-if="ev.weight_kg || ev.temperature || ev.heart_rate">
+                <span v-if="ev.weight_kg">⚖️ {{ ev.weight_kg }} kg</span>
+                <span v-if="ev.temperature">🌡️ {{ ev.temperature }} °C</span>
+                <span v-if="ev.heart_rate">💓 {{ ev.heart_rate }} lpm</span>
+                <span v-if="ev.respiratory_rate">🫁 {{ ev.respiratory_rate }} rpm</span>
+                <span v-if="ev.mucous_membranes">👄 Mucosas: {{ ev.mucous_membranes }}</span>
               </div>
 
               <div class="ev-body">
-                <div class="ev-section">
+                <div class="ev-section" v-if="ev.anamnesis">
                   <span class="ev-sec-title">Anamnesis & Motivo:</span>
-                  <p class="ev-sec-text">{{ ev.symptoms }}</p>
+                  <p class="ev-sec-text">{{ ev.anamnesis }}</p>
                 </div>
 
-                <div class="ev-section">
-                  <span class="ev-sec-title">Examen Físico & Diagnóstico:</span>
-                  <p class="ev-sec-text ev-sec-text--diag">{{ ev.diagnosis }}</p>
+                <div class="ev-section" v-if="ev.physical_exam_findings">
+                  <span class="ev-sec-title">Examen Físico:</span>
+                  <p class="ev-sec-text">{{ ev.physical_exam_findings }}</p>
                 </div>
 
-                <div class="ev-section" v-if="ev.treatment">
-                  <span class="ev-sec-title">Indicación Terapéutica:</span>
-                  <p class="ev-sec-text">{{ ev.treatment }}</p>
+                <div class="ev-section" v-if="ev.definitive_diagnosis || ev.presumptive_diagnosis">
+                  <span class="ev-sec-title">Diagnóstico:</span>
+                  <p class="ev-sec-text ev-sec-text--diag">
+                    {{ ev.definitive_diagnosis || ev.presumptive_diagnosis }}
+                  </p>
+                </div>
+
+                <div class="ev-section" v-if="ev.treatment_plan">
+                  <span class="ev-sec-title">Plan Terapéutico:</span>
+                  <p class="ev-sec-text">{{ ev.treatment_plan }}</p>
+                </div>
+
+                <div class="ev-section" v-if="ev.medical_prescription">
+                  <span class="ev-sec-title">Receta / Indicaciones:</span>
+                  <pre class="ev-prescription-box font-mono-numbers">{{ ev.medical_prescription }}</pre>
                 </div>
               </div>
 
@@ -151,8 +179,8 @@
                 <div class="doc-badge">
                   <span class="doc-avatar">👨‍⚕️</span>
                   <div>
-                    <span class="doc-name">{{ ev.doctor }}</span>
-                    <span class="doc-reg font-mono-numbers">Matrícula Profesional Nº {{ ev.doctorReg }}</span>
+                    <span class="doc-name">{{ ev.professional_name || 'Dr. Carlos Rodríguez' }}</span>
+                    <span class="doc-reg font-mono-numbers">Médico Veterinario Tratante</span>
                   </div>
                 </div>
                 <span class="signed-badge">✔ Firma Digital Verificada</span>
@@ -163,7 +191,58 @@
       </div>
 
       <!-- ────────────────────────────────────────
-           TAB 2: VACUNAS & DESPARASITACIÓN
+           TAB 2: ESTUDIOS & PLACAS RAYOS X
+      ──────────────────────────────────────── -->
+      <div v-if="activeTab === 'estudios'" class="tab-content">
+        <div class="tab-content-header">
+          <div>
+            <h2 class="tab-title">Estudios por Imágenes & Laboratorio</h2>
+            <p class="tab-sub">Visor de placas de Rayos X, ecografías y hemogramas con herramientas médicas</p>
+          </div>
+          <button @click="openStudyViewer(0)" class="btn-primary btn-sm">
+            🩻 Abrir Visor Médico de Placas
+          </button>
+        </div>
+
+        <div v-if="clinicalStudiesList.length === 0" class="empty-tab-msg">
+          No hay estudios ni placas radiográficas adjuntas aún.
+        </div>
+
+        <div v-else class="studies-showcase-grid">
+          <div
+            v-for="(study, idx) in clinicalStudiesList"
+            :key="study.id || idx"
+            class="study-card-item"
+            @click="openStudyViewer(idx)"
+          >
+            <div class="study-thumb-box">
+              <img
+                v-if="isImage(study.file_url)"
+                :src="study.thumbnail_url || study.file_url"
+                :alt="study.title"
+                class="study-thumb-image"
+              />
+              <div v-else class="study-thumb-icon">
+                {{ getCategoryIcon(study.category) }}
+              </div>
+              <span class="study-category-badge">{{ study.category }}</span>
+            </div>
+
+            <div class="study-card-info">
+              <h3 class="study-item-title">{{ study.title }}</h3>
+              <span class="study-item-date font-mono-numbers">📅 {{ formatDate(study.study_date || study.created_at) }}</span>
+              <p class="study-item-findings" v-if="study.findings">{{ study.findings }}</p>
+            </div>
+
+            <div class="study-card-hover-action">
+              <span>🔍 Ver y Analizar</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ────────────────────────────────────────
+           TAB 3: VACUNAS & DESPARASITACIÓN
       ──────────────────────────────────────── -->
       <div v-if="activeTab === 'vacunas'" class="tab-content">
         <div class="tab-content-header">
@@ -171,462 +250,408 @@
             <h2 class="tab-title">Plan Integral de Vacunación</h2>
             <p class="tab-sub">Esquema oficial de inmunización certificado por MedVet</p>
           </div>
+          <button @click="showAddVaccineModal = true" class="btn-primary btn-sm">
+            💉 Registrar Vacuna
+          </button>
         </div>
 
-        <div class="vaccines-grid">
+        <div v-if="vaccinesList.length === 0" class="empty-tab-msg">
+          No hay vacunas registradas en el carnet sanitario.
+        </div>
+
+        <div v-else class="vaccines-grid">
           <div
             v-for="vac in vaccinesList"
-            :key="vac.name"
+            :key="vac.id || vac.vaccine_name"
             class="vac-card"
           >
             <div class="vac-card-top">
               <div class="vac-icon-wrap">💉</div>
-              <span :class="['vac-status-pill', vac.status === 'ok' ? 'vac-status-pill--ok' : 'vac-status-pill--warn']">
-                {{ vac.status === 'ok' ? 'Al Día' : 'Refuerzo Próximo' }}
+              <span :class="['vac-status-pill', isDue(vac.next_due_date) ? 'vac-status-pill--warn' : 'vac-status-pill--ok']">
+                {{ isDue(vac.next_due_date) ? 'Refuerzo Próximo' : 'Al Día' }}
               </span>
             </div>
 
-            <h3 class="vac-name">{{ vac.name }}</h3>
-            <p class="vac-desc">{{ vac.description }}</p>
+            <h3 class="vac-name">{{ vac.vaccine_name }}</h3>
+            <p class="vac-desc">{{ vac.type }} · {{ vac.manufacturer || 'Laboratorio Certificado' }}</p>
 
             <div class="vac-meta-box font-mono-numbers">
               <div class="vmb-row">
                 <span>Última aplicación:</span>
-                <strong>{{ vac.date }}</strong>
+                <strong>{{ formatDate(vac.applied_date) }}</strong>
               </div>
               <div class="vmb-row">
                 <span>Próximo refuerzo:</span>
-                <strong class="vmb-due">{{ vac.nextDue }}</strong>
+                <strong class="vmb-due">{{ formatDate(vac.next_due_date) }}</strong>
               </div>
-              <div class="vmb-row">
-                <span>Lote de vacuna:</span>
-                <span>{{ vac.lot }}</span>
+              <div class="vmb-row" v-if="vac.batch_number">
+                <span>Lote:</span>
+                <span>{{ vac.batch_number }}</span>
               </div>
             </div>
 
-            <div class="vac-card-footer">
-              <span class="vac-vet">{{ vac.doctor }}</span>
+            <div class="vac-card-footer" v-if="vac.notes">
+              <span class="vac-vet">{{ vac.notes }}</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- ────────────────────────────────────────
-           TAB 3: RECETAS FARMACOLÓGICAS
+           TAB 4: CIRUGÍAS & QUIRÓFANO
       ──────────────────────────────────────── -->
-      <div v-if="activeTab === 'recetas'" class="tab-content">
+      <div v-if="activeTab === 'cirugias'" class="tab-content">
         <div class="tab-content-header">
           <div>
-            <h2 class="tab-title">Recetas Farmacológicas Digitales</h2>
-            <p class="tab-sub">Prescripciones médicas activas e históricas con posología</p>
+            <h2 class="tab-title">Protocolos Quirúrgicos e Intervenciones</h2>
+            <p class="tab-sub">Registro de cirugías, técnica empleada, anestesia y postoperatorio</p>
           </div>
+          <button @click="showAddSurgeryModal = true" class="btn-primary btn-sm">
+            🔪 Registrar Cirugía
+          </button>
         </div>
 
-        <div class="prescriptions-list">
-          <div
-            v-for="rx in prescriptions"
-            :key="rx.id"
-            class="rx-card"
-          >
-            <div class="rx-header">
-              <div class="rx-brand">
-                <span class="rx-symbol">Rx</span>
-                <div>
-                  <h3 class="rx-title">Receta Médica Nº {{ rx.code }}</h3>
-                  <span class="rx-date font-mono-numbers">Fecha de Emisión: {{ rx.date }}</span>
-                </div>
-              </div>
-              <button @click="handlePrintRx(rx)" class="btn-ghost btn-xs">
-                🖨️ Imprimir Receta
-              </button>
-            </div>
-
-            <div class="rx-drugs-list">
-              <div
-                v-for="med in rx.medications"
-                :key="med.name"
-                class="drug-item"
-              >
-                <div class="drug-name-row">
-                  <strong class="drug-name">{{ med.name }}</strong>
-                  <span class="drug-sub">{{ med.activeIngredient }} ({{ med.concentration }})</span>
-                </div>
-                <div class="drug-posology">
-                  <strong>Posología:</strong> {{ med.dosage }} · Duración: {{ med.duration }}
-                </div>
-                <div class="drug-notes font-italic" v-if="med.instructions">
-                  Indicación: {{ med.instructions }}
-                </div>
-              </div>
-            </div>
-
-            <div class="rx-footer">
-              <div class="rx-doc-info">
-                <span>Prescrito por: <strong>{{ rx.doctor }}</strong> (Matrícula {{ rx.doctorReg }})</span>
-              </div>
-              <span class="rx-valid-badge">Válido en farmacias veterinarias de todo el país</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ────────────────────────────────────────
-           TAB 4: ESTUDIOS & LABORATORIO
-      ──────────────────────────────────────── -->
-      <div v-if="activeTab === 'estudios'" class="tab-content">
-        <div class="tab-content-header">
-          <div>
-            <h2 class="tab-title">Estudios Complementarios & Laboratorio</h2>
-            <p class="tab-sub">Resultados de sangre, ecografías, radiografías y biopsias</p>
-          </div>
+        <div v-if="surgeriesList.length === 0" class="empty-tab-msg">
+          No hay cirugías registradas para este paciente.
         </div>
 
-        <div class="lab-grid">
-          <div
-            v-for="lab in labStudies"
-            :key="lab.id"
-            class="lab-card"
-          >
-            <div class="lab-card-top">
-              <span class="lab-icon">{{ lab.icon }}</span>
-              <span class="lab-status-badge">Informe Aprobado</span>
+        <div v-else class="surgeries-full-list">
+          <div v-for="surg in surgeriesList" :key="surg.id" class="surgery-full-card">
+            <div class="surgery-full-header">
+              <div>
+                <span class="surgery-type-badge font-mono-numbers">{{ surg.surgery_type }}</span>
+                <h3 class="surgery-name">{{ surg.surgery_name }}</h3>
+                <span class="surgery-date font-mono-numbers">📅 {{ formatDate(surg.surgery_date) }}</span>
+              </div>
+              <span class="surg-status-chip font-mono-numbers" :class="`chip--${surg.status}`">
+                {{ surg.status }}
+              </span>
             </div>
 
-            <h3 class="lab-title">{{ lab.title }}</h3>
-            <p class="lab-date font-mono-numbers">Realizado el {{ lab.date }}</p>
+            <div class="surgery-sections-grid">
+              <div class="surg-block" v-if="surg.pre_op_evaluation">
+                <span class="surg-block-lbl">Evaluación Prequirúrgica & ASA:</span>
+                <p>{{ surg.pre_op_evaluation }}</p>
+              </div>
 
-            <div class="lab-result-preview">
-              <strong>Resultado clínico:</strong>
-              <p>{{ lab.summary }}</p>
+              <div class="surg-block" v-if="surg.anesthesia_protocol">
+                <span class="surg-block-lbl">Protocolo Anestésico:</span>
+                <p>{{ surg.anesthesia_protocol }}</p>
+              </div>
+
+              <div class="surg-block" v-if="surg.surgical_technique">
+                <span class="surg-block-lbl">Técnica Quirúrgica:</span>
+                <p>{{ surg.surgical_technique }}</p>
+              </div>
+
+              <div class="surg-block" v-if="surg.post_op_orders">
+                <span class="surg-block-lbl">Cuidados Postoperatorios:</span>
+                <p>{{ surg.post_op_orders }}</p>
+              </div>
             </div>
-
-            <button type="button" @click="handleDownloadLab(lab)" class="btn-ghost btn-sm lab-dl-btn">
-              📄 Descargar Informe PDF
-            </button>
           </div>
         </div>
       </div>
 
     </div>
 
-    <!-- Modal Añadir Nota Evolución -->
-    <div v-if="showAddNoteModal" class="modal-backdrop" @click.self="showAddNoteModal = false">
-      <div class="modal-box">
-        <div class="modal-header">
-          <div>
-            <span class="modal-eyebrow">Historia Clínica</span>
-            <h2 class="modal-title">Añadir Evolución Médica</h2>
-          </div>
-          <button @click="showAddNoteModal = false" class="modal-close-btn">✕</button>
-        </div>
+    <!-- Interactive Clinical Study Viewer Modal -->
+    <ClinicalStudyViewer
+      :is-open="isStudyViewerOpen"
+      :pet-id="pet.id"
+      :studies="clinicalStudiesList"
+      :initial-index="selectedStudyIndex"
+      @close="isStudyViewerOpen = false"
+      @study-added="onStudyAdded"
+      @study-deleted="onStudyDeleted"
+    />
 
-        <form @submit.prevent="handleAddEvolution" class="modal-form">
-          <div class="form-group">
-            <label class="form-label">Servicio / Tipo de Consulta</label>
-            <input v-model="newEvolution.service" type="text" placeholder="Ej. Control Post-Operatorio, Consulta Dermatológica" class="form-input" required />
-          </div>
+    <!-- New Medical Record Modal -->
+    <NewMedicalRecordModal
+      :is-open="showAddRecordModal"
+      :pet-id="pet.id"
+      :pet-name="pet.name"
+      @close="showAddRecordModal = false"
+      @record-saved="onRecordSaved"
+    />
 
-          <div class="form-group">
-            <label class="form-label">Motivo o Síntomas Reportados</label>
-            <textarea v-model="newEvolution.symptoms" class="form-input" rows="2" placeholder="Observaciones del tutor..." required></textarea>
-          </div>
+    <!-- New Vaccine Modal -->
+    <NewVaccinationModal
+      :is-open="showAddVaccineModal"
+      :pet-id="pet.id"
+      :pet-name="pet.name"
+      @close="showAddVaccineModal = false"
+      @vaccine-saved="onVaccineSaved"
+    />
 
-          <div class="form-group">
-            <label class="form-label">Diagnóstico & Examen Físico</label>
-            <textarea v-model="newEvolution.diagnosis" class="form-input" rows="2" placeholder="Hallazgos clínicos..." required></textarea>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Tratamiento e Indicaciones</label>
-            <textarea v-model="newEvolution.treatment" class="form-input" rows="2" placeholder="Fármacos o cuidados indicados..."></textarea>
-          </div>
-
-          <div class="modal-actions">
-            <button type="button" @click="showAddNoteModal = false" class="btn-ghost">Cancelar</button>
-            <button type="submit" class="btn-primary">✓ Asentar en Historia Clínica</button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <!-- New Surgery Modal -->
+    <NewSurgeryModal
+      :is-open="showAddSurgeryModal"
+      :pet-id="pet.id"
+      :pet-name="pet.name"
+      @close="showAddSurgeryModal = false"
+      @surgery-saved="onSurgerySaved"
+    />
 
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
+
 definePageMeta({
   middleware: 'auth',
   requiresAuth: true
 })
 
 const route = useRoute()
-const activeTab = ref('evolucion')
-const showAddNoteModal = ref(false)
+const config = useRuntimeConfig()
+const apiBase = config.public.apiBase || 'http://localhost:3030'
+const petId = String(route.params.id || '1')
 
-const recordTabs = [
-  { id: 'evolucion', label: 'Evolución & Consultas', icon: '📋', count: 3 },
-  { id: 'vacunas', label: 'Plan de Vacunación', icon: '💉', count: 4 },
-  { id: 'recetas', label: 'Recetas Digitales', icon: '💊', count: 2 },
-  { id: 'estudios', label: 'Estudios & Laboratorio', icon: '🔬', count: 2 }
-]
+const activeTab = ref('evolucion')
+
+// Modals State
+const isStudyViewerOpen = ref(false)
+const selectedStudyIndex = ref(0)
+const showAddRecordModal = ref(false)
+const showAddVaccineModal = ref(false)
+const showAddSurgeryModal = ref(false)
 
 const pet = ref({
-  id: route.params.id || '1',
-  name: 'Thor',
+  id: petId,
+  name: 'Max',
   species: 'Perro',
-  breed: 'Golden Retriever',
-  age: 4,
+  breed: 'Labrador Retriever',
+  age: 3,
   weight: 28.5,
   sex: 'M',
   chip: 'AR-98214-998',
-  tutorName: 'Juan Pérez'
+  tutorName: 'María García'
 })
 
-const clinicalEvolutions = ref([
-  {
-    date: '10/06/2026',
-    time: '11:15',
-    service: 'Perfil Bioquímico & Examen Rutinario',
-    type: 'Consulta de Control',
-    symptoms: 'Control preventivo anual solicitado por tutor. Paciente normotérmico y activo.',
-    diagnosis: 'Sin alteraciones a la palpación abdominal ni auscultación cardiopulmonar. Parámetros de laboratorio normales.',
-    treatment: 'Continuar con dieta balanceada y pipeta antiparasitaria mensual.',
-    doctor: 'Dr. Mateo Silva',
-    doctorReg: '4821'
-  },
-  {
-    date: '22/01/2026',
-    time: '16:30',
-    service: 'Consulta Dermatológica Especializada',
-    type: 'Urgencia Menor',
-    symptoms: 'Prurito intenso en zona lumbar y base de cola con alopecia focal.',
-    diagnosis: 'Dermatitis alérgica por picadura de pulga (DAPP) confirmada con examen tricológico.',
-    treatment: 'Apoyar con prednisolona 10mg por 5 días + baños con shampoo de clorhexidina.',
-    doctor: 'Dr. Mateo Silva',
-    doctorReg: '4821'
-  },
-  {
-    date: '15/09/2025',
-    time: '09:45',
-    service: 'Vacunación Séxtuple Canina Anual',
-    type: 'Inmunización',
-    symptoms: 'Asiste para refuerzo de calendario anual obligatorio.',
-    diagnosis: 'Paciente apto para vacunación sin signos de enfermedad infecciosa.',
-    treatment: 'Dosis aplicada sin incidencias. Próximo control en 12 meses.',
-    doctor: 'Dra. Camila Torres',
-    doctorReg: '5190'
-  }
+const medicalRecordsList = ref<any[]>([])
+const clinicalStudiesList = ref<any[]>([])
+const vaccinesList = ref<any[]>([])
+const surgeriesList = ref<any[]>([])
+
+const recordTabs = computed(() => [
+  { id: 'evolucion', label: 'Evolución & Consultas', icon: '📋', count: medicalRecordsList.value.length },
+  { id: 'estudios', label: 'Estudios & Placas RX', icon: '🩻', count: clinicalStudiesList.value.length },
+  { id: 'vacunas', label: 'Plan de Vacunación', icon: '💉', count: vaccinesList.value.length },
+  { id: 'cirugias', label: 'Cirugías & Quirófano', icon: '🔪', count: surgeriesList.value.length }
 ])
 
-const vaccinesList = [
-  {
-    name: 'Vacuna Séxtuple Canina (DHPPiL)',
-    description: 'Protección contra Parvovirus, Moquillo, Hepatitis, Adenovirus, Parainfluenza y Leptospira.',
-    date: '15/03/2026',
-    nextDue: '15/03/2027',
-    lot: 'LT-99214-A',
-    doctor: 'Dr. Mateo Silva',
-    status: 'ok'
-  },
-  {
-    name: 'Vacuna Antirrábica Obligatoria',
-    description: 'Inmunización contra virus rábico con certificado oficial y estampilla del colegio veterinario.',
-    date: '20/09/2025',
-    nextDue: '20/09/2026',
-    lot: 'LT-33010-B',
-    doctor: 'Dr. Mateo Silva',
-    status: 'warn'
-  },
-  {
-    name: 'Vacuna Giardia & Coronavirus',
-    description: 'Protección gastroentérica para perros con acceso frecuente a parques y paseos compartidos.',
-    date: '10/05/2026',
-    nextDue: '10/05/2027',
-    lot: 'LT-88120-C',
-    doctor: 'Dra. Camila Torres',
-    status: 'ok'
-  },
-  {
-    name: 'Traqueobronquitis Infecciosa (Tos de las Perreras)',
-    description: 'Vacuna intranasal contra Bordetella bronchiseptica.',
-    date: '02/02/2026',
-    nextDue: '02/02/2027',
-    lot: 'LT-55110-D',
-    doctor: 'Dr. Mateo Silva',
-    status: 'ok'
+const latestStatus = computed(() => {
+  if (medicalRecordsList.value.length > 0) {
+    return medicalRecordsList.value[0].patient_status || 'estable'
   }
-]
-
-const prescriptions = [
-  {
-    id: 'rx-1',
-    code: 'RX-2026-0482',
-    date: '22/01/2026',
-    doctor: 'Dr. Mateo Silva',
-    doctorReg: '4821',
-    medications: [
-      {
-        name: 'Apoquel / Oclacitinib',
-        activeIngredient: 'Oclacitinib Maleato',
-        concentration: '16 mg',
-        dosage: '1 comprimido cada 12 horas durante 5 días, luego 1 comprimido diario',
-        duration: '14 días',
-        instructions: 'Administrar con o sin alimento para control del prurito dermatológico.'
-      },
-      {
-        name: 'Shampoo Clorhexidina 3% con Aloe',
-        activeIngredient: 'Clorhexidina Digluconato',
-        concentration: '3%',
-        dosage: 'Baños cada 3 días dejando actuar la espuma 10 minutos',
-        duration: '3 semanas',
-        instructions: 'Enjuagar con abundante agua tibia.'
-      }
-    ]
-  }
-]
-
-const labStudies = [
-  {
-    id: 1,
-    icon: '🩸',
-    title: 'Hemograma Completo & Perfil Bioquímico',
-    date: '10/06/2026',
-    summary: 'Glóbulos rojos, blancos y plaquetas en rango óptimo. GPT/ALT y Creatinina normales.'
-  },
-  {
-    id: 2,
-    icon: '📸',
-    title: 'Ecografía Abdominal Completa',
-    date: '10/06/2026',
-    summary: 'Hígado, bazo y riñones sin lesiones focales ni alteraciones en la ecogenicidad.'
-  }
-]
-
-const newEvolution = reactive({
-  service: '',
-  symptoms: '',
-  diagnosis: '',
-  treatment: ''
+  return 'estable'
 })
 
-const getSpeciesEmoji = (species) => {
-  const s = (species || '').toLowerCase()
-  if (s.includes('perro')) return '🐶'
-  if (s.includes('gato')) return '🐱'
-  if (s.includes('ave')) return '🦜'
-  if (s.includes('conejo')) return '🐰'
+const latestVitals = computed(() => {
+  if (medicalRecordsList.value.length > 0) {
+    return medicalRecordsList.value[0]
+  }
+  return {}
+})
+
+onMounted(async () => {
+  await loadPetEhrData()
+})
+
+async function loadPetEhrData() {
+  try {
+    // 1. Fetch Pet info
+    const petRes = await $fetch<any>(`${apiBase}/pets/${petId}`).catch(() => null)
+    if (petRes) {
+      pet.value = {
+        id: petRes.id,
+        name: petRes.name,
+        species: petRes.species,
+        breed: petRes.breed || 'Mestizo',
+        age: petRes.age || 3,
+        weight: petRes.weight || 28.5,
+        sex: 'M',
+        chip: 'ISO-11784-' + String(petRes.id).slice(0, 8).toUpperCase(),
+        tutorName: 'Tutor MedVet'
+      }
+    }
+
+    // 2. Fetch Medical records
+    const recordsRes = await $fetch<any>(`${apiBase}/medical-records?pet_id=${petId}&$sort[created_at]=-1`).catch(() => [])
+    medicalRecordsList.value = recordsRes.data || recordsRes || []
+
+    // 3. Fetch Clinical attachments (X-rays, lab studies)
+    const attachmentsRes = await $fetch<any>(`${apiBase}/clinical-attachments?pet_id=${petId}&$sort[created_at]=-1`).catch(() => [])
+    clinicalStudiesList.value = attachmentsRes.data || attachmentsRes || []
+
+    // 4. Fetch Vaccinations
+    const vacsRes = await $fetch<any>(`${apiBase}/vaccinations?pet_id=${petId}&$sort[applied_date]=-1`).catch(() => [])
+    vaccinesList.value = vacsRes.data || vacsRes || []
+
+    // 5. Fetch Surgeries
+    const surgRes = await $fetch<any>(`${apiBase}/surgeries?pet_id=${petId}&$sort[surgery_date]=-1`).catch(() => [])
+    surgeriesList.value = surgRes.data || surgRes || []
+  } catch (err) {
+    console.error('Error loading EHR data:', err)
+  }
+}
+
+function openStudyViewer(index: number) {
+  selectedStudyIndex.value = index
+  isStudyViewerOpen.value = true
+}
+
+function onStudyAdded(study: any) {
+  clinicalStudiesList.value.unshift(study)
+}
+
+function onStudyDeleted(studyId: string) {
+  clinicalStudiesList.value = clinicalStudiesList.value.filter(s => s.id !== studyId)
+}
+
+function onRecordSaved(rec: any) {
+  medicalRecordsList.value.unshift(rec)
+  if (rec.weight_kg) pet.value.weight = rec.weight_kg
+}
+
+function onVaccineSaved(vac: any) {
+  vaccinesList.value.unshift(vac)
+}
+
+function onSurgerySaved(surg: any) {
+  surgeriesList.value.unshift(surg)
+}
+
+function getSpeciesEmoji(species?: string) {
+  if (!species) return '🐾'
+  const s = species.toLowerCase()
+  if (s.includes('perr') || s.includes('canin')) return '🐕'
+  if (s.includes('gat') || s.includes('felin')) return '🐈'
+  if (s.includes('ave') || s.includes('pajaro')) return '🦜'
   return '🐾'
 }
 
-const handleAddEvolution = () => {
-  const now = new Date()
-  clinicalEvolutions.value.unshift({
-    date: now.toLocaleDateString('es-AR'),
-    time: now.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }),
-    service: newEvolution.service,
-    type: 'Consulta Ambulatoria',
-    symptoms: newEvolution.symptoms,
-    diagnosis: newEvolution.diagnosis,
-    treatment: newEvolution.treatment,
-    doctor: 'Dr. Mateo Silva',
-    doctorReg: '4821'
-  })
-  showAddNoteModal.value = false
-  Object.assign(newEvolution, { service: '', symptoms: '', diagnosis: '', treatment: '' })
+function formatStatus(status?: string) {
+  switch (status) {
+    case 'estable': return 'Estable'
+    case 'observacion': return 'En Observación'
+    case 'critico': return 'Crítico'
+    case 'hospitalizado': return 'Hospitalizado'
+    case 'prequirurgico': return 'Prequirúrgico'
+    case 'postquirurgico': return 'Postquirúrgico'
+    case 'alta': return 'Alta Médica'
+    default: return 'Estable'
+  }
 }
 
-const handlePrintRx = (rx) => {
-  if (typeof window !== 'undefined') window.print()
+function formatDate(dateStr?: string) {
+  if (!dateStr) return '—'
+  const d = new Date(dateStr)
+  return d.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })
 }
 
-const handleDownloadLab = (lab) => {
-  alert(`Descargando informe oficial de ${lab.title}...`)
+function isDue(dateStr?: string) {
+  if (!dateStr) return false
+  return new Date(dateStr) < new Date()
+}
+
+function isImage(url?: string) {
+  if (!url) return false
+  return (
+    url.startsWith('data:image') ||
+    url.endsWith('.jpg') ||
+    url.endsWith('.jpeg') ||
+    url.endsWith('.png') ||
+    url.endsWith('.webp') ||
+    url.includes('images') ||
+    url.includes('unsplash')
+  )
+}
+
+function getCategoryIcon(cat?: string) {
+  switch (cat) {
+    case 'radiografia': return '🩻'
+    case 'ecografia': return '🔊'
+    case 'sangre': return '🩸'
+    case 'orina': return '🧪'
+    case 'biopsia': return '🔬'
+    default: return '📄'
+  }
 }
 </script>
 
 <style scoped>
 .pet-record-page {
+  min-height: 100vh;
+  background: #040907;
+  color: #f8fafc;
+  padding: 2rem 1.5rem 4rem;
   position: relative;
-  min-height: 85vh;
-  padding: 3rem 1.5rem 6rem;
-  background-color: var(--color-cream-100);
-  overflow: hidden;
-}
-
-.dark .pet-record-page {
-  background-color: #040706;
+  overflow-x: hidden;
 }
 
 .record-glow-ambient {
   position: absolute;
-  top: -140px;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 900px;
-  height: 420px;
-  background: radial-gradient(ellipse 800px 350px at 50% 0%, rgba(0, 245, 155, 0.16) 0%, rgba(0, 168, 107, 0.04) 50%, transparent 80%);
-  filter: blur(40px);
+  width: 1000px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.03) 50%, transparent 80%);
   pointer-events: none;
-  z-index: 0;
 }
 
 .record-inner {
-  position: relative;
-  z-index: 1;
-  max-width: 1440px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 clamp(1.25rem, 2.5vw, 2.5rem);
+  position: relative;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
 }
 
-/* Nav */
+/* Top Nav */
 .record-top-nav {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
+  justify-content: space-between;
 }
 
 .back-link {
-  font-size: 0.84rem;
-  font-weight: 700;
-  color: #00a86b;
+  color: #94a3b8;
   text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
 }
 
-.dark .back-link { color: #00f59b; }
+.back-link:hover {
+  color: #34d399;
+}
 
 .record-top-actions {
   display: flex;
-  gap: 0.65rem;
+  gap: 0.75rem;
 }
 
-/* Master Header Card */
+/* Master Card */
 .patient-master-card {
-  background: var(--color-cream-50);
-  border: 1px solid var(--color-cream-200);
-  border-radius: 24px;
+  background: #091310;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 1.5rem;
   padding: 1.75rem 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  box-shadow: 0 12px 36px -8px rgba(0, 80, 50, 0.08);
-}
-
-.dark .patient-master-card {
-  background: #0a110e;
-  border-color: rgba(0, 245, 155, 0.18);
-  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .patient-master-top {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 1.25rem;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .patient-id-block {
@@ -636,228 +661,209 @@ const handleDownloadLab = (lab) => {
 }
 
 .patient-avatar-box {
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: 20px;
-  background: var(--color-cream-200);
+  width: 80px;
+  height: 80px;
+  background: #050a08;
+  border: 2px solid rgba(16, 185, 129, 0.4);
+  border-radius: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
-  flex-shrink: 0;
 }
 
-.dark .patient-avatar-box {
-  background: rgba(16, 28, 22, 0.9);
-  border: 1.5px solid rgba(0, 245, 155, 0.25);
+.patient-avatar-emoji {
+  font-size: 2.75rem;
 }
 
 .patient-badges {
   display: flex;
-  align-items: center;
   gap: 0.5rem;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.35rem;
 }
 
 .species-badge {
-  font-size: 0.65rem;
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  font-size: 0.6875rem;
   font-weight: 700;
-  padding: 0.15rem 0.5rem;
-  border-radius: 6px;
-  background: rgba(0, 168, 107, 0.12);
-  color: #007a4d;
-}
-
-.dark .species-badge {
-  background: rgba(0, 245, 155, 0.15);
-  color: #00f59b;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
 }
 
 .health-chip {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
   font-weight: 600;
-  color: var(--color-ink-600);
 }
 
-.dark .health-chip { color: #d6e8de; }
+.health-chip--critico {
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.health-chip--observacion {
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.15);
+}
 
 .chip-pulse {
   width: 6px;
   height: 6px;
-  border-radius: 50%;
-  background: #00f59b;
-  box-shadow: 0 0 6px #00f59b;
+  border-radius: 9999px;
+  background: currentColor;
 }
 
 .patient-name {
-  font-family: var(--font-display);
   font-size: 2rem;
-  font-weight: 800;
-  color: var(--color-ink-900);
+  font-weight: 900;
+  color: #f0fdf4;
   margin: 0;
   line-height: 1.1;
 }
 
-.dark .patient-name { color: #f1faf5; }
-
 .patient-sub {
-  font-size: 0.8125rem;
-  color: var(--color-ink-500);
+  font-size: 0.875rem;
+  color: #94a3b8;
   margin: 0.2rem 0 0;
 }
 
-.dark .patient-sub { color: #cbd5e1; }
-
 .patient-qr-box {
-  padding: 0.85rem 1.25rem;
-  border-radius: 16px;
-  background: var(--color-cream-100);
-  border: 1px dashed var(--color-cream-300);
+  background: #050a08;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 0.625rem 1rem;
   text-align: right;
-}
-
-.dark .patient-qr-box {
-  background: rgba(16, 28, 22, 0.7);
-  border-color: rgba(0, 245, 155, 0.2);
 }
 
 .qr-lbl {
   display: block;
-  font-size: 0.62rem;
+  font-size: 0.625rem;
+  color: #64748b;
   font-weight: 700;
-  color: var(--color-ink-400);
-  letter-spacing: 0.08em;
 }
 
 .qr-code {
-  display: block;
-  font-size: 0.9375rem;
-  font-weight: 800;
-  color: #00a86b;
-  margin-top: 0.15rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #34d399;
 }
 
-.dark .qr-code { color: #00f59b; }
-
-/* Vitals Strip */
 .vitals-strip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  padding: 1.15rem 1.5rem;
-  background: var(--color-cream-100);
-  border-radius: 16px;
+  background: #060c09;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
 }
-
-@media (max-width: 768px) { .vitals-strip { grid-template-columns: repeat(2, 1fr); } }
-
-.dark .vitals-strip { background: rgba(16, 28, 22, 0.6); }
 
 .vital-block {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.875rem;
 }
 
-.vb-icon { font-size: 1.4rem; }
-.vb-val { display: block; font-size: 1.125rem; font-weight: 800; color: var(--color-ink-900); }
-.dark .vb-val { color: #f1faf5; }
-.vb-lbl { display: block; font-size: 0.68rem; color: var(--color-ink-400); font-family: var(--font-body); }
+.vb-icon {
+  font-size: 1.5rem;
+}
+
+.vb-val {
+  display: block;
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.vb-lbl {
+  font-size: 0.6875rem;
+  color: #94a3b8;
+}
 
 /* Tabs */
 .record-tabs {
   display: flex;
-  gap: 0.65rem;
+  gap: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.5rem;
   overflow-x: auto;
-  padding-bottom: 0.25rem;
 }
 
 .record-tab-btn {
-  display: inline-flex;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.625rem 1rem;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 14px;
-  border: 1.5px solid var(--color-cream-300);
-  background: var(--color-cream-50);
-  font-family: var(--font-body);
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: var(--color-ink-700);
-  cursor: pointer;
+  transition: all 0.2s ease;
   white-space: nowrap;
-  transition: all 0.18s ease;
 }
 
-.record-tab-btn:hover { border-color: #00a86b; color: #007a4d; }
+.record-tab-btn:hover {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.03);
+}
 
 .record-tab-btn--active {
-  background: #00a86b;
-  border-color: #00a86b;
-  color: #fff;
-}
-
-.dark .record-tab-btn {
-  background: #0a110e;
-  border-color: rgba(0, 245, 155, 0.15);
-  color: #d6e8de;
-}
-
-.dark .record-tab-btn:hover { border-color: #00f59b; color: #00f59b; }
-
-.dark .record-tab-btn--active {
-  background: #00f59b;
-  border-color: #00f59b;
-  color: #040706;
-  box-shadow: 0 0 16px rgba(0, 245, 155, 0.4);
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .tab-badge {
-  font-size: 0.68rem;
-  padding: 0.1rem 0.4rem;
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.15rem 0.45rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
 }
 
-.dark .record-tab-btn--active .tab-badge {
-  background: rgba(0, 0, 0, 0.2);
-}
-
-/* Tab Contents */
+/* Tab Content */
 .tab-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  background: #091310;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  padding: 1.75rem;
 }
 
 .tab-content-header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .tab-title {
-  font-family: var(--font-display);
   font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color-ink-900);
+  font-weight: 800;
+  color: #f0fdf4;
   margin: 0;
 }
 
-.dark .tab-title { color: #f1faf5; }
-
 .tab-sub {
   font-size: 0.8125rem;
-  color: var(--color-ink-500);
+  color: #94a3b8;
   margin: 0.2rem 0 0;
 }
 
-.dark .tab-sub { color: #cbd5e1; }
+.empty-tab-msg {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #64748b;
+  font-size: 0.875rem;
+}
 
 /* Timeline */
 .timeline-wrap {
@@ -867,9 +873,8 @@ const handleDownloadLab = (lab) => {
 }
 
 .timeline-item {
-  display: grid;
-  grid-template-columns: 24px 1fr;
-  gap: 1.25rem;
+  display: flex;
+  gap: 1.5rem;
 }
 
 .timeline-dot-wrap {
@@ -879,396 +884,444 @@ const handleDownloadLab = (lab) => {
 }
 
 .timeline-dot {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  background: #00a86b;
-  box-shadow: 0 0 10px rgba(0, 168, 107, 0.5);
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
   margin-top: 0.5rem;
-  flex-shrink: 0;
-}
-
-.dark .timeline-dot {
-  background: #00f59b;
-  box-shadow: 0 0 12px rgba(0, 245, 155, 0.7);
 }
 
 .timeline-line {
   width: 2px;
-  flex-grow: 1;
-  background: var(--color-cream-300);
+  flex: 1;
+  background: rgba(16, 185, 129, 0.2);
   margin-top: 0.5rem;
 }
 
-.dark .timeline-line { background: rgba(0, 245, 155, 0.15); }
-
 .timeline-card {
-  background: var(--color-cream-50);
-  border: 1px solid var(--color-cream-200);
-  border-radius: 20px;
+  flex: 1;
+  background: #060c09;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1rem;
   padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  box-shadow: 0 8px 24px -6px rgba(0, 80, 50, 0.05);
-}
-
-.dark .timeline-card {
-  background: #0a110e;
-  border-color: rgba(0, 245, 155, 0.16);
 }
 
 .timeline-card-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--color-cream-200);
+  align-items: center;
+  margin-bottom: 0.75rem;
 }
 
-.dark .timeline-card-header { border-bottom-color: rgba(0, 245, 155, 0.12); }
-
-.ev-date { font-size: 0.75rem; font-weight: 700; color: #00a86b; }
-.dark .ev-date { color: #00f59b; }
+.ev-date {
+  font-size: 0.75rem;
+  color: #64748b;
+}
 
 .ev-service {
-  font-family: var(--font-display);
-  font-size: 1.0625rem;
-  font-weight: 700;
-  color: var(--color-ink-900);
-  margin: 0.15rem 0 0;
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin: 0.2rem 0 0;
 }
-
-.dark .ev-service { color: #f1faf5; }
 
 .ev-type-badge {
-  font-size: 0.65rem;
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  font-size: 0.6875rem;
   font-weight: 700;
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-  background: var(--color-cream-200);
-  color: var(--color-ink-700);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  text-transform: uppercase;
 }
 
-.dark .ev-type-badge { background: rgba(16, 28, 22, 0.8); color: #cbd5e1; }
-
-.ev-body { display: flex; flex-direction: column; gap: 0.65rem; }
-.ev-sec-title { font-size: 0.72rem; font-weight: 700; color: var(--color-ink-400); text-transform: uppercase; }
-.ev-sec-text { font-size: 0.84rem; color: var(--color-ink-700); margin: 0.15rem 0 0; line-height: 1.45; }
-.dark .ev-sec-text { color: #d6e8de; }
-.ev-sec-text--diag { color: var(--color-ink-900); font-weight: 600; }
-.dark .ev-sec-text--diag { color: #f1faf5; }
-
-.ev-footer {
+.ev-vitals-mini {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 0.75rem;
-  border-top: 1px dashed var(--color-cream-200);
+  gap: 1rem;
+  background: rgba(16, 185, 129, 0.06);
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  color: #34d399;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
-.dark .ev-footer { border-top-color: rgba(0, 245, 155, 0.12); }
-
-.doc-badge { display: flex; align-items: center; gap: 0.5rem; }
-.doc-avatar { font-size: 1.25rem; }
-.doc-name { display: block; font-size: 0.78rem; font-weight: 700; color: var(--color-ink-900); }
-.dark .doc-name { color: #f1faf5; }
-.doc-reg { display: block; font-size: 0.68rem; color: var(--color-ink-400); }
-
-.signed-badge {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: #00a86b;
-}
-
-.dark .signed-badge { color: #00f59b; }
-
-/* Vaccines Tab */
-.vaccines-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-}
-
-@media (max-width: 700px) { .vaccines-grid { grid-template-columns: 1fr; } }
-
-.vac-card {
-  background: var(--color-cream-50);
-  border: 1px solid var(--color-cream-200);
-  border-radius: 20px;
-  padding: 1.5rem;
+.ev-body {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-.dark .vac-card {
-  background: #0a110e;
-  border-color: rgba(0, 245, 155, 0.16);
-}
-
-.vac-card-top { display: flex; justify-content: space-between; align-items: center; }
-.vac-icon-wrap { font-size: 1.4rem; }
-
-.vac-status-pill {
-  font-size: 0.68rem;
-  font-weight: 700;
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-}
-
-.vac-status-pill--ok { background: rgba(0, 168, 107, 0.15); color: #007a4d; }
-.dark .vac-status-pill--ok { background: rgba(0, 245, 155, 0.15); color: #00f59b; }
-.vac-status-pill--warn { background: rgba(255, 122, 0, 0.15); color: var(--color-joy-tangerine); }
-
-.vac-name {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--color-ink-900);
-  margin: 0;
-}
-
-.dark .vac-name { color: #f1faf5; }
-
-.vac-desc { font-size: 0.78rem; color: var(--color-ink-500); margin: 0; line-height: 1.4; }
-.dark .vac-desc { color: #cbd5e1; }
-
-.vac-meta-box {
-  background: var(--color-cream-100);
-  border-radius: 12px;
-  padding: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  font-size: 0.72rem;
-}
-
-.dark .vac-meta-box { background: rgba(16, 28, 22, 0.6); }
-
-.vmb-row { display: flex; justify-content: space-between; color: var(--color-ink-600); }
-.dark .vmb-row { color: #d6e8de; }
-.vmb-due { color: #00a86b; font-weight: 700; }
-.dark .vmb-due { color: #00f59b; }
-
-.vac-card-footer { font-size: 0.72rem; color: var(--color-ink-400); text-align: right; }
-
-/* Prescriptions Tab */
-.prescriptions-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.rx-card {
-  background: var(--color-cream-50);
-  border: 1px solid var(--color-cream-200);
-  border-radius: 20px;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.15rem;
-}
-
-.dark .rx-card {
-  background: #0a110e;
-  border-color: rgba(0, 245, 155, 0.16);
-}
-
-.rx-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--color-cream-200);
-}
-
-.dark .rx-header { border-bottom-color: rgba(0, 245, 155, 0.12); }
-
-.rx-brand { display: flex; align-items: center; gap: 0.75rem; }
-
-.rx-symbol {
-  font-family: var(--font-display);
-  font-size: 1.65rem;
-  font-weight: 800;
-  color: #00a86b;
-}
-
-.dark .rx-symbol { color: #00f59b; }
-
-.rx-title {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--color-ink-900);
-  margin: 0;
-}
-
-.dark .rx-title { color: #f1faf5; }
-.rx-date { font-size: 0.72rem; color: var(--color-ink-400); }
-
-.rx-drugs-list { display: flex; flex-direction: column; gap: 0.75rem; }
-
-.drug-item {
-  padding: 0.85rem;
-  border-radius: 12px;
-  background: var(--color-cream-100);
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.dark .drug-item { background: rgba(16, 28, 22, 0.6); }
-
-.drug-name-row { display: flex; justify-content: space-between; align-items: baseline; }
-.drug-name { font-size: 0.875rem; color: var(--color-ink-900); }
-.dark .drug-name { color: #f1faf5; }
-.drug-sub { font-size: 0.72rem; color: var(--color-ink-400); }
-.drug-posology { font-size: 0.78rem; color: var(--color-ink-700); }
-.dark .drug-posology { color: #d6e8de; }
-.drug-notes { font-size: 0.72rem; color: var(--color-ink-500); }
-
-.rx-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 0.75rem;
-  border-top: 1px dashed var(--color-cream-200);
+.ev-sec-title {
+  display: block;
   font-size: 0.75rem;
-}
-
-.dark .rx-footer { border-top-color: rgba(0, 245, 155, 0.12); }
-.rx-valid-badge { color: #00a86b; font-weight: 600; font-size: 0.7rem; }
-.dark .rx-valid-badge { color: #00f59b; }
-
-/* Lab Tab */
-.lab-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-}
-
-@media (max-width: 650px) { .lab-grid { grid-template-columns: 1fr; } }
-
-.lab-card {
-  background: var(--color-cream-50);
-  border: 1px solid var(--color-cream-200);
-  border-radius: 20px;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-}
-
-.dark .lab-card {
-  background: #0a110e;
-  border-color: rgba(0, 245, 155, 0.16);
-}
-
-.lab-card-top { display: flex; justify-content: space-between; align-items: center; }
-.lab-icon { font-size: 1.4rem; }
-
-.lab-status-badge {
-  font-size: 0.68rem;
   font-weight: 700;
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-  background: rgba(0, 168, 107, 0.15);
-  color: #007a4d;
+  color: #34d399;
+  margin-bottom: 0.2rem;
 }
 
-.dark .lab-status-badge {
-  background: rgba(0, 245, 155, 0.15);
-  color: #00f59b;
-}
-
-.lab-title {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--color-ink-900);
+.ev-sec-text {
+  font-size: 0.875rem;
+  color: #cbd5e1;
   margin: 0;
 }
 
-.dark .lab-title { color: #f1faf5; }
-.lab-date { font-size: 0.72rem; color: var(--color-ink-400); margin: 0; }
-
-.lab-result-preview {
-  background: var(--color-cream-100);
-  padding: 0.75rem;
-  border-radius: 12px;
-  font-size: 0.78rem;
-  color: var(--color-ink-700);
-  flex-grow: 1;
+.ev-sec-text--diag {
+  color: #f0fdf4;
+  font-weight: 600;
 }
 
-.dark .lab-result-preview { background: rgba(16, 28, 22, 0.6); color: #d6e8de; }
-.lab-result-preview p { margin: 0.2rem 0 0; }
+.ev-prescription-box {
+  background: #040806;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  color: #34d399;
+  font-size: 0.8125rem;
+  white-space: pre-wrap;
+  margin: 0;
+}
 
-.lab-dl-btn { justify-content: center; width: 100%; margin-top: 0.25rem; }
+.ev-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
 
-/* Modal */
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 99;
+.doc-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.doc-avatar {
+  font-size: 1.25rem;
+}
+
+.doc-name {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.doc-reg {
+  font-size: 0.6875rem;
+  color: #64748b;
+}
+
+.signed-badge {
+  font-size: 0.6875rem;
+  color: #34d399;
+}
+
+/* Studies Showcase Grid */
+.studies-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.study-card-item {
+  background: #060c09;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.study-card-item:hover {
+  border-color: #10b981;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.study-thumb-box {
+  height: 180px;
+  background: #020504;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
-  backdrop-filter: blur(4px);
+  overflow: hidden;
 }
 
-.modal-box {
-  background: var(--color-cream-50);
-  border: 1.5px solid var(--color-cream-300);
-  border-radius: 24px;
+.study-thumb-image {
   width: 100%;
-  max-width: 540px;
-  padding: 2rem;
-  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6);
+  height: 100%;
+  object-fit: cover;
 }
 
-.dark .modal-box {
-  background: #0a110e;
-  border-color: rgba(0, 245, 155, 0.25);
+.study-thumb-icon {
+  font-size: 3.5rem;
 }
 
-.modal-header {
+.study-category-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: rgba(4, 10, 8, 0.8);
+  backdrop-filter: blur(4px);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.study-card-info {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.study-item-title {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.study-item-date {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.study-item-findings {
+  font-size: 0.8125rem;
+  color: #94a3b8;
+  margin: 0.35rem 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.study-card-hover-action {
+  padding: 0.625rem 1rem;
+  background: rgba(16, 185, 129, 0.1);
+  color: #34d399;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Vaccines Grid */
+.vaccines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.vac-card {
+  background: #060c09;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+
+.vac-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.vac-icon-wrap {
+  font-size: 1.5rem;
+}
+
+.vac-status-pill {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+}
+
+.vac-status-pill--ok {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}
+
+.vac-status-pill--warn {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+}
+
+.vac-name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.vac-desc {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin: 0.2rem 0 0.75rem;
+}
+
+.vac-meta-box {
+  background: #040806;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.vmb-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.vmb-due {
+  color: #34d399;
+}
+
+/* Surgeries */
+.surgeries-full-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.surgery-full-card {
+  background: #060c09;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.surgery-full-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
-.modal-eyebrow { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: #00a86b; }
-.dark .modal-eyebrow { color: #00f59b; }
-.modal-title { font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--color-ink-900); margin: 0.2rem 0 0; }
-.dark .modal-title { color: #f1faf5; }
-.modal-close-btn { background: transparent; border: none; font-size: 1.25rem; color: var(--color-ink-400); cursor: pointer; }
-
-.modal-form { display: flex; flex-direction: column; gap: 1rem; }
-.form-group { display: flex; flex-direction: column; gap: 0.35rem; }
-.form-label { font-size: 0.78rem; font-weight: 600; color: var(--color-ink-700); }
-.dark .form-label { color: #d6e8de; }
-
-.form-input {
-  padding: 0.65rem 0.85rem;
-  border-radius: 12px;
-  border: 1.5px solid var(--color-cream-300);
-  background: var(--color-cream-100);
-  font-family: var(--font-body);
-  font-size: 0.84rem;
-  color: var(--color-ink-900);
-  outline: none;
+.surgery-type-badge {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  text-transform: uppercase;
 }
 
-.dark .form-input {
-  background: rgba(16, 28, 22, 0.7);
-  border-color: rgba(0, 245, 155, 0.2);
-  color: #f1faf5;
+.surgery-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin: 0.35rem 0 0.15rem;
 }
 
-.modal-actions { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 0.5rem; }
+.surgery-date {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.surg-status-chip {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}
+
+.surgery-sections-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.surg-block {
+  background: #040806;
+  padding: 0.875rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.surg-block-lbl {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #34d399;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.surg-block p {
+  font-size: 0.8125rem;
+  color: #cbd5e1;
+  margin: 0;
+}
+
+/* Global Buttons */
+.btn-primary {
+  background: #10b981;
+  color: #042f20;
+  font-weight: 700;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.btn-primary:hover {
+  background: #34d399;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.btn-ghost:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-sm {
+  font-size: 0.8125rem;
+  padding: 0.4rem 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .vitals-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .surgery-sections-grid {
+    grid-template-columns: 1fr;
+  }
+  .patient-master-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
 </style>
