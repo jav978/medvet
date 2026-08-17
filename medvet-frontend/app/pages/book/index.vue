@@ -540,7 +540,7 @@
 
 
           <!-- Tab 1: Login Form -->
-          <form v-if="authTab === 'login'" @submit.prevent="handleInlineLogin" class="auth-form-inline">
+          <form v-if="authTab === 'login'" @submit.prevent="handleInlineLogin" class="auth-form-inline" autocomplete="off">
             <div class="auth-form-grid">
               <div class="form-field">
                 <label class="form-label">Correo Electrónico *</label>
@@ -550,17 +550,37 @@
                   placeholder="javier.silva@gmail.com"
                   class="form-input"
                   required
+                  autocomplete="off"
                 />
               </div>
               <div class="form-field">
                 <label class="form-label">Contraseña *</label>
-                <input
-                  v-model="loginPassword"
-                  type="password"
-                  placeholder="••••••••"
-                  class="form-input"
-                  required
-                />
+                <div class="password-input-wrap">
+                  <input
+                    v-model="loginPassword"
+                    :type="showLoginPassword ? 'text' : 'password'"
+                    placeholder="••••••••"
+                    class="form-input has-eye"
+                    required
+                    autocomplete="off"
+                  />
+                  <button
+                    type="button"
+                    class="eye-btn"
+                    @click="showLoginPassword = !showLoginPassword"
+                    :title="showLoginPassword ? 'Ocultar contraseña' : 'Ver contraseña'"
+                    tabindex="-1"
+                  >
+                    <svg v-if="showLoginPassword" class="eye-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                      <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>
+                    <svg v-else class="eye-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -595,7 +615,7 @@
           </form>
 
           <!-- Tab 2: Register Form -->
-          <form v-else @submit.prevent="handleInlineRegister" class="auth-form-inline">
+          <form v-else @submit.prevent="handleInlineRegister" class="auth-form-inline" autocomplete="off">
             <div class="auth-form-grid">
               <div class="form-field">
                 <label class="form-label">Nombre(s) del Titular *</label>
@@ -605,6 +625,7 @@
                   placeholder="Ej. Javier Antonio"
                   class="form-input"
                   required
+                  autocomplete="off"
                 />
               </div>
               <div class="form-field">
@@ -615,6 +636,7 @@
                   placeholder="Ej. Silva Paredes"
                   class="form-input"
                   required
+                  autocomplete="off"
                 />
               </div>
               <div class="form-field">
@@ -625,6 +647,7 @@
                   placeholder="javier.silva@ejemplo.com"
                   class="form-input"
                   required
+                  autocomplete="off"
                 />
               </div>
               <div class="form-field">
@@ -635,18 +658,38 @@
                   placeholder="+58 412 1234567"
                   class="form-input"
                   required
+                  autocomplete="off"
                 />
               </div>
               <div class="form-field sm:col-span-2">
                 <label class="form-label">Contraseña Segura *</label>
-                <input
-                  v-model="registerPassword"
-                  type="password"
-                  placeholder="Mínimo 6 caracteres"
-                  class="form-input"
-                  required
-                  minlength="6"
-                />
+                <div class="password-input-wrap">
+                  <input
+                    v-model="registerPassword"
+                    :type="showRegisterPassword ? 'text' : 'password'"
+                    placeholder="Mínimo 6 caracteres"
+                    class="form-input has-eye"
+                    required
+                    minlength="6"
+                    autocomplete="new-password"
+                  />
+                  <button
+                    type="button"
+                    class="eye-btn"
+                    @click="showRegisterPassword = !showRegisterPassword"
+                    :title="showRegisterPassword ? 'Ocultar contraseña' : 'Ver contraseña'"
+                    tabindex="-1"
+                  >
+                    <svg v-if="showRegisterPassword" class="eye-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                      <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>
+                    <svg v-else class="eye-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -654,7 +697,6 @@
               <span class="error-icon">⚠️</span>
               <span>{{ authError }}</span>
             </div>
-
 
             <div class="auth-actions-row">
               <button type="submit" class="btn-primary auth-submit-btn" :disabled="authLoading">
@@ -672,6 +714,7 @@
               </button>
             </div>
           </form>
+
         </div>
       </div>
 
@@ -740,6 +783,9 @@ const authTab = ref('login')
 const authLoading = ref(false)
 const authError = ref('')
 
+const showLoginPassword = ref(false)
+const showRegisterPassword = ref(false)
+
 const loginEmail = ref('')
 const loginPassword = ref('')
 
@@ -750,8 +796,26 @@ const registerEmail = ref('')
 const registerPhone = ref('')
 const registerPassword = ref('')
 
+const resetRegisterForm = () => {
+  registerFirstName.value = ''
+  registerLastName.value = ''
+  registerName.value = ''
+  registerEmail.value = ''
+  registerPhone.value = ''
+  registerPassword.value = ''
+  showRegisterPassword.value = false
+  authError.value = ''
+}
+
+const resetLoginForm = () => {
+  loginEmail.value = ''
+  loginPassword.value = ''
+  showLoginPassword.value = false
+  authError.value = ''
+}
 
 const todayStr = computed(() => new Date().toISOString().split('T')[0])
+
 
 const serviceCategories = [
   { id: 'all', label: 'Todos', icon: '✨' },
@@ -977,6 +1041,11 @@ const selectProfessionalPref = (id: string | null) => {
 const setAuthTab = (tab: string) => {
   authTab.value = tab
   authError.value = ''
+  if (tab === 'register') {
+    resetRegisterForm()
+  } else {
+    resetLoginForm()
+  }
 }
 
 const handleDateSelect = async () => {
@@ -993,19 +1062,26 @@ const handleDateSelect = async () => {
 
 
 const handleInlineLogin = async () => {
-  if (!loginEmail.value || !loginPassword.value) {
+  const toast = useToastNotification()
+  const em = loginEmail.value.trim()
+  const pw = loginPassword.value
+
+  if (!em || !pw) {
     authError.value = 'Por favor ingresá tu correo y contraseña.'
+    toast.warning('Campos requeridos', authError.value)
     return
   }
   authError.value = ''
   authLoading.value = true
   try {
-    await authStore.login(loginEmail.value, loginPassword.value)
+    await authStore.login(em, pw)
     if (authStore.user?.id) {
       await bookingStore.fetchPets(authStore.user.id).catch(() => {})
+      toast.success('Sesión iniciada', `Bienvenido de nuevo, ${authStore.user.name || 'Paciente'}`)
     }
-  } catch (err) {
+  } catch (err: any) {
     authError.value = err?.message || 'Error al iniciar sesión. Verificá tus credenciales.'
+    toast.error('Error de acceso', authError.value)
   } finally {
     authLoading.value = false
   }
@@ -1019,24 +1095,46 @@ const handleInlineRegister = async () => {
   const ph = registerPhone.value.trim()
   const pw = registerPassword.value
 
+  // Strict field checks
   if (!fn || fn.length < 2) {
-    authError.value = 'El nombre del titular debe tener al menos 2 caracteres.'
-    toast.error('Validación requerida', authError.value)
+    authError.value = 'El nombre del titular es requerido (mínimo 2 caracteres).'
+    toast.warning('Campo incompleto', authError.value)
     return
   }
+  if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s'-]+$/.test(fn)) {
+    authError.value = 'El nombre sólo debe contener letras y espacios.'
+    toast.warning('Formato inválido', authError.value)
+    return
+  }
+
   if (!ln || ln.length < 2) {
-    authError.value = 'El apellido del titular debe tener al menos 2 caracteres.'
-    toast.error('Validación requerida', authError.value)
+    authError.value = 'El apellido del titular es requerido (mínimo 2 caracteres).'
+    toast.warning('Campo incompleto', authError.value)
     return
   }
-  if (!em || !em.includes('@')) {
-    authError.value = 'Ingresá un correo electrónico válido.'
-    toast.error('Validación requerida', authError.value)
+  if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s'-]+$/.test(ln)) {
+    authError.value = 'El apellido sólo debe contener letras y espacios.'
+    toast.warning('Formato inválido', authError.value)
     return
   }
-  if (!pw || pw.length < 6) {
-    authError.value = 'La contraseña debe tener al menos 6 caracteres.'
-    toast.error('Validación requerida', authError.value)
+
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+  if (!em || !emailRegex.test(em)) {
+    authError.value = 'Ingresá un correo electrónico válido (ej. usuario@dominio.com).'
+    toast.warning('Formato inválido', authError.value)
+    return
+  }
+
+  const digits = (ph.match(/\d/g) || []).length
+  if (!ph || digits < 7) {
+    authError.value = 'Ingresá un número de teléfono o WhatsApp válido (mínimo 7 dígitos).'
+    toast.warning('Formato inválido', authError.value)
+    return
+  }
+
+  if (!pw || pw.length < 6 || !pw.trim()) {
+    authError.value = 'La contraseña debe tener al menos 6 caracteres (no se permiten sólo espacios en blanco).'
+    toast.warning('Seguridad', authError.value)
     return
   }
 
@@ -1053,6 +1151,7 @@ const handleInlineRegister = async () => {
     })
     if (authStore.user?.id) {
       await bookingStore.fetchPets(authStore.user.id).catch(() => {})
+      toast.success('Cuenta creada exitosamente', `¡Bienvenido a MedVet, ${fn}! Tu perfil ha sido vinculado.`)
     }
   } catch (err: any) {
     authError.value = err?.message || 'Error al crear la cuenta. Intenta nuevamente.'
@@ -1061,6 +1160,7 @@ const handleInlineRegister = async () => {
     authLoading.value = false
   }
 }
+
 
 const handleGoogleLogin = async () => {
   authError.value = ''
@@ -1125,6 +1225,11 @@ const handleConfirm = async () => {
 
 
 onMounted(async () => {
+  if (!authStore.isAuthenticated) {
+    resetRegisterForm()
+    resetLoginForm()
+  }
+
   // Always default to Step 1 (Servicio) unless specified in query
   bookingStore.setStep(route.query.step ? Number(route.query.step) : 1)
 
@@ -1146,6 +1251,7 @@ onMounted(async () => {
     }
   } catch { /* continue */ }
 })
+
 </script>
 
 <style scoped>
@@ -2789,6 +2895,49 @@ onMounted(async () => {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* Password eye input styling */
+.password-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.password-input-wrap .form-input.has-eye {
+  padding-right: 2.75rem;
+}
+
+.eye-btn {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  transition: color 0.2s ease, transform 0.15s ease;
+  z-index: 2;
+}
+
+.eye-btn:hover {
+  color: #00a86b;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.dark .eye-btn:hover {
+  color: #00f59b;
+}
+
+.eye-svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
 /* Expand transition */
 .expand-enter-active, .expand-leave-active {
   transition: all 0.28s ease;
@@ -2801,3 +2950,4 @@ onMounted(async () => {
   max-height: 0;
 }
 </style>
+

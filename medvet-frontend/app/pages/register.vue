@@ -108,12 +108,28 @@
                 <input
                   id="reg-pass"
                   v-model="form.password"
-                  type="password"
+                  :type="showPassword ? 'text' : 'password'"
                   placeholder="••••••••"
-                  class="form-input"
+                  class="form-input has-eye-btn"
                   required
                   autocomplete="new-password"
                 />
+                <button
+                  type="button"
+                  class="eye-toggle-btn"
+                  @click="showPassword = !showPassword"
+                  :title="showPassword ? 'Ocultar contraseña' : 'Ver contraseña'"
+                  tabindex="-1"
+                >
+                  <svg v-if="showPassword" class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                  </svg>
+                  <svg v-else class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </button>
               </div>
             </div>
 
@@ -124,12 +140,28 @@
                 <input
                   id="reg-confirm"
                   v-model="form.confirmPassword"
-                  type="password"
+                  :type="showConfirmPassword ? 'text' : 'password'"
                   placeholder="••••••••"
-                  class="form-input"
+                  class="form-input has-eye-btn"
                   required
                   autocomplete="new-password"
                 />
+                <button
+                  type="button"
+                  class="eye-toggle-btn"
+                  @click="showConfirmPassword = !showConfirmPassword"
+                  :title="showConfirmPassword ? 'Ocultar contraseña' : 'Ver contraseña'"
+                  tabindex="-1"
+                >
+                  <svg v-if="showConfirmPassword" class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                  </svg>
+                  <svg v-else class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -168,6 +200,8 @@ const form = reactive({
   confirmPassword: ''
 })
 
+const showPassword = ref(false)
+const showConfirmPassword = ref(false)
 const loading = ref(false)
 const googleLoading = ref(false)
 const error = ref('')
@@ -178,17 +212,50 @@ const redirectUser = () => {
 }
 
 const handleRegister = async () => {
+  const trimmedName = form.name.trim()
+  const trimmedEmail = form.email.trim()
+  const trimmedPhone = form.phone.trim()
+
+  if (!trimmedName || trimmedName.length < 2) {
+    error.value = 'El nombre y apellido son requeridos (mínimo 2 caracteres).'
+    return
+  }
+  if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s'-]+$/.test(trimmedName)) {
+    error.value = 'El nombre sólo debe contener letras y espacios.'
+    return
+  }
+
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+  if (!trimmedEmail || !emailRegex.test(trimmedEmail)) {
+    error.value = 'Ingresá un correo electrónico válido.'
+    return
+  }
+
+  if (trimmedPhone) {
+    const digits = (trimmedPhone.match(/\d/g) || []).length
+    if (digits < 7) {
+      error.value = 'El teléfono de contacto debe tener al menos 7 dígitos.'
+      return
+    }
+  }
+
+  if (!form.password || form.password.length < 6 || !form.password.trim()) {
+    error.value = 'La contraseña debe tener al menos 6 caracteres válidos.'
+    return
+  }
+
   if (form.password !== form.confirmPassword) {
     error.value = 'Las contraseñas no coinciden.'
     return
   }
+
   loading.value = true
   error.value = ''
   try {
     await authStore.register({
-      name: form.name,
-      email: form.email,
-      phone: form.phone,
+      name: trimmedName,
+      email: trimmedEmail,
+      phone: trimmedPhone || undefined,
       password: form.password
     })
     redirectUser()
@@ -198,6 +265,7 @@ const handleRegister = async () => {
     loading.value = false
   }
 }
+
 
 const handleGoogleRegister = async () => {
   googleLoading.value = true
@@ -578,4 +646,40 @@ const handleGoogleRegister = async () => {
 }
 
 .auth-link:hover { text-decoration: underline; }
+
+.form-input.has-eye-btn {
+  padding-right: 2.75rem;
+}
+
+.eye-toggle-btn {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  transition: color 0.2s ease, transform 0.15s ease;
+  z-index: 2;
+}
+
+.eye-toggle-btn:hover {
+  color: #00a86b;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.dark .eye-toggle-btn:hover {
+  color: #00f59b;
+}
+
+.eye-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
 </style>
+

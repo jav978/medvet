@@ -44,7 +44,67 @@ export async function ensureDatabaseSchema(db: Knex) {
     } catch (e: any) {
       // Ignore if database does not support partial unique index or already exists
     }
+
+    // Auto-seed base services and professional if empty
+    try {
+      const servicesCount = await db('services').count('id as count').first()
+      if (servicesCount && Number(servicesCount.count) === 0) {
+        console.log('🔄 Seeding default clinic services and veterinary professionals...')
+        await db('services').insert([
+          { name: 'Consulta Clínica General', description: 'Evaluación veterinaria integral, chequeo de signos vitales y diagnóstico general.', duration: 30, price: 15.00, category: 'consulta', active: true },
+          { name: 'Vacunación y Desparasitación', description: 'Esquema completo de inmunización con certificado oficial.', duration: 20, price: 10.00, category: 'vacuna', active: true },
+          { name: 'Cirugía Menor y Esterilización', description: 'Procedimientos quirúrgicos ambulatorios con monitoreo anestésico.', duration: 60, price: 50.00, category: 'cirugia', active: true },
+          { name: 'Emergencia y Cuidados Críticos', description: 'Atención médica inmediata de urgencias veterinarias.', duration: 45, price: 30.00, category: 'emergencia', active: true }
+        ])
+
+        // Ensure at least one professional user exists
+        let vetUser = await db('users').where({ role: 'veterinarian' }).first()
+        if (!vetUser) {
+          const [newVet] = await db('users').insert({
+            email: 'vet@medvet.com',
+            password: '$2a$10$wN9P3XJ1YxY6m1U1K1X1XeQ9P3XJ1YxY6m1U1K1X1XeQ9P3XJ1YxY', // hashed default
+            name: 'Dr. Mateo Silva',
+            first_name: 'Mateo',
+            last_name: 'Silva',
+            phone: '+58 412 1234567',
+            role: 'veterinarian',
+            active: true
+          }).returning('*')
+          vetUser = newVet
+        }
+
+        if (vetUser) {
+          let professional = await db('professionals').where({ user_id: vetUser.id }).first()
+          if (!professional) {
+            const [newPro] = await db('professionals').insert({
+              user_id: vetUser.id,
+              specialty: 'Medicina General y Diagnóstico',
+              active: true
+            }).returning('*')
+            professional = newPro
+          }
+
+          if (professional) {
+            const scheduleInserts = []
+            for (let day = 1; day <= 6; day++) {
+              scheduleInserts.push({
+                professional_id: professional.id,
+                day_of_week: day,
+                start_time: '08:30:00',
+                end_time: '18:00:00',
+                active: true
+              })
+            }
+            await db('schedules').insert(scheduleInserts)
+          }
+        }
+        console.log('✅ Default services and veterinary schedules ready.')
+      }
+    } catch (seedErr: any) {
+      console.warn('ℹ️ Seed notice:', seedErr.message)
+    }
   } catch (err: any) {
+
     console.error('⚠️ Error ensuring database schema:', err.message)
     throw err
   }

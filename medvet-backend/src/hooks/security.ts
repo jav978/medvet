@@ -168,6 +168,11 @@ export const handleGlobalError = async (context: HookContext) => {
     context.error = new BadRequest('Uno de los registros relacionados (usuario, mascota o profesional) no existe o no es válido.')
   }
 
+  // PostgreSQL invalid input syntax / UUID format (code 22P02)
+  if (error.code === '22P02' || (error.message && error.message.includes('invalid input syntax for type uuid'))) {
+    context.error = new BadRequest('El identificador de la mascota, servicio o profesional no tiene un formato UUID válido.')
+  }
+
   // PostgreSQL syntax / check violations
   if (error.code === '23514') {
     context.error = new BadRequest('Los datos proporcionados no cumplen con las reglas clínicas del sistema.')
@@ -175,3 +180,4 @@ export const handleGlobalError = async (context: HookContext) => {
 
   return context
 }
+

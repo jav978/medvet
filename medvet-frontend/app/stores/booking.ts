@@ -151,6 +151,7 @@ export const useBookingStore = defineStore('booking', {
       this.loading = true
       try {
         const { $feathers } = useNuxtApp()
+        const isUUID = (str: any) => typeof str === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(str)
 
         // Calculate end time based on service duration
         const duration = this.selectedService?.duration || 30
@@ -161,38 +162,63 @@ export const useBookingStore = defineStore('booking', {
         const endMins = endMinutes % 60
         const endTime = `${endHours.toString().padStart(2, '0')}:${endMins.toString().padStart(2, '0')}`
 
-        let petId = this.selectedPet?.id || '1'
+        let petId = this.selectedPet?.id
         if ($feathers && this.selectedPet) {
-          // If pet is a temporary local pet or newly added, save to backend
-          if (!this.pets.find(p => String(p.id) === String(petId))) {
+          // If pet is not a UUID or was created locally, persist it to database
+          if (!isUUID(petId)) {
             try {
               const createdPet = await $feathers.service('pets').create({
                 user_id: userId,
-                name: this.selectedPet.name,
+                name: this.selectedPet.name.trim(),
                 species: this.selectedPet.species || 'Perro',
-                breed: this.selectedPet.breed || '',
-                age: (this.selectedPet as any).age || undefined,
-                weight: (this.selectedPet as any).weight || undefined
+                breed: this.selectedPet.breed?.trim() || '',
+                age: (this.selectedPet as any).age ? Number((this.selectedPet as any).age) : undefined,
+                weight: (this.selectedPet as any).weight ? Number((this.selectedPet as any).weight) : undefined
               })
               if (createdPet?.id) {
                 petId = createdPet.id
+                this.selectedPet.id = createdPet.id
               }
             } catch (err) {
-              console.warn('Could not persist pet to backend, using current ID:', err)
+              console.warn('Could not persist pet to backend:', err)
             }
           }
+        }
+
+        // Validate or resolve service_id
+        let serviceId = this.selectedService?.id
+        if ($feathers && (!serviceId || !isUUID(serviceId))) {
+          try {
+            const dbServices = await $feathers.service('services').find({ query: { active: true, $limit: 1 } })
+            const list = dbServices.data || dbServices
+            if (list && list.length > 0) {
+              serviceId = list[0].id
+            }
+          } catch (e) { /* ignore */ }
+        }
+
+        // Validate or resolve professional_id
+        let professionalId = this.selectedSlot?.professional_id
+        if ($feathers && (!professionalId || !isUUID(professionalId))) {
+          try {
+            const dbPros = await $feathers.service('professionals').find({ query: { active: true, $limit: 1 } })
+            const list = dbPros.data || dbPros
+            if (list && list.length > 0) {
+              professionalId = list[0].id
+            }
+          } catch (e) { /* ignore */ }
         }
 
         const appointment = $feathers ? await $feathers.service('appointments').create({
           user_id: userId,
           pet_id: String(petId),
-          professional_id: this.selectedSlot?.professional_id || '1',
-          service_id: this.selectedService?.id || '1',
+          professional_id: String(professionalId),
+          service_id: String(serviceId),
           date: this.selectedDate || new Date().toISOString().split('T')[0],
           start_time: slotTime,
           end_time: endTime,
           status: 'pending',
-          notes
+          notes: notes?.trim() || undefined
         }) : { id: 'apt_' + Date.now() }
 
         this.resetBooking()
@@ -203,5 +229,6 @@ export const useBookingStore = defineStore('booking', {
         this.loading = false
       }
     }
+
   }
 })
