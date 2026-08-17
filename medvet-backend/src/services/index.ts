@@ -14,6 +14,9 @@ import { publicCarnet } from './public-carnet/public-carnet'
 import { clinicalUpload } from './clinical-upload/clinical-upload'
 import { inventory } from './inventory/inventory'
 import { inventoryMovements } from './inventory-movements/inventory-movements'
+import { hospitalizationBoxes } from './hospitalization-boxes/hospitalization-boxes'
+import { hospitalizations } from './hospitalizations/hospitalizations'
+import { kardexEntries } from './kardex-entries/kardex-entries'
 import type { Application } from '../declarations'
 
 export const configureServices = (app: Application) => {
@@ -33,5 +36,8 @@ export const configureServices = (app: Application) => {
   app.configure(clinicalUpload)
   app.configure(inventory)
   app.configure(inventoryMovements)
+  app.configure(hospitalizationBoxes)
+  app.configure(hospitalizations)
+  app.configure(kardexEntries)
 }
 

@@ -6,6 +6,7 @@ import bcrypt from 'bcryptjs'
 import { up as initialMigration } from './migrations/20260710000000_initial'
 import { up as ehrMigration } from './migrations/20260815000000_clinical_ehr'
 import { up as inventoryMigration } from './migrations/20260817000000_inventory'
+import { up as hospitalizationMigration } from './migrations/20260818000000_hospitalizations_kardex'
 
 config()
 
@@ -40,6 +41,13 @@ export async function ensureDatabaseSchema(db: Knex) {
       console.log('🔄 Initializing veterinary pharmacy & inventory database schema...')
       await inventoryMigration(db)
       console.log('✅ Inventory database schema initialized.')
+    }
+
+    const hasHospitalBoxes = await db.schema.hasTable('hospitalization_boxes')
+    if (!hasHospitalBoxes) {
+      console.log('🔄 Initializing hospitalization boxes & kardex database schema...')
+      await hospitalizationMigration(db)
+      console.log('✅ Hospitalization boxes & kardex schema initialized.')
     }
 
     // Ensure concurrency anti-double-booking unique index exists on PostgreSQL
@@ -311,7 +319,251 @@ export async function ensureDatabaseSchema(db: Knex) {
         console.log('✅ Default pharmacy catalogue seeded successfully.')
       }
 
-      console.log('✅ Veterinary services, doctor profile, schedules and inventory ready.')
+      // 6. Auto-seed Hospitalization Boxes & Active Patients with Kardex
+      const boxesCount = await db('hospitalization_boxes').count('id as count').first()
+      if (boxesCount && Number(boxesCount.count) === 0) {
+        console.log('🔄 Seeding hospitalization boxes and clinical kardex...')
+        const insertedBoxes = await db('hospitalization_boxes').insert([
+          {
+            code: 'UCI-01',
+            name: 'Box 1 - Cuidados Intensivos (UCI)',
+            type: 'icu',
+            status: 'occupied',
+            size: 'Mediano',
+            features: 'Oxígeno centralizado, Monitor multiparamétrico, Bomba de infusión peristáltica, Colchón térmico',
+            daily_rate_usd: 45.00,
+            active: true
+          },
+          {
+            code: 'CAN-02',
+            name: 'Box 2 - Caninos Grandes & Traumatología',
+            type: 'canine',
+            status: 'available',
+            size: 'Grande',
+            features: 'Cama ortopédica acolchada, Soporte de sueros dual, Acceso directo a patio terapéutico',
+            daily_rate_usd: 30.00,
+            active: true
+          },
+          {
+            code: 'FEL-03',
+            name: 'Box 3 - Felinos Exclusivo (Cat Friendly)',
+            type: 'feline',
+            status: 'available',
+            size: 'Pequeño',
+            features: 'Aislamiento acústico, Difusor de feromonas Feliway, Bandeja sanitaria separada, Manta térmica',
+            daily_rate_usd: 28.00,
+            active: true
+          },
+          {
+            code: 'AISL-04',
+            name: 'Box 4 - Aislamiento Infeccioso / Contagiosos',
+            type: 'isolation',
+            status: 'available',
+            size: 'Mediano',
+            features: 'Presión negativa, Lámpara UV germicida, Filtro HEPA, Pediluvio desinfectante',
+            daily_rate_usd: 40.00,
+            active: true
+          },
+          {
+            code: 'POST-05',
+            name: 'Box 5 - Recuperación Postquirúrgica Inmediata',
+            type: 'post_op',
+            status: 'occupied',
+            size: 'Mediano',
+            features: 'Manta térmica con sensor cutáneo, Monitor de saturación SpO2, Oxigenoterapia directa',
+            daily_rate_usd: 35.00,
+            active: true
+          },
+          {
+            code: 'OBS-06',
+            name: 'Box 6 - Observación Clínica & Procedimientos Cortos',
+            type: 'standard',
+            status: 'available',
+            size: 'Mediano',
+            features: 'Visor panorámico de vidrio templado, Soporte de fluidoterapia, Iluminación LED regulable',
+            daily_rate_usd: 25.00,
+            active: true
+          }
+        ]).returning('*')
+
+        // Find doctor and pets to associate demo hospitalizations
+        const docProfessional = await db('professionals').first()
+        const allPets = await db('pets').select('id', 'name')
+
+        if (allPets.length > 0 && docProfessional && insertedBoxes.length >= 5) {
+          const uciBox = insertedBoxes.find(b => b.code === 'UCI-01')
+          const postBox = insertedBoxes.find(b => b.code === 'POST-05')
+
+          const pet1 = allPets[0]
+          const pet2 = allPets.length > 1 ? allPets[1] : allPets[0]
+
+          if (uciBox && pet1) {
+            const hosp1 = await db('hospitalizations').insert({
+              pet_id: pet1.id,
+              box_id: uciBox.id,
+              vet_id: docProfessional.id,
+              admission_date: new Date(Date.now() - 14 * 3600 * 1000), // 14 hours ago
+              status: 'critical',
+              reason_for_admission: 'Gastroenteritis hemorrágica aguda con deshidratación severa (8%) y vómitos biliosos incoercibles.',
+              presumptive_diagnosis: 'Parvovirosis canina / Enteritis viral aguda',
+              definitive_diagnosis: 'Parvovirosis confirmada por test rápido de antígeno',
+              diet_instructions: 'NPO estricto por 12h. Iniciar tolerancia a agua tibia con electrolitos vía oral a razón de 5ml c/2h.',
+              fluid_therapy_plan: 'Ringer Lactato con KCl (20 mEq/L) a 38 ml/h por bomba de infusión continua.',
+              medication_schedule: 'Maropitant 1mg/kg SC c/24h, Ampicilina Sulbactam 30mg/kg IV c/8h, Ranitidina 2mg/kg IV c/12h.',
+              daily_cost_usd: 45.00,
+              notes: 'Paciente con vía permeable en miembro anterior izquierdo (catéter 22G). Monitorear glucemia y temperatura cada 4 horas.'
+            }).returning('*')
+
+            if (hosp1 && hosp1[0]) {
+              await db('hospitalization_boxes').where({ id: uciBox.id }).update({ current_hospitalization_id: hosp1[0].id })
+
+              // Seed 3 historical Kardex monitoring entries
+              await db('kardex_entries').insert([
+                {
+                  hospitalization_id: hosp1[0].id,
+                  professional_id: docProfessional.id,
+                  recorded_at: new Date(Date.now() - 12 * 3600 * 1000),
+                  entry_type: 'vitals',
+                  temperature: 39.4,
+                  heart_rate: 145,
+                  respiratory_rate: 34,
+                  blood_pressure_sys: 95,
+                  blood_pressure_dia: 60,
+                  capillary_refill_time: '2.5s',
+                  mucous_membranes: 'pálidas',
+                  pain_score: 2,
+                  fluid_rate_ml_hr: 45.0,
+                  fluid_volume_infused_ml: 90.0,
+                  urination: 'ausente',
+                  defecation: 'diarrea',
+                  appetite: 'anorexia',
+                  vomit_episodes: 2,
+                  notes: 'Ingreso a UCI. Paciente letárgico, pliegue cutáneo marcado. Se canaliza vía 22G y se instaura bolo inicial de fluidoterapia.'
+                },
+                {
+                  hospitalization_id: hosp1[0].id,
+                  professional_id: docProfessional.id,
+                  recorded_at: new Date(Date.now() - 6 * 3600 * 1000),
+                  entry_type: 'medication',
+                  temperature: 38.8,
+                  heart_rate: 130,
+                  respiratory_rate: 28,
+                  blood_pressure_sys: 105,
+                  blood_pressure_dia: 68,
+                  capillary_refill_time: '2s',
+                  mucous_membranes: 'rosadas_palidas',
+                  pain_score: 1,
+                  medication_name: 'Ampicilina Sulbactam 300mg + Maropitant 10mg',
+                  dose_given: '300mg IV lento / 10mg SC',
+                  route: 'IV',
+                  fluid_rate_ml_hr: 38.0,
+                  fluid_volume_infused_ml: 318.0,
+                  urination: 'normal',
+                  defecation: 'ausente',
+                  appetite: 'anorexia',
+                  vomit_episodes: 0,
+                  notes: 'Administración de antibioticoterapia y antiemético. Cesa episodio emético. Paciente más reactivo al llamado.'
+                },
+                {
+                  hospitalization_id: hosp1[0].id,
+                  professional_id: docProfessional.id,
+                  recorded_at: new Date(Date.now() - 1 * 3600 * 1000),
+                  entry_type: 'evolution_note',
+                  temperature: 38.5,
+                  heart_rate: 118,
+                  respiratory_rate: 24,
+                  blood_pressure_sys: 112,
+                  blood_pressure_dia: 72,
+                  capillary_refill_time: '1.5s',
+                  mucous_membranes: 'rosadas',
+                  pain_score: 1,
+                  fluid_rate_ml_hr: 35.0,
+                  fluid_volume_infused_ml: 528.0,
+                  urination: 'normal',
+                  defecation: 'ausente',
+                  appetite: 'asistido',
+                  vomit_episodes: 0,
+                  notes: 'Evolución favorable en turno. Aceptó 10ml de solución de rehidratación oral sin nauseas. Mantener infusión continua a 35ml/h.'
+                }
+              ])
+            }
+          }
+
+          if (postBox && pet2) {
+            const hosp2 = await db('hospitalizations').insert({
+              pet_id: pet2.id,
+              box_id: postBox.id,
+              vet_id: docProfessional.id,
+              admission_date: new Date(Date.now() - 8 * 3600 * 1000), // 8 hours ago
+              status: 'post_op',
+              reason_for_admission: 'Ovariohisterectomía de urgencia por Piometra cerrada de gran volumen.',
+              presumptive_diagnosis: 'Piometra postquirúrgica',
+              definitive_diagnosis: 'Piometra cerrada con peritonitis localizada resuelta',
+              diet_instructions: 'Royal Canin Recovery 25g tibio en pequeñas porciones cada 4 horas.',
+              fluid_therapy_plan: 'Solución Fisiológica 0.9% + Dextrosa 5% a 25 ml/h.',
+              medication_schedule: 'Meloxicam 0.2mg/kg SC c/24h, Tramadol 2mg/kg IV lento c/8h, Cefazolina 25mg/kg IV c/8h.',
+              daily_cost_usd: 35.00,
+              notes: 'Herida quirúrgica limpia sin sangrado activo ni exudado. Apósito protector estéril colocado.'
+            }).returning('*')
+
+            if (hosp2 && hosp2[0]) {
+              await db('hospitalization_boxes').where({ id: postBox.id }).update({ current_hospitalization_id: hosp2[0].id })
+
+              await db('kardex_entries').insert([
+                {
+                  hospitalization_id: hosp2[0].id,
+                  professional_id: docProfessional.id,
+                  recorded_at: new Date(Date.now() - 7 * 3600 * 1000),
+                  entry_type: 'vitals',
+                  temperature: 37.6,
+                  heart_rate: 110,
+                  respiratory_rate: 22,
+                  blood_pressure_sys: 100,
+                  blood_pressure_dia: 65,
+                  capillary_refill_time: '2s',
+                  mucous_membranes: 'rosadas',
+                  pain_score: 2,
+                  medication_name: 'Tramadol 20mg IV + Cefazolina 250mg IV',
+                  dose_given: '20mg IV lento / 250mg IV',
+                  route: 'IV',
+                  fluid_rate_ml_hr: 30.0,
+                  fluid_volume_infused_ml: 60.0,
+                  urination: 'ausente',
+                  defecation: 'ausente',
+                  appetite: 'anorexia',
+                  vomit_episodes: 0,
+                  notes: 'Egreso de quirófano. Paciente saliendo de anestesia general. Se abriga con manta térmica.'
+                },
+                {
+                  hospitalization_id: hosp2[0].id,
+                  professional_id: docProfessional.id,
+                  recorded_at: new Date(Date.now() - 2 * 3600 * 1000),
+                  entry_type: 'evolution_note',
+                  temperature: 38.3,
+                  heart_rate: 98,
+                  respiratory_rate: 20,
+                  blood_pressure_sys: 118,
+                  blood_pressure_dia: 75,
+                  capillary_refill_time: '1.5s',
+                  mucous_membranes: 'rosadas',
+                  pain_score: 1,
+                  fluid_rate_ml_hr: 25.0,
+                  fluid_volume_infused_ml: 185.0,
+                  urination: 'normal',
+                  defecation: 'ausente',
+                  appetite: 'come_solo',
+                  vomit_episodes: 0,
+                  notes: 'Paciente en estación, moviliza cola. Comió 20g de Recovery espontáneamente. Herida en excelente estado. Evaluar alta en 24h.'
+                }
+              ])
+            }
+          }
+        }
+
+        console.log('✅ Hospitalization boxes, admissions and Kardex entries seeded successfully.')
+      }
+
+      console.log('✅ Veterinary services, doctor profile, schedules, inventory and hospitalization ready.')
     } catch (seedErr: any) {
       console.warn('ℹ️ Seed notice:', seedErr.message)
     }

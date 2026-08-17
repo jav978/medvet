@@ -389,8 +389,41 @@ function updateTime() {
   }) + ' · ' + now.toLocaleTimeString('es-ES')
 }
 
+async function fetchHospitalizedPatients() {
+  try {
+    const res = await $fetch<any>(`${apiBase}/hospitalizations?status[$ne]=discharged`)
+    const items = res.data || res || []
+    if (Array.isArray(items) && items.length > 0) {
+      activePatients.value = items.map((h: any) => ({
+        id: h.pet?.id || h.pet_id,
+        hospId: h.id,
+        box: h.box?.code || 'BOX-01',
+        name: h.pet?.name || 'Mascota',
+        species: h.pet?.species || 'Canino',
+        breed: h.pet?.breed || 'Mestizo',
+        status: h.status || 'observacion',
+        statusLabel: h.status === 'critical' ? 'Crítico / UCI' : (h.status === 'post_op' ? 'Postquirúrgico' : 'En Observación'),
+        diagnosis: h.definitive_diagnosis || h.presumptive_diagnosis || h.reason_for_admission || 'En observación clínica',
+        carePlan: `${h.fluid_therapy_plan ? 'Fluidos: ' + h.fluid_therapy_plan : ''} ${h.diet_instructions ? '· Dieta: ' + h.diet_instructions : ''}`.trim() || 'Monitoreo de constantes vitales en cama',
+        weight: h.pet?.weight || 10,
+        temperature: 38.5,
+        heartRate: 110,
+        doctor: h.vet?.name || 'Dr. Médico Veterinario'
+      }))
+
+      stats.value.hospitalized = items.length
+      stats.value.critical = items.filter((h: any) => h.status === 'critical').length
+      stats.value.surgeries = items.filter((h: any) => h.status === 'post_op').length
+      handoverForm.value.admitted_patients_count = items.length
+    }
+  } catch (e) {
+    console.warn('Could not fetch live hospitalizations in guardia, using demo state:', e)
+  }
+}
+
 async function fetchHandovers() {
   try {
+    await fetchHospitalizedPatients()
     const res = await $fetch<any>(`${apiBase}/shift-handovers?$sort[created_at]=-1`)
     handovers.value = res.data || res || []
   } catch (e) {

@@ -190,6 +190,24 @@ const roleLabel = computed(() => {
 
           <NuxtLink
             v-if="authStore.canAccessAdmin"
+            to="/admin/hospitalization"
+            class="dropdown-item"
+            @click="closeDropdown"
+            role="menuitem"
+          >
+            <div class="item-icon-wrap item-icon--blue">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 7h-8v6h8V7zm2-4H3c-1.1 0-2 .9-2 2v14h2v-3h18v3h2V9c0-3.31-2.69-6-6-6zm4 12H3V5h16c2.21 0 4 1.79 4 4v6z"/>
+              </svg>
+            </div>
+            <div class="item-content">
+              <span class="item-title">Hospitalización & Boxes</span>
+              <span class="item-subtitle">Kardex 24h y monitoreo</span>
+            </div>
+          </NuxtLink>
+
+          <NuxtLink
+            v-if="authStore.canAccessAdmin"
             to="/admin/guardia"
             class="dropdown-item"
             @click="closeDropdown"
