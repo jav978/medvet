@@ -25,7 +25,7 @@ export class NotificationTemplateService<ServiceParams extends NotificationTempl
 export const getOptions = (app: Application): KnexAdapterOptions => {
   return {
     paginate: false,
-    Model: app.get('postgresqlClient'),
+    Model: app.get('knexClient'),
     name: 'notification_templates',
     multi: ['patch']
   }

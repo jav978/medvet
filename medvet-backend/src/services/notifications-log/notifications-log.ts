@@ -29,7 +29,7 @@ export class NotificationLogService<ServiceParams extends NotificationLogParams 
 export const getOptions = (app: Application): KnexAdapterOptions => {
   return {
     paginate: false,
-    Model: app.get('postgresqlClient'),
+    Model: app.get('knexClient'),
     name: 'notifications_log',
     multi: ['patch']
   }

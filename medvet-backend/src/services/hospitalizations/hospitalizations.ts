@@ -37,7 +37,7 @@ export class HospitalizationService<ServiceParams extends HospitalizationParams 
 export const getOptions = (app: Application): KnexAdapterOptions => {
   return {
     paginate: false,
-    Model: app.get('postgresqlClient'),
+    Model: app.get('knexClient'),
     name: 'hospitalizations',
     multi: ['patch']
   }
@@ -45,7 +45,7 @@ export const getOptions = (app: Application): KnexAdapterOptions => {
 
 // Hook to enrich hospitalizations with pet, owner, box and vet details
 const enrichHospitalization = async (context: HookContext) => {
-  const db = context.app.get('postgresqlClient')
+  const db = context.app.get('knexClient')
   const populateRecord = async (record: any) => {
     if (!record) return record
 
@@ -133,7 +133,7 @@ export const hospitalizations = (app: Application) => {
       all: [enrichHospitalization],
       create: [
         async (context: HookContext) => {
-          const db = context.app.get('postgresqlClient')
+          const db = context.app.get('knexClient')
           const hosp = context.result
           if (hosp?.box_id && hosp.status !== 'discharged') {
             await db('hospitalization_boxes')
@@ -149,7 +149,7 @@ export const hospitalizations = (app: Application) => {
       ],
       patch: [
         async (context: HookContext) => {
-          const db = context.app.get('postgresqlClient')
+          const db = context.app.get('knexClient')
           const hosp = context.result
           if (hosp?.box_id) {
             if (hosp.status === 'discharged') {

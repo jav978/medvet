@@ -27,7 +27,7 @@ export class HospitalizationBoxService<ServiceParams extends HospitalizationBoxP
 export const getOptions = (app: Application): KnexAdapterOptions => {
   return {
     paginate: false,
-    Model: app.get('postgresqlClient'),
+    Model: app.get('knexClient'),
     name: 'hospitalization_boxes',
     multi: ['patch']
   }

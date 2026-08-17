@@ -34,14 +34,14 @@ export class GroomingRecordService<ServiceParams extends GroomingRecordParams = 
 export const getOptions = (app: Application): KnexAdapterOptions => {
   return {
     paginate: false,
-    Model: app.get('postgresqlClient'),
+    Model: app.get('knexClient'),
     name: 'grooming_records',
     multi: ['patch']
   }
 }
 
 const enrichGroomingRecord = async (context: HookContext) => {
-  const db = context.app.get('postgresqlClient')
+  const db = context.app.get('knexClient')
   const populateRecord = async (record: any) => {
     if (!record) return record
 

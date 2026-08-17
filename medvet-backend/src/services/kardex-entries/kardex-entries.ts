@@ -41,14 +41,14 @@ export class KardexEntryService<ServiceParams extends KardexEntryParams = Kardex
 export const getOptions = (app: Application): KnexAdapterOptions => {
   return {
     paginate: false,
-    Model: app.get('postgresqlClient'),
+    Model: app.get('knexClient'),
     name: 'kardex_entries',
     multi: ['patch']
   }
 }
 
 const enrichKardexEntry = async (context: HookContext) => {
-  const db = context.app.get('postgresqlClient')
+  const db = context.app.get('knexClient')
   const populateRecord = async (record: any) => {
     if (!record) return record
 
