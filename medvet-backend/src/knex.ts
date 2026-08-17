@@ -7,6 +7,8 @@ import { up as initialMigration } from './migrations/20260710000000_initial'
 import { up as ehrMigration } from './migrations/20260815000000_clinical_ehr'
 import { up as inventoryMigration } from './migrations/20260817000000_inventory'
 import { up as hospitalizationMigration } from './migrations/20260818000000_hospitalizations_kardex'
+import { up as notificationsMigration } from './migrations/20260819000000_notifications'
+import { up as groomingMigration } from './migrations/20260820000000_grooming'
 
 config()
 
@@ -48,6 +50,20 @@ export async function ensureDatabaseSchema(db: Knex) {
       console.log('🔄 Initializing hospitalization boxes & kardex database schema...')
       await hospitalizationMigration(db)
       console.log('✅ Hospitalization boxes & kardex schema initialized.')
+    }
+
+    const hasTemplates = await db.schema.hasTable('notification_templates')
+    if (!hasTemplates) {
+      console.log('🔄 Initializing notification templates & log database schema...')
+      await notificationsMigration(db)
+      console.log('✅ Notification database schema initialized.')
+    }
+
+    const hasGrooming = await db.schema.hasTable('grooming_records')
+    if (!hasGrooming) {
+      console.log('🔄 Initializing grooming & pet spa database schema...')
+      await groomingMigration(db)
+      console.log('✅ Grooming database schema initialized.')
     }
 
     // Ensure concurrency anti-double-booking unique index exists on PostgreSQL
@@ -563,7 +579,121 @@ export async function ensureDatabaseSchema(db: Knex) {
         console.log('✅ Hospitalization boxes, admissions and Kardex entries seeded successfully.')
       }
 
-      console.log('✅ Veterinary services, doctor profile, schedules, inventory and hospitalization ready.')
+      // 7. Auto-seed Notification Templates
+      const templatesCount = await db('notification_templates').count('id as count').first()
+      if (templatesCount && Number(templatesCount.count) === 0) {
+        console.log('🔄 Seeding notification templates...')
+        await db('notification_templates').insert([
+          {
+            code: 'appointment_reminder',
+            channel: 'whatsapp',
+            title: 'Recordatorio de Cita Médica (24h antes)',
+            subject: 'Recordatorio de Cita Médica - MedVet',
+            template_body: '🐾 *Recordatorio de Cita Médica - MedVet*\n\nHola {{tutor_name}}, te recordamos que *{{pet_name}}* tiene una cita programada para el día *{{date}}* a las *{{time}}* con el especialista *{{vet_name}}* para el servicio de *{{service_name}}*.\n\n📍 Sede Principal MedVet Clínicas\nPor favor confirma tu asistencia respondiendo a este mensaje. ¡Te esperamos!',
+            description: 'Enviado automáticamente 24 horas antes de la consulta o procedimiento.',
+            active: true
+          },
+          {
+            code: 'vaccine_due',
+            channel: 'whatsapp',
+            title: 'Aviso Preventivo de Vacunación / Refuerzo',
+            subject: 'Aviso de Vacunación - MedVet',
+            template_body: '💉 *Aviso Preventivo de Vacunación - MedVet*\n\nHola {{tutor_name}}, la vacuna *{{vaccine_name}}* de *{{pet_name}}* está próxima a vencer o requiere refuerzo (Fecha límite: *{{due_date}}*).\n\n🛡️ Mantén la inmunidad de tu mascota al día. Puedes agendar el turno desde tu portal web MedVet o responder directamente a este WhatsApp para coordinar.',
+            description: 'Recordatorio preventivo de calendario biológico e inmunización.',
+            active: true
+          },
+          {
+            code: 'hospitalization_update',
+            channel: 'whatsapp',
+            title: 'Parte Médico de Hospitalización & Evolución',
+            subject: 'Evolución de Paciente Hospitalizado - MedVet',
+            template_body: '🏥 *Parte Médico Diario de Hospitalización - MedVet*\n\nEstimado/a {{tutor_name}}, te compartimos la evolución clínica de *{{pet_name}}* internado/a en *{{box_name}}*:\n\n🌡️ *Estado actual:* {{status}}\n💧 *Fluidoterapia & Medicación:* Administrada según pauta horaria.\n📝 *Nota médica de guardia:* {{medical_notes}}\n\n👨‍⚕️ *Médico Responsable:* {{vet_name}}.\nNuestro equipo se encuentra atento las 24 horas.',
+            description: 'Envío de informe de guardia y novedades a los tutores con mascotas en cama.',
+            active: true
+          },
+          {
+            code: 'grooming_ready',
+            channel: 'whatsapp',
+            title: 'Aviso: Mascota Lista en Peluquería / Spa',
+            subject: '¡Tu mascota está lista! - MedVet Spa',
+            template_body: '🛁✨ *¡Tu consentido ya está listo! - MedVet Spa & Grooming*\n\nHola {{tutor_name}}, te informamos con alegría que *{{pet_name}}* ha finalizado su sesión de *{{service_name}}*. ¡Quedó impecable, limpio y perfumado! 🐶💖\n\n⏰ Ya puedes pasar a retirarlo/a por nuestra sede.\n¡Gracias por confiar en MedVet!',
+            description: 'Notificación instantánea cuando el estilista finaliza el secado y corte.',
+            active: true
+          },
+          {
+            code: 'custom_broadcast',
+            channel: 'all',
+            title: 'Comunicado General / Difusión a Tutores',
+            subject: 'Comunicado Especial MedVet',
+            template_body: '📢 *Comunicado Especial MedVet*\n\nEstimado/a {{tutor_name}},\n\n{{custom_message}}\n\nAtentamente,\nEquipo Médico & Directivo MedVet 🐾',
+            description: 'Plantilla para avisos especiales, jornadas de desparasitación o campañas de vacunación.',
+            active: true
+          }
+        ])
+        console.log('✅ Default notification templates seeded successfully.')
+      }
+
+      // 8. Auto-seed Grooming Records
+      const groomingCount = await db('grooming_records').count('id as count').first()
+      if (groomingCount && Number(groomingCount.count) === 0) {
+        console.log('🔄 Seeding demo grooming records...')
+        const allPets = await db('pets').select('id', 'name')
+        const stylist = await db('professionals').first()
+
+        if (allPets.length > 0) {
+          const today = new Date().toISOString().split('T')[0]
+          await db('grooming_records').insert([
+            {
+              pet_id: allPets[0].id,
+              stylist_id: stylist?.id,
+              service_name: 'Baño Dermatológico & Corte Higiénico',
+              appointment_date: today,
+              start_time: '09:30',
+              coat_condition: 'dermatitis',
+              temperament: 'docil',
+              special_shampoo: 'Champú Clorhexidina 3% + Avena Coloidal',
+              haircut_style: 'Corte Higiénico y Despeje Plantar',
+              status: 'in_bath',
+              price_usd: 22.00,
+              special_instructions: 'Dejar actuar champú antiséptico durante 10 minutos en piel.',
+              notes: 'Paciente tranquilo en tina. Piel con leve eritema ventral en mejoría.'
+            },
+            {
+              pet_id: allPets.length > 1 ? allPets[1].id : allPets[0].id,
+              stylist_id: stylist?.id,
+              service_name: 'Spa Completo de Raza & Deslanado Profundo',
+              appointment_date: today,
+              start_time: '11:00',
+              coat_condition: 'enredado',
+              temperament: 'nervioso',
+              special_shampoo: 'Champú Hidratante con Aceite de Argán',
+              haircut_style: 'Corte de Raza Estándar a Tijera',
+              status: 'drying_cutting',
+              price_usd: 30.00,
+              special_instructions: 'Cuidado especial con nudos en zona axilar y detrás de orejas.',
+              notes: 'Secado con turbina a baja potencia para evitar estrés. Corte a tijera en curso.'
+            },
+            {
+              pet_id: allPets.length > 2 ? allPets[2].id : allPets[0].id,
+              stylist_id: stylist?.id,
+              service_name: 'Baño Cosmético & Perfumado Premium',
+              appointment_date: today,
+              start_time: '08:30',
+              coat_condition: 'normal',
+              temperament: 'docil',
+              special_shampoo: 'Champú Brillo & Seda con Aloe Vera',
+              haircut_style: 'Corte de Uñas y Limpieza de Oídos',
+              status: 'ready',
+              price_usd: 18.00,
+              special_instructions: 'Colocar pañuelo decorativo azul.',
+              notes: 'Sesión concluida con éxito. Paciente esperando a su tutor.'
+            }
+          ])
+          console.log('✅ Demo grooming records seeded successfully.')
+        }
+      }
+
+      console.log('✅ All veterinary modules: EHR, Inventory, Hospitalization, Notifications & Grooming ready.')
     } catch (seedErr: any) {
       console.warn('ℹ️ Seed notice:', seedErr.message)
     }

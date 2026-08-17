@@ -226,6 +226,42 @@ const roleLabel = computed(() => {
 
           <NuxtLink
             v-if="authStore.canAccessAdmin"
+            to="/admin/notifications"
+            class="dropdown-item"
+            @click="closeDropdown"
+            role="menuitem"
+          >
+            <div class="item-icon-wrap item-icon--emerald">
+              <svg viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+              </svg>
+            </div>
+            <div class="item-content">
+              <span class="item-title">WhatsApp & Avisos</span>
+              <span class="item-subtitle">Centro de recordatorios</span>
+            </div>
+          </NuxtLink>
+
+          <NuxtLink
+            v-if="authStore.canAccessAdmin"
+            to="/admin/grooming"
+            class="dropdown-item"
+            @click="closeDropdown"
+            role="menuitem"
+          >
+            <div class="item-icon-wrap item-icon--purple">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 19c-1.1 0-2 .9-2 2h14c0-1.1-.9-2-2-2h-4v-2h3c1.65 0 3-1.35 3-3V7c0-2.76-2.24-5-5-5s-5 2.24-5 5v7c0 1.65 1.35 3 3 3h3v2H7zM11 7c0-1.65 1.35-3 3-3s3 1.35 3 3v7c0 .55-.45 1-1 1h-4c-.55 0-1-.45-1-1V7z"/>
+              </svg>
+            </div>
+            <div class="item-content">
+              <span class="item-title">Peluquería & Spa</span>
+              <span class="item-subtitle">Flujo Kanban de estética</span>
+            </div>
+          </NuxtLink>
+
+          <NuxtLink
+            v-if="authStore.canAccessAdmin"
             to="/admin/inventory"
             class="dropdown-item"
             @click="closeDropdown"

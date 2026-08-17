@@ -41,6 +41,8 @@
               <svg v-if="item.icon === 'home'" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
               <svg v-else-if="item.icon === 'users'" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.07-.3.1-.63.1-.97 0-1.92-1.22-3.51-2.9-4.13A5.47 5.47 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
               <svg v-else-if="item.icon === 'calendar'" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+              <svg v-else-if="item.icon === 'notifications'" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
+              <svg v-else-if="item.icon === 'grooming'" viewBox="0 0 24 24" fill="currentColor"><path d="M7 19c-1.1 0-2 .9-2 2h14c0-1.1-.9-2-2-2h-4v-2h3c1.65 0 3-1.35 3-3V7c0-2.76-2.24-5-5-5s-5 2.24-5 5v7c0 1.65 1.35 3 3 3h3v2H7zM11 7c0-1.65 1.35-3 3-3s3 1.35 3 3v7c0 .55-.45 1-1 1h-4c-.55 0-1-.45-1-1V7z"/></svg>
               <svg v-else-if="item.icon === 'guardia'" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM11 14a1 1 0 11-2 0 1 1 0 012 0zm0-7a1 1 0 10-2 0v3a1 1 0 102 0V7z" clip-rule="evenodd"/></svg>
               <svg v-else-if="item.icon === 'hospitalization'" viewBox="0 0 24 24" fill="currentColor"><path d="M19 7h-8v6h8V7zm2-4H3c-1.1 0-2 .9-2 2v14h2v-3h18v3h2V9c0-3.31-2.69-6-6-6zm4 12H3V5h16c2.21 0 4 1.79 4 4v6z"/></svg>
               <svg v-else-if="item.icon === 'inventory'" viewBox="0 0 20 20" fill="currentColor"><path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"/><path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
@@ -155,6 +157,8 @@ let timerInterval = null
 const navItems = [
   { to: '/admin',               label: 'Dashboard Clínico', icon: 'home' },
   { to: '/admin/appointments',  label: 'Gestión de Citas',  icon: 'calendar' },
+  { to: '/admin/notifications', label: 'Notificaciones & WhatsApp', icon: 'notifications' },
+  { to: '/admin/grooming',      label: 'Peluquería & Spa',  icon: 'grooming' },
   { to: '/admin/hospitalization', label: 'Hospitalización & Kardex', icon: 'hospitalization' },
   { to: '/admin/guardia',       label: 'Guardia 24/7 & Relevos', icon: 'guardia' },
   { to: '/admin/inventory',     label: 'Farmacia & Inventario', icon: 'inventory' },
@@ -171,6 +175,8 @@ const pageTitle = computed(() => {
     '/admin':                 'Dashboard Clínico',
     '/admin/users':           'Gestión de Usuarios',
     '/admin/appointments':    'Gestión de Citas',
+    '/admin/notifications':   'Centro de Notificaciones & WhatsApp Directo',
+    '/admin/grooming':        'Peluquería, Estética Canina/Felina & Pet Spa',
     '/admin/hospitalization': 'Control de Hospitalización, Boxes & Kardex 24h',
     '/admin/guardia':         'Libro de Guardia & Relevo Médico 24/7',
     '/admin/inventory':       'Farmacia & Control de Inventario Clínico',

@@ -17,6 +17,9 @@ import { inventoryMovements } from './inventory-movements/inventory-movements'
 import { hospitalizationBoxes } from './hospitalization-boxes/hospitalization-boxes'
 import { hospitalizations } from './hospitalizations/hospitalizations'
 import { kardexEntries } from './kardex-entries/kardex-entries'
+import { notificationTemplates } from './notification-templates/notification-templates'
+import { notificationsLog } from './notifications-log/notifications-log'
+import { groomingRecords } from './grooming-records/grooming-records'
 import type { Application } from '../declarations'
 
 export const configureServices = (app: Application) => {
@@ -39,5 +42,8 @@ export const configureServices = (app: Application) => {
   app.configure(hospitalizationBoxes)
   app.configure(hospitalizations)
   app.configure(kardexEntries)
+  app.configure(notificationTemplates)
+  app.configure(notificationsLog)
+  app.configure(groomingRecords)
 }
 
