@@ -12,6 +12,8 @@ import { surgeries } from './surgeries/surgeries'
 import { shiftHandovers } from './shift-handovers/shift-handovers'
 import { publicCarnet } from './public-carnet/public-carnet'
 import { clinicalUpload } from './clinical-upload/clinical-upload'
+import { inventory } from './inventory/inventory'
+import { inventoryMovements } from './inventory-movements/inventory-movements'
 import type { Application } from '../declarations'
 
 export const configureServices = (app: Application) => {
@@ -29,5 +31,7 @@ export const configureServices = (app: Application) => {
   app.configure(shiftHandovers)
   app.configure(publicCarnet)
   app.configure(clinicalUpload)
+  app.configure(inventory)
+  app.configure(inventoryMovements)
 }
 

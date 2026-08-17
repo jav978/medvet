@@ -41,6 +41,8 @@
               <svg v-if="item.icon === 'home'" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
               <svg v-else-if="item.icon === 'users'" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.07-.3.1-.63.1-.97 0-1.92-1.22-3.51-2.9-4.13A5.47 5.47 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
               <svg v-else-if="item.icon === 'calendar'" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+              <svg v-else-if="item.icon === 'guardia'" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM11 14a1 1 0 11-2 0 1 1 0 012 0zm0-7a1 1 0 10-2 0v3a1 1 0 102 0V7z" clip-rule="evenodd"/></svg>
+              <svg v-else-if="item.icon === 'inventory'" viewBox="0 0 20 20" fill="currentColor"><path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"/><path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
               <svg v-else-if="item.icon === 'services'" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.9L10 1.954 17.834 4.9a1 1 0 01.666.94v5.308c0 4.567-2.91 8.528-7.065 9.774a1 1 0 01-.67 0C6.577 19.672 3.667 15.711 3.667 11.15V5.84a1 1 0 01.666-.94zM10 12a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
               <svg v-else-if="item.icon === 'professionals'" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/></svg>
               <svg v-else-if="item.icon === 'schedules'" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.8 2.8a1 1 0 101.414-1.414L11 9.586V6z" clip-rule="evenodd"/></svg>
@@ -152,12 +154,14 @@ let timerInterval = null
 const navItems = [
   { to: '/admin',               label: 'Dashboard Clínico', icon: 'home' },
   { to: '/admin/appointments',  label: 'Gestión de Citas',  icon: 'calendar' },
+  { to: '/admin/guardia',       label: 'Guardia 24/7 & Boxes', icon: 'guardia' },
+  { to: '/admin/inventory',     label: 'Farmacia & Inventario', icon: 'inventory' },
   { to: '/admin/payments',      label: 'Facturación & Caja',icon: 'services' },
   { to: '/admin/reports',       label: 'Reportería & Auditoría', icon: 'reports' },
   { to: '/admin/users',         label: 'Usuarios & Tutores', icon: 'users' },
   { to: '/admin/services',      label: 'Servicios Médicos',  icon: 'services' },
   { to: '/admin/professionals', label: 'Cuerpo Médico',     icon: 'professionals' },
-  { to: '/admin/schedules',     label: 'Horarios & Guardias',icon: 'schedules' },
+  { to: '/admin/schedules',     label: 'Horarios & Turnos', icon: 'schedules' },
 ]
 
 const pageTitle = computed(() => {
@@ -165,6 +169,8 @@ const pageTitle = computed(() => {
     '/admin':               'Dashboard Clínico',
     '/admin/users':         'Gestión de Usuarios',
     '/admin/appointments':  'Gestión de Citas',
+    '/admin/guardia':       'Libro de Guardia & Relevo Médico 24/7',
+    '/admin/inventory':     'Farmacia & Control de Inventario Clínico',
     '/admin/payments':      'Facturación & Control de Caja',
     '/admin/reports':       'Centro de Reportería & Auditoría',
     '/admin/services':      'Gestión de Servicios',
