@@ -232,12 +232,16 @@ const shiftTabs = [
 ]
 
 const moduleLinks = [
-  { to: '/admin/guardia', icon: '🚨', title: 'Guardia 24/7 & Relevo', desc: 'Hospitalización, urgencias y actas' },
-  { to: '/admin/appointments', icon: '📅', title: 'Gestión de Citas', desc: 'Reprogramar y agenda mensual' },
-  { to: '/admin/users', icon: '👥', title: 'Usuarios & Tutores', desc: 'Padrón de clientes y pacientes' },
-  { to: '/admin/services', icon: '🩺', title: 'Servicios & Aranceles', desc: 'Tarifario y prestaciones médicas' },
-  { to: '/admin/professionals', icon: '👨‍⚕️', title: 'Cuerpo Médico', desc: 'Veterinarios y especialistas' },
-  { to: '/admin/schedules', icon: '⏰', title: 'Horarios & Disponibilidad', desc: 'Configuración de turnos' }
+  { to: '/admin/appointments', icon: '📅', title: 'Gestión de Citas', desc: 'Reprogramar y agenda' },
+  { to: '/admin/guardia', icon: '🚨', title: 'Guardia 24/7 & Relevo', desc: 'Urgencias y actas de turno' },
+  { to: '/admin/hospitalization', icon: '🏥', title: 'Hospitalización & Kardex', desc: 'Boxes, signos y evolución 24h' },
+  { to: '/admin/inventory', icon: '💊', title: 'Farmacia & Stock', desc: 'Control de insumos y lotes' },
+  { to: '/admin/notifications', icon: '📲', title: 'WhatsApp & Avisos', desc: 'Plantillas y mensajería directa' },
+  { to: '/admin/grooming', icon: '🛁', title: 'Peluquería & Pet Spa', desc: 'Flujo kanban de estética' },
+  { to: '/admin/payments', icon: '💳', title: 'Facturación & Caja', desc: 'Recibos, cobranza y caja' },
+  { to: '/admin/reports', icon: '📊', title: 'Reportería & Auditoría', desc: 'Métricas y finanzas' },
+  { to: '/admin/users', icon: '👥', title: 'Usuarios & Tutores', desc: 'Padrón de clientes y mascotas' },
+  { to: '/admin/services', icon: '🩺', title: 'Servicios & Aranceles', desc: 'Tarifario y catálogo médico' }
 ]
 
 const todayAppointments = reactive([
@@ -599,7 +603,8 @@ const saveNotes = (id) => {
   gap: 1rem;
 }
 
-@media (max-width: 960px) { .modules-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 1180px) { .modules-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 860px) { .modules-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 580px) { .modules-grid { grid-template-columns: repeat(2, 1fr); } }
 
 .module-card {

@@ -18,6 +18,7 @@
       </div>
 
       <div class="admin-header-actions">
+        <BcvRateWidget />
         <button type="button" @click="handleExportDocxReport" class="btn-ghost">
           <span>📝</span>
           <span>Word (.docx)</span>
@@ -46,7 +47,7 @@
       <div class="kpi-box">
         <span class="kpi-lbl">Recaudación de Hoy</span>
         <span class="kpi-amount font-mono-numbers text-mint">${{ todayRevenue.toLocaleString() }}</span>
-        <span class="kpi-note">{{ transactions.length }} transacciones registradas</span>
+        <span class="kpi-note font-mono-numbers text-xs text-gray-500">≈ {{ formatVes(todayRevenue) }} (Tasa BCV) · {{ transactions.length }} recibos</span>
       </div>
 
       <div class="kpi-box">
@@ -199,6 +200,8 @@ definePageMeta({
   requiresAuth: true,
   requiresAdmin: true
 })
+
+const { formatVes, formatUsd, bcvRate } = useCurrency()
 
 const showNewInvoiceModal = ref(false)
 const showInvoiceViewer = ref(false)

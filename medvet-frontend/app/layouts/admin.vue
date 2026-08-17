@@ -90,7 +90,6 @@
           </div>
         </div>
         <div class="topbar-right">
-          <BcvRateWidget />
           <ThemeToggle variant="icon" />
           <span class="topbar-username font-semibold">{{ adminDisplayName }}</span>
           <NuxtLink to="/" class="topbar-front-link">
@@ -263,9 +262,10 @@ onUnmounted(() => {
 .sidebar-inner {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  padding: 1.5rem 1.15rem;
+  height: 100vh;
+  padding: 1.25rem 1rem 1rem;
   gap: 0;
+  overflow: hidden;
 }
 
 /* Brand */
@@ -273,9 +273,10 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 2rem;
-  padding-bottom: 1.25rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid rgba(0, 245, 155, 0.15);
+  flex-shrink: 0;
 }
 
 .sidebar-logo {
@@ -327,30 +328,55 @@ onUnmounted(() => {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #94a3b8;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
   padding-left: 0.65rem;
+  flex-shrink: 0;
 }
 
 /* Nav */
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  flex-grow: 1;
+  gap: 0.25rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+  margin-right: -4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 245, 155, 0.25) transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(0, 245, 155, 0.25);
+  border-radius: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 245, 155, 0.5);
 }
 
 .sidebar-link {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem 0.85rem;
-  border-radius: 12px;
+  padding: 0.65rem 0.8rem;
+  border-radius: 10px;
   text-decoration: none;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   font-weight: 500;
   color: #cbd5e1;
   transition: all 0.18s ease;
   position: relative;
+  flex-shrink: 0;
 }
 
 .sidebar-link:hover {
@@ -375,7 +401,7 @@ onUnmounted(() => {
 
 .sidebar-link-icon svg { width: 1.15rem; height: 1.15rem; }
 
-.sidebar-link-text { flex: 1; }
+.sidebar-link-text { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .sidebar-active-dot {
   width: 6px;
@@ -387,12 +413,14 @@ onUnmounted(() => {
 
 /* Footer */
 .sidebar-footer {
-  padding-top: 1.25rem;
+  margin-top: auto;
+  padding-top: 1rem;
   border-top: 1px solid rgba(0, 245, 155, 0.12);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .sidebar-user {
