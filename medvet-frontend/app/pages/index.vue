@@ -52,17 +52,6 @@
             </a>
           </div>
 
-          <!-- CLI Quick Command (Nuxt.com quick copy bar) -->
-          <div class="hero-cli-bar">
-            <div class="cli-left">
-              <span class="cli-prompt">&gt;_</span>
-              <span class="cli-code font-mono-numbers">medvet agendar --especie {{ selectedSpecies }} --urgencia auto</span>
-            </div>
-            <NuxtLink to="/book" class="cli-copy-btn" title="Cita Inmediata">
-              <svg viewBox="0 0 20 20" fill="currentColor" class="cli-icon"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 2H9a3 3 0 01-3-2z"/></svg>
-            </NuxtLink>
-          </div>
-
           <!-- Trust stats -->
           <div class="trust-strip">
             <div class="trust-stat">
@@ -757,87 +746,6 @@ onMounted(async () => {
 
 .dark .btn-play-icon {
   color: #00f59b;
-}
-
-/* CLI Quick Snippet Bar */
-.hero-cli-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  background: rgba(4, 7, 6, 0.04);
-  border: 1px solid var(--color-cream-300);
-  border-radius: 8px;
-  padding: 0.5rem 0.85rem;
-  max-width: 100%;
-  width: 100%;
-  margin-bottom: 2rem;
-}
-
-.dark .hero-cli-bar {
-  background: rgba(10, 17, 14, 0.75);
-  border-color: rgba(0, 245, 155, 0.16);
-}
-
-.cli-left {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-width: 0;
-  overflow: hidden;
-  flex: 1;
-}
-
-.cli-prompt {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  color: var(--color-forest-600);
-  flex-shrink: 0;
-}
-
-.dark .cli-prompt {
-  color: #00f59b;
-}
-
-.cli-code {
-  font-family: var(--font-mono);
-  font-size: clamp(0.68rem, 2.5vw, 0.8125rem);
-  color: var(--color-ink-600);
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-.dark .cli-code { color: #d6e8de; }
-
-.cli-copy-btn {
-  background: transparent;
-  border: none;
-  color: var(--color-ink-400);
-  cursor: pointer;
-  padding: 0.2rem;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.15s ease;
-}
-
-.cli-copy-btn:hover {
-  color: #00a86b;
-  background: rgba(0, 168, 107, 0.1);
-}
-
-.dark .cli-copy-btn:hover {
-  color: #00f59b;
-  background: rgba(0, 245, 155, 0.15);
-}
-
-.cli-icon {
-  width: 16px;
-  height: 16px;
 }
 
 /* Trust strip */

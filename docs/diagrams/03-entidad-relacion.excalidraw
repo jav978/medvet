@@ -1,0 +1,1408 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "mcp-excalidraw-server",
+  "elements": [
+    {
+      "id": "users",
+      "type": "rectangle",
+      "x": 60,
+      "y": 170,
+      "width": 300,
+      "height": 156,
+      "backgroundColor": "#e7f5ee",
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.930Z",
+      "updatedAt": "2026-08-15T22:22:34.930Z",
+      "version": 1
+    },
+    {
+      "id": "users-t",
+      "type": "text",
+      "x": 72,
+      "y": 176,
+      "width": 276,
+      "height": 20,
+      "strokeColor": "#2b8a5f",
+      "text": "users  (personas)",
+      "fontSize": 16,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.930Z",
+      "updatedAt": "2026-08-15T22:22:34.930Z",
+      "version": 1
+    },
+    {
+      "id": "users-f",
+      "type": "text",
+      "x": 74,
+      "y": 202,
+      "width": 272,
+      "height": 110,
+      "strokeColor": "#343a40",
+      "text": "id          uuid PK\nemail       unique\npassword    hash\nname\nphone\nrole        admin|recep.|vet|client\nactive      bool\ncreated_at",
+      "fontSize": 11,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "pets",
+      "type": "rectangle",
+      "x": 440,
+      "y": 170,
+      "width": 280,
+      "height": 169.5,
+      "backgroundColor": "#e7f5ee",
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "pets-t",
+      "type": "text",
+      "x": 452,
+      "y": 176,
+      "width": 256,
+      "height": 20,
+      "strokeColor": "#2b8a5f",
+      "text": "pets",
+      "fontSize": 16,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "pets-f",
+      "type": "text",
+      "x": 454,
+      "y": 202,
+      "width": 252,
+      "height": 123.5,
+      "strokeColor": "#343a40",
+      "text": "id          uuid PK\nuser_id     FK → users.id\nname        not null\nspecies     not null\nbreed\nage         int\nweight      kg\nphoto\ncreated_at",
+      "fontSize": 11,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "professionals",
+      "type": "rectangle",
+      "x": 60,
+      "y": 470,
+      "width": 300,
+      "height": 102,
+      "backgroundColor": "#e7f5ee",
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "professionals-t",
+      "type": "text",
+      "x": 72,
+      "y": 476,
+      "width": 276,
+      "height": 20,
+      "strokeColor": "#2b8a5f",
+      "text": "professionals",
+      "fontSize": 16,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "professionals-f",
+      "type": "text",
+      "x": 74,
+      "y": 502,
+      "width": 272,
+      "height": 56,
+      "strokeColor": "#343a40",
+      "text": "id          uuid PK\nuser_id     FK → users.id (unique)\nspecialty   not null\nactive      bool",
+      "fontSize": 11,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "services",
+      "type": "rectangle",
+      "x": 840,
+      "y": 170,
+      "width": 280,
+      "height": 169.5,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "services-t",
+      "type": "text",
+      "x": 852,
+      "y": 176,
+      "width": 256,
+      "height": 20,
+      "strokeColor": "#1971c2",
+      "text": "services",
+      "fontSize": 16,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "services-f",
+      "type": "text",
+      "x": 854,
+      "y": 202,
+      "width": 252,
+      "height": 123.5,
+      "strokeColor": "#343a40",
+      "text": "id          uuid PK\nname        not null\ndescription\nduration    min (int)\nprice       decimal\ncategory    consulta|vacuna|\n            cirugia|emergencia|\n            estetica|laboratorio\nactive      bool",
+      "fontSize": 11,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "schedules",
+      "type": "rectangle",
+      "x": 1180,
+      "y": 170,
+      "width": 280,
+      "height": 129,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "schedules-t",
+      "type": "text",
+      "x": 1192,
+      "y": 176,
+      "width": 256,
+      "height": 20,
+      "strokeColor": "#1971c2",
+      "text": "schedules",
+      "fontSize": 16,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "schedules-f",
+      "type": "text",
+      "x": 1194,
+      "y": 202,
+      "width": 252,
+      "height": 83,
+      "strokeColor": "#343a40",
+      "text": "id              uuid PK\nprofessional_id FK → prof.\nday_of_week     0-6\nstart_time      time\nend_time        time\nactive          bool",
+      "fontSize": 11,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "appointments",
+      "type": "rectangle",
+      "x": 840,
+      "y": 470,
+      "width": 320,
+      "height": 210,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "appointments-t",
+      "type": "text",
+      "x": 852,
+      "y": 476,
+      "width": 296,
+      "height": 20,
+      "strokeColor": "#1971c2",
+      "text": "appointments",
+      "fontSize": 16,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "appointments-f",
+      "type": "text",
+      "x": 854,
+      "y": 502,
+      "width": 292,
+      "height": 164,
+      "strokeColor": "#343a40",
+      "text": "id              uuid PK\nuser_id         FK → users (tutor)\npet_id          FK → pets\nprofessional_id FK → professionals\nservice_id      FK → services\ndate            date\nstart_time      time\nend_time        time\nstatus          pending|confirmed|\n                completed|cancelled\nnotes\nupdated_at",
+      "fontSize": 11,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "medical_records",
+      "type": "rectangle",
+      "x": 1580,
+      "y": 170,
+      "width": 320,
+      "height": 277.5,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "medical_records-t",
+      "type": "text",
+      "x": 1592,
+      "y": 176,
+      "width": 296,
+      "height": 20,
+      "strokeColor": "#e8590c",
+      "text": "medical_records",
+      "fontSize": 16,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.931Z",
+      "updatedAt": "2026-08-15T22:22:34.931Z",
+      "version": 1
+    },
+    {
+      "id": "medical_records-f",
+      "type": "text",
+      "x": 1594,
+      "y": 202,
+      "width": 292,
+      "height": 231.5,
+      "strokeColor": "#343a40",
+      "text": "id              uuid PK\npet_id          FK → pets\nprofessional_id FK → professionals\nappointment_id  FK → appointments\nrecord_type     consulta|urgencia|…\nreason_for_visit\nweight_kg · temperature\nheart_rate · respiratory_rate\nmucous_membranes · TLLC\nanamnesis\nphysical_exam_findings\npresumptive_diagnosis\ndefinitive_diagnosis\ntreatment_plan\nmedical_prescription\npatient_status  estable|critico|…\nnotes",
+      "fontSize": 11,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "vaccinations",
+      "type": "rectangle",
+      "x": 2000,
+      "y": 170,
+      "width": 300,
+      "height": 183,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "vaccinations-t",
+      "type": "text",
+      "x": 2012,
+      "y": 176,
+      "width": 276,
+      "height": 20,
+      "strokeColor": "#e8590c",
+      "text": "vaccinations",
+      "fontSize": 16,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "vaccinations-f",
+      "type": "text",
+      "x": 2014,
+      "y": 202,
+      "width": 272,
+      "height": 137,
+      "strokeColor": "#343a40",
+      "text": "id              uuid PK\npet_id          FK → pets\nprofessional_id FK → professionals\nvaccine_name\ntype            vacuna|despar.|ref.\nbatch_number · manufacturer\napplied_date    date\nnext_due_date   (revacunación)\nstatus          aplicada|pendiente|…\nnotes",
+      "fontSize": 11,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "clinical_attachments",
+      "type": "rectangle",
+      "x": 2000,
+      "y": 480,
+      "width": 300,
+      "height": 183,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "clinical_attachments-t",
+      "type": "text",
+      "x": 2012,
+      "y": 486,
+      "width": 276,
+      "height": 20,
+      "strokeColor": "#e8590c",
+      "text": "clinical_attachments",
+      "fontSize": 16,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "clinical_attachments-f",
+      "type": "text",
+      "x": 2014,
+      "y": 512,
+      "width": 272,
+      "height": 137,
+      "strokeColor": "#343a40",
+      "text": "id                uuid PK\npet_id            FK → pets\nmedical_record_id FK → records\ncategory          rx|eco|sangre|…\ntitle             not null\nfindings\nfile_url          not null\nthumbnail_url\nfile_type · file_size\nstudy_date",
+      "fontSize": 11,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "surgeries",
+      "type": "rectangle",
+      "x": 1580,
+      "y": 640,
+      "width": 320,
+      "height": 196.5,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "surgeries-t",
+      "type": "text",
+      "x": 1592,
+      "y": 646,
+      "width": 296,
+      "height": 20,
+      "strokeColor": "#e8590c",
+      "text": "surgeries",
+      "fontSize": 16,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "surgeries-f",
+      "type": "text",
+      "x": 1594,
+      "y": 672,
+      "width": 292,
+      "height": 150.5,
+      "strokeColor": "#343a40",
+      "text": "id                uuid PK\npet_id            FK → pets\nprofessional_id   FK → professionals\nmedical_record_id FK → records\nsurgery_name · surgery_type\npre_op_evaluation\nanesthesia_protocol\nsurgical_technique\npost_op_orders\nstatus            progr.|quirof.|compl.\nsurgery_date",
+      "fontSize": 11,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "shift_handovers",
+      "type": "rectangle",
+      "x": 2360,
+      "y": 800,
+      "width": 320,
+      "height": 210,
+      "backgroundColor": "#f3e8ff",
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 1.5,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "shift_handovers-t",
+      "type": "text",
+      "x": 2372,
+      "y": 806,
+      "width": 296,
+      "height": 20,
+      "strokeColor": "#9c36b5",
+      "text": "shift_handovers",
+      "fontSize": 16,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "shift_handovers-f",
+      "type": "text",
+      "x": 2374,
+      "y": 832,
+      "width": 292,
+      "height": 164,
+      "strokeColor": "#343a40",
+      "text": "id                uuid PK\noutgoing_vet_id   FK → professionals\nincoming_vet_id   FK → professionals\nshift_type        manana|tarde|noche|24h\nshift_date\nadmitted_patients_count\nsurgeries_count\nemergencies_count\ndischarges_count\ncritical_patients_notes\npending_tasks\nshift_summary",
+      "fontSize": 11,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "stock_items",
+      "type": "rectangle",
+      "x": 60,
+      "y": 900,
+      "width": 280,
+      "height": 142.5,
+      "backgroundColor": "#f8f9fa",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1.5,
+      "strokeStyle": "dashed",
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "stock_items-t",
+      "type": "text",
+      "x": 72,
+      "y": 906,
+      "width": 256,
+      "height": 20,
+      "strokeColor": "#868e96",
+      "text": "① stock_items",
+      "fontSize": 16,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "stock_items-f",
+      "type": "text",
+      "x": 74,
+      "y": 932,
+      "width": 252,
+      "height": 96.5,
+      "strokeColor": "#343a40",
+      "text": "id           uuid PK\ncode · name\ncategory     medicamento|insumo\nunit\nstock · min_stock\ncost · sale_price\nexpiry_date",
+      "fontSize": 11,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "stock_movements",
+      "type": "rectangle",
+      "x": 400,
+      "y": 900,
+      "width": 280,
+      "height": 129,
+      "backgroundColor": "#f8f9fa",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1.5,
+      "strokeStyle": "dashed",
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "stock_movements-t",
+      "type": "text",
+      "x": 412,
+      "y": 906,
+      "width": 256,
+      "height": 20,
+      "strokeColor": "#868e96",
+      "text": "① stock_movements",
+      "fontSize": 16,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "stock_movements-f",
+      "type": "text",
+      "x": 414,
+      "y": 932,
+      "width": 252,
+      "height": 83,
+      "strokeColor": "#343a40",
+      "text": "id             uuid PK\nstock_item_id  FK → stock_items\ntype           entrada|salida|merma\nquantity\nreason\ncreated_at",
+      "fontSize": 11,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "lab_results",
+      "type": "rectangle",
+      "x": 740,
+      "y": 900,
+      "width": 300,
+      "height": 142.5,
+      "backgroundColor": "#f8f9fa",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1.5,
+      "strokeStyle": "dashed",
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "lab_results-t",
+      "type": "text",
+      "x": 752,
+      "y": 906,
+      "width": 276,
+      "height": 20,
+      "strokeColor": "#868e96",
+      "text": "① lab_results",
+      "fontSize": 16,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "lab_results-f",
+      "type": "text",
+      "x": 754,
+      "y": 932,
+      "width": 272,
+      "height": 96.5,
+      "strokeColor": "#343a40",
+      "text": "id                uuid PK\npet_id            FK → pets\nmedical_record_id FK → records\nprofessional_id   FK → professionals\nstudy_type        hemograma|bioq.|…\nvalues_json\ninterpretation",
+      "fontSize": 11,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "payment_intents",
+      "type": "rectangle",
+      "x": 1100,
+      "y": 900,
+      "width": 300,
+      "height": 142.5,
+      "backgroundColor": "#f8f9fa",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1.5,
+      "strokeStyle": "dashed",
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "payment_intents-t",
+      "type": "text",
+      "x": 1112,
+      "y": 906,
+      "width": 276,
+      "height": 20,
+      "strokeColor": "#868e96",
+      "text": "① payment_intents",
+      "fontSize": 16,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "payment_intents-f",
+      "type": "text",
+      "x": 1114,
+      "y": 932,
+      "width": 272,
+      "height": 96.5,
+      "strokeColor": "#343a40",
+      "text": "id             uuid PK\nappointment_id FK → appointments\nuser_id        FK → users\namount · currency\nprovider       mercadopago|stripe\nprovider_ref · status\npaid_at",
+      "fontSize": 11,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "appointment_reminders",
+      "type": "rectangle",
+      "x": 1460,
+      "y": 900,
+      "width": 300,
+      "height": 115.5,
+      "backgroundColor": "#f8f9fa",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1.5,
+      "strokeStyle": "dashed",
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "appointment_reminders-t",
+      "type": "text",
+      "x": 1472,
+      "y": 906,
+      "width": 276,
+      "height": 20,
+      "strokeColor": "#868e96",
+      "text": "① appointment_reminders",
+      "fontSize": 16,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "appointment_reminders-f",
+      "type": "text",
+      "x": 1474,
+      "y": 932,
+      "width": 272,
+      "height": 69.5,
+      "strokeColor": "#343a40",
+      "text": "id             uuid PK\nappointment_id FK → appointments\nchannel        email|sms|whatsapp\nscheduled_at · sent_at\nstatus         pendiente|enviado",
+      "fontSize": 11,
+      "fontFamily": 3,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "er-title",
+      "type": "text",
+      "x": 900,
+      "y": 30,
+      "width": 900,
+      "height": 40,
+      "strokeColor": "#1e1e1e",
+      "text": "MedVet — Diagrama Entidad-Relación (PostgreSQL 18)",
+      "fontSize": 28,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "z-personas",
+      "type": "rectangle",
+      "x": 40,
+      "y": 120,
+      "width": 700,
+      "height": 660,
+      "backgroundColor": "transparent",
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "z-personas-l",
+      "type": "text",
+      "x": 54,
+      "y": 128,
+      "width": 672,
+      "height": 20,
+      "strokeColor": "#2b8a5f",
+      "text": "Dominio Personas",
+      "fontSize": 14,
+      "createdAt": "2026-08-15T22:22:34.932Z",
+      "updatedAt": "2026-08-15T22:22:34.932Z",
+      "version": 1
+    },
+    {
+      "id": "z-agenda",
+      "type": "rectangle",
+      "x": 820,
+      "y": 120,
+      "width": 640,
+      "height": 680,
+      "backgroundColor": "transparent",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.933Z",
+      "updatedAt": "2026-08-15T22:22:34.933Z",
+      "version": 1
+    },
+    {
+      "id": "z-agenda-l",
+      "type": "text",
+      "x": 834,
+      "y": 128,
+      "width": 612,
+      "height": 20,
+      "strokeColor": "#1971c2",
+      "text": "Dominio Agenda & Reservas",
+      "fontSize": 14,
+      "createdAt": "2026-08-15T22:22:34.933Z",
+      "updatedAt": "2026-08-15T22:22:34.933Z",
+      "version": 1
+    },
+    {
+      "id": "z-ehr",
+      "type": "rectangle",
+      "x": 1560,
+      "y": 120,
+      "width": 760,
+      "height": 820,
+      "backgroundColor": "transparent",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.933Z",
+      "updatedAt": "2026-08-15T22:22:34.933Z",
+      "version": 1
+    },
+    {
+      "id": "z-ehr-l",
+      "type": "text",
+      "x": 1574,
+      "y": 128,
+      "width": 732,
+      "height": 20,
+      "strokeColor": "#e8590c",
+      "text": "Dominio EHR Clínico",
+      "fontSize": 14,
+      "createdAt": "2026-08-15T22:22:34.933Z",
+      "updatedAt": "2026-08-15T22:22:34.933Z",
+      "version": 1
+    },
+    {
+      "id": "z-guardia",
+      "type": "rectangle",
+      "x": 2340,
+      "y": 760,
+      "width": 360,
+      "height": 320,
+      "backgroundColor": "transparent",
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.933Z",
+      "updatedAt": "2026-08-15T22:22:34.933Z",
+      "version": 1
+    },
+    {
+      "id": "z-guardia-l",
+      "type": "text",
+      "x": 2354,
+      "y": 768,
+      "width": 332,
+      "height": 20,
+      "strokeColor": "#9c36b5",
+      "text": "Dominio Guardia 24/7",
+      "fontSize": 14,
+      "createdAt": "2026-08-15T22:22:34.933Z",
+      "updatedAt": "2026-08-15T22:22:34.933Z",
+      "version": 1
+    },
+    {
+      "id": "z-fase1",
+      "type": "rectangle",
+      "x": 40,
+      "y": 840,
+      "width": 1740,
+      "height": 240,
+      "backgroundColor": "transparent",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:22:34.933Z",
+      "updatedAt": "2026-08-15T22:22:34.933Z",
+      "version": 1
+    },
+    {
+      "id": "z-fase1-l",
+      "type": "text",
+      "x": 54,
+      "y": 848,
+      "width": 1712,
+      "height": 20,
+      "strokeColor": "#868e96",
+      "text": "① Fase 1 — planificado (inventario, laboratorio, pagos, recordatorios)",
+      "fontSize": 14,
+      "createdAt": "2026-08-15T22:22:34.933Z",
+      "updatedAt": "2026-08-15T22:22:34.933Z",
+      "version": 1
+    },
+    {
+      "id": "r-u-pets",
+      "type": "arrow",
+      "x": 367.99866906851105,
+      "y": 250.88240815192555,
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          64.0026618629779,
+          1.1676161285813578
+        ]
+      ],
+      "start": {
+        "id": "users"
+      },
+      "end": {
+        "id": "pets"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    },
+    {
+      "id": "r-u-prof",
+      "type": "arrow",
+      "x": 210,
+      "y": 334,
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          128
+        ]
+      ],
+      "start": {
+        "id": "users"
+      },
+      "end": {
+        "id": "professionals"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    },
+    {
+      "id": "r-u-appt",
+      "type": "arrow",
+      "x": 367.3917926424335,
+      "y": 313.1482483469313,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          465.216414715133,
+          192.5642627998082
+        ]
+      ],
+      "start": {
+        "id": "users"
+      },
+      "end": {
+        "id": "appointments"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    },
+    {
+      "id": "r-prof-sch",
+      "type": "arrow",
+      "x": 367.74613688367344,
+      "y": 480.28444304759245,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          804.5077262326531,
+          -207.649967176266
+        ]
+      ],
+      "start": {
+        "id": "professionals"
+      },
+      "end": {
+        "id": "schedules"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    },
+    {
+      "id": "r-prof-appt",
+      "type": "arrow",
+      "x": 367.98137592537915,
+      "y": 531.7987269619879,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          464.03724814924163,
+          31.71900177222676
+        ]
+      ],
+      "start": {
+        "id": "professionals"
+      },
+      "end": {
+        "id": "appointments"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    },
+    {
+      "id": "r-svc-appt",
+      "type": "arrow",
+      "x": 985.791378290165,
+      "y": 347.4844448712664,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          7.152606417328116,
+          114.53111025746716
+        ]
+      ],
+      "start": {
+        "id": "services"
+      },
+      "end": {
+        "id": "appointments"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    },
+    {
+      "id": "r-pet-appt",
+      "type": "arrow",
+      "x": 697.5091688615933,
+      "y": 344.3507412569649,
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          158.42428522763316,
+          120.79851748607018
+        ]
+      ],
+      "start": {
+        "id": "pets"
+      },
+      "end": {
+        "id": "appointments"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    },
+    {
+      "id": "r-pet-mr",
+      "type": "arrow",
+      "x": 727.9913458110115,
+      "y": 261.63925230499535,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          844.017308377977,
+          39.29046090725063
+        ]
+      ],
+      "start": {
+        "id": "pets"
+      },
+      "end": {
+        "id": "medical_records"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    },
+    {
+      "id": "r-prof-mr",
+      "type": "arrow",
+      "x": 367.92411451221056,
+      "y": 499.09189980051195,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          1204.151770975579,
+          -167.04654469906313
+        ]
+      ],
+      "start": {
+        "id": "professionals"
+      },
+      "end": {
+        "id": "medical_records"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    },
+    {
+      "id": "r-appt-mr",
+      "type": "arrow",
+      "x": 1167.5275854611823,
+      "y": 514.7240275283245,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          404.9448290776354,
+          -145.69805505664914
+        ]
+      ],
+      "start": {
+        "id": "appointments"
+      },
+      "end": {
+        "id": "medical_records"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    },
+    {
+      "id": "r-pet-vac",
+      "type": "arrow",
+      "x": 727.9999260629343,
+      "y": 255.38630541460176,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          1264.0001478741315,
+          5.434395540223221
+        ]
+      ],
+      "start": {
+        "id": "pets"
+      },
+      "end": {
+        "id": "vaccinations"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    },
+    {
+      "id": "r-pet-att",
+      "type": "arrow",
+      "x": 727.8419927533779,
+      "y": 284.5773574551799,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          1264.316014493244,
+          255.07776916607332
+        ]
+      ],
+      "start": {
+        "id": "pets"
+      },
+      "end": {
+        "id": "clinical_attachments"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    },
+    {
+      "id": "r-mr-att",
+      "type": "arrow",
+      "x": 1906.7355593609723,
+      "y": 415.6030932246231,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          93.75057490317431,
+          60.080398916607464
+        ]
+      ],
+      "start": {
+        "id": "medical_records"
+      },
+      "end": {
+        "id": "clinical_attachments"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    },
+    {
+      "id": "r-pet-sur",
+      "type": "arrow",
+      "x": 727.3842386592831,
+      "y": 316.1812753377271,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          845.2315226814338,
+          352.30124242799417
+        ]
+      ],
+      "start": {
+        "id": "pets"
+      },
+      "end": {
+        "id": "surgeries"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    },
+    {
+      "id": "r-prof-sur",
+      "type": "arrow",
+      "x": 367.92055082546017,
+      "y": 543.4236860567524,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          1204.1588983490797,
+          170.9826932459722
+        ]
+      ],
+      "start": {
+        "id": "professionals"
+      },
+      "end": {
+        "id": "surgeries"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    },
+    {
+      "id": "r-prof-shift",
+      "type": "arrow",
+      "x": 367.8917046887983,
+      "y": 547.2469327274886,
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          1984.2165906224036,
+          329.8437968826852
+        ]
+      ],
+      "start": {
+        "id": "professionals"
+      },
+      "end": {
+        "id": "shift_handovers"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    },
+    {
+      "id": "r1-stock",
+      "type": "arrow",
+      "x": 347.99842390879087,
+      "y": 968.3117959959285,
+      "strokeColor": "#868e96",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          44.00315218241826,
+          -0.8735919918569834
+        ]
+      ],
+      "start": {
+        "id": "stock_items"
+      },
+      "end": {
+        "id": "stock_movements"
+      },
+      "startArrowhead": "bar",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:22:36.531Z",
+      "updatedAt": "2026-08-15T22:22:36.531Z",
+      "version": 1
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": null
+  }
+}

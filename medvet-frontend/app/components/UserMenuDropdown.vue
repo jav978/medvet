@@ -42,45 +42,13 @@ const handleLogout = async () => {
 
 // Format display name
 const displayName = computed(() => {
-  const name = authStore.user?.name?.trim()
-  if (name && name.toLowerCase() !== 'usuario' && name.toLowerCase() !== 'user') {
-    return name
-  }
-  if (authStore.user?.email) {
-    const prefix = authStore.user.email.split('@')[0]
-    if (prefix && prefix.toLowerCase() !== 'usuario' && prefix.toLowerCase() !== 'user') {
-      const cleaned = prefix.replace(/[._-]+/g, ' ')
-      return cleaned
-        .split(' ')
-        .filter(Boolean)
-        .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
-        .join(' ')
-    }
-  }
-  return 'Javier Silva'
+  return authStore.fullName || authStore.user?.name || authStore.user?.email || 'Javier Silva'
 })
 
 const displayInitial = computed(() => {
-  const name = authStore.user?.name?.trim()
-  if (name) {
-    const parts = name.split(/\s+/).filter(Boolean)
-    if (parts.length >= 2 && parts[0] && parts[1]) {
-      return (parts[0][0] + parts[1][0]).toUpperCase()
-    }
-    if (name.length >= 2) {
-      return name.slice(0, 2).toUpperCase()
-    }
-    return name.charAt(0).toUpperCase()
-  }
-  if (authStore.user?.email) {
-    const prefix = authStore.user.email.split('@')[0].replace(/[^a-zA-Z0-9]/g, '')
-    if (prefix.length >= 2) {
-      return prefix.slice(0, 2).toUpperCase()
-    }
-    return authStore.user.email.charAt(0).toUpperCase()
-  }
-  return 'CL'
+  return authStore.userInitials || 'JS'
 })
+
 
 const roleLabel = computed(() => {
   const role = authStore.user?.role

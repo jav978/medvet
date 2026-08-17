@@ -25,8 +25,8 @@
             v-for="(item, idx) in stepperItems"
             :key="idx"
             class="stepper-item"
-            @click="idx + 1 < bookingStore.step && jumpToStep(idx + 1)"
-            :class="{ 'stepper-item--clickable': idx + 1 < bookingStore.step }"
+            @click="canJumpTo(idx + 1) && jumpToStep(idx + 1)"
+            :class="{ 'stepper-item--clickable': canJumpTo(idx + 1) }"
           >
             <div :class="['stepper-circle', getStepClass(idx + 1)]">
               <svg v-if="bookingStore.step > idx + 1" class="stepper-check" viewBox="0 0 20 20" fill="currentColor">
@@ -92,7 +92,7 @@
           <div
             v-for="service in filteredServices"
             :key="service.id"
-            @click="bookingStore.selectService(service)"
+            @click="handleSelectService(service)"
             :class="['pick-card', bookingStore.selectedService?.id === service.id ? 'pick-card--active' : '']"
           >
             <div class="pick-card-top">
@@ -210,7 +210,7 @@
           <div
             v-for="pet in userPets"
             :key="pet.id || pet.name"
-            @click="bookingStore.selectPet(pet)"
+            @click="handleSelectPet(pet)"
             :class="['pick-card pick-card--pet', bookingStore.selectedPet?.name === pet.name ? 'pick-card--active' : '']"
           >
             <div class="pet-avatar-wrap">
@@ -335,7 +335,7 @@
           <button
             class="btn-primary date-confirm-btn"
             :disabled="!selectedDateStr"
-            @click="bookingStore.nextStep()"
+            @click="bookingStore.setStep(4)"
           >
             Buscar Horarios Disponibles →
           </button>
@@ -366,7 +366,7 @@
             <button
               v-for="slot in morningSlots"
               :key="`${slot.professional_id}-${slot.time}`"
-              @click="bookingStore.selectSlot(slot)"
+              @click="handleSelectSlot(slot)"
               :class="['slot-btn', isSlotActive(slot) ? 'slot-btn--active' : '']"
             >
               <span class="slot-time font-mono-numbers">{{ slot.time }}</span>
@@ -386,7 +386,7 @@
             <button
               v-for="slot in afternoonSlots"
               :key="`${slot.professional_id}-${slot.time}`"
-              @click="bookingStore.selectSlot(slot)"
+              @click="handleSelectSlot(slot)"
               :class="['slot-btn', isSlotActive(slot) ? 'slot-btn--active' : '']"
             >
               <span class="slot-time font-mono-numbers">{{ slot.time }}</span>
@@ -483,16 +483,192 @@
           ></textarea>
         </div>
 
-        <!-- Auth prompt if guest -->
-        <div v-if="!authStore.isAuthenticated" class="guest-notice">
-          <span class="guest-icon">ℹ️</span>
-          <div>
-            <strong class="guest-title">¿Tenés cuenta en MedVet?</strong>
-            <p class="guest-text">
-              Para guardar el historial de vacunas de tu mascota y gestionar turnos podés 
-              <NuxtLink to="/login" class="guest-link">iniciar sesión</NuxtLink> o confirmar directamente como invitado.
-            </p>
+        <!-- AUTHENTICATION SECTION -->
+        <!-- Case A: User is logged in -->
+        <div v-if="authStore.isAuthenticated" class="auth-verified-card">
+          <div class="auth-verified-avatar">
+            <span>{{ userInitials }}</span>
           </div>
+          <div class="auth-verified-info">
+            <div class="auth-verified-badge-row">
+              <span class="auth-verified-badge">✓ Titular Autenticado</span>
+              <span class="auth-verified-role">Cliente Verificado</span>
+            </div>
+            <h4 class="auth-verified-name">{{ authStore.user?.name || authStore.user?.email }}</h4>
+            <p class="auth-verified-email font-mono-numbers">{{ authStore.user?.email }}</p>
+          </div>
+          <button type="button" @click="authStore.logout()" class="btn-ghost btn-xs auth-switch-btn" title="Cerrar sesión e ingresar con otra cuenta">
+            Cambiar cuenta
+          </button>
+        </div>
+
+        <!-- Case B: User is NOT logged in (Authentication Required) -->
+        <div v-else class="booking-auth-card" id="booking-auth-section">
+          <div class="booking-auth-header">
+            <div class="auth-lock-icon">
+              <svg viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 016 0v2h2V7a5 5 0 00-5-5z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <div class="booking-auth-titles">
+              <h3 class="booking-auth-title">Autenticación Requerida para Confirmar</h3>
+              <p class="booking-auth-sub">
+                Para vincular el historial médico de tu mascota y evitar reservas no válidas, ingresá a tu cuenta o regístrate en 30 segundos.
+              </p>
+            </div>
+          </div>
+
+          <!-- Auth Tab Switcher -->
+          <div class="auth-tabs">
+            <button
+              type="button"
+              @click="authTab = 'login'; authError = ''"
+              :class="['auth-tab-btn', authTab === 'login' ? 'auth-tab-btn--active' : '']"
+            >
+              Iniciar Sesión
+            </button>
+            <button
+              type="button"
+              @click="authTab = 'register'; authError = ''"
+              :class="['auth-tab-btn', authTab === 'register' ? 'auth-tab-btn--active' : '']"
+            >
+              Crear Cuenta
+            </button>
+          </div>
+
+          <!-- Tab 1: Login Form -->
+          <form v-if="authTab === 'login'" @submit.prevent="handleInlineLogin" class="auth-form-inline">
+            <div class="auth-form-grid">
+              <div class="form-field">
+                <label class="form-label">Correo Electrónico *</label>
+                <input
+                  v-model="loginEmail"
+                  type="email"
+                  placeholder="javier.silva@gmail.com"
+                  class="form-input"
+                  required
+                />
+              </div>
+              <div class="form-field">
+                <label class="form-label">Contraseña *</label>
+                <input
+                  v-model="loginPassword"
+                  type="password"
+                  placeholder="••••••••"
+                  class="form-input"
+                  required
+                />
+              </div>
+            </div>
+
+            <div v-if="authError" class="auth-error-msg">
+              <span class="error-icon">⚠️</span>
+              <span>{{ authError }}</span>
+            </div>
+
+            <div class="auth-actions-row">
+              <button type="submit" class="btn-primary auth-submit-btn" :disabled="authLoading">
+                <span v-if="authLoading" class="spinner"></span>
+                <span v-else>Entrar y Vincular Cita</span>
+              </button>
+              <button type="button" @click="handleGoogleLogin" class="btn-google-auth" :disabled="authLoading">
+                <svg class="google-svg" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+                <span>Google</span>
+              </button>
+            </div>
+
+            <!-- Demo shortcut -->
+            <div class="auth-demo-shortcut">
+              <span class="demo-shortcut-label">¿Probando el sistema?</span>
+              <button type="button" @click="handleDemoLogin" class="btn-demo-pill">
+                ⚡ Ingresar con cuenta de prueba (Javier Silva)
+              </button>
+            </div>
+          </form>
+
+          <!-- Tab 2: Register Form -->
+          <form v-else @submit.prevent="handleInlineRegister" class="auth-form-inline">
+            <div class="auth-form-grid">
+              <div class="form-field">
+                <label class="form-label">Nombre(s) del Titular *</label>
+                <input
+                  v-model="registerFirstName"
+                  type="text"
+                  placeholder="Ej. Javier Antonio"
+                  class="form-input"
+                  required
+                />
+              </div>
+              <div class="form-field">
+                <label class="form-label">Apellido(s) *</label>
+                <input
+                  v-model="registerLastName"
+                  type="text"
+                  placeholder="Ej. Silva Paredes"
+                  class="form-input"
+                  required
+                />
+              </div>
+              <div class="form-field">
+                <label class="form-label">Correo Electrónico *</label>
+                <input
+                  v-model="registerEmail"
+                  type="email"
+                  placeholder="javier.silva@ejemplo.com"
+                  class="form-input"
+                  required
+                />
+              </div>
+              <div class="form-field">
+                <label class="form-label">Teléfono / WhatsApp *</label>
+                <input
+                  v-model="registerPhone"
+                  type="tel"
+                  placeholder="+58 412 1234567"
+                  class="form-input"
+                  required
+                />
+              </div>
+              <div class="form-field sm:col-span-2">
+                <label class="form-label">Contraseña Segura *</label>
+                <input
+                  v-model="registerPassword"
+                  type="password"
+                  placeholder="Mínimo 6 caracteres"
+                  class="form-input"
+                  required
+                  minlength="6"
+                />
+              </div>
+            </div>
+
+            <div v-if="authError" class="auth-error-msg">
+              <span class="error-icon">⚠️</span>
+              <span>{{ authError }}</span>
+            </div>
+
+
+            <div class="auth-actions-row">
+              <button type="submit" class="btn-primary auth-submit-btn" :disabled="authLoading">
+                <span v-if="authLoading" class="spinner"></span>
+                <span v-else>Crear Cuenta & Vincular</span>
+              </button>
+              <button type="button" @click="handleGoogleLogin" class="btn-google-auth" :disabled="authLoading">
+                <svg class="google-svg" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+                <span>Google</span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -515,15 +691,28 @@
         >
           Continuar al Paso Siguiente →
         </button>
-        <button
-          v-else
-          @click="handleConfirm"
-          class="btn-amber nav-confirm"
-          :disabled="bookingStore.loading"
-        >
-          <span v-if="bookingStore.loading" class="spinner"></span>
-          <span v-else>✓ Confirmar y Emitir Turno</span>
-        </button>
+        
+        <!-- Step 5 Confirm Buttons -->
+        <template v-else>
+          <button
+            v-if="authStore.isAuthenticated"
+            @click="handleConfirm"
+            class="btn-amber nav-confirm"
+            :disabled="bookingStore.loading"
+          >
+            <span v-if="bookingStore.loading" class="spinner"></span>
+            <span v-else>✓ Confirmar y Emitir Turno</span>
+          </button>
+
+          <button
+            v-else
+            @click="scrollToAuth"
+            class="btn-amber nav-confirm nav-confirm--locked"
+            title="Inicia sesión o regístrate en el formulario arriba para confirmar"
+          >
+            <span>🔒 Iniciar Sesión para Confirmar</span>
+          </button>
+        </template>
       </div>
 
     </div>
@@ -542,6 +731,22 @@ const serviceSearch = ref('')
 const selectedDateStr = ref('')
 const notes = ref('')
 const showAddPet = ref(false)
+
+// Inline Auth State
+const authTab = ref('login')
+const authLoading = ref(false)
+const authError = ref('')
+
+const loginEmail = ref('')
+const loginPassword = ref('')
+
+const registerFirstName = ref('')
+const registerLastName = ref('')
+const registerName = ref('')
+const registerEmail = ref('')
+const registerPhone = ref('')
+const registerPassword = ref('')
+
 
 const todayStr = computed(() => new Date().toISOString().split('T')[0])
 
@@ -586,8 +791,17 @@ const stepperItems = [
   { title: 'Confirmación' }
 ]
 
+const canJumpTo = (n) => {
+  if (n === 1) return true
+  if (n === 2) return !!bookingStore.selectedService
+  if (n === 3) return !!bookingStore.selectedService && !!bookingStore.selectedPet
+  if (n === 4) return !!bookingStore.selectedService && !!bookingStore.selectedPet && !!selectedDateStr.value
+  if (n === 5) return !!bookingStore.selectedService && !!bookingStore.selectedPet && !!selectedDateStr.value && !!bookingStore.selectedSlot
+  return false
+}
+
 const jumpToStep = (n) => {
-  bookingStore.step = n
+  bookingStore.setStep(n)
 }
 
 const getStepClass = (n) => {
@@ -600,6 +814,16 @@ const getSpeciesEmoji = (species) => {
   const m = speciesList.find(s => (species || '').toLowerCase().includes(s.name.toLowerCase().split(' ')[0]))
   return m ? m.emoji : '🐾'
 }
+
+const userInitials = computed(() => {
+  if (!authStore.user) return 'MV'
+  const name = authStore.user.name || authStore.user.email || ''
+  const parts = name.trim().split(' ')
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[1][0]).toUpperCase()
+  }
+  return name.slice(0, 2).toUpperCase() || 'MV'
+})
 
 const fallbackServices = [
   { id: 1, name: 'Consulta Clínica General', category: 'consulta', description: 'Revisión médica completa, diagnóstico y prescripción.', duration: 30, price: 15 },
@@ -643,6 +867,16 @@ const quickDateOptions = computed(() => {
   }
   return list
 })
+
+const handleSelectService = (service) => {
+  bookingStore.selectService(service)
+  bookingStore.setStep(2)
+}
+
+const handleSelectPet = (pet) => {
+  bookingStore.selectPet(pet)
+  bookingStore.setStep(3)
+}
 
 const selectQuickDate = (iso) => {
   selectedDateStr.value = iso
@@ -693,6 +927,11 @@ const isSlotActive = (slot) => {
     String(bookingStore.selectedSlot?.professional_id) === String(slot.professional_id)
 }
 
+const handleSelectSlot = (slot) => {
+  bookingStore.selectSlot(slot)
+  bookingStore.setStep(5)
+}
+
 const canProceed = computed(() => {
   switch (bookingStore.step) {
     case 1: return !!bookingStore.selectedService
@@ -719,6 +958,7 @@ const handleAddPet = () => {
   bookingStore.selectPet(pet)
   showAddPet.value = false
   Object.assign(newPet, { name: '', species: 'Perro', breed: '', age: null, weight: null, notes: '' })
+  bookingStore.setStep(3)
 }
 
 const handleDateSelect = async () => {
@@ -733,19 +973,143 @@ const handleDateSelect = async () => {
   } catch { /* use fallback */ }
 }
 
-const handleConfirm = async () => {
-  const userId = authStore.isAuthenticated ? authStore.user.id : 'guest-' + Date.now()
+const handleInlineLogin = async () => {
+  if (!loginEmail.value || !loginPassword.value) {
+    authError.value = 'Por favor ingresá tu correo y contraseña.'
+    return
+  }
+  authError.value = ''
+  authLoading.value = true
   try {
-    const apt = await bookingStore.confirmBooking(userId, notes.value)
-    const appointmentId = apt?.id || 'apt-' + Math.random().toString(36).substr(2, 9)
-    router.push(`/book/confirm/${appointmentId}`)
-  } catch {
-    router.push(`/book/confirm/apt-${Date.now()}`)
+    await authStore.login(loginEmail.value, loginPassword.value)
+    if (authStore.user?.id) {
+      await bookingStore.fetchPets(authStore.user.id).catch(() => {})
+    }
+  } catch (err) {
+    authError.value = err?.message || 'Error al iniciar sesión. Verificá tus credenciales.'
+  } finally {
+    authLoading.value = false
   }
 }
 
+const handleInlineRegister = async () => {
+  const toast = useToastNotification()
+  const fn = registerFirstName.value.trim()
+  const ln = registerLastName.value.trim()
+  const em = registerEmail.value.trim()
+  const ph = registerPhone.value.trim()
+  const pw = registerPassword.value
+
+  if (!fn || fn.length < 2) {
+    authError.value = 'El nombre del titular debe tener al menos 2 caracteres.'
+    toast.error('Validación requerida', authError.value)
+    return
+  }
+  if (!ln || ln.length < 2) {
+    authError.value = 'El apellido del titular debe tener al menos 2 caracteres.'
+    toast.error('Validación requerida', authError.value)
+    return
+  }
+  if (!em || !em.includes('@')) {
+    authError.value = 'Ingresá un correo electrónico válido.'
+    toast.error('Validación requerida', authError.value)
+    return
+  }
+  if (!pw || pw.length < 6) {
+    authError.value = 'La contraseña debe tener al menos 6 caracteres.'
+    toast.error('Validación requerida', authError.value)
+    return
+  }
+
+  authError.value = ''
+  authLoading.value = true
+  try {
+    await authStore.register({
+      first_name: fn,
+      last_name: ln,
+      name: `${fn} ${ln}`,
+      email: em,
+      phone: ph,
+      password: pw
+    })
+    if (authStore.user?.id) {
+      await bookingStore.fetchPets(authStore.user.id).catch(() => {})
+    }
+  } catch (err: any) {
+    authError.value = err?.message || 'Error al crear la cuenta. Intenta nuevamente.'
+    toast.error('Error en registro', authError.value)
+  } finally {
+    authLoading.value = false
+  }
+}
+
+const handleGoogleLogin = async () => {
+  authError.value = ''
+  authLoading.value = true
+  try {
+    await authStore.loginWithGoogle()
+    if (authStore.user?.id) {
+      await bookingStore.fetchPets(authStore.user.id).catch(() => {})
+    }
+  } catch (err) {
+    authError.value = 'Error al conectar con Google.'
+  } finally {
+    authLoading.value = false
+  }
+}
+
+const handleDemoLogin = async () => {
+  authError.value = ''
+  authLoading.value = true
+  try {
+    await authStore.login('javier.silva@gmail.com', 'medvet123')
+    if (authStore.user?.id) {
+      await bookingStore.fetchPets(authStore.user.id).catch(() => {})
+    }
+  } catch (err) {
+    authError.value = 'No se pudo iniciar sesión demo.'
+  } finally {
+    authLoading.value = false
+  }
+}
+
+const scrollToAuth = () => {
+  if (typeof document !== 'undefined') {
+    const el = document.getElementById('booking-auth-section')
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      const input = el.querySelector('input')
+      if (input) input.focus()
+    }
+  }
+}
+
+const handleConfirm = async () => {
+  const toast = useToastNotification()
+  if (!authStore.isAuthenticated || !authStore.user?.id) {
+    scrollToAuth()
+    authError.value = 'Por favor iniciá sesión o regístrate para confirmar tu turno.'
+    toast.warning('Autenticación requerida', 'Debes identificarte con tu nombre y apellido para confirmar el turno.')
+    return
+  }
+
+  try {
+    const apt = await bookingStore.confirmBooking(authStore.user.id, notes.value)
+    const appointmentId = apt?.id || 'apt-' + Math.random().toString(36).substr(2, 9)
+    toast.success('Turno Reservado con Éxito', `Cita confirmada para ${bookingStore.selectedPet?.name || 'tu mascota'} el ${formatDate(bookingStore.selectedDate || selectedDateStr.value)} a las ${bookingStore.selectedSlot?.time} hs.`)
+    router.push(`/book/confirm/${appointmentId}`)
+  } catch (err: any) {
+    console.error('Error confirming appointment:', err)
+    toast.error('Error de concurrencia', err.message || 'El turno seleccionado no está disponible. Por favor elija otro horario.')
+  }
+}
+
+
 onMounted(async () => {
-  // Preselect today as default date
+  // Always default to Step 1 (Servicio) unless specified in query
+  bookingStore.setStep(route.query.step ? Number(route.query.step) : 1)
+
+  // Preselect today as default date without forcing step change
   selectedDateStr.value = todayStr.value
   bookingStore.selectDate(todayStr.value)
 
@@ -754,7 +1118,9 @@ onMounted(async () => {
     await bookingStore.fetchServices()
     if (serviceId) {
       const svc = availableServices.value.find(s => String(s.id) === String(serviceId))
-      if (svc) bookingStore.selectService(svc)
+      if (svc) {
+        bookingStore.selectService(svc)
+      }
     }
     if (authStore.isAuthenticated && authStore.user?.id) {
       await bookingStore.fetchPets(authStore.user.id)
@@ -1996,27 +2362,357 @@ onMounted(async () => {
   gap: 0.5rem;
 }
 
-.guest-notice {
+/* ────────────────────────────────────────
+   AUTHENTICATED USER BADGE & CARD
+──────────────────────────────────────── */
+.auth-verified-card {
   display: flex;
-  gap: 0.85rem;
-  padding: 1rem 1.25rem;
-  border-radius: 14px;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 20px;
   background: rgba(0, 168, 107, 0.08);
-  border: 1px solid rgba(0, 168, 107, 0.2);
+  border: 1.5px solid rgba(0, 168, 107, 0.28);
 }
 
-.dark .guest-notice {
-  background: rgba(16, 28, 22, 0.7);
+.dark .auth-verified-card {
+  background: rgba(10, 24, 18, 0.75);
+  border-color: rgba(0, 245, 155, 0.3);
+}
+
+.auth-verified-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00a86b, #04432b);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(0, 168, 107, 0.35);
+}
+
+.dark .auth-verified-avatar {
+  background: linear-gradient(135deg, #00f59b, #008f58);
+  color: #040706;
+}
+
+.auth-verified-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.auth-verified-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.auth-verified-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #00a86b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.dark .auth-verified-badge {
+  color: #00f59b;
+}
+
+.auth-verified-role {
+  font-size: 0.68rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(0, 168, 107, 0.15);
+  color: var(--color-ink-700);
+  font-weight: 600;
+}
+
+.dark .auth-verified-role {
+  background: rgba(0, 245, 155, 0.15);
+  color: #d6e8de;
+}
+
+.auth-verified-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-ink-900);
+  margin: 0;
+}
+
+.dark .auth-verified-name {
+  color: #f8fafc;
+}
+
+.auth-verified-email {
+  font-size: 0.8125rem;
+  color: var(--color-ink-500);
+  margin: 0;
+}
+
+.dark .auth-verified-email {
+  color: #94a3b8;
+}
+
+.auth-switch-btn {
+  font-size: 0.75rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ────────────────────────────────────────
+   INLINE AUTHENTICATION REQUIRED CARD
+──────────────────────────────────────── */
+.booking-auth-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.75rem;
+  border-radius: 24px;
+  background: var(--color-cream-50);
+  border: 1.5px solid var(--color-cream-300);
+  box-shadow: 0 12px 36px -8px rgba(0, 60, 40, 0.08);
+}
+
+.dark .booking-auth-card {
+  background: #0a110e;
   border-color: rgba(0, 245, 155, 0.2);
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.7);
 }
 
-.guest-icon { font-size: 1.25rem; flex-shrink: 0; }
-.guest-title { font-size: 0.875rem; color: var(--color-ink-900); }
-.dark .guest-title { color: #f8fafc; }
-.guest-text { font-size: 0.8125rem; color: var(--color-ink-500); margin: 0.2rem 0 0; }
-.dark .guest-text { color: #94a3b8; }
-.guest-link { color: #00a86b; font-weight: 700; text-decoration: underline; }
-.dark .guest-link { color: #00f59b; }
+.booking-auth-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.auth-lock-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 12px;
+  background: rgba(255, 122, 0, 0.15);
+  color: var(--color-joy-tangerine);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.auth-lock-icon svg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.booking-auth-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.booking-auth-title {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--color-ink-900);
+  margin: 0;
+}
+
+.dark .booking-auth-title {
+  color: #f8fafc;
+}
+
+.booking-auth-sub {
+  font-size: 0.825rem;
+  color: var(--color-ink-500);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.dark .booking-auth-sub {
+  color: #94a3b8;
+}
+
+/* Tabs */
+.auth-tabs {
+  display: flex;
+  background: var(--color-cream-200);
+  padding: 0.3rem;
+  border-radius: 12px;
+  gap: 0.3rem;
+}
+
+.dark .auth-tabs {
+  background: rgba(20, 35, 27, 0.85);
+}
+
+.auth-tab-btn {
+  flex: 1;
+  padding: 0.55rem 1rem;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  color: var(--color-ink-500);
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.dark .auth-tab-btn {
+  color: #94a3b8;
+}
+
+.auth-tab-btn--active {
+  background: #ffffff;
+  color: #00a86b;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.dark .auth-tab-btn--active {
+  background: #060c09;
+  color: #00f59b;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Forms */
+.auth-form-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  .auth-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.auth-error-msg {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.dark .auth-error-msg {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+.auth-actions-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.auth-submit-btn {
+  flex: 1;
+  min-width: 180px;
+  justify-content: center;
+  padding: 0.8rem 1.25rem;
+  font-size: 0.875rem;
+}
+
+.btn-google-auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  border: 1.5px solid var(--color-cream-300);
+  background: #ffffff;
+  color: var(--color-ink-800);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.dark .btn-google-auth {
+  background: #0e1713;
+  border-color: rgba(0, 245, 155, 0.2);
+  color: #f1faf5;
+}
+
+.btn-google-auth:hover {
+  border-color: #00a86b;
+  transform: translateY(-1px);
+}
+
+.dark .btn-google-auth:hover {
+  border-color: #00f59b;
+}
+
+.google-svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+/* Demo shortcut */
+.auth-demo-shortcut {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--color-cream-300);
+  flex-wrap: wrap;
+}
+
+.dark .auth-demo-shortcut {
+  border-top-color: rgba(0, 245, 155, 0.15);
+}
+
+.demo-shortcut-label {
+  font-size: 0.75rem;
+  color: var(--color-ink-400);
+}
+
+.btn-demo-pill {
+  border: none;
+  background: rgba(0, 168, 107, 0.1);
+  color: #00a86b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dark .btn-demo-pill {
+  background: rgba(0, 245, 155, 0.15);
+  color: #00f59b;
+}
+
+.btn-demo-pill:hover {
+  transform: scale(1.03);
+}
 
 /* ────────────────────────────────────────
    NAV BUTTONS & FOOTER
@@ -2036,6 +2732,31 @@ onMounted(async () => {
 .nav-next:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
 .nav-confirm { font-size: 0.9375rem; padding: 0.85rem 2rem; }
 .nav-confirm:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+.nav-confirm--locked {
+  background: rgba(255, 122, 0, 0.18) !important;
+  color: var(--color-joy-tangerine) !important;
+  border: 1.5px solid rgba(255, 122, 0, 0.4) !important;
+  box-shadow: none !important;
+}
+
+.nav-confirm--locked:hover {
+  background: rgba(255, 122, 0, 0.28) !important;
+  transform: translateY(-2px);
+}
+
+.stepper-item--clickable {
+  cursor: pointer;
+}
+
+.stepper-item--clickable:hover .stepper-circle {
+  transform: scale(1.08);
+  border-color: #00a86b;
+}
+
+.dark .stepper-item--clickable:hover .stepper-circle {
+  border-color: #00f59b;
+}
 
 .spinner {
   display: inline-block;

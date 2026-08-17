@@ -1,5 +1,6 @@
 import { KnexService } from '@feathersjs/knex'
 import type { KnexAdapterParams, KnexAdapterOptions } from '@feathersjs/knex'
+import { requireAuth, restrictToOwner } from '../../hooks/security'
 import type { Application } from '../../declarations'
 
 export interface Pet {
@@ -30,4 +31,22 @@ export const pets = (app: Application) => {
   app.use('pets', new PetService(options), {
     methods: ['find', 'get', 'create', 'update', 'patch', 'remove']
   })
+
+  app.service('pets').hooks({
+    around: {
+      all: []
+    },
+    before: {
+      all: [requireAuth],
+      find: [restrictToOwner('user_id')],
+      get: [restrictToOwner('user_id')],
+      create: [restrictToOwner('user_id')],
+      patch: [restrictToOwner('user_id')],
+      remove: [restrictToOwner('user_id')]
+    },
+    after: {
+      all: []
+    }
+  })
 }
+

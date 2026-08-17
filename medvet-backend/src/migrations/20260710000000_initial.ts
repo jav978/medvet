@@ -7,6 +7,8 @@ export async function up(knex: Knex): Promise<void> {
     table.string('email').notNullable().unique()
     table.string('password').notNullable()
     table.string('name').notNullable()
+    table.string('first_name')
+    table.string('last_name')
     table.string('phone')
     table.enum('role', ['admin', 'receptionist', 'veterinarian', 'client']).defaultTo('client')
     table.boolean('active').defaultTo(true)
@@ -82,6 +84,8 @@ export async function up(knex: Knex): Promise<void> {
   await knex.schema.raw('CREATE INDEX idx_appointments_professional_id ON appointments(professional_id)')
   await knex.schema.raw('CREATE INDEX idx_appointments_date ON appointments(date)')
   await knex.schema.raw('CREATE INDEX idx_appointments_status ON appointments(status)')
+  await knex.schema.raw('CREATE UNIQUE INDEX idx_unique_active_slot ON appointments(professional_id, date, start_time) WHERE status != \'cancelled\'')
+
 }
 
 export async function down(knex: Knex): Promise<void> {

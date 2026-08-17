@@ -1,5 +1,6 @@
 import { KnexService } from '@feathersjs/knex'
 import type { KnexAdapterParams, KnexAdapterOptions } from '@feathersjs/knex'
+import { requireAuth, requireRole } from '../../hooks/security'
 import type { Application } from '../../declarations'
 
 export interface Surgery {
@@ -35,4 +36,21 @@ export const surgeries = (app: Application) => {
   app.use('surgeries', new SurgeryService(options), {
     methods: ['find', 'get', 'create', 'update', 'patch', 'remove']
   })
+
+  app.service('surgeries').hooks({
+    around: {
+      all: []
+    },
+    before: {
+      all: [requireAuth],
+      create: [requireRole(['admin', 'veterinarian'])],
+      update: [requireRole(['admin', 'veterinarian'])],
+      patch: [requireRole(['admin', 'veterinarian'])],
+      remove: [requireRole(['admin', 'veterinarian'])]
+    },
+    after: {
+      all: []
+    }
+  })
 }
+

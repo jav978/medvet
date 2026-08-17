@@ -1,6 +1,7 @@
 import { KnexService } from '@feathersjs/knex'
 import type { KnexAdapterParams, KnexAdapterOptions } from '@feathersjs/knex'
 import { hooks as authHooks } from '@feathersjs/authentication-local'
+import { requireAuth, restrictToOwner, sanitizeUserRegistration } from '../../hooks/security'
 import type { Application } from '../../declarations'
 
 const { hashPassword, protect } = authHooks
@@ -10,6 +11,8 @@ export interface User {
   email: string
   password: string
   name: string
+  first_name?: string
+  last_name?: string
   phone?: string
   role: 'admin' | 'receptionist' | 'veterinarian' | 'client'
   active: boolean
@@ -40,8 +43,12 @@ export const users = (app: Application) => {
     },
     before: {
       all: [],
-      create: [hashPassword('password')],
-      patch: [hashPassword('password')]
+      find: [requireAuth],
+      get: [requireAuth],
+      create: [sanitizeUserRegistration, hashPassword('password')],
+      patch: [requireAuth, restrictToOwner('id'), hashPassword('password')],
+      update: [requireAuth, restrictToOwner('id'), hashPassword('password')],
+      remove: [requireAuth, restrictToOwner('id')]
     },
     after: {
       all: [
@@ -50,3 +57,4 @@ export const users = (app: Application) => {
     }
   })
 }
+

@@ -1,0 +1,1368 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "mcp-excalidraw-server",
+  "elements": [
+    {
+      "id": "uc-title",
+      "type": "text",
+      "x": 360,
+      "y": 36,
+      "width": 760,
+      "height": 40,
+      "strokeColor": "#1e1e1e",
+      "text": "MedVet — Diagrama de Casos de Uso",
+      "fontSize": 28,
+      "createdAt": "2026-08-15T22:10:42.089Z",
+      "updatedAt": "2026-08-15T22:10:42.089Z",
+      "version": 1
+    },
+    {
+      "id": "tut-title",
+      "type": "text",
+      "x": 360,
+      "y": 118,
+      "width": 240,
+      "height": 24,
+      "strokeColor": "#2b8a5f",
+      "text": "Autogestión del Tutor",
+      "fontSize": 16,
+      "createdAt": "2026-08-15T22:10:42.089Z",
+      "updatedAt": "2026-08-15T22:10:42.089Z",
+      "version": 1
+    },
+    {
+      "id": "t1",
+      "type": "ellipse",
+      "x": 360,
+      "y": 170,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#e7f5ee",
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Registrarse e iniciar sesión"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.089Z",
+      "updatedAt": "2026-08-15T22:10:42.089Z",
+      "version": 1
+    },
+    {
+      "id": "t2",
+      "type": "ellipse",
+      "x": 360,
+      "y": 270,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#e7f5ee",
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Registrar sus mascotas"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.089Z",
+      "updatedAt": "2026-08-15T22:10:42.089Z",
+      "version": 1
+    },
+    {
+      "id": "t3",
+      "type": "ellipse",
+      "x": 360,
+      "y": 370,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#e7f5ee",
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Reservar cita en 4 pasos"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.089Z",
+      "updatedAt": "2026-08-15T22:10:42.089Z",
+      "version": 1
+    },
+    {
+      "id": "t4",
+      "type": "ellipse",
+      "x": 360,
+      "y": 470,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#e7f5ee",
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Gestionar y cancelar citas"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.089Z",
+      "updatedAt": "2026-08-15T22:10:42.089Z",
+      "version": 1
+    },
+    {
+      "id": "t5",
+      "type": "ellipse",
+      "x": 360,
+      "y": 570,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#e7f5ee",
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Ver historial clínico"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.089Z",
+      "updatedAt": "2026-08-15T22:10:42.089Z",
+      "version": 1
+    },
+    {
+      "id": "t6",
+      "type": "ellipse",
+      "x": 360,
+      "y": 670,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#e7f5ee",
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Carnet sanitario con QR"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.089Z",
+      "updatedAt": "2026-08-15T22:10:42.089Z",
+      "version": 1
+    },
+    {
+      "id": "rec-title",
+      "type": "text",
+      "x": 850,
+      "y": 168,
+      "width": 240,
+      "height": 24,
+      "strokeColor": "#1971c2",
+      "text": "Recepción",
+      "fontSize": 16,
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "r1",
+      "type": "ellipse",
+      "x": 850,
+      "y": 220,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Confirmar y cancelar citas"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "r2",
+      "type": "ellipse",
+      "x": 850,
+      "y": 320,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Registrar pacientes y tutores"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "r3",
+      "type": "ellipse",
+      "x": 850,
+      "y": 420,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Administrar agenda y turnos"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "r4",
+      "type": "ellipse",
+      "x": 850,
+      "y": 520,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Registrar pagos y caja"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "r5",
+      "type": "ellipse",
+      "x": 850,
+      "y": 620,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Preparar acta de guardia"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "vet-title",
+      "type": "text",
+      "x": 1340,
+      "y": 118,
+      "width": 240,
+      "height": 24,
+      "strokeColor": "#e8590c",
+      "text": "Clínico / EHR",
+      "fontSize": 16,
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "v1",
+      "type": "ellipse",
+      "x": 1340,
+      "y": 170,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Historia clínica y evolución"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "v2",
+      "type": "ellipse",
+      "x": 1340,
+      "y": 270,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Vacunación y desparasitación"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "v3",
+      "type": "ellipse",
+      "x": 1340,
+      "y": 370,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Cirugías y procedimientos"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "v4",
+      "type": "ellipse",
+      "x": 1340,
+      "y": 470,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Estudios: RX y laboratorio"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "v5",
+      "type": "ellipse",
+      "x": 1340,
+      "y": 570,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Guardia 24/7 y relevo"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "v6",
+      "type": "ellipse",
+      "x": 1340,
+      "y": 670,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Recetar y dar alta médica"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "adm-title",
+      "type": "text",
+      "x": 1830,
+      "y": 168,
+      "width": 240,
+      "height": 24,
+      "strokeColor": "#9c36b5",
+      "text": "Administración",
+      "fontSize": 16,
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "a1",
+      "type": "ellipse",
+      "x": 1830,
+      "y": 220,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#f3e8ff",
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Usuarios y cuerpo médico"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "a2",
+      "type": "ellipse",
+      "x": 1830,
+      "y": 320,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#f3e8ff",
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Servicios y horarios"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "a3",
+      "type": "ellipse",
+      "x": 1830,
+      "y": 420,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#f3e8ff",
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Reportería y auditoría"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.090Z",
+      "version": 1
+    },
+    {
+      "id": "a4",
+      "type": "ellipse",
+      "x": 1830,
+      "y": 520,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#f3e8ff",
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Facturación y caja"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.090Z",
+      "updatedAt": "2026-08-15T22:10:42.091Z",
+      "version": 1
+    },
+    {
+      "id": "a5",
+      "type": "ellipse",
+      "x": 1830,
+      "y": 620,
+      "width": 240,
+      "height": 60,
+      "backgroundColor": "#f3e8ff",
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Dashboard clínico"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.091Z",
+      "updatedAt": "2026-08-15T22:10:42.091Z",
+      "version": 1
+    },
+    {
+      "id": "actor-tutor",
+      "type": "rectangle",
+      "x": 100,
+      "y": 423,
+      "width": 200,
+      "height": 54,
+      "backgroundColor": "#ffffff",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Tutor / Cliente"
+      },
+      "fontSize": 16,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.091Z",
+      "updatedAt": "2026-08-15T22:10:42.091Z",
+      "version": 1
+    },
+    {
+      "id": "actor-recep",
+      "type": "rectangle",
+      "x": 625,
+      "y": 423,
+      "width": 200,
+      "height": 54,
+      "backgroundColor": "#ffffff",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Recepcionista"
+      },
+      "fontSize": 16,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.091Z",
+      "updatedAt": "2026-08-15T22:10:42.091Z",
+      "version": 1
+    },
+    {
+      "id": "actor-vet",
+      "type": "rectangle",
+      "x": 1115,
+      "y": 423,
+      "width": 200,
+      "height": 54,
+      "backgroundColor": "#ffffff",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Veterinario / Guardia"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.091Z",
+      "updatedAt": "2026-08-15T22:10:42.091Z",
+      "version": 1
+    },
+    {
+      "id": "actor-admin",
+      "type": "rectangle",
+      "x": 1605,
+      "y": 423,
+      "width": 200,
+      "height": 54,
+      "backgroundColor": "#ffffff",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Administrador"
+      },
+      "fontSize": 16,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.091Z",
+      "updatedAt": "2026-08-15T22:10:42.091Z",
+      "version": 1
+    },
+    {
+      "id": "actor-visitante",
+      "type": "rectangle",
+      "x": 360,
+      "y": 900,
+      "width": 240,
+      "height": 54,
+      "backgroundColor": "#ffffff",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Visitante (escanea QR)"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.091Z",
+      "updatedAt": "2026-08-15T22:10:42.091Z",
+      "version": 1
+    },
+    {
+      "id": "g-tut",
+      "type": "rectangle",
+      "x": 340,
+      "y": 155,
+      "width": 280,
+      "height": 590,
+      "backgroundColor": "transparent",
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.091Z",
+      "updatedAt": "2026-08-15T22:10:42.091Z",
+      "version": 1
+    },
+    {
+      "id": "g-rec",
+      "type": "rectangle",
+      "x": 830,
+      "y": 205,
+      "width": 280,
+      "height": 490,
+      "backgroundColor": "transparent",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.091Z",
+      "updatedAt": "2026-08-15T22:10:42.091Z",
+      "version": 1
+    },
+    {
+      "id": "g-vet",
+      "type": "rectangle",
+      "x": 1320,
+      "y": 155,
+      "width": 280,
+      "height": 590,
+      "backgroundColor": "transparent",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.091Z",
+      "updatedAt": "2026-08-15T22:10:42.091Z",
+      "version": 1
+    },
+    {
+      "id": "g-adm",
+      "type": "rectangle",
+      "x": 1810,
+      "y": 205,
+      "width": 280,
+      "height": 490,
+      "backgroundColor": "transparent",
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:10:42.092Z",
+      "updatedAt": "2026-08-15T22:10:42.092Z",
+      "version": 1
+    },
+    {
+      "id": "uc-note",
+      "type": "text",
+      "x": 700,
+      "y": 915,
+      "width": 800,
+      "height": 22,
+      "strokeColor": "#868e96",
+      "text": "El carnet público (/carnet/:id) no requiere registro: cualquier persona escanea el QR y consulta el historial verificado.",
+      "fontSize": 13,
+      "createdAt": "2026-08-15T22:10:42.092Z",
+      "updatedAt": "2026-08-15T22:10:42.092Z",
+      "version": 1
+    },
+    {
+      "id": "l-t1",
+      "type": "arrow",
+      "x": 235.19656181782779,
+      "y": 416.7204701652073,
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          150.33435696923465,
+          -190.46046725114905
+        ]
+      ],
+      "start": {
+        "id": "actor-tutor"
+      },
+      "end": {
+        "id": "t1"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.347Z",
+      "updatedAt": "2026-08-15T22:10:43.347Z",
+      "version": 1
+    },
+    {
+      "id": "l-t2",
+      "type": "arrow",
+      "x": 256.4088443987267,
+      "y": 417.7185429101534,
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          111.80471479909272,
+          -98.27044344484426
+        ]
+      ],
+      "start": {
+        "id": "actor-tutor"
+      },
+      "end": {
+        "id": "t2"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.347Z",
+      "updatedAt": "2026-08-15T22:10:43.347Z",
+      "version": 1
+    },
+    {
+      "id": "l-t3",
+      "type": "arrow",
+      "x": 307.3378735897586,
+      "y": 428.9560701746518,
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          47.19294375946498,
+          -20.495564051936753
+        ]
+      ],
+      "start": {
+        "id": "actor-tutor"
+      },
+      "end": {
+        "id": "t3"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.347Z",
+      "updatedAt": "2026-08-15T22:10:43.347Z",
+      "version": 1
+    },
+    {
+      "id": "l-t4",
+      "type": "arrow",
+      "x": 307.3378735897586,
+      "y": 471.0439298253482,
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          47.19294375946498,
+          20.495564051936753
+        ]
+      ],
+      "start": {
+        "id": "actor-tutor"
+      },
+      "end": {
+        "id": "t4"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.347Z",
+      "updatedAt": "2026-08-15T22:10:43.347Z",
+      "version": 1
+    },
+    {
+      "id": "l-t5",
+      "type": "arrow",
+      "x": 256.4088443987267,
+      "y": 482.2814570898466,
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          111.80471479909272,
+          98.27044344484437
+        ]
+      ],
+      "start": {
+        "id": "actor-tutor"
+      },
+      "end": {
+        "id": "t5"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.347Z",
+      "updatedAt": "2026-08-15T22:10:43.347Z",
+      "version": 1
+    },
+    {
+      "id": "l-t6",
+      "type": "arrow",
+      "x": 235.19656181782779,
+      "y": 483.2795298347927,
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          150.33435696923465,
+          190.460467251149
+        ]
+      ],
+      "start": {
+        "id": "actor-tutor"
+      },
+      "end": {
+        "id": "t6"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.347Z",
+      "updatedAt": "2026-08-15T22:10:43.347Z",
+      "version": 1
+    },
+    {
+      "id": "l-r1",
+      "type": "arrow",
+      "x": 762.9651250644047,
+      "y": 416.66859598078895,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          109.18540585408834,
+          -141.36589726421005
+        ]
+      ],
+      "start": {
+        "id": "actor-recep"
+      },
+      "end": {
+        "id": "r1"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.347Z",
+      "updatedAt": "2026-08-15T22:10:43.347Z",
+      "version": 1
+    },
+    {
+      "id": "l-r2",
+      "type": "arrow",
+      "x": 797.066314235143,
+      "y": 417.6150927704328,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          55.915654286290305,
+          -50.893275618067264
+        ]
+      ],
+      "start": {
+        "id": "actor-recep"
+      },
+      "end": {
+        "id": "r2"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.347Z",
+      "updatedAt": "2026-08-15T22:10:43.347Z",
+      "version": 1
+    },
+    {
+      "id": "l-r3",
+      "type": "arrow",
+      "x": 833,
+      "y": 450,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          9,
+          0
+        ]
+      ],
+      "start": {
+        "id": "actor-recep"
+      },
+      "end": {
+        "id": "r3"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.347Z",
+      "updatedAt": "2026-08-15T22:10:43.347Z",
+      "version": 1
+    },
+    {
+      "id": "l-r4",
+      "type": "arrow",
+      "x": 797.066314235143,
+      "y": 482.3849072295672,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          55.915654286290305,
+          50.89327561806732
+        ]
+      ],
+      "start": {
+        "id": "actor-recep"
+      },
+      "end": {
+        "id": "r4"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.347Z",
+      "updatedAt": "2026-08-15T22:10:43.347Z",
+      "version": 1
+    },
+    {
+      "id": "l-r5",
+      "type": "arrow",
+      "x": 762.9651250644047,
+      "y": 483.33140401921105,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          109.18540585408834,
+          141.36589726421005
+        ]
+      ],
+      "start": {
+        "id": "actor-recep"
+      },
+      "end": {
+        "id": "r5"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.347Z",
+      "updatedAt": "2026-08-15T22:10:43.347Z",
+      "version": 1
+    },
+    {
+      "id": "l-v1",
+      "type": "arrow",
+      "x": 1245.9013980773911,
+      "y": 416.3461302148189,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          125.66577396205889,
+          -188.26587525536263
+        ]
+      ],
+      "start": {
+        "id": "actor-vet"
+      },
+      "end": {
+        "id": "v1"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.347Z",
+      "updatedAt": "2026-08-15T22:10:43.347Z",
+      "version": 1
+    },
+    {
+      "id": "l-v2",
+      "type": "arrow",
+      "x": 1264.5107793013797,
+      "y": 417.10733783831455,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          87.73628490808869,
+          -95.5500598874732
+        ]
+      ],
+      "start": {
+        "id": "actor-vet"
+      },
+      "end": {
+        "id": "v2"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.347Z",
+      "updatedAt": "2026-08-15T22:10:43.347Z",
+      "version": 1
+    },
+    {
+      "id": "l-v3",
+      "type": "arrow",
+      "x": 1321.0645177346557,
+      "y": 424.3744020541208,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          15.294477477039663,
+          -13.158167013667764
+        ]
+      ],
+      "start": {
+        "id": "actor-vet"
+      },
+      "end": {
+        "id": "v3"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.347Z",
+      "updatedAt": "2026-08-15T22:10:43.347Z",
+      "version": 1
+    },
+    {
+      "id": "l-v4",
+      "type": "arrow",
+      "x": 1321.0645177346557,
+      "y": 475.6255979458792,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          15.294477477039663,
+          13.158167013667764
+        ]
+      ],
+      "start": {
+        "id": "actor-vet"
+      },
+      "end": {
+        "id": "v4"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.347Z",
+      "updatedAt": "2026-08-15T22:10:43.347Z",
+      "version": 1
+    },
+    {
+      "id": "l-v5",
+      "type": "arrow",
+      "x": 1264.5107793013797,
+      "y": 482.89266216168545,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          87.73628490808869,
+          95.55005988747331
+        ]
+      ],
+      "start": {
+        "id": "actor-vet"
+      },
+      "end": {
+        "id": "v5"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.347Z",
+      "updatedAt": "2026-08-15T22:10:43.347Z",
+      "version": 1
+    },
+    {
+      "id": "l-v6",
+      "type": "arrow",
+      "x": 1245.9013980773911,
+      "y": 483.6538697851811,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          125.66577396205889,
+          188.26587525536263
+        ]
+      ],
+      "start": {
+        "id": "actor-vet"
+      },
+      "end": {
+        "id": "v6"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.348Z",
+      "updatedAt": "2026-08-15T22:10:43.348Z",
+      "version": 1
+    },
+    {
+      "id": "l-a1",
+      "type": "arrow",
+      "x": 1742.9651250644047,
+      "y": 416.66859598078895,
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          109.18540585408846,
+          -141.36589726421005
+        ]
+      ],
+      "start": {
+        "id": "actor-admin"
+      },
+      "end": {
+        "id": "a1"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.348Z",
+      "updatedAt": "2026-08-15T22:10:43.348Z",
+      "version": 1
+    },
+    {
+      "id": "l-a2",
+      "type": "arrow",
+      "x": 1777.066314235143,
+      "y": 417.6150927704328,
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          55.91565428629042,
+          -50.893275618067264
+        ]
+      ],
+      "start": {
+        "id": "actor-admin"
+      },
+      "end": {
+        "id": "a2"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.348Z",
+      "updatedAt": "2026-08-15T22:10:43.348Z",
+      "version": 1
+    },
+    {
+      "id": "l-a3",
+      "type": "arrow",
+      "x": 1813,
+      "y": 450,
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          9,
+          0
+        ]
+      ],
+      "start": {
+        "id": "actor-admin"
+      },
+      "end": {
+        "id": "a3"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.348Z",
+      "updatedAt": "2026-08-15T22:10:43.348Z",
+      "version": 1
+    },
+    {
+      "id": "l-a4",
+      "type": "arrow",
+      "x": 1777.066314235143,
+      "y": 482.3849072295672,
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          55.91565428629042,
+          50.89327561806732
+        ]
+      ],
+      "start": {
+        "id": "actor-admin"
+      },
+      "end": {
+        "id": "a4"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.348Z",
+      "updatedAt": "2026-08-15T22:10:43.348Z",
+      "version": 1
+    },
+    {
+      "id": "l-a5",
+      "type": "arrow",
+      "x": 1742.9651250644047,
+      "y": 483.33140401921105,
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          109.18540585408846,
+          141.36589726421005
+        ]
+      ],
+      "start": {
+        "id": "actor-admin"
+      },
+      "end": {
+        "id": "a5"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.348Z",
+      "updatedAt": "2026-08-15T22:10:43.348Z",
+      "version": 1
+    },
+    {
+      "id": "l-visitante",
+      "type": "arrow",
+      "x": 480,
+      "y": 892,
+      "strokeColor": "#495057",
+      "strokeWidth": 1.5,
+      "strokeStyle": "dashed",
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          -154
+        ]
+      ],
+      "start": {
+        "id": "actor-visitante"
+      },
+      "end": {
+        "id": "t6"
+      },
+      "endArrowhead": null,
+      "createdAt": "2026-08-15T22:10:43.348Z",
+      "updatedAt": "2026-08-15T22:10:43.348Z",
+      "version": 1
+    },
+    {
+      "id": "l-vac-r5",
+      "type": "line",
+      "x": 0,
+      "y": 0,
+      "strokeColor": "#495057",
+      "strokeWidth": 1.5,
+      "strokeStyle": "dashed",
+      "roundness": {
+        "type": 2
+      },
+      "points": [
+        [
+          1340,
+          600
+        ],
+        [
+          1090,
+          650
+        ]
+      ],
+      "createdAt": "2026-08-15T22:10:43.348Z",
+      "updatedAt": "2026-08-15T22:10:43.348Z",
+      "version": 1
+    },
+    {
+      "id": "lbl-extend1",
+      "type": "text",
+      "x": 1130,
+      "y": 590,
+      "width": 180,
+      "height": 20,
+      "strokeColor": "#495057",
+      "text": "«extend» datos del turno",
+      "fontSize": 12,
+      "createdAt": "2026-08-15T22:10:43.348Z",
+      "updatedAt": "2026-08-15T22:10:43.348Z",
+      "version": 1
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": null
+  }
+}

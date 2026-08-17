@@ -1,0 +1,1398 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "mcp-excalidraw-server",
+  "elements": [
+    {
+      "id": "mod-title",
+      "type": "text",
+      "x": 640,
+      "y": 30,
+      "width": 800,
+      "height": 40,
+      "strokeColor": "#1e1e1e",
+      "text": "MedVet — Relación de Módulos y Arquitectura",
+      "fontSize": 28,
+      "createdAt": "2026-08-15T22:20:23.337Z",
+      "updatedAt": "2026-08-15T22:20:23.337Z",
+      "version": 1
+    },
+    {
+      "id": "actor-tutor",
+      "type": "rectangle",
+      "x": 80,
+      "y": 110,
+      "width": 300,
+      "height": 60,
+      "backgroundColor": "#ffffff",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Tutor / Cliente — portal web"
+      },
+      "fontSize": 15,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.337Z",
+      "updatedAt": "2026-08-15T22:20:23.337Z",
+      "version": 1
+    },
+    {
+      "id": "actor-staff",
+      "type": "rectangle",
+      "x": 760,
+      "y": 110,
+      "width": 360,
+      "height": 60,
+      "backgroundColor": "#ffffff",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Personal de clínica — panel /admin"
+      },
+      "fontSize": 15,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.337Z",
+      "updatedAt": "2026-08-15T22:20:23.337Z",
+      "version": 1
+    },
+    {
+      "id": "actor-visitante",
+      "type": "rectangle",
+      "x": 290,
+      "y": 573,
+      "width": 240,
+      "height": 54,
+      "backgroundColor": "#ffffff",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Visitante — escanea QR"
+      },
+      "fontSize": 15,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.337Z",
+      "updatedAt": "2026-08-15T22:20:23.337Z",
+      "version": 1
+    },
+    {
+      "id": "fe-zone",
+      "type": "rectangle",
+      "x": 60,
+      "y": 250,
+      "width": 1880,
+      "height": 310,
+      "backgroundColor": "transparent",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.337Z",
+      "updatedAt": "2026-08-15T22:20:23.337Z",
+      "version": 1
+    },
+    {
+      "id": "fe-zone-label",
+      "type": "text",
+      "x": 1330,
+      "y": 258,
+      "width": 420,
+      "height": 22,
+      "strokeColor": "#868e96",
+      "text": "Frontend — Nuxt 3 · SSR · middleware de autenticación por roles",
+      "fontSize": 14,
+      "createdAt": "2026-08-15T22:20:23.337Z",
+      "updatedAt": "2026-08-15T22:20:23.337Z",
+      "version": 1
+    },
+    {
+      "id": "fe-reserva",
+      "type": "rectangle",
+      "x": 90,
+      "y": 310,
+      "width": 200,
+      "height": 70,
+      "backgroundColor": "#e7f5ee",
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Reserva de citas (4 pasos)"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.337Z",
+      "updatedAt": "2026-08-15T22:20:23.337Z",
+      "version": 1
+    },
+    {
+      "id": "fe-mascotas",
+      "type": "rectangle",
+      "x": 310,
+      "y": 310,
+      "width": 200,
+      "height": 70,
+      "backgroundColor": "#e7f5ee",
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Mis mascotas & dashboard"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.337Z",
+      "updatedAt": "2026-08-15T22:20:23.337Z",
+      "version": 1
+    },
+    {
+      "id": "fe-historia",
+      "type": "rectangle",
+      "x": 90,
+      "y": 420,
+      "width": 200,
+      "height": 70,
+      "backgroundColor": "#e7f5ee",
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Historial clínico del tutor"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.337Z",
+      "updatedAt": "2026-08-15T22:20:23.337Z",
+      "version": 1
+    },
+    {
+      "id": "fe-carnet",
+      "type": "rectangle",
+      "x": 310,
+      "y": 420,
+      "width": 200,
+      "height": 70,
+      "backgroundColor": "#e7f5ee",
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Carnet sanitario & QR (público)"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.337Z",
+      "updatedAt": "2026-08-15T22:20:23.337Z",
+      "version": 1
+    },
+    {
+      "id": "fe-citas-admin",
+      "type": "rectangle",
+      "x": 560,
+      "y": 310,
+      "width": 200,
+      "height": 70,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Gestión de citas"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.337Z",
+      "updatedAt": "2026-08-15T22:20:23.337Z",
+      "version": 1
+    },
+    {
+      "id": "fe-ehr",
+      "type": "rectangle",
+      "x": 780,
+      "y": 310,
+      "width": 200,
+      "height": 70,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "EHR · ficha médica"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.337Z",
+      "updatedAt": "2026-08-15T22:20:23.337Z",
+      "version": 1
+    },
+    {
+      "id": "fe-rx",
+      "type": "rectangle",
+      "x": 1000,
+      "y": 310,
+      "width": 200,
+      "height": 70,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Visor RX & estudios"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "fe-guardia",
+      "type": "rectangle",
+      "x": 1220,
+      "y": 310,
+      "width": 200,
+      "height": 70,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Guardia 24/7 & relevos"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "fe-factura",
+      "type": "rectangle",
+      "x": 560,
+      "y": 420,
+      "width": 200,
+      "height": 70,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Facturación & caja"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "fe-reportes",
+      "type": "rectangle",
+      "x": 780,
+      "y": 420,
+      "width": 200,
+      "height": 70,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Reportería & auditoría"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "fe-usuarios",
+      "type": "rectangle",
+      "x": 1000,
+      "y": 420,
+      "width": 200,
+      "height": 70,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Usuarios & cuerpo médico"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "fe-agenda",
+      "type": "rectangle",
+      "x": 1220,
+      "y": 420,
+      "width": 200,
+      "height": 70,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Servicios & horarios"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "fe-bcv",
+      "type": "rectangle",
+      "x": 1450,
+      "y": 310,
+      "width": 200,
+      "height": 70,
+      "backgroundColor": "#fff9db",
+      "strokeColor": "#e8b90c",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "Widget BCV & divisas"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "fe-farmacia",
+      "type": "rectangle",
+      "x": 1450,
+      "y": 420,
+      "width": 200,
+      "height": 70,
+      "backgroundColor": "#ffffff",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1.5,
+      "strokeStyle": "dashed",
+      "label": {
+        "text": "① Inventario / Farmacia"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "fe-lab",
+      "type": "rectangle",
+      "x": 1670,
+      "y": 310,
+      "width": 200,
+      "height": 70,
+      "backgroundColor": "#ffffff",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1.5,
+      "strokeStyle": "dashed",
+      "label": {
+        "text": "① Laboratorio interno"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "fe-pagos",
+      "type": "rectangle",
+      "x": 1670,
+      "y": 420,
+      "width": 200,
+      "height": 70,
+      "backgroundColor": "#ffffff",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1.5,
+      "strokeStyle": "dashed",
+      "label": {
+        "text": "① Pagos & recordatorios"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "fe-fase1-note",
+      "type": "text",
+      "x": 1450,
+      "y": 500,
+      "width": 300,
+      "height": 18,
+      "strokeColor": "#868e96",
+      "text": "① Fase 1 — en desarrollo",
+      "fontSize": 12,
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "api-bar",
+      "type": "rectangle",
+      "x": 60,
+      "y": 640,
+      "width": 1880,
+      "height": 60,
+      "backgroundColor": "#e3f2fd",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 2,
+      "label": {
+        "text": "API Backend — FeathersJS 5 · REST + Socket.IO · Autenticación JWT (admin · recepcionista · veterinario · cliente)"
+      },
+      "fontSize": 15,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "svc-zone",
+      "type": "rectangle",
+      "x": 60,
+      "y": 780,
+      "width": 1880,
+      "height": 320,
+      "backgroundColor": "transparent",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roundness": {
+        "type": 3
+      },
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "svc-zone-label",
+      "type": "text",
+      "x": 430,
+      "y": 790,
+      "width": 460,
+      "height": 22,
+      "strokeColor": "#868e96",
+      "text": "Servicios Feathers — knex sobre PostgreSQL · paginados",
+      "fontSize": 14,
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "sv-users",
+      "type": "rectangle",
+      "x": 80,
+      "y": 840,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#f1f3f5",
+      "strokeColor": "#495057",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "users"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "sv-pets",
+      "type": "rectangle",
+      "x": 345,
+      "y": 840,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#f1f3f5",
+      "strokeColor": "#495057",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "pets"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "sv-services",
+      "type": "rectangle",
+      "x": 610,
+      "y": 840,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#f1f3f5",
+      "strokeColor": "#495057",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "services"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "sv-prof",
+      "type": "rectangle",
+      "x": 875,
+      "y": 840,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#f1f3f5",
+      "strokeColor": "#495057",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "professionals"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "sv-sched",
+      "type": "rectangle",
+      "x": 1140,
+      "y": 840,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#f1f3f5",
+      "strokeColor": "#495057",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "schedules"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "sv-appt",
+      "type": "rectangle",
+      "x": 1405,
+      "y": 840,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#f1f3f5",
+      "strokeColor": "#495057",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "appointments"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "sv-slots",
+      "type": "rectangle",
+      "x": 1670,
+      "y": 840,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#f1f3f5",
+      "strokeColor": "#495057",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "available-slots"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "sv-records",
+      "type": "rectangle",
+      "x": 80,
+      "y": 910,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "medical-records"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.338Z",
+      "updatedAt": "2026-08-15T22:20:23.338Z",
+      "version": 1
+    },
+    {
+      "id": "sv-attach",
+      "type": "rectangle",
+      "x": 345,
+      "y": 910,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "clinical-attachments"
+      },
+      "fontSize": 13,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "sv-vacc",
+      "type": "rectangle",
+      "x": 610,
+      "y": 910,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "vaccinations"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "sv-surg",
+      "type": "rectangle",
+      "x": 875,
+      "y": 910,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "surgeries"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "sv-shift",
+      "type": "rectangle",
+      "x": 1140,
+      "y": 910,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "shift-handovers"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "sv-carnet",
+      "type": "rectangle",
+      "x": 1405,
+      "y": 910,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "public-carnet"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "sv-upload",
+      "type": "rectangle",
+      "x": 1670,
+      "y": 910,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "label": {
+        "text": "clinical-upload"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "sv-stock",
+      "type": "rectangle",
+      "x": 80,
+      "y": 1000,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#ffffff",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1.5,
+      "strokeStyle": "dashed",
+      "label": {
+        "text": "① stock-items"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "sv-labres",
+      "type": "rectangle",
+      "x": 345,
+      "y": 1000,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#ffffff",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1.5,
+      "strokeStyle": "dashed",
+      "label": {
+        "text": "① lab-results"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "sv-pay",
+      "type": "rectangle",
+      "x": 610,
+      "y": 1000,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#ffffff",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1.5,
+      "strokeStyle": "dashed",
+      "label": {
+        "text": "① payment-intents"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "sv-remind",
+      "type": "rectangle",
+      "x": 875,
+      "y": 1000,
+      "width": 240,
+      "height": 50,
+      "backgroundColor": "#ffffff",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1.5,
+      "strokeStyle": "dashed",
+      "label": {
+        "text": "① appointment-reminders"
+      },
+      "fontSize": 12,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "sv-fase1-label",
+      "type": "text",
+      "x": 1160,
+      "y": 1015,
+      "width": 400,
+      "height": 20,
+      "strokeColor": "#868e96",
+      "text": "① Servicios Fase 1 (inventario, laboratorio, pagos, recordatorios)",
+      "fontSize": 13,
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "inf-pg",
+      "type": "rectangle",
+      "x": 100,
+      "y": 1180,
+      "width": 320,
+      "height": 80,
+      "backgroundColor": "#e7f5ff",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 2,
+      "label": {
+        "text": "PostgreSQL 18 — base de datos principal"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "inf-redis",
+      "type": "rectangle",
+      "x": 500,
+      "y": 1180,
+      "width": 280,
+      "height": 80,
+      "backgroundColor": "#ffe8e8",
+      "strokeColor": "#c92a2a",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Redis 7 — caché y sesiones"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "inf-files",
+      "type": "rectangle",
+      "x": 860,
+      "y": 1180,
+      "width": 320,
+      "height": 80,
+      "backgroundColor": "#fff4e6",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Adjuntos clínicos (RX, estudios)"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "inf-bcv",
+      "type": "rectangle",
+      "x": 1260,
+      "y": 1180,
+      "width": 280,
+      "height": 80,
+      "backgroundColor": "#fff9db",
+      "strokeColor": "#e8b90c",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Externa — API BCV (tasa oficial)"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "inf-gateway",
+      "type": "rectangle",
+      "x": 1620,
+      "y": 1180,
+      "width": 320,
+      "height": 80,
+      "backgroundColor": "#ffffff",
+      "strokeColor": "#868e96",
+      "strokeWidth": 2,
+      "strokeStyle": "dashed",
+      "label": {
+        "text": "① Pasarela de pagos · SMTP"
+      },
+      "fontSize": 14,
+      "fillStyle": "solid",
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "mod-legend",
+      "type": "text",
+      "x": 100,
+      "y": 1300,
+      "width": 900,
+      "height": 22,
+      "strokeColor": "#868e96",
+      "text": "Sólido = módulos actuales · Punteado ① = Fase 1 planificada — el flujo de datos va de los actores hacia PostgreSQL a través de la capa de servicios.",
+      "fontSize": 13,
+      "createdAt": "2026-08-15T22:20:23.339Z",
+      "updatedAt": "2026-08-15T22:20:23.339Z",
+      "version": 1
+    },
+    {
+      "id": "m-tutor-res",
+      "type": "arrow",
+      "x": 222.61425858805745,
+      "y": 177.8519247362056,
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -24.25290742001735,
+          124.2961505275888
+        ]
+      ],
+      "start": {
+        "id": "actor-tutor"
+      },
+      "end": {
+        "id": "fe-reserva"
+      },
+      "createdAt": "2026-08-15T22:20:24.742Z",
+      "updatedAt": "2026-08-15T22:20:24.742Z",
+      "version": 1
+    },
+    {
+      "id": "m-tutor-masc",
+      "type": "arrow",
+      "x": 261.6198728003549,
+      "y": 176.0115218004042,
+      "strokeColor": "#2b8a5f",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          112.37001049685114,
+          127.97695639919161
+        ]
+      ],
+      "start": {
+        "id": "actor-tutor"
+      },
+      "end": {
+        "id": "fe-mascotas"
+      },
+      "createdAt": "2026-08-15T22:20:24.742Z",
+      "updatedAt": "2026-08-15T22:20:24.742Z",
+      "version": 1
+    },
+    {
+      "id": "m-staff-citas",
+      "type": "arrow",
+      "x": 892.5694876826748,
+      "y": 174.72591080375594,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -178.3097070726667,
+          130.54817839248813
+        ]
+      ],
+      "start": {
+        "id": "actor-staff"
+      },
+      "end": {
+        "id": "fe-citas-admin"
+      },
+      "createdAt": "2026-08-15T22:20:24.742Z",
+      "updatedAt": "2026-08-15T22:20:24.742Z",
+      "version": 1
+    },
+    {
+      "id": "m-staff-ehr",
+      "type": "arrow",
+      "x": 928.9723221689562,
+      "y": 177.67789925606615,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -36.481229703766076,
+          124.64420148786769
+        ]
+      ],
+      "start": {
+        "id": "actor-staff"
+      },
+      "end": {
+        "id": "fe-ehr"
+      },
+      "createdAt": "2026-08-15T22:20:24.743Z",
+      "updatedAt": "2026-08-15T22:20:24.743Z",
+      "version": 1
+    },
+    {
+      "id": "m-visitante-carnet",
+      "type": "arrow",
+      "x": 410,
+      "y": 565,
+      "strokeColor": "#495057",
+      "strokeWidth": 1.5,
+      "strokeStyle": "dashed",
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          -67
+        ]
+      ],
+      "start": {
+        "id": "actor-visitante"
+      },
+      "end": {
+        "id": "fe-carnet"
+      },
+      "createdAt": "2026-08-15T22:20:24.743Z",
+      "updatedAt": "2026-08-15T22:20:24.743Z",
+      "version": 1
+    },
+    {
+      "id": "m-fe-api",
+      "type": "arrow",
+      "x": 1000,
+      "y": 568,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 2.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          64
+        ]
+      ],
+      "start": {
+        "id": "fe-zone"
+      },
+      "end": {
+        "id": "api-bar"
+      },
+      "startArrowhead": "arrow",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:20:24.743Z",
+      "updatedAt": "2026-08-15T22:20:24.743Z",
+      "version": 1
+    },
+    {
+      "id": "m-fe-api-label",
+      "type": "text",
+      "x": 1020,
+      "y": 585,
+      "width": 340,
+      "height": 20,
+      "strokeColor": "#1971c2",
+      "text": "REST fetch() + Socket.IO tiempo real",
+      "fontSize": 13,
+      "createdAt": "2026-08-15T22:20:24.743Z",
+      "updatedAt": "2026-08-15T22:20:24.743Z",
+      "version": 1
+    },
+    {
+      "id": "m-api-svc1",
+      "type": "arrow",
+      "x": 869.1506415379524,
+      "y": 701.8945311251241,
+      "strokeColor": "#495057",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -558.8141035887254,
+          136.2109377497518
+        ]
+      ],
+      "start": {
+        "id": "api-bar"
+      },
+      "end": {
+        "id": "sv-users"
+      },
+      "createdAt": "2026-08-15T22:20:24.743Z",
+      "updatedAt": "2026-08-15T22:20:24.743Z",
+      "version": 1
+    },
+    {
+      "id": "m-api-svc2",
+      "type": "arrow",
+      "x": 1088.2686329453088,
+      "y": 702.785492236829,
+      "strokeColor": "#495057",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          361.9242725709207,
+          134.42901552634203
+        ]
+      ],
+      "start": {
+        "id": "api-bar"
+      },
+      "end": {
+        "id": "sv-appt"
+      },
+      "createdAt": "2026-08-15T22:20:24.743Z",
+      "updatedAt": "2026-08-15T22:20:24.743Z",
+      "version": 1
+    },
+    {
+      "id": "m-api-svc3",
+      "type": "arrow",
+      "x": 901.8397628626362,
+      "y": 702.5155785517518,
+      "strokeColor": "#495057",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -618.7738653479139,
+          204.96884289649643
+        ]
+      ],
+      "start": {
+        "id": "api-bar"
+      },
+      "end": {
+        "id": "sv-records"
+      },
+      "createdAt": "2026-08-15T22:20:24.743Z",
+      "updatedAt": "2026-08-15T22:20:24.743Z",
+      "version": 1
+    },
+    {
+      "id": "m-svc-pg1",
+      "type": "arrow",
+      "x": 205.5585568637888,
+      "y": 897.8881281107504,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          46.34767500481678,
+          274.2237437784993
+        ]
+      ],
+      "start": {
+        "id": "sv-users"
+      },
+      "end": {
+        "id": "inf-pg"
+      },
+      "createdAt": "2026-08-15T22:20:24.743Z",
+      "updatedAt": "2026-08-15T22:20:24.743Z",
+      "version": 1
+    },
+    {
+      "id": "m-svc-pg2",
+      "type": "arrow",
+      "x": 206.91124174313558,
+      "y": 967.828398279894,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          43.01962177688674,
+          204.34320344021205
+        ]
+      ],
+      "start": {
+        "id": "sv-records"
+      },
+      "end": {
+        "id": "inf-pg"
+      },
+      "createdAt": "2026-08-15T22:20:24.743Z",
+      "updatedAt": "2026-08-15T22:20:24.743Z",
+      "version": 1
+    },
+    {
+      "id": "m-upload-files",
+      "type": "arrow",
+      "x": 1714.9535627605555,
+      "y": 962.776928069145,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 1.5,
+      "strokeStyle": "dashed",
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -579.3808097316376,
+          214.44614386170997
+        ]
+      ],
+      "start": {
+        "id": "sv-upload"
+      },
+      "end": {
+        "id": "inf-files"
+      },
+      "createdAt": "2026-08-15T22:20:24.743Z",
+      "updatedAt": "2026-08-15T22:20:24.743Z",
+      "version": 1
+    },
+    {
+      "id": "m-api-redis",
+      "type": "line",
+      "x": 0,
+      "y": 0,
+      "strokeColor": "#c92a2a",
+      "strokeWidth": 1.5,
+      "roundness": {
+        "type": 2
+      },
+      "points": [
+        [
+          68,
+          700
+        ],
+        [
+          68,
+          1220
+        ],
+        [
+          500,
+          1220
+        ]
+      ],
+      "createdAt": "2026-08-15T22:20:24.743Z",
+      "updatedAt": "2026-08-15T22:20:24.743Z",
+      "version": 1
+    },
+    {
+      "id": "m-api-redis-label",
+      "type": "text",
+      "x": 80,
+      "y": 940,
+      "width": 150,
+      "height": 18,
+      "strokeColor": "#c92a2a",
+      "text": "caché / sesiones",
+      "fontSize": 12,
+      "createdAt": "2026-08-15T22:20:24.743Z",
+      "updatedAt": "2026-08-15T22:20:24.743Z",
+      "version": 1
+    },
+    {
+      "id": "m-bcv-w",
+      "type": "line",
+      "x": 0,
+      "y": 0,
+      "strokeColor": "#e8b90c",
+      "strokeWidth": 1.5,
+      "roundness": {
+        "type": 2
+      },
+      "points": [
+        [
+          1545,
+          1215
+        ],
+        [
+          2060,
+          1215
+        ],
+        [
+          2060,
+          295
+        ],
+        [
+          1660,
+          295
+        ],
+        [
+          1660,
+          345
+        ],
+        [
+          1650,
+          345
+        ]
+      ],
+      "startArrowhead": "arrow",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-08-15T22:20:24.743Z",
+      "updatedAt": "2026-08-15T22:20:24.743Z",
+      "version": 1
+    },
+    {
+      "id": "m-bcv-label",
+      "type": "text",
+      "x": 2068,
+      "y": 700,
+      "width": 120,
+      "height": 18,
+      "strokeColor": "#b08906",
+      "text": "tasa BCV",
+      "fontSize": 12,
+      "createdAt": "2026-08-15T22:20:24.743Z",
+      "updatedAt": "2026-08-15T22:20:24.743Z",
+      "version": 1
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": null
+  }
+}

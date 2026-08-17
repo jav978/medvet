@@ -28,7 +28,41 @@ app.configure(configurationValidator)
 app.configure(configureKnex)
 app.configure(redis)
 
+import helmet from 'helmet'
+import compression from 'compression'
+import rateLimit from 'express-rate-limit'
+
 // Set up libraries and middleware
+app.use(helmet({
+  contentSecurityPolicy: false,
+  crossOriginEmbedderPolicy: false,
+  crossOriginResourcePolicy: { policy: 'cross-origin' }
+}))
+app.use(compression())
+
+// Security: Rate Limiting
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 30, // Limit each IP to 30 requests per windowMs
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    name: 'TooManyRequests',
+    message: 'Demasiados intentos de autenticación desde esta IP. Por favor espere unos minutos.',
+    code: 429
+  }
+})
+
+const apiLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 200, // Limit each IP to 200 requests per minute
+  standardHeaders: true,
+  legacyHeaders: false
+})
+
+app.use('/authentication', authLimiter)
+app.use(apiLimiter)
+
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true)
@@ -55,6 +89,7 @@ app.configure(socketio({
     credentials: true
   }
 }))
+
 
 // Health check & DB setup middleware
 app.use(async (req: any, res: any, next: any) => {

@@ -1,5 +1,6 @@
 import { KnexService } from '@feathersjs/knex'
 import type { KnexAdapterParams, KnexAdapterOptions } from '@feathersjs/knex'
+import { requireAuth, requireRole } from '../../hooks/security'
 import type { Application } from '../../declarations'
 
 export interface ShiftHandover {
@@ -34,4 +35,17 @@ export const shiftHandovers = (app: Application) => {
   app.use('shift-handovers', new ShiftHandoverService(options), {
     methods: ['find', 'get', 'create', 'update', 'patch', 'remove']
   })
+
+  app.service('shift-handovers').hooks({
+    around: {
+      all: []
+    },
+    before: {
+      all: [requireAuth, requireRole(['admin', 'veterinarian', 'receptionist'])]
+    },
+    after: {
+      all: []
+    }
+  })
 }
+

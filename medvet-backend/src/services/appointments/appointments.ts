@@ -1,6 +1,8 @@
 import { KnexService } from '@feathersjs/knex'
 import type { KnexAdapterParams, KnexAdapterOptions } from '@feathersjs/knex'
+import { requireAuth, restrictToOwner, checkSlotAvailability } from '../../hooks/security'
 import type { Application } from '../../declarations'
+
 
 export interface Appointment {
   id: string
@@ -33,4 +35,22 @@ export const appointments = (app: Application) => {
   app.use('appointments', new AppointmentService(options), {
     methods: ['find', 'get', 'create', 'update', 'patch', 'remove']
   })
+
+  app.service('appointments').hooks({
+    around: {
+      all: []
+    },
+    before: {
+      all: [requireAuth],
+      find: [restrictToOwner('user_id')],
+      get: [restrictToOwner('user_id')],
+      create: [restrictToOwner('user_id'), checkSlotAvailability],
+      patch: [restrictToOwner('user_id')],
+      remove: [restrictToOwner('user_id')]
+    },
+    after: {
+      all: []
+    }
+  })
 }
+

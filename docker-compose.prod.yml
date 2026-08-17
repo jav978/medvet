@@ -1,0 +1,138 @@
+services:
+  # ─── NGINX LOAD BALANCER ──────────────────────────────────────────
+  load-balancer:
+    image: nginx:alpine
+    container_name: medvet-load-balancer
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend-1
+      - backend-2
+      - backend-3
+      - frontend
+
+  # ─── BACKEND CLUSTER (MULTI-REPLICA STATELESS) ───────────────────
+  backend-1:
+    build:
+      context: ./medvet-backend
+      dockerfile: Dockerfile
+    container_name: medvet-backend-1
+    restart: always
+    environment:
+      NODE_ENV: production
+      PORT: 3030
+      DATABASE_URL: postgresql://medvet_admin:medvet_secret_2026@pgbouncer:6432/medvet?sslmode=disable
+      REDIS_URL: redis://medvet-redis:6379
+      FEATHERS_AUTH_SECRET: medvet_super_secret_jwt_key_2026
+    depends_on:
+      pgbouncer:
+        condition: service_started
+      medvet-redis:
+        condition: service_healthy
+
+  backend-2:
+    build:
+      context: ./medvet-backend
+      dockerfile: Dockerfile
+    container_name: medvet-backend-2
+    restart: always
+    environment:
+      NODE_ENV: production
+      PORT: 3030
+      DATABASE_URL: postgresql://medvet_admin:medvet_secret_2026@pgbouncer:6432/medvet?sslmode=disable
+      REDIS_URL: redis://medvet-redis:6379
+      FEATHERS_AUTH_SECRET: medvet_super_secret_jwt_key_2026
+    depends_on:
+      pgbouncer:
+        condition: service_started
+      medvet-redis:
+        condition: service_healthy
+
+  backend-3:
+    build:
+      context: ./medvet-backend
+      dockerfile: Dockerfile
+    container_name: medvet-backend-3
+    restart: always
+    environment:
+      NODE_ENV: production
+      PORT: 3030
+      DATABASE_URL: postgresql://medvet_admin:medvet_secret_2026@pgbouncer:6432/medvet?sslmode=disable
+      REDIS_URL: redis://medvet-redis:6379
+      FEATHERS_AUTH_SECRET: medvet_super_secret_jwt_key_2026
+    depends_on:
+      pgbouncer:
+        condition: service_started
+      medvet-redis:
+        condition: service_healthy
+
+  # ─── FRONTEND (NUXT 3 SSR) ─────────────────────────────────────────
+  frontend:
+    build:
+      context: ./medvet-frontend
+      dockerfile: Dockerfile
+    container_name: medvet-frontend
+    restart: always
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      NUXT_PUBLIC_API_URL: http://load-balancer
+    depends_on:
+      - backend-1
+
+  # ─── PGBOUNCER CONNECTION POOLER ─────────────────────────────────
+  pgbouncer:
+    image: edoburu/pgbouncer:latest
+    container_name: medvet-pgbouncer
+    restart: always
+    environment:
+      DB_USER: medvet_admin
+      DB_PASSWORD: medvet_secret_2026
+      DB_HOST: medvet-postgres
+      DB_PORT: "5432"
+      DB_NAME: medvet
+      POOL_MODE: transaction
+      MAX_CLIENT_CONN: 1000
+      DEFAULT_POOL_SIZE: 50
+    depends_on:
+      medvet-postgres:
+        condition: service_healthy
+
+  # ─── DATABASE & CACHE ─────────────────────────────────────────────
+  medvet-postgres:
+    image: postgres:18-alpine
+    container_name: medvet-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: medvet
+      POSTGRES_USER: medvet_admin
+      POSTGRES_PASSWORD: medvet_secret_2026
+    volumes:
+      - medvet_pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U medvet_admin -d medvet"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  medvet-redis:
+    image: redis:7-alpine
+    container_name: medvet-redis
+    restart: always
+    command: redis-server --appendonly yes
+    volumes:
+      - medvet_redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  medvet_pgdata:
+    driver: local
+  medvet_redisdata:
+    driver: local

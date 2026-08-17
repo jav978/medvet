@@ -1,4 +1,5 @@
 import type { HookContext } from '../declarations'
+import { handleGlobalError } from './security'
 
 export const logErrorHook = async (context: HookContext, next?: () => Promise<void>) => {
   try {
@@ -6,7 +7,7 @@ export const logErrorHook = async (context: HookContext, next?: () => Promise<vo
       await next()
     }
   } catch (error: any) {
-    console.error(`Error in ${context.path}.${context.method}:`, error.message)
+    console.error(`[MedVet API Error] in ${context.path}.${context.method}:`, error.message)
     throw error
   }
 }
@@ -17,5 +18,8 @@ export const hooks = {
   },
   before: {},
   after: {},
-  error: {}
+  error: {
+    all: [handleGlobalError]
+  }
 }
+
