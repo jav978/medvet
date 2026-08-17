@@ -166,10 +166,11 @@
             <button
               type="button"
               @click="toggleNotes(apt.id)"
-              class="btn-ghost btn-xs agenda-btn"
+              class="agenda-btn"
               title="Notas clínicas"
             >
-              📝 Notas
+              <span>📝</span>
+              <span>Notas</span>
             </button>
           </div>
 
@@ -743,7 +744,7 @@ const saveNotes = (id) => {
   border-radius: 18px;
   padding: 1.15rem 1.35rem;
   display: grid;
-  grid-template-columns: 80px 1.5fr 1fr 180px 80px;
+  grid-template-columns: 80px minmax(170px, 1.4fr) minmax(130px, 1fr) minmax(180px, 200px) auto;
   align-items: center;
   gap: 1.25rem;
   position: relative;
@@ -870,6 +871,49 @@ const saveNotes = (id) => {
 }
 
 .notes-actions { display: flex; justify-content: flex-end; }
+
+.agenda-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.agenda-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  background: var(--color-cream-50);
+  border: 1px solid var(--color-cream-300);
+  color: var(--color-ink-700);
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.15s ease;
+}
+
+.agenda-btn:hover {
+  border-color: #00a86b;
+  color: #00a86b;
+  background: rgba(0, 168, 107, 0.08);
+}
+
+.dark .agenda-btn {
+  background: #0a110e;
+  border-color: rgba(0, 245, 155, 0.2);
+  color: #cbd5e1;
+}
+
+.dark .agenda-btn:hover {
+  border-color: #00f59b;
+  color: #00f59b;
+  background: rgba(0, 245, 155, 0.1);
+}
 
 /* Staff Grid */
 .staff-section {

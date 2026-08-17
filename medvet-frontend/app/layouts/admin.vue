@@ -216,7 +216,9 @@ onUnmounted(() => {
 /* ── Shell ── */
 .admin-shell {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
   background: var(--color-cream-100);
 }
 
@@ -240,10 +242,10 @@ onUnmounted(() => {
   border-right: 1px solid rgba(0, 245, 155, 0.12);
   display: flex;
   flex-direction: column;
-  position: sticky;
-  top: 0;
   height: 100vh;
+  max-height: 100vh;
   z-index: 50;
+  position: relative;
 }
 
 @media (max-width: 1023px) {
@@ -473,8 +475,28 @@ onUnmounted(() => {
 .admin-body {
   flex: 1;
   min-width: 0;
+  height: 100vh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 168, 107, 0.25) transparent;
+}
+
+.admin-body::-webkit-scrollbar {
+  width: 6px;
+}
+.admin-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.admin-body::-webkit-scrollbar-thumb {
+  background: rgba(0, 168, 107, 0.25);
+  border-radius: 4px;
+}
+.dark .admin-body::-webkit-scrollbar-thumb {
+  background: rgba(0, 245, 155, 0.2);
 }
 
 .admin-topbar {
@@ -485,6 +507,10 @@ onUnmounted(() => {
   background: var(--color-cream-50);
   border-bottom: 1px solid var(--color-cream-200);
   gap: 0.75rem;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 30;
 }
 
 .dark .admin-topbar {
