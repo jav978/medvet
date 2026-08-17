@@ -125,8 +125,9 @@
         <div v-if="!filteredServices.length" class="empty-state">
           <span class="empty-icon">🔍</span>
           <p class="empty-text">No encontramos servicios con "{{ serviceSearch }}".</p>
-          <button @click="serviceSearch = ''; selectedCategory = 'all'" class="btn-ghost btn-sm">Limpiar filtros</button>
+          <button @click="clearServiceFilters" class="btn-ghost btn-sm">Limpiar filtros</button>
         </div>
+
       </div>
 
       <!-- ────────────────────────────────────────
@@ -310,26 +311,27 @@
             <div class="pro-pref-pills">
               <button
                 type="button"
-                @click="bookingStore.selectedProfessionalId = null; handleDateSelect()"
+                @click="selectProfessionalPref(null)"
                 :class="['pro-pill', !bookingStore.selectedProfessionalId ? 'pro-pill--active' : '']"
               >
                 Cualquier profesional disponible
               </button>
               <button
                 type="button"
-                @click="bookingStore.selectedProfessionalId = '1'; handleDateSelect()"
+                @click="selectProfessionalPref('1')"
                 :class="['pro-pill', bookingStore.selectedProfessionalId === '1' ? 'pro-pill--active' : '']"
               >
                 👨‍⚕️ Dr. Mateo Silva (Clínico)
               </button>
               <button
                 type="button"
-                @click="bookingStore.selectedProfessionalId = '2'; handleDateSelect()"
+                @click="selectProfessionalPref('2')"
                 :class="['pro-pill', bookingStore.selectedProfessionalId === '2' ? 'pro-pill--active' : '']"
               >
                 👩‍⚕️ Dra. Camila Torres (Cirugía)
               </button>
             </div>
+
           </div>
 
           <button
@@ -522,19 +524,20 @@
           <div class="auth-tabs">
             <button
               type="button"
-              @click="authTab = 'login'; authError = ''"
+              @click="setAuthTab('login')"
               :class="['auth-tab-btn', authTab === 'login' ? 'auth-tab-btn--active' : '']"
             >
               Iniciar Sesión
             </button>
             <button
               type="button"
-              @click="authTab = 'register'; authError = ''"
+              @click="setAuthTab('register')"
               :class="['auth-tab-btn', authTab === 'register' ? 'auth-tab-btn--active' : '']"
             >
               Crear Cuenta
             </button>
           </div>
+
 
           <!-- Tab 1: Login Form -->
           <form v-if="authTab === 'login'" @submit.prevent="handleInlineLogin" class="auth-form-inline">
@@ -719,7 +722,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const { activeCurrency, formatPrice, toggleCurrency } = useCurrency()
 const authStore = useAuthStore()
 const bookingStore = useBookingStore()
@@ -961,6 +964,21 @@ const handleAddPet = () => {
   bookingStore.setStep(3)
 }
 
+const clearServiceFilters = () => {
+  serviceSearch.value = ''
+  selectedCategory.value = 'all'
+}
+
+const selectProfessionalPref = (id: string | null) => {
+  bookingStore.selectedProfessionalId = id
+  handleDateSelect()
+}
+
+const setAuthTab = (tab: string) => {
+  authTab.value = tab
+  authError.value = ''
+}
+
 const handleDateSelect = async () => {
   if (!selectedDateStr.value) return
   bookingStore.selectDate(selectedDateStr.value)
@@ -972,6 +990,7 @@ const handleDateSelect = async () => {
     )
   } catch { /* use fallback */ }
 }
+
 
 const handleInlineLogin = async () => {
   if (!loginEmail.value || !loginPassword.value) {
