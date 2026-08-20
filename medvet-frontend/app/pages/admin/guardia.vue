@@ -292,6 +292,7 @@ import {
 
 const config = useRuntimeConfig()
 const apiBase = config.public.apiBase || 'http://localhost:3030'
+const toast = useToastNotification()
 
 const isNewHandoverModalOpen = ref(false)
 const isSubmittingHandover = ref(false)
@@ -440,10 +441,10 @@ async function handleCreateHandover() {
     })
     handovers.value.unshift(res)
     isNewHandoverModalOpen.value = false
-    alert('Acta de entrega de guardia registrada con éxito!')
+    toast.success('Acta Registrada', 'El acta de entrega de guardia se ha guardado exitosamente.')
   } catch (err: any) {
     console.error('Error al registrar entrega de guardia:', err)
-    alert('Error al guardar el acta: ' + (err.message || 'Error de conexión'))
+    toast.error('Error de Guardado', 'No se pudo registrar el acta: ' + (err.message || 'Error de conexión'))
   } finally {
     isSubmittingHandover.value = false
   }
