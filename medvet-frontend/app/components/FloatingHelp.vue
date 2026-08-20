@@ -85,7 +85,7 @@
               </div>
               <div class="action-info">
                 <span class="action-title">Llamar a Central Médica</span>
-                <p class="action-sub">+54 11 1234-5678 (Línea Directa)</p>
+                <p class="action-sub">+584242001120 (Línea Directa)</p>
               </div>
             </a>
 
