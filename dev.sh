@@ -59,7 +59,7 @@ start_backend() {
     echo -e "${YELLOW}Starting Backend Server...${NC}"
     if check_port 3030; then
         echo -e "${YELLOW}Port 3030 occupied, stopping existing process...${NC}"
-        fuser -k 3030/tcp >/dev/null 2>&1 || true
+        lsof -ti:3030 | xargs -r kill -9 >/dev/null 2>&1 || true
         sleep 1
     fi
     cd "$SCRIPT_DIR/medvet-backend"
@@ -83,7 +83,7 @@ start_frontend() {
     echo -e "${YELLOW}Starting Frontend Server...${NC}"
     if check_port 3000; then
         echo -e "${YELLOW}Port 3000 occupied, stopping existing process...${NC}"
-        fuser -k 3000/tcp >/dev/null 2>&1 || true
+        lsof -ti:3000 | xargs -r kill -9 >/dev/null 2>&1 || true
         sleep 1
     fi
     cd "$SCRIPT_DIR/medvet-frontend"
