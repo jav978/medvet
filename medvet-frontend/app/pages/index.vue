@@ -44,12 +44,12 @@
           <!-- CTAs -->
           <div class="hero-ctas">
             <NuxtLink to="/book" class="btn-nuxt-primary">
-              Comenzar Turno
+              Agendar Cita Médica
             </NuxtLink>
-            <a href="#services" class="btn-nuxt-secondary">
+            <button type="button" @click="showVideoModal = true" class="btn-nuxt-secondary">
               <span>MedVet en 60 seg</span>
               <svg class="btn-play-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
-            </a>
+            </button>
           </div>
 
           <!-- Trust stats -->
@@ -135,30 +135,26 @@
                   <svg class="slot-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
                   Próximo turno disponible
                 </div>
-                <span class="bc-slot-time font-mono-numbers">Hoy · 16:30 hs</span>
+                <span class="bc-slot-time font-mono-numbers">{{ cardSlotTime }}</span>
               </div>
 
               <div class="bc-vet">
-                <div class="bc-vet-avatar">MS</div>
+                <div class="bc-vet-avatar">{{ cardDoctor.avatar }}</div>
                 <div>
-                  <div class="bc-vet-name">Dr. Mateo Silva</div>
-                  <div class="bc-vet-role">Especialista en Medicina Veterinaria Integral</div>
+                  <div class="bc-vet-name">{{ cardDoctor.name }}</div>
+                  <div class="bc-vet-role">{{ cardDoctor.role }}</div>
                 </div>
               </div>
 
               <ul class="bc-perks">
-                <li>
+                <li v-for="(perk, pIdx) in cardPerks" :key="pIdx">
                   <svg class="perk-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                  Historia clínica digital sincronizada
-                </li>
-                <li>
-                  <svg class="perk-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                  Recordatorio automático SMS & WhatsApp
+                  {{ perk }}
                 </li>
               </ul>
 
               <NuxtLink :to="`/book?species=${selectedSpecies}&service=${selectedCategory}`" class="btn-primary bc-cta">
-                Confirmar Reserva Inmediata →
+                {{ cardCtaLabel }}
               </NuxtLink>
             </div>
 
@@ -308,14 +304,226 @@
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════
+         MEDVET EN 60 SEG - MODAL INTERACTIVO
+    ══════════════════════════════════════ -->
+    <Teleport to="body">
+      <Transition name="fade">
+        <div v-if="showVideoModal" class="demo-modal-backdrop" @click.self="showVideoModal = false">
+          <div class="demo-modal-card" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title">
+            <button @click="showVideoModal = false" class="demo-close-btn" aria-label="Cerrar modal">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+            </button>
+
+            <div class="demo-modal-header">
+              <span class="demo-tag">MedVet en 60 Segundos ⚡</span>
+              <h2 id="demo-modal-title" class="demo-title">Descubre el Futuro de la Salud Veterinaria</h2>
+              <p class="demo-subtitle">Cómo MedVet simplifica la atención médica de las mascotas y sus tutores</p>
+            </div>
+
+            <!-- Tour Steps & Interactive Player Grid -->
+            <div class="demo-grid">
+              <!-- Interactive Step Selector -->
+              <div class="demo-steps-col">
+                <button
+                  v-for="step in demoSteps"
+                  :key="step.id"
+                  @click="activeDemoStep = step.id"
+                  :class="['demo-step-card', activeDemoStep === step.id ? 'demo-step-card--active' : '']"
+                >
+                  <div class="demo-step-time">{{ step.time }}</div>
+                  <div class="demo-step-info">
+                    <div class="demo-step-title">
+                      <span class="demo-step-icon">{{ step.icon }}</span>
+                      <span>{{ step.title }}</span>
+                    </div>
+                    <p class="demo-step-desc">{{ step.description }}</p>
+                  </div>
+                </button>
+              </div>
+
+              <!-- Interactive Visual Showcase Box -->
+              <div class="demo-player-col">
+                <div class="demo-screen-box">
+                  <div class="demo-screen-topbar">
+                    <div class="demo-dots">
+                      <span class="dot-red"></span>
+                      <span class="dot-yellow"></span>
+                      <span class="dot-green"></span>
+                    </div>
+                    <span class="demo-screen-url font-mono-numbers">medvet.app/tour/paso-{{ activeDemoStep }}</span>
+                  </div>
+
+                  <div class="demo-screen-content">
+                    <div class="demo-active-view animate-fade-in" :key="activeDemoStep">
+                      <span class="demo-view-badge">{{ currentStepData.badge }}</span>
+                      <div class="demo-view-icon">{{ currentStepData.bigEmoji }}</div>
+                      <h3 class="demo-view-headline">{{ currentStepData.headline }}</h3>
+                      <p class="demo-view-detail">{{ currentStepData.detail }}</p>
+
+                      <div class="demo-highlights">
+                        <div v-for="(h, idx) in currentStepData.highlights" :key="idx" class="demo-hl-item">
+                          <svg class="demo-hl-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                          <span>{{ h }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer CTA in Modal -->
+            <div class="demo-modal-footer">
+              <span class="demo-footer-note">¿Listo para probar MedVet con tu mascota?</span>
+              <NuxtLink to="/book" class="btn-nuxt-primary demo-cta-btn" @click="showVideoModal = false">
+                Agendar Cita Médica Ahora →
+              </NuxtLink>
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+
   </div>
 </template>
 
 <script setup>
 const { activeCurrency, formatPrice, toggleCurrency } = useCurrency()
 
+const showVideoModal = ref(false)
+const activeDemoStep = ref(1)
+
+const demoSteps = [
+  {
+    id: 1,
+    time: '00:15',
+    icon: '📅',
+    title: 'Reserva Digital en 3 Clics',
+    description: 'Elegí especie, médico de preferencia y horario disponible en tiempo real.',
+    badge: 'Paso 1 · Reserva Instantánea',
+    bigEmoji: '🐶🩺',
+    headline: 'Agenda Inteligente Sin Filas',
+    detail: 'Selecciona la especialidad que tu mascota necesita (Consulta, Vacunación, Cirugía o Urgencias) y confirma tu cita al instante.',
+    highlights: ['Disponibilidad en vivo 24/7', 'Confirmación inmediata por correo', 'Filtro por especie y especialidad']
+  },
+  {
+    id: 2,
+    time: '00:30',
+    icon: '📋',
+    title: 'Historial Clínico Digital',
+    description: 'Accedé al registro médico, recetas digitales y carnets de vacunación desde cualquier lugar.',
+    badge: 'Paso 2 · Registro Médico 100% Digital',
+    bigEmoji: '📄🔍',
+    headline: 'Toda la Información de Tu Mascota en Tu Celular',
+    detail: 'Consulta vacunas aplicadas, diagnósticos pasados, recetas descargables en PDF y evolución clínica de tu mascota.',
+    highlights: ['Carnet de vacunación QR interactivo', 'Estudios de laboratorio y ecografías en PDF', 'Acceso seguro con cuenta de tutor']
+  },
+  {
+    id: 3,
+    time: '00:45',
+    icon: '💬',
+    title: 'Notificaciones por WhatsApp',
+    description: 'Recibí recordatorios automáticos de citas y alertas de vacunas por vencer.',
+    badge: 'Paso 3 · Recordatorios Inteligentes',
+    bigEmoji: '📲🔔',
+    headline: 'Cero Olvidos de Vacunas y Turnos',
+    detail: 'MedVet te avisa por WhatsApp y SMS 24hs antes de cada cita y cuando tu mascota necesite un refuerzo sanitario.',
+    highlights: ['Recordatorios automatizados 24h antes', 'Confirmación/Reprogramación por WhatsApp', 'Alertas preventivas de desparasitación']
+  },
+  {
+    id: 4,
+    time: '01:00',
+    icon: '🚨',
+    title: 'Guardia & Urgencias 24/7',
+    description: 'Canal directo prioritario con atención veterinaria de emergencia a cualquier hora.',
+    badge: 'Paso 4 · Atención de Urgencia',
+    bigEmoji: '🏥⚡',
+    headline: 'Respuesta Inmediata Ante Cualquier Emergencia',
+    detail: 'Servicio médico veterinario activo los 365 días del año con triage prioritario y contacto telefónico directo.',
+    highlights: ['Atención presencial de guardia 24/7', 'Línea de contacto telefónico directo', 'Protocolos clínicos de emergencia']
+  }
+]
+
+const currentStepData = computed(() =>
+  demoSteps.find(s => s.id === activeDemoStep.value) || demoSteps[0]
+)
+
 const selectedSpecies = ref('dog')
 const selectedCategory = ref('consulta')
+
+const cardDoctor = computed(() => {
+  if (selectedSpecies.value === 'cat') {
+    return { name: 'Dra. Valeria Gómez', role: 'Especialista en Medicina Felina (ISFM)', avatar: 'VG' }
+  }
+  if (selectedSpecies.value === 'exotic') {
+    return { name: 'Dr. Carlos Mendoza', role: 'Especialista en Aves y Fauna Exótica', avatar: 'CM' }
+  }
+  if (selectedCategory.value === 'cirugia') {
+    return { name: 'Dra. Sofía Rivas', role: 'Cirugía & Anestesia Veterinaria', avatar: 'SR' }
+  }
+  if (selectedCategory.value === 'urgencia') {
+    return { name: 'Equipo de Guardia 24/7', role: 'Triage & Emergencias Complejas', avatar: 'G24' }
+  }
+  return { name: 'Dr. Mateo Silva', role: 'Especialista en Medicina Veterinaria Integral', avatar: 'MS' }
+})
+
+const cardSlotTime = computed(() => {
+  if (selectedCategory.value === 'urgencia') return 'Inmediato · Sin Espera (Guardia 24h)'
+  if (selectedCategory.value === 'vacuna') return 'Hoy · 17:15 hs'
+  if (selectedCategory.value === 'cirugia') return 'Mañana · 09:00 hs'
+  return 'Hoy · 16:30 hs'
+})
+
+const cardPerks = computed(() => {
+  if (selectedCategory.value === 'urgencia') {
+    return [
+      'Atención médica prioritaria de guardia sin turno previo',
+      'Protocolos de soporte vital y monitoreo'
+    ]
+  }
+  if (selectedCategory.value === 'cirugia') {
+    return [
+      'Monitoreo anestésico inhalatorio continuo',
+      'Evaluación prequirúrgica y postoperatorio incluido'
+    ]
+  }
+  if (selectedSpecies.value === 'cat') {
+    return [
+      'Entorno y manejo Cat-Friendly (baja tensión)',
+      'Historia clínica digital y recordatorio WhatsApp'
+    ]
+  }
+  if (selectedSpecies.value === 'exotic') {
+    return [
+      'Instalaciones climatizadas para especies exóticas',
+      'Asesoramiento en nutrición y hábitat'
+    ]
+  }
+  return [
+    'Historia clínica digital sincronizada',
+    'Recordatorio automático SMS & WhatsApp'
+  ]
+})
+
+const cardCtaLabel = computed(() => {
+  const speciesLabelMap = {
+    dog: 'Canina',
+    cat: 'Felina',
+    exotic: 'para Exóticos',
+    small: 'para Pequeños Mamíferos'
+  }
+  const categoryLabelMap = {
+    consulta: 'Consulta',
+    vacuna: 'Vacunación',
+    cirugia: 'Cirugía',
+    urgencia: 'Guardia 24h'
+  }
+  const categoryStr = categoryLabelMap[selectedCategory.value] || 'Cita'
+  const speciesStr = speciesLabelMap[selectedSpecies.value] || ''
+  return `Reservar ${categoryStr} ${speciesStr} →`
+})
+
 const cardCurrencies = ref({})
 
 const getCardCurrency = (id) => cardCurrencies.value[id] || activeCurrency.value
@@ -1718,5 +1926,364 @@ onMounted(async () => {
     white-space: nowrap;
     flex-shrink: 0;
   }
+}
+
+/* ────────────────────────────────────────
+   DEMO MODAL 60 SECONDS
+──────────────────────────────────────── */
+.demo-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(4, 7, 6, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.demo-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  background: #ffffff;
+  border: 1px solid var(--color-cream-300);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.dark .demo-modal-card {
+  background: #09130e;
+  border-color: rgba(0, 245, 155, 0.25);
+  box-shadow: 0 0 50px rgba(0, 245, 155, 0.15);
+}
+
+.demo-close-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--color-cream-300);
+  background: var(--color-cream-50);
+  color: var(--color-ink-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.demo-close-btn:hover {
+  background: var(--color-cream-200);
+  color: var(--color-ink-900);
+}
+
+.dark .demo-close-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #a3e635;
+}
+
+.dark .demo-close-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.demo-modal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.demo-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #00a86b;
+  background: rgba(0, 168, 107, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 0.5rem;
+}
+
+.dark .demo-tag {
+  color: #00f59b;
+  background: rgba(0, 245, 155, 0.15);
+}
+
+.demo-title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-ink-900);
+  margin: 0 0 0.5rem;
+}
+
+.dark .demo-title { color: #f1faf5; }
+
+.demo-subtitle {
+  font-size: 0.9375rem;
+  color: var(--color-ink-600);
+  margin: 0;
+}
+
+.dark .demo-subtitle { color: #94a3b8; }
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+@media (max-width: 768px) {
+  .demo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.demo-steps-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.demo-step-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--color-cream-200);
+  background: var(--color-cream-50);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dark .demo-step-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.demo-step-card:hover {
+  border-color: #00a86b;
+  transform: translateX(4px);
+}
+
+.dark .demo-step-card:hover {
+  border-color: #00f59b;
+}
+
+.demo-step-card--active {
+  border-color: #00a86b;
+  background: rgba(0, 168, 107, 0.06);
+  box-shadow: 0 4px 12px rgba(0, 168, 107, 0.1);
+}
+
+.dark .demo-step-card--active {
+  border-color: #00f59b;
+  background: rgba(0, 245, 155, 0.1);
+}
+
+.demo-step-time {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #00a86b;
+  background: rgba(0, 168, 107, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+}
+
+.dark .demo-step-time {
+  color: #00f59b;
+  background: rgba(0, 245, 155, 0.15);
+}
+
+.demo-step-info { flex: 1; }
+
+.demo-step-title {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--color-ink-900);
+  margin-bottom: 0.25rem;
+}
+
+.dark .demo-step-title { color: #f1faf5; }
+
+.demo-step-desc {
+  font-size: 0.8125rem;
+  color: var(--color-ink-600);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.dark .demo-step-desc { color: #94a3b8; }
+
+.demo-player-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.demo-screen-box {
+  flex: 1;
+  background: #f8faf9;
+  border: 1px solid var(--color-cream-300);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dark .demo-screen-box {
+  background: #050a08;
+  border-color: rgba(0, 245, 155, 0.2);
+}
+
+.demo-screen-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  background: #edf2ef;
+  border-bottom: 1px solid var(--color-cream-300);
+}
+
+.dark .demo-screen-topbar {
+  background: #0f1c16;
+  border-color: rgba(0, 245, 155, 0.15);
+}
+
+.demo-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot-red, .dot-yellow, .dot-green {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.dot-red { background: #ff5f56; }
+.dot-yellow { background: #ffbd2e; }
+.dot-green { background: #27c93f; }
+
+.demo-screen-url {
+  font-size: 0.75rem;
+  color: var(--color-ink-500);
+}
+
+.dark .demo-screen-url { color: #64748b; }
+
+.demo-screen-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.demo-active-view {
+  text-align: center;
+  max-width: 360px;
+}
+
+.demo-view-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #00a86b;
+  margin-bottom: 0.75rem;
+}
+
+.dark .demo-view-badge { color: #00f59b; }
+
+.demo-view-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.demo-view-headline {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-ink-900);
+  margin: 0 0 0.5rem;
+}
+
+.dark .demo-view-headline { color: #f1faf5; }
+
+.demo-view-detail {
+  font-size: 0.875rem;
+  color: var(--color-ink-600);
+  line-height: 1.5;
+  margin: 0 0 1.25rem;
+}
+
+.dark .demo-view-detail { color: #94a3b8; }
+
+.demo-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.demo-hl-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-ink-800);
+}
+
+.dark .demo-hl-item { color: #cbd5e1; }
+
+.demo-hl-check {
+  width: 16px;
+  height: 16px;
+  color: #00a86b;
+  flex-shrink: 0;
+}
+
+.dark .demo-hl-check { color: #00f59b; }
+
+.demo-modal-footer {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-cream-200);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.dark .demo-modal-footer {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.demo-footer-note {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-ink-700);
+}
+
+.dark .demo-footer-note { color: #cbd5e1; }
+
+@media (max-width: 640px) {
+  .demo-modal-card { padding: 1.5rem; }
+  .demo-modal-footer { flex-direction: column; text-align: center; }
+  .demo-cta-btn { width: 100%; justify-content: center; }
 }
 </style>

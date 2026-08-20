@@ -11,7 +11,7 @@
         <!-- Logo header -->
         <div class="vcard-header">
           <div class="vcard-logo">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" fill="currentColor"/></svg>
+            <MedVetIcon />
           </div>
           <div class="vcard-brand">
             <span class="vcard-brand-name">Med<span>Vet</span></span>
@@ -66,7 +66,7 @@
         <!-- Teal header strip -->
         <div class="back-strip">
           <div class="vcard-logo vcard-logo--inv">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" fill="currentColor"/></svg>
+            <MedVetIcon />
           </div>
           <span class="back-strip-title">Datos de Contacto</span>
         </div>
@@ -251,7 +251,8 @@ const vetBars = computed(() => {
   display: flex; align-items: center; justify-content: center;
   color: #99F6E4; flex-shrink: 0;
 }
-.vcard-logo svg { width: 1rem; height: 1rem; }
+.vcard-logo img,
+.vcard-logo svg { width: 100%; height: 100%; object-fit: contain; }
 
 .vcard-logo--inv {
   background: rgba(255,255,255,0.2);

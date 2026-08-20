@@ -7,9 +7,7 @@
           <div class="modal-header">
             <div class="header-branding">
               <div class="header-icon-box">
-                <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6">
-                  <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" fill="currentColor"/>
-                </svg>
+                <MedVetIcon custom-class="w-6 h-6" />
               </div>
               <div>
                 <div class="flex items-center gap-2">
@@ -205,14 +203,22 @@ defineEmits(['close'])
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ecfdf5;
-  color: #059669;
+  background: rgba(0, 168, 107, 0.12);
+  border: 1px solid rgba(0, 168, 107, 0.25);
   border-radius: 0.75rem;
+  padding: 3px;
 }
 
 .dark .header-icon-box {
   background: rgba(0, 245, 155, 0.12);
-  color: #00f59b;
+  border-color: rgba(0, 245, 155, 0.3);
+}
+
+.header-icon-box img,
+.header-icon-box svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .modal-title {

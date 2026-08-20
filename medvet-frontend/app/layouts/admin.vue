@@ -16,7 +16,7 @@
         <div class="sidebar-brand">
           <NuxtLink to="/" class="sidebar-logo">
             <div class="sidebar-logo-mark">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" fill="currentColor"/></svg>
+              <MedVetIcon />
             </div>
             <span class="sidebar-logo-text">Med<span>Vet</span></span>
           </NuxtLink>
@@ -289,18 +289,25 @@ onUnmounted(() => {
 }
 
 .sidebar-logo-mark {
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 10px;
-  background: #00f59b;
-  color: #040706;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 12px;
+  background: rgba(0, 245, 155, 0.12);
+  border: 1px solid rgba(0, 245, 155, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 16px rgba(0, 245, 155, 0.4);
+  box-shadow: 0 0 16px rgba(0, 245, 155, 0.2);
+  padding: 3px;
+  flex-shrink: 0;
 }
 
-.sidebar-logo-mark svg { width: 1.15rem; height: 1.15rem; }
+.sidebar-logo-mark img,
+.sidebar-logo-mark svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 
 .sidebar-logo-text {
   font-family: var(--font-display);

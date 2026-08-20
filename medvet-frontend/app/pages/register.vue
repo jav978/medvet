@@ -16,7 +16,7 @@
       <div class="auth-brand">
         <NuxtLink to="/" class="auth-brand-link">
           <div class="auth-brand-icon">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" fill="currentColor"/></svg>
+            <MedVetIcon />
           </div>
           <span class="auth-brand-name">Med<span>Vet</span></span>
         </NuxtLink>
@@ -340,19 +340,24 @@ const handleGoogleRegister = async () => {
   border-radius: 14px;
   background: rgba(0, 168, 107, 0.12);
   border: 1px solid rgba(0, 168, 107, 0.25);
-  color: #00a86b;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 4px;
 }
 
 .dark .auth-brand-icon {
-  background: rgba(0, 245, 155, 0.15);
+  background: rgba(0, 245, 155, 0.12);
   border-color: rgba(0, 245, 155, 0.3);
-  color: #00f59b;
+  box-shadow: 0 0 16px rgba(0, 245, 155, 0.2);
 }
 
-.auth-brand-icon svg { width: 1.35rem; height: 1.35rem; fill: currentColor; }
+.auth-brand-icon img,
+.auth-brand-icon svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 
 .auth-brand-name {
   font-family: var(--font-display);

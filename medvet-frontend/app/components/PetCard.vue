@@ -11,7 +11,7 @@
         <!-- Header strip: logo + marca -->
         <div class="card-header">
           <div class="card-logo">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" fill="currentColor"/></svg>
+            <MedVetIcon />
           </div>
           <div>
             <div class="card-brand">Med<span>Vet</span></div>
@@ -94,7 +94,7 @@
         <!-- Header -->
         <div class="back-header">
           <div class="card-logo card-logo--sm">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" fill="currentColor"/></svg>
+            <MedVetIcon />
           </div>
           <span class="back-header-title">Historia Clínica Digital</span>
           <span class="back-paw">🐾</span>
@@ -301,9 +301,11 @@ const barcodeBars = computed(() => {
   color: #00f59b;
   flex-shrink: 0;
 }
-.card-logo svg { width: 1.1rem; height: 1.1rem; fill: currentColor; }
-.card-logo--sm { width: 1.6rem; height: 1.6rem; border-radius: 8px; }
-.card-logo--sm svg { width: 0.85rem; height: 0.85rem; }
+.card-logo img,
+.card-logo svg { width: 100%; height: 100%; object-fit: contain; }
+.card-logo--sm { width: 1.6rem; height: 1.6rem; border-radius: 8px; padding: 1px; }
+.card-logo--sm img,
+.card-logo--sm svg { width: 100%; height: 100%; object-fit: contain; }
 
 .card-brand {
   font-family: var(--font-display);

@@ -55,9 +55,7 @@
         <!-- Brand -->
         <NuxtLink to="/" class="brand-link">
           <div class="brand-icon">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" fill="currentColor"/>
-            </svg>
+            <MedVetIcon />
           </div>
           <div class="brand-text">
             <span class="brand-name">Med<span class="brand-name-accent">Vet</span></span>
@@ -95,7 +93,6 @@
 
           <template v-else>
             <NuxtLink to="/login" class="btn-ghost btn-sm">Iniciar Sesión</NuxtLink>
-            <NuxtLink to="/book" class="btn-amber btn-sm">Agendar Cita</NuxtLink>
           </template>
         </div>
 
@@ -201,7 +198,7 @@
           <div class="footer-brand">
             <div class="footer-brand-logo">
               <div class="footer-brand-icon">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" fill="currentColor"/></svg>
+                <MedVetIcon />
               </div>
               <span class="footer-brand-name">Med<span>Vet</span></span>
             </div>
@@ -684,23 +681,26 @@ const handleLogout = async () => {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 12px;
-  background: #00a86b;
-  color: #ffffff;
+  background: rgba(0, 168, 107, 0.12);
+  border: 1px solid rgba(0, 168, 107, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  padding: 3px;
 }
 
+.brand-icon img,
 .brand-icon svg {
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .dark .brand-icon {
-  background: #00f59b;
-  color: #040706;
-  box-shadow: 0 0 16px rgba(0, 245, 155, 0.4);
+  background: rgba(0, 245, 155, 0.12);
+  border-color: rgba(0, 245, 155, 0.3);
+  box-shadow: 0 0 16px rgba(0, 245, 155, 0.2);
 }
 
 .brand-text {
@@ -1144,30 +1144,29 @@ const handleLogout = async () => {
 }
 
 .footer-brand-icon {
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 10px;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 12px;
   background: rgba(0, 168, 107, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   border: 1px solid rgba(0, 168, 107, 0.25);
+  padding: 3px;
 }
 
 .dark .footer-brand-icon {
-  background: rgba(0, 245, 155, 0.15);
+  background: rgba(0, 245, 155, 0.12);
   border-color: rgba(0, 245, 155, 0.3);
+  box-shadow: 0 0 16px rgba(0, 245, 155, 0.2);
 }
 
+.footer-brand-icon img,
 .footer-brand-icon svg {
-  width: 1.1rem;
-  height: 1.1rem;
-  fill: #00a86b;
-}
-
-.dark .footer-brand-icon svg {
-  fill: #00f59b;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .footer-brand-name {

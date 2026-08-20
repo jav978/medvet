@@ -23,7 +23,7 @@
         <div class="receipt-header">
           <div class="receipt-brand">
             <div class="receipt-icon">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" fill="currentColor"/></svg>
+              <MedVetIcon />
             </div>
             <div>
               <span class="receipt-name">MedVet Clinical Ticket</span>
@@ -308,18 +308,24 @@ onMounted(async () => {
 }
 
 .receipt-icon {
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 10px;
-  background: #00a86b;
-  color: #fff;
+  background: rgba(0, 168, 107, 0.12);
+  border: 1px solid rgba(0, 168, 107, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 3px;
 }
 
-.dark .receipt-icon { background: #00f59b; color: #040706; }
-.receipt-icon svg { width: 1.15rem; height: 1.15rem; }
+.dark .receipt-icon {
+  background: rgba(0, 245, 155, 0.12);
+  border-color: rgba(0, 245, 155, 0.3);
+}
+
+.receipt-icon img,
+.receipt-icon svg { width: 100%; height: 100%; object-fit: contain; }
 
 .receipt-name {
   display: block;
