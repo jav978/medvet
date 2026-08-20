@@ -57,6 +57,11 @@ start_docker() {
 # Function to start backend
 start_backend() {
     echo -e "${YELLOW}Starting Backend Server...${NC}"
+    if check_port 3030; then
+        echo -e "${YELLOW}Port 3030 occupied, stopping existing process...${NC}"
+        fuser -k 3030/tcp >/dev/null 2>&1 || true
+        sleep 1
+    fi
     cd "$SCRIPT_DIR/medvet-backend"
     
     # Check if node_modules exists
@@ -76,6 +81,11 @@ start_backend() {
 # Function to start frontend
 start_frontend() {
     echo -e "${YELLOW}Starting Frontend Server...${NC}"
+    if check_port 3000; then
+        echo -e "${YELLOW}Port 3000 occupied, stopping existing process...${NC}"
+        fuser -k 3000/tcp >/dev/null 2>&1 || true
+        sleep 1
+    fi
     cd "$SCRIPT_DIR/medvet-frontend"
     
     # Check if node_modules exists

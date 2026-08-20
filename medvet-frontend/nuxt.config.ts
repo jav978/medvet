@@ -2,6 +2,9 @@ export default defineNuxtConfig({
   srcDir: 'app',
   compatibilityDate: '2025-01-01',
   devtools: { enabled: false },
+  devServer: {
+    port: 3000
+  },
 
   css: ['~/assets/css/main.css'],
 
