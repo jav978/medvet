@@ -84,6 +84,9 @@
           <!-- BCV Official Exchange Rate & Currency Switcher Widget -->
           <BcvRateWidget />
 
+          <!-- Global Exhaustive Search Widget (Ctrl + K) -->
+          <GlobalSearchWidget />
+
           <!-- Dark / Light mode toggle -->
           <ThemeToggle variant="switch" />
 
@@ -99,6 +102,7 @@
         <!-- Mobile controls -->
         <div class="mobile-controls">
           <BcvRateWidget />
+          <GlobalSearchWidget />
           <ThemeToggle variant="icon" />
           <template v-if="authStore.isAuthenticated">
             <UserMenuDropdown />
